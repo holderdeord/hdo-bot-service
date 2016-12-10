@@ -1,3 +1,4 @@
 django>=1.10,<1.11
+flake8
 pip-tools
 requests>=2.12,<3.0

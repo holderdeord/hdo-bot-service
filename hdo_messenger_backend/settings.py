@@ -123,3 +123,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# API keys
+FACEBOOK_APP_ACCESS_TOKEN = os.getenv('FACEBOOK_APP_ACCESS_TOKEN')
+
+
+try:
+    from .local_settings import *  # noqa
+except ImportError:
+    pass  # All good!
