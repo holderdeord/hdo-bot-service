@@ -40,6 +40,7 @@ REMOTE_APPS = [
 
 LOCAL_APPS = [
     'messenger_bot',
+    'quiz',
 ]
 
 INSTALLED_APPS = REMOTE_APPS + LOCAL_APPS
