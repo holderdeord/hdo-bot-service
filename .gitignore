@@ -2,6 +2,7 @@
 *.pyc
 __pyvenv__
 
+/.idea/
 /venv/
 
 local_settings.py
