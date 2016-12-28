@@ -10,7 +10,7 @@ from messenger_bot.send_api import send_question, send_text, TYPE_ANSWER, get_us
 logger = logging.getLogger(__name__)
 
 
-def _recieved_message(event):
+def _received_message(event):
     # TODO: Logic!
     text = 'Regjeringen vil gi reservasjonsmuligheter for fastleger etter dialog med Den norske legeforening, jf samarbeidsavtalen.'
     question = {
@@ -20,7 +20,7 @@ def _recieved_message(event):
     return send_question(event['sender']['id'], question)
 
 
-def _recieved_postback(event):
+def _received_postback(event):
     payload = json.loads(event['postback']['payload'])
     if payload.get('type') == TYPE_ANSWER:
         logger.warning("Got answer: {payload[answer]}".format(payload=payload))
@@ -51,9 +51,9 @@ def webhook(request):
         for entry in post_data['entry']:
             for event in entry['messaging']:
                 if event.get('message'):
-                    response = _recieved_message(event)
+                    response = _received_message(event)
                 elif event.get('postback'):
-                    response = _recieved_postback(event)
+                    response = _received_postback(event)
                 else:
                     response = None
                     logger.warning("Webhook received unknown event: {event}".format(event=event))
