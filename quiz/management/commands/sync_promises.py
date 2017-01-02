@@ -22,13 +22,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         checked_promises = self.get_promise_check_data(options['CHECK_FILE'])
+        self.stdout.write('Found {} checked promise(s) in spreadsheet'.format(len(checked_promises)), ending='\n')
+
         api_data = self.get_promise_api_data(checked_promises.keys())
 
         promises = self.merge_api_and_check_data(checked_promises, api_data)
 
         new_promises = self.create_promises(promises)
 
-        self.stdout.write('Imported {} new promises'.format(len(new_promises)), ending='\n')
+        self.stdout.write('Imported {} new promise(s)'.format(len(new_promises)), ending='\n')
 
     def create_promises(self, promises):
         new_promises = []
