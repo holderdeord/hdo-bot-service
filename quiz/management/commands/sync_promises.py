@@ -33,6 +33,10 @@ class Command(BaseCommand):
     def create_promises(self, promises):
         new_promises = []
         for external_id, p_data in promises.items():
+            if p_data.get('body') is None:
+                # FIXME: Skip empty promises for now, why?
+                continue
+
             cats_data = p_data.pop('categories') if p_data.get('categories') else None
             parties_data = p_data.pop('parties') if p_data.get('parties') else None
 
@@ -49,6 +53,7 @@ class Command(BaseCommand):
                 # Note: inefficient
                 parties = [Party.objects.get_or_create(title=p['title'], slug=p['slug'])[0] for p in parties_data]
                 p.parties.add(*parties)
+
         return new_promises
 
     def merge_api_and_check_data(self, checked_promises, api_data):

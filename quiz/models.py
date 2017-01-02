@@ -21,6 +21,7 @@ class Promise(BaseModel):
         (FULFILLED, _('Fulfilled')),
         (BROKEN, _('Broken')),
         (NOT_YET_FULFILLED, _('Not Yet')),
+        (PARTIAL, _('Partial')),
     )
 
     body = models.TextField()
@@ -51,6 +52,9 @@ class Party(BaseModel):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name_plural = _('Parties')
+
 
 class Category(BaseModel):
     name = models.CharField(max_length=255)
@@ -58,6 +62,9 @@ class Category(BaseModel):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = _('Categories')
 #
 # class Manuscript(BaseModel):
 #     # ordered list of promises and interims
