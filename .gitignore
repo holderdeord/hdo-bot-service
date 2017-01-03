@@ -2,6 +2,7 @@
 *.pyc
 __pyvenv__
 
+/.cache/
 /.idea/
 /venv/
 
