@@ -85,6 +85,9 @@ DATABASES = {
     }
 }
 
+# Test settings
+TEST_RUNNER = 'hdo_quiz_service.runners.PytestTestRunner'
+
 # Logging
 # https://docs.djangoproject.com/en/1.10/ref/settings/#logging
 LOGGING = {
