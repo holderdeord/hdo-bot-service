@@ -2,8 +2,10 @@
 *.pyc
 __pyvenv__
 
+/.cache/
 /.idea/
 /venv/
 
-local_settings.py
+.coverage
 db.sqlite3
+local_settings.py

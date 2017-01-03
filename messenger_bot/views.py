@@ -1,11 +1,10 @@
 import json
 import logging
-
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-
 from messenger_bot.send_api import send_question, send_text, TYPE_ANSWER, get_user_profile
+
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +31,7 @@ def _received_postback(event):
 
 
 @csrf_exempt
-def webhook(request):
+def webhook(request: HttpRequest):
     if request.method.lower() == 'get':
         if request.GET.get('hub.mode') == 'subscribe':
             if request.GET.get('hub.verify_token') == settings.FACEBOOK_APP_VERIFICATION_TOKEN:
@@ -62,6 +61,5 @@ def webhook(request):
                     logger.info('Got response: {response}'.format(response=response))
 
         return HttpResponse('OK', status=200)
-
     else:
         return HttpResponse('Invalid method', status=400)
