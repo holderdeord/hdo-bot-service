@@ -85,6 +85,35 @@ DATABASES = {
     }
 }
 
+# Logging
+# https://docs.djangoproject.com/en/1.10/ref/settings/#logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('LOG_LEVEL', 'INFO'),
+        },
+        'django.db': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_DB_LOG_LEVEL', 'WARNING'),
+            'propagate': False,
+        }
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': os.getenv('LOG_LEVEL', 'DEBUG'),
+        'propagate': False,
+    },
+
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
