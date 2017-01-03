@@ -60,10 +60,13 @@ def test_webhook_post(rf: RequestFactory):
     with mock.patch('requests.post') as external:
         external.return_value.ok = True
         response = webhook(request)
-        assert len(external.mock_calls) > 0
+        assert external.call_count == 1, "Expecting exactly one response from the webhook"
 
-        calls = external.mock_calls[-1]
-        called_data = calls[2]['json']
+        call_args = external.call_args_list[0]
+        call_args_kwargs = call_args[1]
+
+        assert 'json' in call_args_kwargs
+        called_data = call_args_kwargs['json']
 
         assert called_data
         assert 'recipient' in called_data
