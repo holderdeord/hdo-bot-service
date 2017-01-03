@@ -1,3 +1,8 @@
+Quiz Service
+============
+
+[![Build Status](https://travis-ci.org/holderdeord/hdo-quiz-service.svg?branch=master)](https://travis-ci.org/holderdeord/hdo-quiz-service)
+
 ## Requirements
 
 * Facebook app
@@ -11,4 +16,3 @@
     python manage.py runserver
     
 ## Configure
-    
