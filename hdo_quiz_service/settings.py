@@ -114,7 +114,6 @@ STATIC_URL = '/static/'
 FACEBOOK_APP_ACCESS_TOKEN = os.getenv('FACEBOOK_APP_ACCESS_TOKEN')
 FACEBOOK_APP_VERIFICATION_TOKEN = os.getenv('FACEBOOK_APP_VERIFICATION_TOKEN', 'thisismadness')
 
-
 try:
     from .local_settings import *  # noqa
 except ImportError:
