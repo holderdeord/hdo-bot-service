@@ -36,6 +36,7 @@ REMOTE_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
 ]
 
 LOCAL_APPS = [
@@ -142,9 +143,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-# API keys
+# Facebook/Messenger
 FACEBOOK_APP_ACCESS_TOKEN = os.getenv('FACEBOOK_APP_ACCESS_TOKEN')
 FACEBOOK_APP_VERIFICATION_TOKEN = os.getenv('FACEBOOK_APP_VERIFICATION_TOKEN', 'thisismadness')
+FACEBOOK_APP_ID = os.getenv('FACEBOOK_APP_ID')
+FACEBOOK_PAGE_ID = os.getenv('FACEBOOK_PAGE_ID')
 
 try:
     from .local_settings import *  # noqa

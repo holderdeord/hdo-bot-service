@@ -3,6 +3,8 @@ import logging
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
+
 from messenger_bot.send_api import send_question, send_text, TYPE_ANSWER, get_user_profile
 
 
@@ -63,3 +65,15 @@ def webhook(request: HttpRequest):
         return HttpResponse('OK', status=200)
     else:
         return HttpResponse('Invalid method', status=400)
+
+
+class MessageUsView(TemplateView):
+    template_name = 'messenger_bot/message_us.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'app_id': settings.FACEBOOK_APP_ID,
+            'page_id': settings.FACEBOOK_PAGE_ID,
+        })
+        return context
