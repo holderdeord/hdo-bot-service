@@ -1,5 +1,7 @@
+dj-database-url
 django>=1.10,<1.11
 flake8
+gunicorn
 pip-tools
 pytest-django
 requests>=2.12,<3.0

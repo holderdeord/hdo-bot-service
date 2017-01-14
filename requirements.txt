@@ -5,9 +5,11 @@
 #    pip-compile --output-file requirements.txt requirements.in
 #
 click==6.6                # via pip-tools
+dj-database-url==0.4.2
 django==1.10.4
 first==2.0.1              # via pip-tools
 flake8==3.2.1
+gunicorn==19.6.0
 mccabe==0.5.2             # via flake8
 pip-tools==1.8.0
 py==1.4.31                # via pytest
