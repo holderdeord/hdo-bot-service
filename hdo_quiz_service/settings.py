@@ -39,6 +39,7 @@ REMOTE_APPS = [
 ]
 
 LOCAL_APPS = [
+    'api',
     'messenger_bot',
     'quiz',
 ]

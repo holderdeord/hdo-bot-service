@@ -84,6 +84,3 @@ class Category(BaseModel):
 #     # Holds state of message session
 #     pass
 #
-#
-# class UserProfile(BaseModel):
-#     pass
