@@ -5,3 +5,4 @@ gunicorn
 pip-tools
 pytest-django
 requests>=2.12,<3.0
+whitenoise
