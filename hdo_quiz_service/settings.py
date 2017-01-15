@@ -152,6 +152,18 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 FACEBOOK_APP_ACCESS_TOKEN = os.getenv('FACEBOOK_APP_ACCESS_TOKEN')
 FACEBOOK_APP_VERIFICATION_TOKEN = os.getenv('FACEBOOK_APP_VERIFICATION_TOKEN', 'thisismadness')
 
+
+# Google import
+GOOGLE_OAUTH2_CLIENT_ID = os.getenv('GOOGLE_OAUTH2_CLIENT_ID')
+GOOGLE_OAUTH2_CLIENT_SECRET = os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET')
+GOOGLE_OAUTH2_SCOPES = ('https://www.googleapis.com/auth/spreadsheets.readonly',)
+GOOGLE_OAUTH2_STORAGE_MODEL = {
+    'model': 'quiz.models.GoogleProfile',
+    'user_property': 'user',
+    'credentials_property': 'credential',
+}
+GOOGLE_SPREADSHEET_ID = os.getenv('GOOGLE_SPREADSHEET_ID')
+
 try:
     from .local_settings import *  # noqa
 except ImportError:
