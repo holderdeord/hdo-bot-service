@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -45,6 +46,13 @@ class Promise(BaseModel):
         return self.body
 
 
+class Interim(BaseModel):
+    body = models.TextField()
+
+    def __str__(self):
+        return self.body
+
+
 class Party(BaseModel):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
@@ -65,15 +73,32 @@ class Category(BaseModel):
     class Meta:
         ordering = ['name']
         verbose_name_plural = _('Categories')
-#
-# class Manuscript(BaseModel):
-#     # ordered list of promises and interims
-#     pass
-#
-#
-# class Interim(BaseModel):
-#     pass
-#
+
+
+class Manuscript(BaseModel):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+
+class ManuscriptItem(BaseModel):
+    manuscript = models.ForeignKey(Manuscript, on_delete=models.CASCADE, related_name='items')
+    order = models.IntegerField()
+    promise = models.ForeignKey(Promise, on_delete=models.CASCADE, null=True, blank=True)
+    interim = models.ForeignKey(Interim, on_delete=models.CASCADE, null=True, blank=True)
+
+    def clean(self):
+        errors = {}
+        fields = [self.promise, self.interim]
+
+        if len([f for f in fields if f]) != 1:
+            errors['foreign'] = 'Exactly one foreign key must be non-null'
+
+        if errors:
+            raise ValidationError(errors)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
 #
 # class Response(BaseModel):
 #     # user response
@@ -83,4 +108,3 @@ class Category(BaseModel):
 # class Session(BaseModel):
 #     # Holds state of message session
 #     pass
-#
