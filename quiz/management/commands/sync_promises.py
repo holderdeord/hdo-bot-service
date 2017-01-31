@@ -131,10 +131,10 @@ class Command(BaseCommand):
             # Filter out promises that is not checked yet
             if not row.get('Holdt?'):
                 continue
-
+            _id = self.parse_row_id(row['ID'])
             # Note: Mapping from spreadsheet column name to database column name
-            promises[row['ID']] = {
-                'external_id': int(row['ID']),
+            promises[_id] = {
+                'external_id': int(_id),
                 'status': self.parse_status(row['Holdt?']),
                 'categories': row['Kategori'].split(';'),
                 'testable': self.parse_testable(row.get('Svada', ''))
@@ -161,3 +161,6 @@ class Command(BaseCommand):
     def parse_testable(self, val):
         val = val.lower().strip()
         return val != 'nei'
+
+    def parse_row_id(self, _id):
+        return _id.strip().split('-')[0]
