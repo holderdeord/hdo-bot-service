@@ -6,6 +6,7 @@
 #
 click==6.6                # via pip-tools
 dj-database-url==0.4.2
+django-extensions==1.7.5
 django==1.10.4
 first==2.0.1              # via pip-tools
 flake8==3.2.1
@@ -25,5 +26,5 @@ pytest-django==3.1.2
 pytest==3.0.5             # via pytest-django
 requests==2.12.3
 rsa==3.4.2                # via oauth2client
-six==1.10.0               # via oauth2client, pip-tools
+six==1.10.0               # via django-extensions, oauth2client, pip-tools
 whitenoise==3.2.3
