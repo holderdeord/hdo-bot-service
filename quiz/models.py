@@ -1,5 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from oauth2client.contrib.django_util.models import CredentialsField
 
 
 class BaseModel(models.Model):
@@ -65,6 +67,12 @@ class Category(BaseModel):
     class Meta:
         ordering = ['name']
         verbose_name_plural = _('Categories')
+
+
+class GoogleProfile(models.Model):
+    user = models.OneToOneField(User)
+    credential = CredentialsField()
+
 #
 # class Manuscript(BaseModel):
 #     # ordered list of promises and interims

@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from oauth2client.contrib.django_util.site import urls as oauth2_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^messenger/', include('messenger_bot.urls', namespace='messenger_bot')),
+    url(r'^quiz/', include('quiz.urls', namespace='quiz')),
+    url(r'^oauth2/', include(oauth2_urls)),
 ]
