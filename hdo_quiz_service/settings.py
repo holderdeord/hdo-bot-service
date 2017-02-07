@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+import dj_database_url
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -23,10 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY', 's%4#6c-2x1-4b-xgwp=6@+)9&i-bknua0li4nlsn)@g=04^upk')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG') in ('1', 'true', 'True')
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 # Application definition
 REMOTE_APPS = [
@@ -36,6 +36,7 @@ REMOTE_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
 ]
 
 LOCAL_APPS = [
@@ -86,6 +87,11 @@ DATABASES = {
     }
 }
 
+database_config = dj_database_url.config()
+if database_config:
+    DATABASES['default'] = database_config
+
+
 # Test settings
 TEST_RUNNER = 'hdo_quiz_service.runners.PytestTestRunner'
 
@@ -132,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = os.getenv('TIME_ZONE', 'UTC')
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -141,11 +147,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-
-# API keys
+# Facebook/Messenger
 FACEBOOK_APP_ACCESS_TOKEN = os.getenv('FACEBOOK_APP_ACCESS_TOKEN')
 FACEBOOK_APP_VERIFICATION_TOKEN = os.getenv('FACEBOOK_APP_VERIFICATION_TOKEN', 'thisismadness')
+FACEBOOK_APP_ID = os.getenv('FACEBOOK_APP_ID')
+FACEBOOK_PAGE_ID = os.getenv('FACEBOOK_PAGE_ID')
+
+
+# Google import
+GOOGLE_OAUTH2_CLIENT_ID = os.getenv('GOOGLE_OAUTH2_CLIENT_ID', 'DUMMY')
+GOOGLE_OAUTH2_CLIENT_SECRET = os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET', 'DUMMY')
+GOOGLE_OAUTH2_SCOPES = ('https://www.googleapis.com/auth/spreadsheets.readonly',)
+GOOGLE_OAUTH2_STORAGE_MODEL = {
+    'model': 'quiz.models.GoogleProfile',
+    'user_property': 'user',
+    'credentials_property': 'credential',
+}
+GOOGLE_SPREADSHEET_ID = os.getenv('GOOGLE_SPREADSHEET_ID')
 
 try:
     from .local_settings import *  # noqa

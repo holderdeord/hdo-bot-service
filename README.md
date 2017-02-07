@@ -15,5 +15,12 @@ Quiz Service
     pip install -r requirements.txt
     python manage.py migrate
     python manage.py runserver
+
+    
+## Import
+    # From CSV-file
+    python manage.py sync_promises --check-file FILE
+    # From Google Spreadsheet (needs configuration)
+    python manage.py sync_promises --google
     
 ## Configure

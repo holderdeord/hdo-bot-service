@@ -7,7 +7,7 @@ class PytestTestRunner(object):
         self.failfast = failfast
         self.keepdb = keepdb
 
-    def run_tests(self, test_labels):
+    def run_tests(self, test_labels, extra_tests=None, **kwargs):
         """Run pytest and return the exitcode.
 
         It translates some of Django's test command option to pytest's.

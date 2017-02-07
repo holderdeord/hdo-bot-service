@@ -1,6 +1,8 @@
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from oauth2client.contrib.django_util.models import CredentialsField
 
 
 class BaseModel(models.Model):
@@ -75,6 +77,11 @@ class Category(BaseModel):
         verbose_name_plural = _('Categories')
 
 
+class GoogleProfile(models.Model):
+    user = models.OneToOneField(User)
+    credential = CredentialsField()
+
+
 class Manuscript(BaseModel):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
@@ -99,7 +106,7 @@ class ManuscriptItem(BaseModel):
         self.full_clean()
         super().save(*args, **kwargs)
 
-#
+
 # class Response(BaseModel):
 #     # user response
 #     pass
