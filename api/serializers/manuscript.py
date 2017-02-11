@@ -34,3 +34,13 @@ class ManuscriptSerializer(serializers.ModelSerializer):
         model = Manuscript
         fields = ('pk', 'name', 'category', 'items', 'promises',)
 
+
+class ManuscriptListSerializer(serializers.ModelSerializer):
+    category = serializers.SerializerMethodField()
+
+    def get_category(self, obj):
+        return obj.category.name
+
+    class Meta:
+        model = Manuscript
+        fields = ('pk', 'name', 'category')

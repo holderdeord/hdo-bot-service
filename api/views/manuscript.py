@@ -1,10 +1,10 @@
 from django.shortcuts import redirect
 
-from api.serializers.manuscript import ManuscriptSerializer, CategorySerializer
+from api.serializers.manuscript import ManuscriptSerializer, CategorySerializer, ManuscriptListSerializer
 from quiz.models import Manuscript, Category
 from rest_framework import exceptions, permissions, views, reverse
 
-from rest_framework.generics import get_object_or_404, RetrieveAPIView
+from rest_framework.generics import get_object_or_404, RetrieveAPIView, ListAPIView
 
 
 class ManuscriptView(views.APIView):
@@ -39,6 +39,13 @@ class ManuscriptRetrieveView(RetrieveAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Manuscript.objects.select_related('category')
     serializer_class = ManuscriptSerializer
+
+
+class ManuscriptListView(ListAPIView):
+    authentication_classes = []
+    permission_classes = [permissions.AllowAny]
+    queryset = Manuscript.objects.select_related('category')
+    serializer_class = ManuscriptListSerializer
 
 
 class CategoryRetrieveView(RetrieveAPIView):
