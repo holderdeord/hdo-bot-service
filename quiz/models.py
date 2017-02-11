@@ -48,13 +48,6 @@ class Promise(BaseModel):
         return self.body
 
 
-class Interim(BaseModel):
-    body = models.TextField()
-
-    def __str__(self):
-        return self.body
-
-
 class Party(BaseModel):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
@@ -83,29 +76,68 @@ class GoogleProfile(models.Model):
 
 
 class Manuscript(BaseModel):
+    name = models.CharField(max_length=255, blank=True, default='')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    promises = models.ManyToManyField(Promise, blank=True)
+
+    def __str__(self):
+        return self.name if self.name else '#{}'.format(self.pk)
+
+
+class ManuscriptImage(BaseModel):
+    url = models.URLField()
+    image = models.ImageField()
+    type = models.CharField(max_length=100, choices=Promise.STATUS_CHOICES, default=Promise.FULFILLED)
 
 
 class ManuscriptItem(BaseModel):
+    TYPE_BUTTON = 'button'
+    TYPE_PROMISES = 'promises'
+    TYPE_TEXT = 'text'
+    TYPE_URL = 'url'
+
+    TYPE_CHOICES = (
+        (TYPE_BUTTON, _('Button')),
+        (TYPE_PROMISES, _('Promises')),
+        (TYPE_TEXT, _('Text')),
+        (TYPE_URL, _('URL')),
+    )
+
+    type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_TEXT)
     manuscript = models.ForeignKey(Manuscript, on_delete=models.CASCADE, related_name='items')
-    order = models.IntegerField()
-    promise = models.ForeignKey(Promise, on_delete=models.CASCADE, null=True, blank=True)
-    interim = models.ForeignKey(Interim, on_delete=models.CASCADE, null=True, blank=True)
+    order = models.IntegerField(blank=True, default=0)
+    text = models.TextField(blank=True, default='')
+    url = models.URLField(blank=True, default='')
 
-    def clean(self):
-        errors = {}
-        fields = [self.promise, self.interim]
+    class Meta:
+        ordering = ('order',)
 
-        if len([f for f in fields if f]) != 1:
-            errors['foreign'] = 'Exactly one foreign key must be non-null'
+    def __str__(self):
+        return str(self.pk)
 
-        if errors:
-            raise ValidationError(errors)
+    # TODO-maybe: support multiple buttons per item
+
+    # TODO: validate only one of each type
+    # def clean(self):
+    #     errors = {}
+    #     fields = [self.promise, self.interim]
+    #
+    #     if len([f for f in fields if f]) != 1:
+    #         errors['foreign'] = 'Exactly one foreign key must be non-null'
+    #
+    #      if errors:
+    #         raise ValidationError(errors)
 
     def save(self, *args, **kwargs):
-        self.full_clean()
-        super().save(*args, **kwargs)
+        # self.full_clean()
+        if not self.order:
+            _max = self.__class__.objects.filter().aggregate(models.Max('order'))
+            try:
+                self.order = _max['order'] + 1
+            except TypeError:
+                self.order = 0
 
+        super().save(*args, **kwargs)
 
 # class Response(BaseModel):
 #     # user response

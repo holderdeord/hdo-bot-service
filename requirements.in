@@ -5,6 +5,7 @@ flake8
 gunicorn
 jsonpickle
 oauth2client
+pillow
 pip-tools
 psycopg2
 pytest-django

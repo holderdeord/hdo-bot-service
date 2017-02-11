@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^messenger/', include('messenger_bot.urls', namespace='messenger_bot')),
     url(r'^quiz/', include('quiz.urls', namespace='quiz')),
+    url(r'^api/', include('api.urls', namespace='api')),
     url(r'^oauth2/', include(oauth2_urls)),
 ]
