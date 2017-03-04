@@ -5,7 +5,8 @@ from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from messenger_bot.send_api import send_question, send_text, TYPE_ANSWER, get_user_profile
+from messenger_bot.graph_api import get_user_profile
+from messenger_bot.send_api import send_question, send_text, TYPE_ANSWER
 
 
 logger = logging.getLogger(__name__)
