@@ -6,6 +6,7 @@
 #
 click==6.6                # via pip-tools
 dj-database-url==0.4.2
+django-cors-headers==2.0.2
 django-extensions==1.7.5
 django==1.10.4
 djangorestframework==3.5.3
