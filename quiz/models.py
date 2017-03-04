@@ -86,8 +86,13 @@ class Manuscript(BaseModel):
 
 class ManuscriptImage(BaseModel):
     url = models.URLField()
-    image = models.ImageField()
+    image = models.ImageField(null=True, blank=True)
     type = models.CharField(max_length=100, choices=Promise.STATUS_CHOICES, default=Promise.FULFILLED)
+
+    def get_url(self):
+        url = self.image.url if self.image else self.url
+
+        return url if url else None
 
 
 class ManuscriptItem(BaseModel):

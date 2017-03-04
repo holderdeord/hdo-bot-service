@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import TextField
 from django.forms import Textarea
 
-from quiz.models import Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem
+from quiz.models import Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage
 
 
 class PromiseAdmin(admin.ModelAdmin):
@@ -44,9 +44,25 @@ class ManuscriptItemAdmin(admin.ModelAdmin):
     ordering = ['manuscript', 'order']
 
 
+class ManuscriptImageAdmin(admin.ModelAdmin):
+    list_display = ['admin_thumbnail', 'type']
+    list_filter = ['type']
+
+    def admin_thumbnail(self, obj):
+        url = obj.get_url()
+
+        if not url:
+            return ''
+
+        return '<img src="{}" width=250 />'.format(url)
+
+    admin_thumbnail.short_description = 'Thumbnail'
+    admin_thumbnail.allow_tags = True
+
 admin.site.register(Promise, PromiseAdmin)
 admin.site.register(Party, PartyAdmin)
 admin.site.register(Category)
 admin.site.register(ManuscriptItem, ManuscriptItemAdmin)
 admin.site.register(Manuscript, ManuscriptAdmin)
+admin.site.register(ManuscriptImage, ManuscriptImageAdmin)
 admin.site.register(GoogleProfile, GoogleProfileAdmin)

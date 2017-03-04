@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from quiz.models import Manuscript, ManuscriptItem, Promise, Category
+from quiz.models import Manuscript, ManuscriptItem, Promise, Category, ManuscriptImage
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -26,13 +26,28 @@ class ManuscriptItemSerializer(serializers.ModelSerializer):
         fields = ('type', 'order', 'text',)
 
 
+class ManuscriptImageSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
+
+    def get_url(self, obj):
+        return obj.get_url()
+
+    class Meta:
+        model = ManuscriptImage
+        fields = ('url', 'type',)
+
+
 class ManuscriptSerializer(serializers.ModelSerializer):
     items = ManuscriptItemSerializer(many=True)
     promises = PromiseSerializer(many=True)
+    images = serializers.SerializerMethodField()
+
+    def get_images(self, obj):
+        return list(ManuscriptImageSerializer(ManuscriptImage.objects.all(), many=True).data)
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'name', 'category', 'items', 'promises',)
+        fields = ('pk', 'name', 'category', 'items', 'promises', 'images')
 
 
 class ManuscriptListSerializer(serializers.ModelSerializer):
