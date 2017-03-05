@@ -2,6 +2,7 @@ import json
 from django.conf import settings
 from django.test import RequestFactory
 from django.urls import reverse
+
 from messenger_bot.views import webhook
 from unittest import mock
 from urllib.parse import urlencode
@@ -74,3 +75,4 @@ def test_webhook_post(rf: RequestFactory):
         assert '1339474899459630' == called_data['recipient']['id']
 
     assert response.status_code == 200
+

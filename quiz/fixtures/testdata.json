@@ -1,0 +1,6235 @@
+[
+{
+    "model": "quiz.promise",
+    "pk": 1,
+    "fields": {
+        "created": "2017-01-03T17:36:24.510Z",
+        "updated": "2017-01-03T17:36:24.510Z",
+        "body": "[R]egjeringen [vil] styrke spr\u00e5koppl\u00e6ringen for alle med minoritetsbakgrunn og koble gratis kjernetid i barnehage til krav om deltakelse i aktivitet eller norskoppl\u00e6ring.",
+        "external_id": 12488,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 2,
+    "fields": {
+        "created": "2017-01-03T17:36:24.526Z",
+        "updated": "2017-01-03T17:36:24.526Z",
+        "body": "Regjeringen vil bruke leksehjelp og sommerskole for \u00e5 n\u00e5 barn med spesielle spr\u00e5kutfordringer.",
+        "external_id": 12490,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            2,
+            3,
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 3,
+    "fields": {
+        "created": "2017-01-03T17:36:24.540Z",
+        "updated": "2017-01-03T17:36:24.541Z",
+        "body": "Regjeringen vil heve kravet om botid for permanent oppholdstillatelse fra tre \u00e5r til fem \u00e5r. Gjennomg\u00e5 reglene knyttet til personer som opplever mishandling.",
+        "external_id": 12552,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 4,
+    "fields": {
+        "created": "2017-01-03T17:36:24.549Z",
+        "updated": "2017-01-03T17:36:24.549Z",
+        "body": "Regjeringen vil ikke innf\u00f8re et offentlig tilbud om tidlig ultralyd eller et tilbud om NIPD-blodpr\u00f8ve for alle gravide, jf samarbeidsavtalen.",
+        "external_id": 12816,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 5,
+    "fields": {
+        "created": "2017-01-03T17:36:24.563Z",
+        "updated": "2017-01-31T21:48:15.369Z",
+        "body": "Regjeringen vil etablere en plan sammen med KS om \u00e5rlige m\u00e5l for utbygging av flere plasser i held\u00f8gns pleie og omsorg.",
+        "external_id": 12762,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 6,
+    "fields": {
+        "created": "2017-01-03T17:36:24.573Z",
+        "updated": "2017-01-03T17:36:24.574Z",
+        "body": "Regjeringen vil innf\u00f8re en 24 \u00e5rs-grense for familieetablering, med liberale skj\u00f8nnsvurderinger, ut fra at hensikten med endringen er \u00e5 bekjempe tvangsekteskap og sikre at paret kan fors\u00f8rge seg selv.",
+        "external_id": 12554,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 7,
+    "fields": {
+        "created": "2017-01-03T17:36:24.584Z",
+        "updated": "2017-01-03T17:36:24.584Z",
+        "body": "Regjeringen vil utrede en vrakpantordning for norskregistrerte skip.",
+        "external_id": 12999,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            7,
+            8
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 8,
+    "fields": {
+        "created": "2017-01-03T17:36:24.597Z",
+        "updated": "2017-01-03T17:36:24.597Z",
+        "body": "Regjeringen vil sikre anskaffelsen av nye redningshelikoptre.",
+        "external_id": 12531,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            9
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 9,
+    "fields": {
+        "created": "2017-01-03T17:36:24.608Z",
+        "updated": "2017-01-03T17:36:24.608Z",
+        "body": "Regjeringen vil styrke ordningen med Boligsparing for ungdom (BSU).",
+        "external_id": 12834,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            10,
+            11
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 10,
+    "fields": {
+        "created": "2017-01-03T17:36:24.621Z",
+        "updated": "2017-01-03T17:36:24.621Z",
+        "body": "Regjeringen vil utrede lovfestet rett til held\u00f8gns pleie og omsorg med sikte p\u00e5 innf\u00f8ring i perioden, jf samarbeidsavtalen.",
+        "external_id": 12750,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 11,
+    "fields": {
+        "created": "2017-01-03T17:36:24.630Z",
+        "updated": "2017-01-03T17:36:24.631Z",
+        "body": "Regjeringen vil arbeide for et stort mangfold av ulike barnehager med fleksible \u00e5pningstider slik at tilbudet er tilpasset behovet hos det enkelte barn og den enkelte familie.",
+        "external_id": 12904,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 12,
+    "fields": {
+        "created": "2017-01-03T17:36:24.643Z",
+        "updated": "2017-01-03T17:36:24.643Z",
+        "body": "Regjeringen vil sikre likebehandling av alle barnehager, forenkle finansieringsordningen samt likestille regnskapsforskriftene for offentlige og private barnehager.",
+        "external_id": 12898,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 13,
+    "fields": {
+        "created": "2017-01-03T17:36:24.651Z",
+        "updated": "2017-01-03T17:36:24.652Z",
+        "body": "Regjeringen vil bidra til et nasjonalt l\u00f8ft i sikringsarbeidet av fredede og verneverdige kirker.",
+        "external_id": 12717,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            13,
+            14
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 14,
+    "fields": {
+        "created": "2017-01-03T17:36:24.664Z",
+        "updated": "2017-01-03T17:36:24.664Z",
+        "body": "Regjeringen vil vurdere forbud mot ekteskap mellom fettere og kusiner basert p\u00e5 helsefaglige vurderinger.",
+        "external_id": 12568,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            15,
+            4,
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 15,
+    "fields": {
+        "created": "2017-01-03T17:36:24.675Z",
+        "updated": "2017-01-03T17:36:24.675Z",
+        "body": "Regjeringen vil utarbeide en strategi for biogass.",
+        "external_id": 12979,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            16,
+            7
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 16,
+    "fields": {
+        "created": "2017-01-03T17:36:24.686Z",
+        "updated": "2017-01-03T17:36:24.686Z",
+        "body": "Regjeringen vil etablere en teknologisk skolesekk etter modell fra den kulturelle skolesekken.",
+        "external_id": 12937,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            3,
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 17,
+    "fields": {
+        "created": "2017-01-03T17:36:24.699Z",
+        "updated": "2017-01-03T17:36:24.699Z",
+        "body": "Regjeringen vil fjerne arveavgiften.",
+        "external_id": 12580,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            19,
+            15,
+            20
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 18,
+    "fields": {
+        "created": "2017-01-03T17:36:24.713Z",
+        "updated": "2017-01-03T17:36:24.713Z",
+        "body": "Regjeringen vil ta initiativ til en fors\u00f8ksordning med statlig finansiering for eldreomsorgen, som kommunene kan s\u00f8ke p\u00e5. Fors\u00f8ksordningen skal inkludere et begrenset antall kommuner, vare over tid og evalueres.",
+        "external_id": 12758,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 19,
+    "fields": {
+        "created": "2017-01-03T17:36:24.722Z",
+        "updated": "2017-01-03T17:36:24.722Z",
+        "body": "Regjeringen vil etablere en opptrappingsplan for rusfeltet og gjeninnf\u00f8re regelen om at rus og psykisk helsevern, hver for seg, skal ha en \u00e5rlig vekst i hvert helseforetak som er h\u00f8yere enn for somatikk.",
+        "external_id": 12786,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            21,
+            4,
+            22
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 20,
+    "fields": {
+        "created": "2017-01-03T17:36:24.734Z",
+        "updated": "2017-01-03T17:36:24.734Z",
+        "body": "Regjeringen vil forenkle byr\u00e5kratiet rundt s\u00f8knader om forskningsmidler.",
+        "external_id": 12964,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            23
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 21,
+    "fields": {
+        "created": "2017-01-03T17:36:24.744Z",
+        "updated": "2017-01-03T17:36:24.744Z",
+        "body": "Regjeringen vil fastsette og fremme en sak om et ambisi\u00f8st og kvantifiserbart nasjonalt m\u00e5l for energieffektivisering, og innf\u00f8re skattefradrag for EN\u00d8K-tiltak i husholdningene.",
+        "external_id": 12997,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            16,
+            7
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 22,
+    "fields": {
+        "created": "2017-01-03T17:36:24.753Z",
+        "updated": "2017-01-03T17:36:24.753Z",
+        "body": "Regjeringen vil gi elever med lese- og skrivevansker tilgang til gratis PC med n\u00f8dvendig programvare.",
+        "external_id": 12925,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            24,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 23,
+    "fields": {
+        "created": "2017-01-03T17:36:24.764Z",
+        "updated": "2017-01-03T17:36:24.764Z",
+        "body": "Regjeringen vil trappe opp bevilgningene til n\u00e6ringsrettet forskning, blant annet gjennom \u00e5 styrke Skattefunn og Brukerstyrt innovasjonsarena (BIA).",
+        "external_id": 12605,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            23,
+            20
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 24,
+    "fields": {
+        "created": "2017-01-03T17:36:24.775Z",
+        "updated": "2017-01-03T17:36:24.775Z",
+        "body": "Regjeringen vil innf\u00f8re uavhengig tilsyn med barnehagene.",
+        "external_id": 12897,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 25,
+    "fields": {
+        "created": "2017-01-03T17:36:24.784Z",
+        "updated": "2017-01-03T17:36:24.784Z",
+        "body": "Regjeringen vil myke opp arbeidsmilj\u00f8loven, blant annet n\u00e5r det gjelder gjennomsnittsberegning av arbeidstid, alternative turnusordninger og uttak av overtid.",
+        "external_id": 12425,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            26
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 26,
+    "fields": {
+        "created": "2017-01-03T17:36:24.796Z",
+        "updated": "2017-01-03T17:36:24.796Z",
+        "body": "Regjeringen vil \u00f8ke engangsst\u00f8naden ved f\u00f8dsel og adopsjon.",
+        "external_id": 12448,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            15,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 27,
+    "fields": {
+        "created": "2017-01-03T17:36:24.807Z",
+        "updated": "2017-01-03T17:36:24.807Z",
+        "body": "Regjeringen vil utrede en lovendring med sikte p\u00e5 endring av foreldreretten og samv\u00e6rsretten til barn der far/stefar eller mor/stemor har blitt d\u00f8mt for alvorlige overgrep mot egne barn/stebarn.",
+        "external_id": 12473,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            2
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 28,
+    "fields": {
+        "created": "2017-01-03T17:36:24.816Z",
+        "updated": "2017-01-03T17:36:24.816Z",
+        "body": "Regjeringen vil la elevene i den videreg\u00e5ende oppl\u00e6ringen evaluere undervisningen.",
+        "external_id": 12922,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 29,
+    "fields": {
+        "created": "2017-01-03T17:36:24.825Z",
+        "updated": "2017-01-03T17:36:24.825Z",
+        "body": "Regjeringen vil gj\u00f8re mest mulig informasjon om barnehagene \u00e5pent tilgjengelig og utarbeide felles nasjonale indikatorer for kvalitet.",
+        "external_id": 12899,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 30,
+    "fields": {
+        "created": "2017-01-03T17:36:24.836Z",
+        "updated": "2017-01-03T17:36:24.836Z",
+        "body": "Regjeringen vil la den enkelte skole fastsette regler for bruk av religi\u00f8se plagg og symboler der hvor skolen selv finner det n\u00f8dvendig.",
+        "external_id": 12929,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            24,
+            28
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 31,
+    "fields": {
+        "created": "2017-01-03T17:36:24.849Z",
+        "updated": "2017-01-03T17:36:24.849Z",
+        "body": "Regjeringen vil videref\u00f8re dagens sykel\u00f8nnsordning.",
+        "external_id": 12433,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 32,
+    "fields": {
+        "created": "2017-01-03T17:36:24.859Z",
+        "updated": "2017-01-03T17:36:24.859Z",
+        "body": "Regjeringen vil gi reservasjonsmuligheter for fastleger etter dialog med Den norske legeforening, jf samarbeidsavtalen.",
+        "external_id": 12817,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            29,
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 33,
+    "fields": {
+        "created": "2017-01-03T17:36:24.871Z",
+        "updated": "2017-01-03T17:36:24.871Z",
+        "body": "Regjeringen vil opprette en rentekompensasjonsordning p\u00e5 toppen av Husbankens finansiering av sykehjemsplasser og bofellesskap for demente.",
+        "external_id": 12763,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6,
+            30
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 34,
+    "fields": {
+        "created": "2017-01-03T17:36:24.883Z",
+        "updated": "2017-01-03T17:36:24.883Z",
+        "body": "Regjeringen vil legge til rette for et organisert arbeidsliv og et velfungerende trepartssamarbeid gjennom \u00e5 videref\u00f8re fagforeningsfradraget p\u00e5 2013-niv\u00e5.",
+        "external_id": 12429,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 35,
+    "fields": {
+        "created": "2017-01-03T17:36:24.893Z",
+        "updated": "2017-01-03T17:36:24.893Z",
+        "body": "Regjeringen vil g\u00e5 igjennom byggeforskriftenes effekt n\u00e5r det gjelder pris og byggeaktivitet for de minste boligene.",
+        "external_id": 12837,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            11,
+            31
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 36,
+    "fields": {
+        "created": "2017-01-03T17:36:24.904Z",
+        "updated": "2017-01-03T17:36:24.904Z",
+        "body": "Regjeringen vil styrke arbeidet mot menneskehandel og overgrep mot barn, herunder spredning av overgrepsbilder av barn.",
+        "external_id": 12502,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            2,
+            32,
+            33
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 37,
+    "fields": {
+        "created": "2017-01-03T17:36:24.917Z",
+        "updated": "2017-01-03T17:36:24.917Z",
+        "body": "Regjeringen vil legge til rette for at uf\u00f8re skal kunne ta i bruk restarbeidsevnen ved \u00e5 gjennomf\u00f8re uf\u00f8rereformen. Det vil v\u00e6re et m\u00e5l at uf\u00f8regraden i hvert tilfelle skal reflektere den reelle arbeidsevnen, og at gradert uf\u00f8retrygd skal tas i bruk i st\u00f8rre grad enn i dag.",
+        "external_id": 12411,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            34
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 38,
+    "fields": {
+        "created": "2017-01-03T17:36:24.929Z",
+        "updated": "2017-01-03T17:36:24.929Z",
+        "body": "Regjeringen vil arbeide for flere returavtaler, og bruke Norges posisjon til \u00e5 sikre flere avtaler.",
+        "external_id": 12547,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 39,
+    "fields": {
+        "created": "2017-01-03T17:36:24.939Z",
+        "updated": "2017-01-03T17:36:24.939Z",
+        "body": "Regjeringen vil legge til rette for \u00f8kt dag- og aktivitetstilbud.",
+        "external_id": 12755,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6,
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 40,
+    "fields": {
+        "created": "2017-01-03T17:36:24.948Z",
+        "updated": "2017-01-03T17:36:24.948Z",
+        "body": "Regjeringen vil opprette et program for basiskompetanse i frivilligheten (BKF), der landsomfattende frivillige organisasjoner og frivillighetssentralene kan s\u00f8ke om st\u00f8tte til oppl\u00e6ringsaktiviteter for personer med manglende lesekompetanse.",
+        "external_id": 12969,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            17,
+            35
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 41,
+    "fields": {
+        "created": "2017-01-03T17:36:24.959Z",
+        "updated": "2017-01-03T17:36:24.959Z",
+        "body": "Regjeringen vil legge frem en stortingsmelding om en helhetlig energipolitikk, hvor energiforsyning, klimautfordringer og n\u00e6ringsutvikling sees i sammenheng.",
+        "external_id": 13001,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            16,
+            7
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 42,
+    "fields": {
+        "created": "2017-01-03T17:36:24.968Z",
+        "updated": "2017-01-03T17:36:24.969Z",
+        "body": "Regjeringen vil innf\u00f8re en selvbetjent nettl\u00f8sning for uttak av foreldrepermisjon.",
+        "external_id": 12458,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            2,
+            15,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 43,
+    "fields": {
+        "created": "2017-01-03T17:36:24.980Z",
+        "updated": "2017-01-03T17:36:24.980Z",
+        "body": "Det skal etableres en milj\u00f8base/oljevernbase i Lofoten og Vester\u00e5len.",
+        "external_id": 13020,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            7,
+            36,
+            37
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 44,
+    "fields": {
+        "created": "2017-01-03T17:36:24.995Z",
+        "updated": "2017-01-03T17:36:24.995Z",
+        "body": "Regjeringen vil innf\u00f8re fritt behandlingsvalg. Ordningen innf\u00f8res f\u00f8rst for rus og psykisk helsevern og evalueres, jf samarbeidsavtalen.",
+        "external_id": 12772,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4,
+            22
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 45,
+    "fields": {
+        "created": "2017-01-03T17:36:25.004Z",
+        "updated": "2017-01-03T17:36:25.004Z",
+        "body": "Regjeringen vil legge til rette for at flere f\u00e5r mulighet til \u00e5 benytte tilbud om barnehageplass gjennom differensiert foreldrebetaling.",
+        "external_id": 12449,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 46,
+    "fields": {
+        "created": "2017-01-03T17:36:25.014Z",
+        "updated": "2017-01-03T17:36:25.014Z",
+        "body": "Regjeringen vil arbeide for, og stimulere til, \u00f8kt internasjonalisering av forskningen, eksempelvis gjennom deltakelse i EUs rammeprogrammer.",
+        "external_id": 12960,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            23
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 47,
+    "fields": {
+        "created": "2017-01-03T17:36:25.023Z",
+        "updated": "2017-01-03T17:36:25.023Z",
+        "body": "Regjeringen vil iverksette tiltak for \u00e5 gj\u00f8re det enklere \u00e5 v\u00e6re delvis i arbeid i perioder med psykisk sykdom, og p\u00e5 den m\u00e5ten unng\u00e5 varig uf\u00f8rhet.",
+        "external_id": 12402,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            38,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 48,
+    "fields": {
+        "created": "2017-01-03T17:36:25.036Z",
+        "updated": "2017-01-03T17:36:25.036Z",
+        "body": "Regjeringen vil utrede gevinster og konsekvenser av et ROT-fradrag.",
+        "external_id": 12583,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            39
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 49,
+    "fields": {
+        "created": "2017-01-03T17:36:25.047Z",
+        "updated": "2017-01-03T17:36:25.047Z",
+        "body": "Regjeringen vil gjennomf\u00f8re en st\u00f8rre reform av jernbanesektoren, der Jernbaneverket og NSB omorganiseres for \u00e5 oppn\u00e5 en hensiktsmessig styringsstruktur, en forretningsmessig organisasjonsform og tydelige m\u00e5l.",
+        "external_id": 13071,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            40
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 50,
+    "fields": {
+        "created": "2017-01-03T17:36:25.058Z",
+        "updated": "2017-01-31T21:48:16.105Z",
+        "body": "Regjeringen vil innf\u00f8re studiest\u00f8tte til f\u00f8rste\u00e5ret ved bachelorstudier i ikke-vestlige land og til freshman-\u00e5ret i USA.",
+        "external_id": 12952,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            41,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 51,
+    "fields": {
+        "created": "2017-01-03T17:36:25.070Z",
+        "updated": "2017-01-03T17:36:25.070Z",
+        "body": "Regjeringen vil \u00e5pne for bruk av aksjeselskap som selskapsform i landbruket.",
+        "external_id": 12678,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            42,
+            43
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 52,
+    "fields": {
+        "created": "2017-01-03T17:36:25.083Z",
+        "updated": "2017-01-03T17:36:25.083Z",
+        "body": "Regjeringen vil gi barn under barnevernets omsorg bedre tilpasset skolegang.",
+        "external_id": 12466,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            44
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 53,
+    "fields": {
+        "created": "2017-01-03T17:36:25.095Z",
+        "updated": "2017-01-03T17:36:25.095Z",
+        "body": "Regjeringen vil inng\u00e5 en avtale med kommunene som gj\u00f8r det mulig \u00e5 differensiere betalingen av SFO basert p\u00e5 inntekt.",
+        "external_id": 12451,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12,
+            15
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 54,
+    "fields": {
+        "created": "2017-01-03T17:36:25.106Z",
+        "updated": "2017-01-03T17:36:25.106Z",
+        "body": "Regjeringen vil i st\u00f8rre grad bruke DNA-testing for \u00e5 avklare identitet i forbindelse med familiegjenforening.",
+        "external_id": 12553,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 55,
+    "fields": {
+        "created": "2017-01-03T17:36:25.115Z",
+        "updated": "2017-01-03T17:36:25.115Z",
+        "body": "Regjeringen vil opprette et tvistel\u00f8sningsorgan som h\u00e5ndterer konflikter mellom stat og kommune.",
+        "external_id": 12827,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            45,
+            14
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 56,
+    "fields": {
+        "created": "2017-01-03T17:36:25.127Z",
+        "updated": "2017-01-31T21:48:15.579Z",
+        "body": "Regjeringen vil bevare kontantst\u00f8tten, og utvide ordningen til \u00e5 inkludere to\u00e5ringer.",
+        "external_id": 12455,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            2,
+            15,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 57,
+    "fields": {
+        "created": "2017-01-03T17:36:25.138Z",
+        "updated": "2017-01-03T17:36:25.138Z",
+        "body": "Regjeringen vil fjerne boplikten.",
+        "external_id": 12833,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            11
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 58,
+    "fields": {
+        "created": "2017-01-03T17:36:25.148Z",
+        "updated": "2017-01-03T17:36:25.149Z",
+        "body": "Regjeringen vil legge frem en stortingsmelding om NRK-lisens og alternative betalingsordninger.",
+        "external_id": 12891,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            46
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 59,
+    "fields": {
+        "created": "2017-01-03T17:36:25.161Z",
+        "updated": "2017-01-03T17:36:25.162Z",
+        "body": "Regjeringen vil styrke Y-veien og stoppe innf\u00f8ringen av opptak til enkelte studier p\u00e5 h\u00f8yere utdanning basert p\u00e5 fagbrev.",
+        "external_id": 12945,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 60,
+    "fields": {
+        "created": "2017-01-03T17:36:25.170Z",
+        "updated": "2017-01-03T17:36:25.171Z",
+        "body": "Regjeringen vil kreve at alle l\u00e6rere fra 1. trinn skal ha fordypning i de basisfagene de underviser i.",
+        "external_id": 12911,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            3,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 61,
+    "fields": {
+        "created": "2017-01-03T17:36:25.181Z",
+        "updated": "2017-01-03T17:36:25.181Z",
+        "body": "Regjeringen vil reversere bokloven.",
+        "external_id": 12853,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            47
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 62,
+    "fields": {
+        "created": "2017-01-03T17:36:25.193Z",
+        "updated": "2017-01-03T17:36:25.193Z",
+        "body": "Regjeringen vil erstatte dagens rett til \u00e5 f\u00e5 svar p\u00e5 egen m\u00e5lform med en rett for ansatte i staten og spr\u00e5kn\u00f8ytrale kommuner til \u00e5 bruke sin egen m\u00e5lform.",
+        "external_id": 12856,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            48
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 63,
+    "fields": {
+        "created": "2017-01-03T17:36:25.215Z",
+        "updated": "2017-01-03T17:36:25.215Z",
+        "body": "Regjeringen vil gi barnehager som oppfyller kommunens krav til godkjenning bedre mulighet til \u00e5 etablere seg.",
+        "external_id": 12903,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12,
+            49
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 64,
+    "fields": {
+        "created": "2017-01-03T17:36:25.226Z",
+        "updated": "2017-01-03T17:36:25.226Z",
+        "body": "Friskoler skal ikke kunne betale utbytte til eierne.",
+        "external_id": 13164,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            50,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 65,
+    "fields": {
+        "created": "2017-01-03T17:36:25.237Z",
+        "updated": "2017-01-03T17:36:25.237Z",
+        "body": "Regjeringen vil utarbeide en nasjonal motorveiplan.",
+        "external_id": 13062,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            51
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 66,
+    "fields": {
+        "created": "2017-01-03T17:36:25.247Z",
+        "updated": "2017-01-03T17:36:25.247Z",
+        "body": "Regjeringen vil fremme fremragende forskningsmilj\u00f8er ved \u00e5 starte opp flere Global Centres of Expertise.",
+        "external_id": 12957,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            23
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 67,
+    "fields": {
+        "created": "2017-01-03T17:36:25.257Z",
+        "updated": "2017-01-03T17:36:25.257Z",
+        "body": "Regjeringen vil gjeninnf\u00f8re statlig grunnskoler for h\u00f8rselshemmede.",
+        "external_id": 12920,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            52,
+            3,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 68,
+    "fields": {
+        "created": "2017-01-03T17:36:25.269Z",
+        "updated": "2017-01-03T17:36:25.269Z",
+        "body": "Regjeringen vil tilby gratis barnehageplass for barn med foreldre i introduksjonsordningen.",
+        "external_id": 12450,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12,
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 69,
+    "fields": {
+        "created": "2017-01-03T17:36:25.278Z",
+        "updated": "2017-01-03T17:36:25.278Z",
+        "body": "Regjeringen vil derfor utarbeide en tiltakspakke rettet mot barn som vokser opp i fattige familier, jf samarbeidsavtalen.",
+        "external_id": 12441,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            2
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 70,
+    "fields": {
+        "created": "2017-01-03T17:36:25.288Z",
+        "updated": "2017-01-03T17:36:25.288Z",
+        "body": "Regjeringen vil innf\u00f8re kompetansekrav i lov om kommunale helse- og omsorgstjenester.",
+        "external_id": 12741,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6,
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 71,
+    "fields": {
+        "created": "2017-01-03T17:36:25.298Z",
+        "updated": "2017-01-03T17:36:25.298Z",
+        "body": "Regjeringen vil kreve karakteren 4 eller bedre i norsk, matematikk og engelsk for opptak til l\u00e6rerutdanningen.",
+        "external_id": 12910,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            3,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 72,
+    "fields": {
+        "created": "2017-01-03T17:36:25.308Z",
+        "updated": "2017-01-03T17:36:25.308Z",
+        "body": "Regjeringen vil etablere en bel\u00f8nningsordning for sykkeltiltak og lokale trafikksikkerhetstiltak, blant annet for skoleveier.",
+        "external_id": 13058,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            51
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 73,
+    "fields": {
+        "created": "2017-01-03T17:36:25.318Z",
+        "updated": "2017-01-03T17:36:25.318Z",
+        "body": "Regjeringen vil forbedre tilgangen til statlig pollen- og s\u00e5kornkapital og legge til rette for at organisasjonene som forvalter tiltakene kan plasseres i universitetsbyer.",
+        "external_id": 12610,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            23,
+            20,
+            53
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 74,
+    "fields": {
+        "created": "2017-01-03T17:36:25.330Z",
+        "updated": "2017-01-31T21:48:15.666Z",
+        "body": "Regjeringen vil innf\u00f8re en statlig driftstilskuddsordning for \u00e5 hindre skjevfordeling mellom omsorgsboliger og sykehjem, samt sikre raskere utbygging av flere sykehjemsplasser.",
+        "external_id": 12761,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 75,
+    "fields": {
+        "created": "2017-01-03T17:36:25.339Z",
+        "updated": "2017-01-03T17:36:25.339Z",
+        "body": "Regjeringen vil bedre muligheten for at barn kan vokse opp i fosterfamilier med biologisk tilknytning.",
+        "external_id": 12469,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            44
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 76,
+    "fields": {
+        "created": "2017-01-03T17:36:25.349Z",
+        "updated": "2017-01-03T17:36:25.349Z",
+        "body": "Regjeringen vil etablere en norm/veileder for bemanning og kvalitet i pleie- og omsorgssektoren.",
+        "external_id": 12751,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 77,
+    "fields": {
+        "created": "2017-01-03T17:36:25.358Z",
+        "updated": "2017-01-03T17:36:25.358Z",
+        "body": "Regjeringen vil endre energimerkeordningen slik at den optimaliserer energiforvaltningen i alle nybygg og st\u00f8rre ombygninger basert p\u00e5 krav til levert energi.",
+        "external_id": 13017,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            16
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 78,
+    "fields": {
+        "created": "2017-01-03T17:36:25.368Z",
+        "updated": "2017-01-03T17:36:25.368Z",
+        "body": "Regjeringen vil innf\u00f8re enklere regler for bruk av statens finansieringsordninger ved utbygging i regi av private, ideelle og borettslag.",
+        "external_id": 12753,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6,
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 79,
+    "fields": {
+        "created": "2017-01-03T17:36:25.379Z",
+        "updated": "2017-01-03T17:36:25.379Z",
+        "body": "Regjeringen vil utrede et tidsbegrenset jobbskattefradrag ved overgang fra trygd til arbeid.",
+        "external_id": 12407,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            34
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 80,
+    "fields": {
+        "created": "2017-01-03T17:36:25.389Z",
+        "updated": "2017-01-03T17:36:25.389Z",
+        "body": "Regjeringen vil gj\u00f8re om l\u00e6rerutdanningen til en fem\u00e5rig mastergradsutdanning.",
+        "external_id": 12909,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            3,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 81,
+    "fields": {
+        "created": "2017-01-03T17:36:25.399Z",
+        "updated": "2017-01-03T17:36:25.399Z",
+        "body": "Regjeringen vil levealderjustere uf\u00f8res alderspensjon p\u00e5 lik linje med \u00f8vrige pensjonister.",
+        "external_id": 12412,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 82,
+    "fields": {
+        "created": "2017-01-03T17:36:25.407Z",
+        "updated": "2017-01-03T17:36:25.407Z",
+        "body": "Regjeringen vil opprette et FME-senter for Thorium.",
+        "external_id": 13013,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            16,
+            23
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 83,
+    "fields": {
+        "created": "2017-01-03T17:36:25.417Z",
+        "updated": "2017-01-03T17:36:25.417Z",
+        "body": "Regjeringen vil oppnevne en produktivitetskommisjon.",
+        "external_id": 12574,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            14
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 84,
+    "fields": {
+        "created": "2017-01-03T17:36:25.427Z",
+        "updated": "2017-01-03T17:36:25.427Z",
+        "body": "Regjering vil tillate mesterskapsturneringer i poker med klare bel\u00f8psgrenser gjennom et unntak i lov.",
+        "external_id": 12883,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            54
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 85,
+    "fields": {
+        "created": "2017-01-03T17:36:25.437Z",
+        "updated": "2017-01-03T17:36:25.437Z",
+        "body": "Regjeringen vil forenkle plan- og bygningsloven med forskrifter.",
+        "external_id": 12830,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            31,
+            45
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 86,
+    "fields": {
+        "created": "2017-01-03T17:36:25.448Z",
+        "updated": "2017-01-03T17:36:25.448Z",
+        "body": "Regjeringen vil gi kommunene \u00f8kt innflytelse ved etablering av asylmottak.",
+        "external_id": 12825,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            1,
+            49
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 87,
+    "fields": {
+        "created": "2017-01-03T17:36:25.457Z",
+        "updated": "2017-01-03T17:36:25.457Z",
+        "body": "Regjeringen vil legge til rette for et \u00e5pent arbeidsliv, blant annet gjennom \u00e5 utvide adgangen til bruk av midlertidige ansettelser slik at reglene for privat sektor blir mer like reglene i staten.",
+        "external_id": 12404,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            26
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 88,
+    "fields": {
+        "created": "2017-01-03T17:36:25.467Z",
+        "updated": "2017-01-03T17:36:25.467Z",
+        "body": "Regjeringen vil fjerne un\u00f8dvendige og s\u00e6rnorske forbud og p\u00e5bud. Blant annet gjelder dette forbud mot Segway, vannscooter og proffboksing.",
+        "external_id": 12698,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            55,
+            56
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 89,
+    "fields": {
+        "created": "2017-01-03T17:36:25.480Z",
+        "updated": "2017-01-03T17:36:25.480Z",
+        "body": "Regjeringen vil etablere et nasjonalt beredskaps- og sikkerhetselement ved Statsministerens kontor (SMK). Denne funksjonen skal ivareta den overordnede koordineringen og oppf\u00f8lgingen av sikkerhets- og beredskapsarbeidet p\u00e5 tvers av departementene og bidra til \u00e5 l\u00f8fte og klargj\u00f8re ansvar. Slik bringes statsministeren tettere p\u00e5 de overordnede og strategiske vurderingene knyttet til samfunnets og borgernes sikkerhet. Det sikrer at uklarheter og uenigheter mellom ber\u00f8rte departementer og etater utredes og l\u00f8ses. Departementene beholder operativt ansvar innen egen sektor.",
+        "external_id": 12526,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            57,
+            58,
+            14
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 90,
+    "fields": {
+        "created": "2017-01-03T17:36:25.494Z",
+        "updated": "2017-01-03T17:36:25.494Z",
+        "body": "Regjeringen vil s\u00f8rge for et gebyr- og avgiftsregime som styrker n\u00e6rskipsfarten.",
+        "external_id": 12621,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            19,
+            8
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 91,
+    "fields": {
+        "created": "2017-01-03T17:36:25.509Z",
+        "updated": "2017-01-03T17:36:25.509Z",
+        "body": "Regjeringen vil tillate butikker \u00e5 holde \u00e5pent p\u00e5 s\u00f8ndager. Regjeringen vil sammen med partene i arbeidslivet vurdere hvordan de butikkansatte kan bli omfattet av et godt lovverk n\u00e5r det gjelder arbeidstid og medbestemmelse.",
+        "external_id": 12639,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            59
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 92,
+    "fields": {
+        "created": "2017-01-03T17:36:25.526Z",
+        "updated": "2017-01-31T21:48:16.349Z",
+        "body": "Regjeringen vil utvikle temaskoler i ungdomsskolen og den videreg\u00e5ende skolen, for eksempel realfagsgymnas, i samarbeid med h\u00f8yere utdanningsinstitusjoner.",
+        "external_id": 12935,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            24,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 93,
+    "fields": {
+        "created": "2017-01-03T17:36:25.535Z",
+        "updated": "2017-01-03T17:36:25.535Z",
+        "body": "Regjeringen vil arbeide for \u00f8kt fleksibilitet i barnehageopptaket.",
+        "external_id": 12900,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 94,
+    "fields": {
+        "created": "2017-01-03T17:36:25.544Z",
+        "updated": "2017-01-03T17:36:25.544Z",
+        "body": "Regjeringen vil s\u00f8rge for en yrkesretting av fellesfagene p\u00e5 yrkesfaglige utdanningsprogrammer.",
+        "external_id": 12943,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 95,
+    "fields": {
+        "created": "2017-01-03T17:36:25.554Z",
+        "updated": "2017-01-03T17:36:25.554Z",
+        "body": "Regjeringen vil innf\u00f8re redusert egenfinansiering for personer som p\u00e5 langtidsopphold blir lagt p\u00e5 dobbeltrom mot sin vilje.",
+        "external_id": 12764,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 96,
+    "fields": {
+        "created": "2017-01-03T17:36:25.564Z",
+        "updated": "2017-01-03T17:36:25.564Z",
+        "body": "Regjeringen vil vurdere \u00e5 innf\u00f8re flere skriftlige avgangseksamener for elever p\u00e5 10. trinn.",
+        "external_id": 12918,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            3,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 97,
+    "fields": {
+        "created": "2017-01-03T17:36:25.574Z",
+        "updated": "2017-01-03T17:36:25.574Z",
+        "body": "Regjeringen vil sikre st\u00f8rre forutsigbarhet og mer likebehandling i sykemeldingsprosessen ved \u00e5 innf\u00f8re veiledende, normerte sykemeldingsperioder, men hvor legens beslutning veier tyngst.",
+        "external_id": 12435,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 98,
+    "fields": {
+        "created": "2017-01-03T17:36:25.583Z",
+        "updated": "2017-01-03T17:36:25.583Z",
+        "body": "Regjeringen vil fjerne foreldelsesfristen for drap og seksuelle overgrep mot barn.",
+        "external_id": 12514,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            60
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 99,
+    "fields": {
+        "created": "2017-01-03T17:36:25.593Z",
+        "updated": "2017-01-03T17:36:25.593Z",
+        "body": "Regjeringen vil innf\u00f8re fri konkurranse innenfor post- og pakketjenester, og derfor oppheve reservasjonen mot EUs tredje postdirektiv.",
+        "external_id": 13097,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            61
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 100,
+    "fields": {
+        "created": "2017-01-03T17:36:25.603Z",
+        "updated": "2017-01-03T17:36:25.603Z",
+        "body": "Regjeringen vil innf\u00f8re kvalitetsindikatorer for pleie og omsorgssektoren, blant annet basert p\u00e5 bruker- og p\u00e5r\u00f8rendeerfaringer.",
+        "external_id": 12749,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6,
+            52,
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 101,
+    "fields": {
+        "created": "2017-01-03T17:36:25.614Z",
+        "updated": "2017-01-03T17:36:25.614Z",
+        "body": "Regjeringen vil legge til rette for at mer gods transporteres til sj\u00f8s.",
+        "external_id": 13089,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            20,
+            8
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 102,
+    "fields": {
+        "created": "2017-01-03T17:36:25.623Z",
+        "updated": "2017-01-03T17:36:25.623Z",
+        "body": "Regjeringen vil etablere et tilbud om psykiatriambulanser.",
+        "external_id": 12799,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 103,
+    "fields": {
+        "created": "2017-01-03T17:36:25.633Z",
+        "updated": "2017-01-31T21:48:16.136Z",
+        "body": "Regjeringen vil styrke tilsynet med barnevernet.",
+        "external_id": 12474,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            44
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 104,
+    "fields": {
+        "created": "2017-01-03T17:36:25.642Z",
+        "updated": "2017-01-03T17:36:25.642Z",
+        "body": "Regjeringen vil s\u00f8rge for at det er mobberen som bytter skole i mobbesaker der skolebytte er eneste l\u00f8sning.",
+        "external_id": 12928,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            24
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 105,
+    "fields": {
+        "created": "2017-01-03T17:36:25.650Z",
+        "updated": "2017-01-03T17:36:25.650Z",
+        "body": "Regjeringen vil praktisere egenkapitalkravet p\u00e5 en fleksibel m\u00e5te slik at det hensyntar boligkj\u00f8pers betalingsevne.",
+        "external_id": 12839,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            10,
+            11
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 106,
+    "fields": {
+        "created": "2017-01-03T17:36:25.660Z",
+        "updated": "2017-01-03T17:36:25.660Z",
+        "body": "Regjeringen vil gi en \u00e5rlig utviklingspolitisk redegj\u00f8relse i Stortinget for \u00e5 bidra til en bredere debatt om m\u00e5l og virkemidler i utviklingspolitikken, dersom Stortinget \u00f8nsker dette.",
+        "external_id": 13139,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            62
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 107,
+    "fields": {
+        "created": "2017-01-03T17:36:25.670Z",
+        "updated": "2017-01-03T17:36:25.670Z",
+        "body": "Regjeringen vil styrke programmer for kommersialisering av forskningsresultater blant studenter og forskere.",
+        "external_id": 12961,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            23
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 108,
+    "fields": {
+        "created": "2017-01-03T17:36:25.677Z",
+        "updated": "2017-01-03T17:36:25.677Z",
+        "body": "Regjeringen vil sikre at flere kan delta p\u00e5 viktige sosiale arenaer, uavhengig av foreldrenes inntekt, gjennom \u00e5 etablere lokale ordninger for utstyrsl\u00e5n og kontingentst\u00f8tte.",
+        "external_id": 12452,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            2,
+            15,
+            63
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 109,
+    "fields": {
+        "created": "2017-01-03T17:36:25.688Z",
+        "updated": "2017-01-31T21:48:15.385Z",
+        "body": "Regjeringen vil stimulere kommunene til innovasjon i omsorgen gjennom en egen fors\u00f8kslovgivning som gir frihet og \u00f8konomisk stimulans til \u00e5 pr\u00f8ve ut nye organiseringsformer og tiltak.",
+        "external_id": 12757,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 110,
+    "fields": {
+        "created": "2017-01-03T17:36:25.697Z",
+        "updated": "2017-01-03T17:36:25.697Z",
+        "body": "Regjeringen vil heve innslagspunktet for grunnrenteskatt for sm\u00e5kraftverk fra 5 MVA til 10 MVA.",
+        "external_id": 13015,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            16
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 111,
+    "fields": {
+        "created": "2017-01-03T17:36:25.706Z",
+        "updated": "2017-01-03T17:36:25.706Z",
+        "body": "Regjeringen vil arbeide m\u00e5lrettet for \u00e5 redusere byr\u00e5kratiet.",
+        "external_id": 12631,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            45,
+            14
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 112,
+    "fields": {
+        "created": "2017-01-03T17:36:25.715Z",
+        "updated": "2017-01-03T17:36:25.715Z",
+        "body": "Regjeringen vil styrke petroleumsrelatert forskning.",
+        "external_id": 13023,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            23,
+            64
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 113,
+    "fields": {
+        "created": "2017-01-03T17:36:25.727Z",
+        "updated": "2017-01-03T17:36:25.727Z",
+        "body": "Regjeringen vil rettighetsfeste brukerstyrt personlig assistanse (BPA).",
+        "external_id": 12420,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            52
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 114,
+    "fields": {
+        "created": "2017-01-03T17:36:25.735Z",
+        "updated": "2017-01-03T17:36:25.735Z",
+        "body": "Regjeringen vil modernisere befalsordningen og innf\u00f8re spesialistbefalsordning etter NATO-standard.",
+        "external_id": 12733,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            65,
+            66
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 115,
+    "fields": {
+        "created": "2017-01-03T17:36:25.745Z",
+        "updated": "2017-01-03T17:36:25.745Z",
+        "body": "Regjeringen vil fjerne boplikt for prester i Den norske kirke.",
+        "external_id": 12723,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            13,
+            28
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 116,
+    "fields": {
+        "created": "2017-01-03T17:36:25.755Z",
+        "updated": "2017-01-03T17:36:25.755Z",
+        "body": "Regjeringen vil utrede et system med arbeid for trygd/sosiale ytelser for unge som st\u00e5r i fare for \u00e5 falle permanent ut av arbeidslivet.",
+        "external_id": 12408,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            63,
+            34
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 117,
+    "fields": {
+        "created": "2017-01-03T17:36:25.765Z",
+        "updated": "2017-01-03T17:36:25.765Z",
+        "body": "Regjeringen vil legge til rette for at eldre skal kunne st\u00e5 lenger i arbeidslivet, blant annet ved \u00e5 g\u00e5 gjennom alle lovbestemte aldersgrenser i arbeidslivet i samr\u00e5d med partene.",
+        "external_id": 12431,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            67
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 118,
+    "fields": {
+        "created": "2017-01-03T17:36:25.776Z",
+        "updated": "2017-01-03T17:36:25.777Z",
+        "body": "Regjeringen vil fortsette arbeidet mot sosial dumping ved \u00e5 styrke Arbeidstilsynet, evaluere tiltakene mot uakseptable l\u00f8nns- og arbeidsvilk\u00e5r som hittil er satt i verk og vurdere nye tiltak. Allmenngj\u00f8ringsordningen videref\u00f8res.",
+        "external_id": 12427,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            26
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 119,
+    "fields": {
+        "created": "2017-01-03T17:36:25.785Z",
+        "updated": "2017-01-03T17:36:25.785Z",
+        "body": "Regjeringen vil sikre fortsatt gratis utl\u00e5n av litteratur.",
+        "external_id": 12868,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            47
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 120,
+    "fields": {
+        "created": "2017-01-03T17:36:25.795Z",
+        "updated": "2017-01-03T17:36:25.795Z",
+        "body": "Regjeringen vil styrke IPS-ordningen for \u00e5 gj\u00f8re det mer attraktivt \u00e5 spare til pensjon.",
+        "external_id": 12581,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            39
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 121,
+    "fields": {
+        "created": "2017-01-03T17:36:25.803Z",
+        "updated": "2017-01-03T17:36:25.803Z",
+        "body": "Regjeringen vil [ha en] engangsl\u00f8sning for langtidsboende barn og deres familier fra land med returavtale.",
+        "external_id": 12540,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 122,
+    "fields": {
+        "created": "2017-01-03T17:36:25.812Z",
+        "updated": "2017-01-03T17:36:25.812Z",
+        "body": "Regjering vil fjerne forbudet mot proffboksing.",
+        "external_id": 12879,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            55
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 123,
+    "fields": {
+        "created": "2017-01-03T17:36:25.822Z",
+        "updated": "2017-01-03T17:36:25.822Z",
+        "body": "Regjeringen vil etablere et uavhengig veitrafikktilsyn, og vurdere effektiviseringspotensialet knyttet til tettere integrering mellom de ulike statlige tilsynene innen transportsektoren.",
+        "external_id": 13053,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            51
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 124,
+    "fields": {
+        "created": "2017-01-03T17:36:25.832Z",
+        "updated": "2017-01-03T17:36:25.832Z",
+        "body": "Regjeringen vil la Vinmonopolet holde \u00e5pent de samme dager som butikkene kan ha \u00f8lsalg.",
+        "external_id": 12699,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            22,
+            59
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 125,
+    "fields": {
+        "created": "2017-01-03T17:36:25.843Z",
+        "updated": "2017-01-03T17:36:25.843Z",
+        "body": "Regjeringen vil satse p\u00e5 forskning p\u00e5 fornybare energikilder.",
+        "external_id": 13004,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            16,
+            23,
+            7
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 126,
+    "fields": {
+        "created": "2017-01-03T17:36:25.854Z",
+        "updated": "2017-01-03T17:36:25.854Z",
+        "body": "Regjeringen vil styrke eiendomsretten.",
+        "external_id": 12829,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            45
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 127,
+    "fields": {
+        "created": "2017-01-03T17:36:25.863Z",
+        "updated": "2017-01-03T17:36:25.863Z",
+        "body": "Regjeringen vil evaluere bioteknologiloven, jf samarbeidsavtalen.",
+        "external_id": 12815,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            23,
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 128,
+    "fields": {
+        "created": "2017-01-03T17:36:25.871Z",
+        "updated": "2017-01-03T17:36:25.871Z",
+        "body": "Regjeringen vil g\u00e5 gjennom dagens velferdsordninger for \u00e5 sikre at det l\u00f8nner seg \u00e5 jobbe, herunder utrede barnetillegget i uf\u00f8retrygden.",
+        "external_id": 12413,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 129,
+    "fields": {
+        "created": "2017-01-03T17:36:25.882Z",
+        "updated": "2017-01-03T17:36:25.882Z",
+        "body": "Regjeringen vil gjennomf\u00f8re en fullstendig gjennomgang av utlendingslovens regler knyttet til familieetablering og -gjenforening med sikte p\u00e5 innstramming.",
+        "external_id": 12567,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            15,
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 130,
+    "fields": {
+        "created": "2017-01-03T17:36:25.892Z",
+        "updated": "2017-01-03T17:36:25.892Z",
+        "body": "Regjeringen vil \u00f8ke satsingen p\u00e5 l\u00f8nnstilskudd og arbeidstrening i ordin\u00e6re virksomheter, i samspill med attf\u00f8ringsbedrifter som tilbyr arbeidsmarkedstiltak.",
+        "external_id": 12405,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            68,
+            34
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 131,
+    "fields": {
+        "created": "2017-01-03T17:36:25.903Z",
+        "updated": "2017-01-03T17:36:25.903Z",
+        "body": "Regjeringen vil redusere avkortingen av pensjon for gifte og samboende pensjonister fra 15 til 10 prosent.",
+        "external_id": 12443,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 132,
+    "fields": {
+        "created": "2017-01-03T17:36:25.912Z",
+        "updated": "2017-01-03T17:36:25.912Z",
+        "body": "Regjeringen vil etablere et eget utbyggingsselskap som skal l\u00f8fte flere veiprosjekter og gjennomf\u00f8re utbyggingen mer effektivt, jf samarbeidsavtalen. Selskapet finansieres med egenkapital, men kan ogs\u00e5 ta opp l\u00e5n med statsgaranti. Selskapet kan overta utbyggings-, drifts- og finansieringsansvar for utbygging av store samferdselsprosjekter. Man kan ogs\u00e5 overdra eksisterende prosjekter til selskapet. I forbindelse med statsbudsjettet fastsettes rammene for selskapet.",
+        "external_id": 13033,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            51
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 133,
+    "fields": {
+        "created": "2017-01-03T17:36:25.921Z",
+        "updated": "2017-01-03T17:36:25.921Z",
+        "body": "Regjeringen vil utarbeide en nasjonal havnestrategi.",
+        "external_id": 13095,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            69,
+            8
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 134,
+    "fields": {
+        "created": "2017-01-03T17:36:25.931Z",
+        "updated": "2017-01-03T17:36:25.931Z",
+        "body": "Regjeringen vil styrke IFU/OFU-ordningen.",
+        "external_id": 12608,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            23,
+            20,
+            53
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 135,
+    "fields": {
+        "created": "2017-01-03T17:36:25.951Z",
+        "updated": "2017-01-03T17:36:25.951Z",
+        "body": "Regjeringen vil legge til grunn en balansert holdning til Midt\u00f8sten-konflikten, og aktivt st\u00f8tte m\u00e5let om en fremforhandlet l\u00f8sning som inneb\u00e6rer at Israel og Palestina, som to stater, eksisterer i fred innenfor sikre og internasjonalt anerkjente grenser.",
+        "external_id": 13112,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            70,
+            71
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 136,
+    "fields": {
+        "created": "2017-01-03T17:36:25.966Z",
+        "updated": "2017-01-03T17:36:25.966Z",
+        "body": "Regjeringen vil bekjempe kj\u00f8nnslemlestelse.",
+        "external_id": 12481,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4,
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 137,
+    "fields": {
+        "created": "2017-01-03T17:36:25.976Z",
+        "updated": "2017-01-03T17:36:25.976Z",
+        "body": "Regjeringen vil \u00f8ke soningskapasiteten ved \u00e5 bygge flere fengselsplasser.",
+        "external_id": 12517,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            72,
+            58
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 138,
+    "fields": {
+        "created": "2017-01-03T17:36:25.986Z",
+        "updated": "2017-01-03T17:36:25.986Z",
+        "body": "Regjeringen vil tillate bruk av Segway.",
+        "external_id": 13064,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            51
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 139,
+    "fields": {
+        "created": "2017-01-03T17:36:25.996Z",
+        "updated": "2017-01-03T17:36:25.996Z",
+        "body": "Regjeringen vil forenkle kravene til utleieboliger.",
+        "external_id": 12831,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            11
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 140,
+    "fields": {
+        "created": "2017-01-03T17:36:26.005Z",
+        "updated": "2017-01-03T17:36:26.005Z",
+        "body": "Regjeringen vil \u00f8ke l\u00e6rlingstilskuddet.",
+        "external_id": 12938,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 141,
+    "fields": {
+        "created": "2017-01-03T17:36:26.013Z",
+        "updated": "2017-01-03T17:36:26.013Z",
+        "body": "Regjeringen vil styrke etter- og videreutdanningen slik at flere ansatte f\u00e5r barnefaglig kompetanse.",
+        "external_id": 12895,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 142,
+    "fields": {
+        "created": "2017-01-03T17:36:26.022Z",
+        "updated": "2017-01-03T17:36:26.022Z",
+        "body": "Regjeringen vil etablere et permanent byggekostnadsprogram i samarbeid med bransjen.",
+        "external_id": 12832,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            11,
+            31
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 143,
+    "fields": {
+        "created": "2017-01-03T17:36:26.031Z",
+        "updated": "2017-01-03T17:36:26.031Z",
+        "body": "Fedrekvoten settes til 10 uker. Det \u00e5pnes for en tillitsbasert unntaksordning etter objektive kriterier. Kriterier som \u00e5pner for unntak knyttes til sykdom, fars arbeidsledighet under mors permisjonstid, fars arbeidsopphold i utlandet, selvstendige n\u00e6ringsdrivende/eneaksjon\u00e6rer samt mors arbeidssituasjon, jf samarbeidsavtalen.",
+        "external_id": 12459,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            15,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 144,
+    "fields": {
+        "created": "2017-01-03T17:36:26.042Z",
+        "updated": "2017-01-03T17:36:26.042Z",
+        "body": "Regjeringen vil utvikle to nye typer mottak; integreringsmottak for dem som venter p\u00e5 bostedskommune og retursentre for personer og familier med endelig avslag. Noen retursentre skal kunne ta imot utlendinger som f\u00e5r frihetsber\u00f8velse etter \u00a7 106, f\u00f8rste ledd. Retursentre vil ligne ordin\u00e6re asylmottak n\u00e5r det gjelder standard, bemanning, aktivitetsniv\u00e5 og beboersammensetting. Forskjellen vil v\u00e6re en st\u00f8rre og gjennomg\u00e5ende oppmerksomhet rettet mot retur, samtidig som integreringsperspektivet faller bort. Dette m\u00e5 gjenspeiles i de ansattes kompetanse.",
+        "external_id": 12542,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 145,
+    "fields": {
+        "created": "2017-01-03T17:36:26.052Z",
+        "updated": "2017-01-03T17:36:26.052Z",
+        "body": "Regjeringen vil gjennomg\u00e5 ENOVAs rolle for \u00e5 m\u00e5lrette arbeidet bedre, slik at selskapet beholder en sterk rolle innen EN\u00d8K i industrien, offentlig sektor og i varmemarkedet.",
+        "external_id": 13016,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            16,
+            7
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 146,
+    "fields": {
+        "created": "2017-01-03T17:36:26.061Z",
+        "updated": "2017-01-03T17:36:26.061Z",
+        "body": "Regjeringen vil \u00f8ke fartsgrensene p\u00e5 de tryggeste motorveistrekningene til 110 km/t basert p\u00e5 faglige r\u00e5d.",
+        "external_id": 13045,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            51
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 147,
+    "fields": {
+        "created": "2017-01-03T17:36:26.069Z",
+        "updated": "2017-01-03T17:36:26.069Z",
+        "body": "Regjeringen vil fjerne forbudet mot \u00e5 f\u00f8re lister over personer som venter p\u00e5 sykehjemsplass for \u00e5 avdekke reelt behov.",
+        "external_id": 12759,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 148,
+    "fields": {
+        "created": "2017-01-03T17:36:26.078Z",
+        "updated": "2017-01-31T21:48:16.494Z",
+        "body": "Regjeringen vil prioritere tiltak som sikrer at barn under barnevernets omsorg i st\u00f8rre grad f\u00e5r vokse opp sammen med sine s\u00f8sken.",
+        "external_id": 12468,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            44
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 149,
+    "fields": {
+        "created": "2017-01-03T17:36:26.086Z",
+        "updated": "2017-01-03T17:36:26.086Z",
+        "body": "Regjeringen vil utarbeide krav om at alle nye offentlige kj\u00f8ret\u00f8y, og alle nye drosjer, ferger, ruteb\u00e5ter og dieseltog, benytter lav- eller nullutslippsteknologi n\u00e5r teknologien tilsier dette.",
+        "external_id": 12996,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            19,
+            7,
+            51
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 150,
+    "fields": {
+        "created": "2017-01-03T17:36:26.097Z",
+        "updated": "2017-01-03T17:36:26.097Z",
+        "body": "Regjeringen vil fremme en universell likestillings- og antidiskrimineringslov.",
+        "external_id": 12476,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            73
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 151,
+    "fields": {
+        "created": "2017-01-03T17:36:26.108Z",
+        "updated": "2017-01-03T17:36:26.108Z",
+        "body": "Regjeringen vil \u00e5pne for at flere kan drive offentlig finansierte friskoler, og gjeninnf\u00f8re en lov om frittst\u00e5ende skoler der kravet til form\u00e5l erstattes med krav til innhold og kvalitet. Skoler som oppfyller vilk\u00e5rene skal ha rett til godkjenning, med mindre en helhetsvurdering tilsier at godkjenning vil gi negative konsekvenser for det offentlige skoletilbudet.",
+        "external_id": 13162,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            50,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 152,
+    "fields": {
+        "created": "2017-01-03T17:36:26.117Z",
+        "updated": "2017-01-03T17:36:26.117Z",
+        "body": "Regjeringen vil legge om overgangsst\u00f8naden og innf\u00f8re klarere krav til aktivitet.",
+        "external_id": 12432,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            67
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 153,
+    "fields": {
+        "created": "2017-01-03T17:36:26.127Z",
+        "updated": "2017-01-03T17:36:26.127Z",
+        "body": "Regjeringen vil gi n\u00f8dvendig hjelp til barn som har svake spr\u00e5kferdigheter og stille krav om norskferdigheter for barnehageansatte.",
+        "external_id": 12902,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12,
+            48
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 154,
+    "fields": {
+        "created": "2017-01-03T17:36:26.136Z",
+        "updated": "2017-01-03T17:36:26.136Z",
+        "body": "Regjeringen vil opprettholde forbudet mot besittelse og bruk av narkotika.",
+        "external_id": 12794,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            22,
+            60
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 155,
+    "fields": {
+        "created": "2017-01-03T17:36:26.145Z",
+        "updated": "2017-01-03T17:36:26.145Z",
+        "body": "Regjeringen vil utvide praksisbrevordningen, med m\u00e5l om at alle fylker skal tilby dette.",
+        "external_id": 12941,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 156,
+    "fields": {
+        "created": "2017-01-03T17:36:26.156Z",
+        "updated": "2017-01-03T17:36:26.156Z",
+        "body": "Regjeringen vil stimulere til mer forskning i n\u00e6ringslivet og sterkere samhandling med akademia, blant annet gjennom \u00e5 bedre Skattefunn og gaveforsterkningsordningen, og utvide Brukerstyrt innovasjonsarena (BIA) og n\u00e6rings-PhDer.",
+        "external_id": 12963,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            23,
+            20,
+            53
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 157,
+    "fields": {
+        "created": "2017-01-03T17:36:26.167Z",
+        "updated": "2017-01-03T17:36:26.167Z",
+        "body": "Regjeringen vil videref\u00f8re st\u00f8tten til trosoppl\u00e6ring i Den norske kirke.",
+        "external_id": 12721,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            13,
+            28
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 158,
+    "fields": {
+        "created": "2017-01-03T17:36:26.178Z",
+        "updated": "2017-01-03T17:36:26.178Z",
+        "body": "Regjeringen vil trappe opp bevilgningene til Program for basiskompetanse i arbeidslivet (BKA).",
+        "external_id": 12966,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            17,
+            35
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 159,
+    "fields": {
+        "created": "2017-01-03T17:36:26.188Z",
+        "updated": "2017-01-03T17:36:26.188Z",
+        "body": "Regjeringen vil intensivere kartlegginsarbeidet av mineralforekomster i [Nord-Norge].",
+        "external_id": 13157,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            74
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 160,
+    "fields": {
+        "created": "2017-01-03T17:36:26.198Z",
+        "updated": "2017-01-03T17:36:26.198Z",
+        "body": "Regjeringen vil p\u00e5legge kommunene \u00e5 gjennomf\u00f8re opps\u00f8kende hjemmebes\u00f8k for \u00e5 tilpasse hjelpetiltak til den enkelte.",
+        "external_id": 12756,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6,
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 161,
+    "fields": {
+        "created": "2017-01-03T17:36:26.209Z",
+        "updated": "2017-01-03T17:36:26.209Z",
+        "body": "Regjeringen vil la hovedlinjene i norsk alkoholpolitikk ligge fast, jf samarbeidsavtalen.",
+        "external_id": 12808,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            75,
+            22
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 162,
+    "fields": {
+        "created": "2017-01-03T17:36:26.220Z",
+        "updated": "2017-01-03T17:36:26.220Z",
+        "body": "Regjeringen vil sikre full \u00e5penhet om innhold, kvalitet og pris i barnevernstilbudet og innf\u00f8re godkjennings- og kontrollordninger med kvalitetskriterier for institusjonene.",
+        "external_id": 12463,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            44
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 163,
+    "fields": {
+        "created": "2017-01-03T17:36:26.229Z",
+        "updated": "2017-01-03T17:36:26.229Z",
+        "body": "Regjeringen vil utrede etablering av hurtigdomstoler innenfor avgrensede omr\u00e5der.",
+        "external_id": 12510,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            76,
+            58
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 164,
+    "fields": {
+        "created": "2017-01-03T17:36:26.240Z",
+        "updated": "2017-01-03T17:36:26.240Z",
+        "body": "Regjeringen vil opprette et eget selskap for bygging og drift av helsebygg.",
+        "external_id": 12777,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            21,
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 165,
+    "fields": {
+        "created": "2017-01-03T17:36:26.250Z",
+        "updated": "2017-01-03T17:36:26.250Z",
+        "body": "Regjeringen vil bygge ut flere studentboliger og forenkle regelverket slik at det blir enklere \u00e5 samarbeide med private.",
+        "external_id": 12953,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            11,
+            41,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 166,
+    "fields": {
+        "created": "2017-01-03T17:36:26.259Z",
+        "updated": "2017-01-03T17:36:26.259Z",
+        "body": "Regjeringen vil gi kommunene frihet til \u00e5 avgj\u00f8re om de vil ha en skolefruktordning, og p\u00e5 hvilket trinn det skal tilbys leksehjelp.",
+        "external_id": 12930,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            24
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 167,
+    "fields": {
+        "created": "2017-01-03T17:36:26.268Z",
+        "updated": "2017-01-03T17:36:26.268Z",
+        "body": "Regjeringen vil arbeide for \u00e5 redusere bruken av ufrivillig deltid og midlertidighet i offentlig sektor, samt arbeide for \u00e5 etablere en heltidskultur i arbeidslivet.",
+        "external_id": 12428,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            26
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 168,
+    "fields": {
+        "created": "2017-01-14T15:04:26.102Z",
+        "updated": "2017-01-14T15:04:26.102Z",
+        "body": "Regjeringen vil \u00e5pne for at mineraln\u00e6ringen kan benytte sj\u00f8deponi, men stille strenge krav og sikre milj\u00f8overv\u00e5kning.",
+        "external_id": 12600,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            74,
+            7,
+            20
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 169,
+    "fields": {
+        "created": "2017-01-14T15:04:26.120Z",
+        "updated": "2017-01-14T15:04:26.120Z",
+        "body": "Regjeringen vil gjennomg\u00e5 og myke opp reglene for turistfiske.",
+        "external_id": 12628,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            77
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 170,
+    "fields": {
+        "created": "2017-01-14T15:04:26.162Z",
+        "updated": "2017-01-14T15:04:26.162Z",
+        "body": "Regjeringen vil \u00e5pne for oppmyking i deltakerloven, spesielt n\u00e5r det gjelder krav til bosted i forbindelse med arv eller generasjonsskifte.",
+        "external_id": 12657,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            78
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 171,
+    "fields": {
+        "created": "2017-01-14T15:04:26.233Z",
+        "updated": "2017-01-14T15:04:26.233Z",
+        "body": "Regjeringen vil styrke bosettingsarbeidet i kommunene og se p\u00e5 innretningen i tilskuddsordningene.",
+        "external_id": 12500,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            1,
+            49
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 172,
+    "fields": {
+        "created": "2017-01-14T15:04:26.249Z",
+        "updated": "2017-01-14T15:04:26.249Z",
+        "body": "Regjeringen vil gjennomg\u00e5 fors\u00f8ksordningen med servicehunder med sikte p\u00e5 \u00e5 gj\u00f8re den mer lik ordningen med f\u00f8rerhund for blinde og svaksynte.",
+        "external_id": 12423,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            52
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 173,
+    "fields": {
+        "created": "2017-01-14T15:04:26.293Z",
+        "updated": "2017-01-14T15:04:26.293Z",
+        "body": "Regjeringen vil fremme en nasjonal helse- og sykehusplan for Stortinget for \u00e5 skape \u00e5penhet og forutsigbarhet i sektoren.",
+        "external_id": 12766,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 174,
+    "fields": {
+        "created": "2017-01-14T15:04:26.304Z",
+        "updated": "2017-01-14T15:04:26.305Z",
+        "body": "Regjeringen vil gjennomg\u00e5 ordningen med ledsagerhjelp for d\u00f8vblinde, og praktiseringen av denne, for \u00e5 sikre reell mulighet til deltakelse i trening og fritidsaktiviteter.",
+        "external_id": 12422,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            52
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 175,
+    "fields": {
+        "created": "2017-01-14T15:04:26.369Z",
+        "updated": "2017-01-14T15:04:26.369Z",
+        "body": "Regjeringen vil styrke Konkurransetilsynet som selvstendig myndighetsorgan og fjerne regjeringens rolle som ankeinstans for Konkurransetilsynet ved \u00e5 etablere en uavhengig klagenemnd for konkurranse.",
+        "external_id": 12715,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            79
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 176,
+    "fields": {
+        "created": "2017-01-14T15:04:26.385Z",
+        "updated": "2017-01-14T15:04:26.385Z",
+        "body": "Regjering vil sikre trygge og stabile rammebetingelser for Special Olympics Norge.",
+        "external_id": 12882,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            52,
+            55
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 177,
+    "fields": {
+        "created": "2017-01-14T15:04:26.394Z",
+        "updated": "2017-01-14T15:04:26.394Z",
+        "body": "Regjeringen vil utvide \u00e5pningstidene og kapasiteten ved grensestasjonen p\u00e5 Storskog.",
+        "external_id": 13159,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            80
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 178,
+    "fields": {
+        "created": "2017-01-14T15:04:26.419Z",
+        "updated": "2017-01-14T15:04:26.419Z",
+        "body": "Regjeringen vil sikre at uvedkommende ikke har tilgang til personsensitiv informasjon om inntekt og formue i skattelistene, og gi den enkelte opplysning om hvem som har bedt om innsyn.",
+        "external_id": 12709,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            81
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 179,
+    "fields": {
+        "created": "2017-01-14T15:04:26.472Z",
+        "updated": "2017-01-31T21:48:16.259Z",
+        "body": "Regjeringen vil likebehandle b\u00f8nder og reineiere n\u00e5r det gjelder avgifter p\u00e5 driftsmidler.",
+        "external_id": 12695,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            43,
+            82
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 180,
+    "fields": {
+        "created": "2017-01-14T15:04:26.489Z",
+        "updated": "2017-01-14T15:04:26.489Z",
+        "body": "Regjeringen vil foreta en helhetlig gjennomgang av hjelpemiddelpolitikken i l\u00f8pet av valgperioden.",
+        "external_id": 12417,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            52
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 181,
+    "fields": {
+        "created": "2017-01-14T15:04:26.506Z",
+        "updated": "2017-01-14T15:04:26.506Z",
+        "body": "Regjeringen vil gjennomg\u00e5 reglene om ettervern for \u00e5 gi flere en god oppf\u00f8lging etter fylte 18 \u00e5r.",
+        "external_id": 12467,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            44
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 182,
+    "fields": {
+        "created": "2017-01-14T15:04:26.558Z",
+        "updated": "2017-01-14T15:04:26.558Z",
+        "body": "Regjeringen vil endre RLE-faget til KRLE (Kristendom, religion, livssyn og etikk), samt gjeninnf\u00f8re kravet om at faget, i tr\u00e5d med kompetanseomr\u00e5dene, skal inneholde minst 55 pst. kristendom, jf samarbeidsavtalen.",
+        "external_id": 12716,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            3
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 183,
+    "fields": {
+        "created": "2017-01-14T15:04:26.569Z",
+        "updated": "2017-01-14T15:04:26.569Z",
+        "body": "Regjeringen vil gi elevene i den videreg\u00e5ende oppl\u00e6ringen rett til fritt skolevalg p\u00e5 tvers av fylkesgrenser.",
+        "external_id": 12923,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 184,
+    "fields": {
+        "created": "2017-01-14T15:04:26.604Z",
+        "updated": "2017-01-14T15:04:26.604Z",
+        "body": "Regjeringen vil endre reindriftsloven slik at \u00f8kologisk b\u00e6rekraft prioriteres.",
+        "external_id": 12693,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            82
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 185,
+    "fields": {
+        "created": "2017-01-14T15:04:26.629Z",
+        "updated": "2017-01-14T15:04:26.629Z",
+        "body": "Regjeringen vil stille krav om at ingen skal kunne sykemeldes mer enn 6 m\u00e5neder av sin egen fastlege.",
+        "external_id": 12436,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 186,
+    "fields": {
+        "created": "2017-01-14T15:04:26.650Z",
+        "updated": "2017-01-14T15:04:26.650Z",
+        "body": "Regjeringen vil utvide Mattilsynets \u00e5pningstider for utstedelse av dokumenter for fiskeeksport utover ordin\u00e6r arbeidstid.",
+        "external_id": 13158,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            83
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 187,
+    "fields": {
+        "created": "2017-01-14T15:04:26.664Z",
+        "updated": "2017-01-14T15:04:26.664Z",
+        "body": "Regjeringen vil nedsette et arbeidstidsutvalg etter modell fra skift/turnusutvalget for \u00e5 utrede hvordan arbeidskraften best mulig kan tas i bruk i de kommende ti\u00e5rene.",
+        "external_id": 12426,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            26,
+            67
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 188,
+    "fields": {
+        "created": "2017-01-14T15:04:26.727Z",
+        "updated": "2017-01-14T15:04:26.727Z",
+        "body": "Regjeringen vil \u00e5pne for generell bev\u00e6pning i de politidistrikter der politiet selv mener det er den beste l\u00f8sningen.",
+        "external_id": 12507,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            33
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 189,
+    "fields": {
+        "created": "2017-01-14T15:04:26.736Z",
+        "updated": "2017-01-14T15:04:26.736Z",
+        "body": "Regjeringen vil gjennomg\u00e5 balansen mellom institusjons- og fosterhjemstilbudet og ved behov utrede hvordan fosterhjemsomsorgen kan styrkes.",
+        "external_id": 12465,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            44
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 190,
+    "fields": {
+        "created": "2017-01-14T15:04:26.745Z",
+        "updated": "2017-01-14T15:04:26.745Z",
+        "body": "Regjeringen vil innf\u00f8re krav til aktivitet for sosialhjelpsmottakere, med s\u00e6rlig fokus p\u00e5 lavterskeltiltak og arbeidstrening rettet mot unge for \u00e5 sikre en permanent overgang til arbeidslivet.",
+        "external_id": 12447,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            63,
+            34,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 191,
+    "fields": {
+        "created": "2017-01-14T15:04:26.808Z",
+        "updated": "2017-01-14T15:04:26.808Z",
+        "body": "Regjeringen vil styrke arbeidet mot lakselus, andre sykdomsutfordringer og r\u00f8mming gjennom forpliktende avtaler med n\u00e6ringen.",
+        "external_id": 12982,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            78
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 192,
+    "fields": {
+        "created": "2017-01-14T15:04:26.840Z",
+        "updated": "2017-01-14T15:04:26.840Z",
+        "body": "Regjeringen vil sikre en milj\u00f8messig trygg og forsvarlig l\u00f8sning for U-864 utenfor Fedje i Hordaland.",
+        "external_id": 12985,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            84,
+            7
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 193,
+    "fields": {
+        "created": "2017-01-14T15:04:26.889Z",
+        "updated": "2017-01-14T15:04:26.889Z",
+        "body": "Regjeringen vil foreta en gjennomgang av kildeskatten.",
+        "external_id": 13146,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            71
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 194,
+    "fields": {
+        "created": "2017-01-14T15:04:26.908Z",
+        "updated": "2017-01-14T15:04:26.908Z",
+        "body": "Regjeringen vil styrke koordineringen av statsforvaltningens samlede h\u00e5ndtering av europasaker for \u00e5 sikre effektiv saksbehandling og bedre norsk medvirkning.",
+        "external_id": 13116,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            85
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 195,
+    "fields": {
+        "created": "2017-01-14T15:04:26.934Z",
+        "updated": "2017-01-14T15:04:26.934Z",
+        "body": "Regjeringen vil legge bedre til rette for funksjonshemmede i arbeidslivet, blant gjennom \u00e5 styrke tilretteleggingsgarantien og funksjonsassistentordningen.",
+        "external_id": 12419,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            52
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 196,
+    "fields": {
+        "created": "2017-01-14T15:04:26.965Z",
+        "updated": "2017-01-14T15:04:26.965Z",
+        "body": "Regjeringen vil legge frem en stortingsmelding om b\u00e6rekraft i reindriften.",
+        "external_id": 12692,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            82
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 197,
+    "fields": {
+        "created": "2017-01-14T15:04:27.036Z",
+        "updated": "2017-01-14T15:04:27.036Z",
+        "body": "Regjeringen vil prioritere det transatlantiske forholdet i sikkerhets- og forsvarspolitikken. Norsk engasjement i og bidrag til NATO skal styrkes og det skal tilrettelegges for NATO-aktivitet og -n\u00e6rv\u00e6r i Norge.",
+        "external_id": 12724,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            86
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 198,
+    "fields": {
+        "created": "2017-01-14T15:04:27.057Z",
+        "updated": "2017-01-14T15:04:27.057Z",
+        "body": "Regjeringen vil opprette en hurtigfil for asyls\u00f8kere som blir tatt for kriminelle handlinger (som for eksempel besittelse og salg av narkotika), der s\u00f8knaden behandles raskt og s\u00f8keren returneres til opprinnelseslandet ved avslag.",
+        "external_id": 12548,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 199,
+    "fields": {
+        "created": "2017-01-31T21:48:15.300Z",
+        "updated": "2017-01-31T21:48:15.300Z",
+        "body": "Regjeringen vil videref\u00f8re og modernisere fiskesalgslagsloven for \u00e5 sikre fleksible, effektive og velorganiserte markedsplasser med god ressurskontroll.",
+        "external_id": 12656,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            83,
+            78
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 200,
+    "fields": {
+        "created": "2017-01-31T21:48:15.406Z",
+        "updated": "2017-01-31T21:48:15.406Z",
+        "body": "Regjeringen vil \u00f8ke sm\u00e5sparernes eierskap i norske bedrifter, blant annet ved \u00e5 vurdere \u00e5 innf\u00f8re konto for langsiktig aksjesparing (KLAS).",
+        "external_id": 12641,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            87,
+            20
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 201,
+    "fields": {
+        "created": "2017-01-31T21:48:15.462Z",
+        "updated": "2017-01-31T21:48:15.462Z",
+        "body": "Regjeringen vil \u00e5pne for strukturering i lukket fart\u00f8ygruppe under 11 meter og styrke rekrutteringen til fl\u00e5tegruppen.",
+        "external_id": 12660,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            88,
+            78
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 202,
+    "fields": {
+        "created": "2017-01-31T21:48:15.507Z",
+        "updated": "2017-01-31T21:48:15.507Z",
+        "body": "Regjeringen vil \u00f8ke andelen av finansieringen til universitets- og h\u00f8yskolesektoren som er resultatbasert. Kriteriene for resultater skal utredes.",
+        "external_id": 12947,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            89,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 203,
+    "fields": {
+        "created": "2017-01-31T21:48:15.528Z",
+        "updated": "2017-01-31T21:48:15.528Z",
+        "body": "Regjeringen vil gi kommunene rett til fritt \u00e5 velge barnevernstiltak, etter en vurdering av kvalitet, pris og hva som gir best hjelp til det enkelte barn, uavhengig av hvem som leverer tiltaket.",
+        "external_id": 12461,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            44
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 204,
+    "fields": {
+        "created": "2017-01-31T21:48:15.549Z",
+        "updated": "2017-01-31T21:48:15.549Z",
+        "body": "Regjeringen vil legge frem konkrete tiltak for \u00e5 styrke den maritime utdanningen.",
+        "external_id": 12615,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            84,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 205,
+    "fields": {
+        "created": "2017-01-31T21:48:15.601Z",
+        "updated": "2017-01-31T21:48:15.601Z",
+        "body": "Regjeringen vil styrke de tekniske fagskolene og gjeninnf\u00f8re statlig finansiering av fagskolene.",
+        "external_id": 12954,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            90,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 206,
+    "fields": {
+        "created": "2017-01-31T21:48:15.622Z",
+        "updated": "2017-01-31T21:48:15.622Z",
+        "body": "Regjeringen vil \u00f8ke satsingen p\u00e5 velferdsteknologi.",
+        "external_id": 12754,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6,
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 207,
+    "fields": {
+        "created": "2017-01-31T21:48:15.656Z",
+        "updated": "2017-01-31T21:48:15.656Z",
+        "body": "Regjeringen vil utarbeide en stortingsmelding for \u00e5 styrke friluftslivet.",
+        "external_id": 12984,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            36
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 208,
+    "fields": {
+        "created": "2017-01-31T21:48:15.672Z",
+        "updated": "2017-01-31T21:48:15.672Z",
+        "body": "Regjeringen vil evaluere sexkj\u00f8psloven, og legge frem en stortingsmelding p\u00e5 bakgrunn av evalueringen. De sosialpolitiske virkemidlene overfor prostituerte i en vanskelig situasjon skal forsterkes, jf samarbeidsavtalen.",
+        "external_id": 12512,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            58,
+            60
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 209,
+    "fields": {
+        "created": "2017-01-31T21:48:15.711Z",
+        "updated": "2017-01-31T21:48:15.711Z",
+        "body": "Det skal foretas en full gjennomgang av NAV, med sikte p\u00e5 \u00e5 avbyr\u00e5kratisere etaten for brukerne, for \u00e5 hjelpe flere fra trygd til arbeid.",
+        "external_id": 12401,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            25,
+            63
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 210,
+    "fields": {
+        "created": "2017-01-31T21:48:15.754Z",
+        "updated": "2017-01-31T21:48:15.754Z",
+        "body": "Regjeringen vil innf\u00f8re en samfiskeordning i \u00e5pen fart\u00f8ygruppe under 11 meter.",
+        "external_id": 12661,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "not_yet",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            88,
+            78
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 211,
+    "fields": {
+        "created": "2017-01-31T21:48:15.768Z",
+        "updated": "2017-01-31T21:48:15.768Z",
+        "body": "Regjeringen vil styrke tilbudet om behandlingsreiser og gj\u00f8re tilbudet tilgjengelig for flere pasientgrupper.",
+        "external_id": 12805,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 212,
+    "fields": {
+        "created": "2017-01-31T21:48:15.789Z",
+        "updated": "2017-01-31T21:48:15.789Z",
+        "body": "Regjeringen vil utdanne flere pedagoger.",
+        "external_id": 12896,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            12,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 213,
+    "fields": {
+        "created": "2017-01-31T21:48:15.804Z",
+        "updated": "2017-01-31T21:48:15.804Z",
+        "body": "Regjeringen vil innf\u00f8re fri fangst av kongekrabbe utenfor kommersiell sone.",
+        "external_id": 12665,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            88,
+            84
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 214,
+    "fields": {
+        "created": "2017-01-31T21:48:15.818Z",
+        "updated": "2017-01-31T21:48:15.818Z",
+        "body": "Regjeringen vil styrke NOKUTs arbeid med \u00e5 heve kvaliteten i utdanningen og i institusjonene.",
+        "external_id": 12955,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            89,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 215,
+    "fields": {
+        "created": "2017-01-31T21:48:15.828Z",
+        "updated": "2017-01-31T21:48:15.828Z",
+        "body": "Regjeringen vil \u00e5pne for at kommunene kan innf\u00f8re et forbud mot tigging i lokale politivedtekter for \u00e5 bekjempe menneskehandel og annen organisert kriminalitet.",
+        "external_id": 12516,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            33,
+            60
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 216,
+    "fields": {
+        "created": "2017-01-31T21:48:15.850Z",
+        "updated": "2017-01-31T21:48:15.850Z",
+        "body": "Regjeringen vil stoppe nedleggelser av akutt- og f\u00f8detilbud som ikke er begrunnet med pasientsikkerhet og kvalitet, f\u00f8r nasjonal helse- og sykehusplan er behandlet.",
+        "external_id": 12768,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4,
+            5,
+            91
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 217,
+    "fields": {
+        "created": "2017-01-31T21:48:15.863Z",
+        "updated": "2017-01-31T21:48:15.863Z",
+        "body": "Regjeringen vil etablere en ny finansieringsmodell for fysioterapeuter.",
+        "external_id": 12806,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 218,
+    "fields": {
+        "created": "2017-01-31T21:48:15.877Z",
+        "updated": "2017-01-31T21:48:15.877Z",
+        "body": "Regjeringen vil videref\u00f8re et fradrag for store sykdomsutgifter p\u00e5 2013-niv\u00e5.",
+        "external_id": 12430,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 219,
+    "fields": {
+        "created": "2017-01-31T21:48:15.890Z",
+        "updated": "2017-01-31T21:48:15.890Z",
+        "body": "Regjeringen vil utrede omgj\u00f8ring av kontantst\u00f8tten til en lovp\u00e5lagt kommunal ytelse.",
+        "external_id": 12456,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            15,
+            27
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 220,
+    "fields": {
+        "created": "2017-01-31T21:48:15.931Z",
+        "updated": "2017-01-31T21:48:15.931Z",
+        "body": "Regjeringen vil sikre rammevilk\u00e5r som gj\u00f8r at [reindrifts-]n\u00e6ringen p\u00e5 sikt blir mindre avhengig av overf\u00f8ringer.",
+        "external_id": 12694,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": false,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            82
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 221,
+    "fields": {
+        "created": "2017-01-31T21:48:15.953Z",
+        "updated": "2017-01-31T21:48:15.953Z",
+        "body": "Regjeringen vil bidra til en mer helhetlig og pasientvennlig legemiddelpolitikk gjennom en ny legemiddelmelding.",
+        "external_id": 12819,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 222,
+    "fields": {
+        "created": "2017-01-31T21:48:16.027Z",
+        "updated": "2017-01-31T21:48:16.027Z",
+        "body": "Regjeringen vil styrke satsingen p\u00e5 tilbudet til personer med demens.",
+        "external_id": 12760,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            6
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 223,
+    "fields": {
+        "created": "2017-01-31T21:48:16.046Z",
+        "updated": "2017-01-31T21:48:16.047Z",
+        "body": "Regjeringen vil forbedre slumpfiskordningen for havfl\u00e5ten.",
+        "external_id": 12658,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            88,
+            78,
+            84
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 224,
+    "fields": {
+        "created": "2017-01-31T21:48:16.157Z",
+        "updated": "2017-01-31T21:48:16.157Z",
+        "body": "Regjeringen vil gradvis \u00f8ke det nasjonale m\u00e5let om hvor mange elever som skal fullf\u00f8re og best\u00e5 videreg\u00e5ende oppl\u00e6ring til 90 prosent.",
+        "external_id": 12921,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 225,
+    "fields": {
+        "created": "2017-01-31T21:48:16.214Z",
+        "updated": "2017-01-31T21:48:16.214Z",
+        "body": "Regjeringen vil innf\u00f8re kompetansekrav i akuttmottakene og etablere en ny legespesialitet i akuttmedisin.",
+        "external_id": 12781,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "partial",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            92
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 226,
+    "fields": {
+        "created": "2017-01-31T21:48:16.243Z",
+        "updated": "2017-01-31T21:48:16.243Z",
+        "body": "Regjeringen vil etablere tverrfaglige diagnosesentre i alle helseregioner, som gir raskere diagnostisering ved mistanke om kreft og andre alvorlige sykdommer.",
+        "external_id": 12774,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 227,
+    "fields": {
+        "created": "2017-01-31T21:48:16.271Z",
+        "updated": "2017-01-31T21:48:16.271Z",
+        "body": "Regjeringen vil innf\u00f8re mer ambisi\u00f8se m\u00e5l for offentlige virksomheters inntak av l\u00e6rlinger.",
+        "external_id": 12939,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 228,
+    "fields": {
+        "created": "2017-01-31T21:48:16.305Z",
+        "updated": "2017-01-31T21:48:16.305Z",
+        "body": "Regjeringen vil innf\u00f8re bedre skjermingsordninger innen tannhelse for personer med lave inntekter og h\u00f8ye behandlingsutgifter.",
+        "external_id": 12821,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "broken",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            4
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 229,
+    "fields": {
+        "created": "2017-01-31T21:48:16.334Z",
+        "updated": "2017-01-31T21:48:16.334Z",
+        "body": "Regjeringen vil alle som s\u00f8ker norsk statsborgerskap skal beherske et minimum av norsk muntlig og gjennomg\u00e5 en test i samfunnskunnskap. Pr\u00f8ven skal best\u00e5s, men med rimelige unntaksbestemmelser.",
+        "external_id": 12560,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            1
+        ]
+    }
+},
+{
+    "model": "quiz.promise",
+    "pk": 230,
+    "fields": {
+        "created": "2017-01-31T21:48:16.395Z",
+        "updated": "2017-01-31T21:48:16.395Z",
+        "body": "Regjeringen vil \u00f8ke grunnfinansieringen av utdanningsinstitusjonene.",
+        "external_id": 12946,
+        "promisor_name": "Regjeringen Solberg",
+        "parliament_period_name": "2013-2017",
+        "source": "Regjeringserkl\u00e6ring",
+        "status": "fulfilled",
+        "testable": true,
+        "parties": [
+            1,
+            2
+        ],
+        "categories": [
+            89,
+            17
+        ]
+    }
+},
+{
+    "model": "quiz.party",
+    "pk": 1,
+    "fields": {
+        "created": "2017-01-03T17:36:24.519Z",
+        "updated": "2017-01-03T17:36:24.519Z",
+        "title": "Fremskrittspartiet",
+        "slug": "frp"
+    }
+},
+{
+    "model": "quiz.party",
+    "pk": 2,
+    "fields": {
+        "created": "2017-01-03T17:36:24.521Z",
+        "updated": "2017-01-03T17:36:24.521Z",
+        "title": "H\u00f8yre",
+        "slug": "h"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 1,
+    "fields": {
+        "created": "2017-01-03T17:36:24.513Z",
+        "updated": "2017-01-03T17:36:24.513Z",
+        "name": "Innvandrere"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 2,
+    "fields": {
+        "created": "2017-01-03T17:36:24.528Z",
+        "updated": "2017-01-03T17:36:24.528Z",
+        "name": "Barn"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 3,
+    "fields": {
+        "created": "2017-01-03T17:36:24.530Z",
+        "updated": "2017-01-03T17:36:24.530Z",
+        "name": "Grunnskole"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 4,
+    "fields": {
+        "created": "2017-01-03T17:36:24.551Z",
+        "updated": "2017-01-03T17:36:24.551Z",
+        "name": "Helsevesen"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 5,
+    "fields": {
+        "created": "2017-01-03T17:36:24.554Z",
+        "updated": "2017-01-03T17:36:24.554Z",
+        "name": "Svangerskap"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 6,
+    "fields": {
+        "created": "2017-01-03T17:36:24.565Z",
+        "updated": "2017-01-03T17:36:24.565Z",
+        "name": "Eldreomsorg"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 7,
+    "fields": {
+        "created": "2017-01-03T17:36:24.586Z",
+        "updated": "2017-01-03T17:36:24.586Z",
+        "name": "Milj\u00f8vern"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 8,
+    "fields": {
+        "created": "2017-01-03T17:36:24.588Z",
+        "updated": "2017-01-03T17:36:24.588Z",
+        "name": "Sj\u00f8fart"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 9,
+    "fields": {
+        "created": "2017-01-03T17:36:24.599Z",
+        "updated": "2017-01-03T17:36:24.599Z",
+        "name": "Redningstjeneste"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 10,
+    "fields": {
+        "created": "2017-01-03T17:36:24.610Z",
+        "updated": "2017-01-03T17:36:24.610Z",
+        "name": "Banker"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 11,
+    "fields": {
+        "created": "2017-01-03T17:36:24.612Z",
+        "updated": "2017-01-03T17:36:24.612Z",
+        "name": "Boligsaker"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 12,
+    "fields": {
+        "created": "2017-01-03T17:36:24.633Z",
+        "updated": "2017-01-03T17:36:24.633Z",
+        "name": "Barnehager"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 13,
+    "fields": {
+        "created": "2017-01-03T17:36:24.653Z",
+        "updated": "2017-01-03T17:36:24.653Z",
+        "name": "Den norske kirke"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 14,
+    "fields": {
+        "created": "2017-01-03T17:36:24.655Z",
+        "updated": "2017-01-03T17:36:24.655Z",
+        "name": "Statsforvaltning"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 15,
+    "fields": {
+        "created": "2017-01-03T17:36:24.666Z",
+        "updated": "2017-01-03T17:36:24.666Z",
+        "name": "Familie"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 16,
+    "fields": {
+        "created": "2017-01-03T17:36:24.678Z",
+        "updated": "2017-01-03T17:36:24.678Z",
+        "name": "Energi"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 17,
+    "fields": {
+        "created": "2017-01-03T17:36:24.688Z",
+        "updated": "2017-01-03T17:36:24.688Z",
+        "name": "Utdanning"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 18,
+    "fields": {
+        "created": "2017-01-03T17:36:24.690Z",
+        "updated": "2017-01-03T17:36:24.690Z",
+        "name": "Videreg\u00e5ende skoler"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 19,
+    "fields": {
+        "created": "2017-01-03T17:36:24.702Z",
+        "updated": "2017-01-03T17:36:24.702Z",
+        "name": "Avgifter"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 20,
+    "fields": {
+        "created": "2017-01-03T17:36:24.704Z",
+        "updated": "2017-01-03T17:36:24.705Z",
+        "name": "N\u00e6ringsliv"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 21,
+    "fields": {
+        "created": "2017-01-03T17:36:24.724Z",
+        "updated": "2017-01-03T17:36:24.724Z",
+        "name": "Helseinstitusjoner"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 22,
+    "fields": {
+        "created": "2017-01-03T17:36:24.726Z",
+        "updated": "2017-01-03T17:36:24.726Z",
+        "name": "Rusmidler"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 23,
+    "fields": {
+        "created": "2017-01-03T17:36:24.736Z",
+        "updated": "2017-01-03T17:36:24.736Z",
+        "name": "Forskning"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 24,
+    "fields": {
+        "created": "2017-01-03T17:36:24.755Z",
+        "updated": "2017-01-03T17:36:24.755Z",
+        "name": "Skoler"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 25,
+    "fields": {
+        "created": "2017-01-03T17:36:24.786Z",
+        "updated": "2017-01-03T17:36:24.786Z",
+        "name": "Arbeidsliv"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 26,
+    "fields": {
+        "created": "2017-01-03T17:36:24.788Z",
+        "updated": "2017-01-03T17:36:24.788Z",
+        "name": "Arbeidsmilj\u00f8"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 27,
+    "fields": {
+        "created": "2017-01-03T17:36:24.798Z",
+        "updated": "2017-01-03T17:36:24.798Z",
+        "name": "Trygder"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 28,
+    "fields": {
+        "created": "2017-01-03T17:36:24.839Z",
+        "updated": "2017-01-03T17:36:24.839Z",
+        "name": "Trossamfunn"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 29,
+    "fields": {
+        "created": "2017-01-03T17:36:24.861Z",
+        "updated": "2017-01-03T17:36:24.861Z",
+        "name": "Helsepersonell"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 30,
+    "fields": {
+        "created": "2017-01-03T17:36:24.874Z",
+        "updated": "2017-01-03T17:36:24.874Z",
+        "name": "Husbanken"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 31,
+    "fields": {
+        "created": "2017-01-03T17:36:24.895Z",
+        "updated": "2017-01-03T17:36:24.895Z",
+        "name": "Bygningsvesen"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 32,
+    "fields": {
+        "created": "2017-01-03T17:36:24.906Z",
+        "updated": "2017-01-03T17:36:24.906Z",
+        "name": "Menneskerettigheter"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 33,
+    "fields": {
+        "created": "2017-01-03T17:36:24.909Z",
+        "updated": "2017-01-03T17:36:24.909Z",
+        "name": "Politi og p\u00e5talemyndighet"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 34,
+    "fields": {
+        "created": "2017-01-03T17:36:24.920Z",
+        "updated": "2017-01-03T17:36:24.920Z",
+        "name": "Sysselsetting"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 35,
+    "fields": {
+        "created": "2017-01-03T17:36:24.950Z",
+        "updated": "2017-01-03T17:36:24.950Z",
+        "name": "Voksenoppl\u00e6ring"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 36,
+    "fields": {
+        "created": "2017-01-03T17:36:24.983Z",
+        "updated": "2017-01-03T17:36:24.983Z",
+        "name": "Naturvern"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 37,
+    "fields": {
+        "created": "2017-01-03T17:36:24.985Z",
+        "updated": "2017-01-03T17:36:24.985Z",
+        "name": "Sikkerhet til sj\u00f8s"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 38,
+    "fields": {
+        "created": "2017-01-03T17:36:25.026Z",
+        "updated": "2017-01-03T17:36:25.026Z",
+        "name": "Sykdommer"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 39,
+    "fields": {
+        "created": "2017-01-03T17:36:25.038Z",
+        "updated": "2017-01-03T17:36:25.038Z",
+        "name": "Skattefradrag"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 40,
+    "fields": {
+        "created": "2017-01-03T17:36:25.049Z",
+        "updated": "2017-01-03T17:36:25.049Z",
+        "name": "Jernbaner"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 41,
+    "fields": {
+        "created": "2017-01-03T17:36:25.060Z",
+        "updated": "2017-01-03T17:36:25.060Z",
+        "name": "Studiefinansiering"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 42,
+    "fields": {
+        "created": "2017-01-03T17:36:25.072Z",
+        "updated": "2017-01-03T17:36:25.072Z",
+        "name": "Aksjer"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 43,
+    "fields": {
+        "created": "2017-01-03T17:36:25.075Z",
+        "updated": "2017-01-03T17:36:25.075Z",
+        "name": "Landbruk"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 44,
+    "fields": {
+        "created": "2017-01-03T17:36:25.085Z",
+        "updated": "2017-01-03T17:36:25.085Z",
+        "name": "Barnevern"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 45,
+    "fields": {
+        "created": "2017-01-03T17:36:25.118Z",
+        "updated": "2017-01-03T17:36:25.118Z",
+        "name": "Lokalforvaltning"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 46,
+    "fields": {
+        "created": "2017-01-03T17:36:25.151Z",
+        "updated": "2017-01-03T17:36:25.151Z",
+        "name": "Norsk rikskringkasting"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 47,
+    "fields": {
+        "created": "2017-01-03T17:36:25.183Z",
+        "updated": "2017-01-03T17:36:25.183Z",
+        "name": "Bibliotek og litteratur"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 48,
+    "fields": {
+        "created": "2017-01-03T17:36:25.203Z",
+        "updated": "2017-01-03T17:36:25.203Z",
+        "name": "Spr\u00e5k"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 49,
+    "fields": {
+        "created": "2017-01-03T17:36:25.218Z",
+        "updated": "2017-01-03T17:36:25.218Z",
+        "name": "Kommuner"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 50,
+    "fields": {
+        "created": "2017-01-03T17:36:25.229Z",
+        "updated": "2017-01-03T17:36:25.229Z",
+        "name": "Privatskoler"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 51,
+    "fields": {
+        "created": "2017-01-03T17:36:25.239Z",
+        "updated": "2017-01-03T17:36:25.239Z",
+        "name": "Vegtrafikk"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 52,
+    "fields": {
+        "created": "2017-01-03T17:36:25.259Z",
+        "updated": "2017-01-03T17:36:25.259Z",
+        "name": "Funksjonshemmede"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 53,
+    "fields": {
+        "created": "2017-01-03T17:36:25.321Z",
+        "updated": "2017-01-03T17:36:25.321Z",
+        "name": "N\u00e6ringsutvikling"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 54,
+    "fields": {
+        "created": "2017-01-03T17:36:25.429Z",
+        "updated": "2017-01-03T17:36:25.429Z",
+        "name": "Lotteri og spill"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 55,
+    "fields": {
+        "created": "2017-01-03T17:36:25.470Z",
+        "updated": "2017-01-03T17:36:25.470Z",
+        "name": "Idrett"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 56,
+    "fields": {
+        "created": "2017-01-03T17:36:25.472Z",
+        "updated": "2017-01-03T17:36:25.472Z",
+        "name": "Kommunikasjon"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 57,
+    "fields": {
+        "created": "2017-01-03T17:36:25.483Z",
+        "updated": "2017-01-03T17:36:25.483Z",
+        "name": "Departementer"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 58,
+    "fields": {
+        "created": "2017-01-03T17:36:25.485Z",
+        "updated": "2017-01-03T17:36:25.485Z",
+        "name": "Rettsvesen"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 59,
+    "fields": {
+        "created": "2017-01-03T17:36:25.514Z",
+        "updated": "2017-01-03T17:36:25.514Z",
+        "name": "Varehandel"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 60,
+    "fields": {
+        "created": "2017-01-03T17:36:25.585Z",
+        "updated": "2017-01-03T17:36:25.585Z",
+        "name": "Strafferett"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 61,
+    "fields": {
+        "created": "2017-01-03T17:36:25.595Z",
+        "updated": "2017-01-03T17:36:25.595Z",
+        "name": "Post"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 62,
+    "fields": {
+        "created": "2017-01-03T17:36:25.662Z",
+        "updated": "2017-01-03T17:36:25.662Z",
+        "name": "Utviklingshjelp"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 63,
+    "fields": {
+        "created": "2017-01-03T17:36:25.681Z",
+        "updated": "2017-01-03T17:36:25.681Z",
+        "name": "Sosialvesen"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 64,
+    "fields": {
+        "created": "2017-01-03T17:36:25.718Z",
+        "updated": "2017-01-03T17:36:25.718Z",
+        "name": "Olje"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 65,
+    "fields": {
+        "created": "2017-01-03T17:36:25.736Z",
+        "updated": "2017-01-03T17:36:25.736Z",
+        "name": "Forsvar"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 66,
+    "fields": {
+        "created": "2017-01-03T17:36:25.738Z",
+        "updated": "2017-01-03T17:36:25.738Z",
+        "name": "Milit\u00e6rt personell"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 67,
+    "fields": {
+        "created": "2017-01-03T17:36:25.767Z",
+        "updated": "2017-01-03T17:36:25.767Z",
+        "name": "Arbeidsvilk\u00e5r"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 68,
+    "fields": {
+        "created": "2017-01-03T17:36:25.894Z",
+        "updated": "2017-01-03T17:36:25.894Z",
+        "name": "L\u00f8nn"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 69,
+    "fields": {
+        "created": "2017-01-03T17:36:25.923Z",
+        "updated": "2017-01-03T17:36:25.923Z",
+        "name": "Havner"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 70,
+    "fields": {
+        "created": "2017-01-03T17:36:25.954Z",
+        "updated": "2017-01-03T17:36:25.954Z",
+        "name": "Fredsarbeid"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 71,
+    "fields": {
+        "created": "2017-01-03T17:36:25.956Z",
+        "updated": "2017-01-03T17:36:25.956Z",
+        "name": "Utenrikssaker"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 72,
+    "fields": {
+        "created": "2017-01-03T17:36:25.978Z",
+        "updated": "2017-01-03T17:36:25.978Z",
+        "name": "Fengsler"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 73,
+    "fields": {
+        "created": "2017-01-03T17:36:26.099Z",
+        "updated": "2017-01-03T17:36:26.099Z",
+        "name": "Likestilling"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 74,
+    "fields": {
+        "created": "2017-01-03T17:36:26.190Z",
+        "updated": "2017-01-03T17:36:26.190Z",
+        "name": "Bergverk"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 75,
+    "fields": {
+        "created": "2017-01-03T17:36:26.211Z",
+        "updated": "2017-01-03T17:36:26.211Z",
+        "name": "Folkehelse"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 76,
+    "fields": {
+        "created": "2017-01-03T17:36:26.231Z",
+        "updated": "2017-01-03T17:36:26.231Z",
+        "name": "Domstoler"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 77,
+    "fields": {
+        "created": "2017-01-14T15:04:26.122Z",
+        "updated": "2017-01-14T15:04:26.122Z",
+        "name": "Reiselivsn\u00e6ring"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 78,
+    "fields": {
+        "created": "2017-01-14T15:04:26.165Z",
+        "updated": "2017-01-14T15:04:26.165Z",
+        "name": "Fiskerier"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 79,
+    "fields": {
+        "created": "2017-01-14T15:04:26.372Z",
+        "updated": "2017-01-14T15:04:26.372Z",
+        "name": "Priser og konkurranseforhold"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 80,
+    "fields": {
+        "created": "2017-01-14T15:04:26.396Z",
+        "updated": "2017-01-14T15:04:26.396Z",
+        "name": "Polaromr\u00e5der"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 81,
+    "fields": {
+        "created": "2017-01-14T15:04:26.421Z",
+        "updated": "2017-01-14T15:04:26.421Z",
+        "name": "Personvern"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 82,
+    "fields": {
+        "created": "2017-01-14T15:04:26.476Z",
+        "updated": "2017-01-14T15:04:26.476Z",
+        "name": "Reindrift"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 83,
+    "fields": {
+        "created": "2017-01-14T15:04:26.652Z",
+        "updated": "2017-01-14T15:04:26.652Z",
+        "name": "Fiskeomsetning"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 84,
+    "fields": {
+        "created": "2017-01-14T15:04:26.843Z",
+        "updated": "2017-01-14T15:04:26.843Z",
+        "name": "Havbruk"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 85,
+    "fields": {
+        "created": "2017-01-14T15:04:26.910Z",
+        "updated": "2017-01-14T15:04:26.910Z",
+        "name": "EFTA/EU"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 86,
+    "fields": {
+        "created": "2017-01-14T15:04:27.039Z",
+        "updated": "2017-01-14T15:04:27.039Z",
+        "name": "NATO"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 87,
+    "fields": {
+        "created": "2017-01-31T21:48:15.408Z",
+        "updated": "2017-01-31T21:48:15.408Z",
+        "name": "Finanser"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 88,
+    "fields": {
+        "created": "2017-01-31T21:48:15.465Z",
+        "updated": "2017-01-31T21:48:15.465Z",
+        "name": "Fangst"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 89,
+    "fields": {
+        "created": "2017-01-31T21:48:15.509Z",
+        "updated": "2017-01-31T21:48:15.509Z",
+        "name": "H\u00f8yere utdanning"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 90,
+    "fields": {
+        "created": "2017-01-31T21:48:15.603Z",
+        "updated": "2017-01-31T21:48:15.603Z",
+        "name": "H\u00f8gskoler"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 91,
+    "fields": {
+        "created": "2017-01-31T21:48:15.854Z",
+        "updated": "2017-01-31T21:48:15.854Z",
+        "name": "Sykehus"
+    }
+},
+{
+    "model": "quiz.category",
+    "pk": 92,
+    "fields": {
+        "created": "2017-01-31T21:48:16.217Z",
+        "updated": "2017-01-31T21:48:16.217Z",
+        "name": ""
+    }
+},
+{
+    "model": "quiz.manuscript",
+    "pk": 1,
+    "fields": {
+        "created": "2017-02-07T17:51:42.354Z",
+        "updated": "2017-02-11T13:31:12.481Z",
+        "name": "Nikolai tester",
+        "category": 20,
+        "promises": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            12,
+            28,
+            29,
+            30,
+            31
+        ]
+    }
+},
+{
+    "model": "quiz.manuscriptimage",
+    "pk": 1,
+    "fields": {
+        "created": "2017-03-04T11:53:44.095Z",
+        "updated": "2017-03-04T11:53:44.095Z",
+        "url": "http://i.giphy.com/13p77tfexyLtx6.gif",
+        "image": "",
+        "type": "fulfilled"
+    }
+},
+{
+    "model": "quiz.manuscriptimage",
+    "pk": 2,
+    "fields": {
+        "created": "2017-03-04T11:55:40.667Z",
+        "updated": "2017-03-04T11:55:40.667Z",
+        "url": "https://media2.giphy.com/media/fm4WhPMzu9hRK/giphy.gif",
+        "image": "",
+        "type": "fulfilled"
+    }
+},
+{
+    "model": "quiz.manuscriptimage",
+    "pk": 3,
+    "fields": {
+        "created": "2017-03-04T13:46:33.052Z",
+        "updated": "2017-03-04T13:46:33.052Z",
+        "url": "http://i.giphy.com/Z5WLaZ8cs3Jf2.gif",
+        "image": "",
+        "type": "broken"
+    }
+},
+{
+    "model": "quiz.manuscriptimage",
+    "pk": 4,
+    "fields": {
+        "created": "2017-03-04T14:05:04.796Z",
+        "updated": "2017-03-04T14:05:04.796Z",
+        "url": "http://i.giphy.com/sKCaFlEu6tpCM.gif",
+        "image": "",
+        "type": "fulfilled"
+    }
+},
+{
+    "model": "quiz.manuscriptimage",
+    "pk": 5,
+    "fields": {
+        "created": "2017-03-04T14:05:20.151Z",
+        "updated": "2017-03-04T14:05:20.151Z",
+        "url": "http://i.giphy.com/OQYScfuHzmk6s.gif",
+        "image": "",
+        "type": "fulfilled"
+    }
+},
+{
+    "model": "quiz.manuscriptimage",
+    "pk": 6,
+    "fields": {
+        "created": "2017-03-04T14:05:34.746Z",
+        "updated": "2017-03-04T14:05:34.746Z",
+        "url": "http://i.giphy.com/9pHX0NH57EHLy.gif",
+        "image": "",
+        "type": "fulfilled"
+    }
+},
+{
+    "model": "quiz.manuscriptimage",
+    "pk": 7,
+    "fields": {
+        "created": "2017-03-04T14:05:49.537Z",
+        "updated": "2017-03-04T14:05:49.537Z",
+        "url": "http://i.giphy.com/buqSVNXSlhja0.gif",
+        "image": "",
+        "type": "fulfilled"
+    }
+},
+{
+    "model": "quiz.manuscriptitem",
+    "pk": 1,
+    "fields": {
+        "created": "2017-02-07T17:52:26.158Z",
+        "updated": "2017-02-11T13:31:12.491Z",
+        "type": "text",
+        "manuscript": 1,
+        "order": 2,
+        "text": "Hei Nikolai",
+        "url": ""
+    }
+},
+{
+    "model": "quiz.manuscriptitem",
+    "pk": 2,
+    "fields": {
+        "created": "2017-02-11T11:34:00.803Z",
+        "updated": "2017-02-11T13:31:12.493Z",
+        "type": "text",
+        "manuscript": 1,
+        "order": 5,
+        "text": "Velkommen til quizen",
+        "url": ""
+    }
+},
+{
+    "model": "quiz.manuscriptitem",
+    "pk": 3,
+    "fields": {
+        "created": "2017-02-11T11:34:00.804Z",
+        "updated": "2017-02-11T11:35:30.916Z",
+        "type": "promises",
+        "manuscript": 1,
+        "order": 4,
+        "text": "Denne har type promises og vil bare definere hvor i manuskriptet valgte sp\u00f8rsm\u00e5l vil dukke opp",
+        "url": ""
+    }
+},
+{
+    "model": "quiz.manuscriptitem",
+    "pk": 4,
+    "fields": {
+        "created": "2017-02-11T11:34:00.806Z",
+        "updated": "2017-02-11T11:35:04.504Z",
+        "type": "button",
+        "manuscript": 1,
+        "order": 1,
+        "text": "#TODO hvilke knappetyper trenger vi?",
+        "url": ""
+    }
+},
+{
+    "model": "quiz.manuscriptitem",
+    "pk": 6,
+    "fields": {
+        "created": "2017-02-11T11:34:35.168Z",
+        "updated": "2017-02-11T13:31:12.492Z",
+        "type": "button",
+        "manuscript": 1,
+        "order": 3,
+        "text": "Dette er en knapp med en URL. #TODO: b\u00f8r kanskje ogs\u00e5 st\u00f8tte bilde",
+        "url": "http://vg.no"
+    }
+}
+]
