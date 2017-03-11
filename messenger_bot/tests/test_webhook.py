@@ -1,5 +1,6 @@
 import json
 from django.conf import settings
+from django.core.management import call_command
 from django.test import RequestFactory
 from django.urls import reverse
 
@@ -21,7 +22,8 @@ def test_webhook_get(rf: RequestFactory):
     assert response.content.decode() == query['hub.challenge']
 
 
-def test_webhook_post(rf: RequestFactory):
+def test_webhook_post(rf: RequestFactory, db):
+    call_command('loaddata', 'testdata')
     data = {
         'object': 'page',
         'entry': [
