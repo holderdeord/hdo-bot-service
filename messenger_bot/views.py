@@ -2,34 +2,14 @@ import json
 import logging
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from messenger_bot.send_api import send_question, send_text, TYPE_ANSWER, get_user_profile
-
+from messenger_bot.bot_profile import format_profile, update_profile
+from messenger_bot.chat import received_message, received_postback
 
 logger = logging.getLogger(__name__)
-
-
-def _received_message(event):
-    # TODO: Logic!
-    text = 'Regjeringen vil gi reservasjonsmuligheter for fastleger etter dialog med Den norske legeforening, jf samarbeidsavtalen.'
-    question = {
-        'id': 12817,
-        'text': text
-    }
-    return send_question(event['sender']['id'], question)
-
-
-def _received_postback(event):
-    payload = json.loads(event['postback']['payload'])
-    if payload.get('type') == TYPE_ANSWER:
-        logger.warning("Got answer: {payload[answer]}".format(payload=payload))
-
-    first_name = get_user_profile(event['sender']['id'])['first_name']
-    positive = '' if payload['answer'] else ' ikke'
-    text = 'Takk {first_name}. Du har{positive} trua.'.format(first_name=first_name, positive=positive)
-    return send_text(event['sender']['id'], text)
 
 
 @csrf_exempt
@@ -52,23 +32,19 @@ def webhook(request: HttpRequest):
         for entry in post_data['entry']:
             for event in entry['messaging']:
                 if event.get('message'):
-                    response = _received_message(event)
+                    received_message(event)
                 elif event.get('postback'):
-                    response = _received_postback(event)
+                    received_postback(event)
                 else:
-                    response = None
                     logger.warning("Webhook received unknown event: {event}".format(event=event))
-
-                if response is not None:
-                    logger.info('Got response: {response}'.format(response=response))
 
         return HttpResponse('OK', status=200)
     else:
         return HttpResponse('Invalid method', status=400)
 
 
-class MessageUsView(TemplateView):
-    template_name = 'messenger_bot/message_us.html'
+class AdminActionsView(TemplateView):
+    template_name = 'messenger_bot/actions.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -77,3 +53,10 @@ class MessageUsView(TemplateView):
             'page_id': settings.FACEBOOK_PAGE_ID,
         })
         return context
+
+
+def bot_profile_update(request):
+    if request.method == 'POST':
+        update_profile(format_profile())
+
+    return redirect('messenger_bot:admin-actions')
