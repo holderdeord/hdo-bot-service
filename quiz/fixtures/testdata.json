@@ -6070,20 +6070,17 @@
     "pk": 1,
     "fields": {
         "created": "2017-02-07T17:51:42.354Z",
-        "updated": "2017-02-11T13:31:12.481Z",
+        "updated": "2017-03-14T00:23:02.343Z",
         "name": "Nikolai tester",
         "category": 20,
         "promises": [
             2,
             3,
             4,
-            5,
-            6,
             7,
             8,
             9,
-            12,
-            28,
+            17,
             29,
             30,
             31
@@ -6172,11 +6169,12 @@
     "pk": 1,
     "fields": {
         "created": "2017-02-07T17:52:26.158Z",
-        "updated": "2017-02-11T13:31:12.491Z",
+        "updated": "2017-03-14T00:01:53.227Z",
         "type": "text",
         "manuscript": 1,
-        "order": 2,
-        "text": "Hei Nikolai",
+        "order": 1,
+        "text": "Test kunnskapen din om hvordan Norge har endret seg i l\u00f8pet av de siste 4 \u00e5rene gjennom L\u00f8ftesjekken, og vis vennene dine at du ligger ett skritt foran!",
+        "button_text": "",
         "url": ""
     }
 },
@@ -6185,11 +6183,12 @@
     "pk": 2,
     "fields": {
         "created": "2017-02-11T11:34:00.803Z",
-        "updated": "2017-02-11T13:31:12.493Z",
+        "updated": "2017-03-14T00:23:02.346Z",
         "type": "text",
         "manuscript": 1,
         "order": 5,
-        "text": "Velkommen til quizen",
+        "text": "Takk for at du deltok i quizen!",
+        "button_text": "",
         "url": ""
     }
 },
@@ -6198,11 +6197,12 @@
     "pk": 3,
     "fields": {
         "created": "2017-02-11T11:34:00.804Z",
-        "updated": "2017-02-11T11:35:30.916Z",
+        "updated": "2017-03-14T00:23:02.346Z",
         "type": "promises",
         "manuscript": 1,
         "order": 4,
         "text": "Denne har type promises og vil bare definere hvor i manuskriptet valgte sp\u00f8rsm\u00e5l vil dukke opp",
+        "button_text": "",
         "url": ""
     }
 },
@@ -6211,25 +6211,27 @@
     "pk": 4,
     "fields": {
         "created": "2017-02-11T11:34:00.806Z",
-        "updated": "2017-02-11T11:35:04.504Z",
+        "updated": "2017-03-14T00:23:02.345Z",
         "type": "button",
         "manuscript": 1,
-        "order": 1,
-        "text": "#TODO hvilke knappetyper trenger vi?",
+        "order": 3,
+        "text": "Du vil n\u00e5 n\u00e5 f\u00e5 10 l\u00f8fter som du skal gjette om er brutt eller holdt. Er du klar?",
+        "button_text": "Jeg er klar!",
         "url": ""
     }
 },
 {
     "model": "quiz.manuscriptitem",
-    "pk": 6,
+    "pk": 7,
     "fields": {
-        "created": "2017-02-11T11:34:35.168Z",
-        "updated": "2017-02-11T13:31:12.492Z",
-        "type": "button",
+        "created": "2017-03-14T00:23:02.347Z",
+        "updated": "2017-03-14T00:23:02.347Z",
+        "type": "text",
         "manuscript": 1,
-        "order": 3,
-        "text": "Dette er en knapp med en URL. #TODO: b\u00f8r kanskje ogs\u00e5 st\u00f8tte bilde",
-        "url": "http://vg.no"
+        "order": 2,
+        "text": "La oss teste dine kunnskaper!",
+        "button_text": "",
+        "url": ""
     }
 }
 ]

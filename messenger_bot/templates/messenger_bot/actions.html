@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>HDO</title>
-</head>
-<body>
-  <script>
+{% block head %}
+<script>
     window.fbAsyncInit = function() {
       FB.init({
         appId: "{{ app_id }}",
@@ -23,16 +17,23 @@
        fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-  </script>
+</script>
+{% endblock %}
+{% block body %}
   <div style="margin: 0 auto;text-align: center; padding-top: 4em;">
     <h2>Holder de ord quiz:</h2>
+      <h3>Meld oss</h3>
     <div class="fb-messengermessageus"
         messenger_app_id="{{ app_id }}"
         page_id="{{ page_id }}"
         color="blue"
         size="xlarge" >
     </div>
+  {% if user.is_superuser %}
+      <h3>Botprofil</h3>
+      <form action="{% url "messenger_bot:bot-profile-update" %}" method="post">{% csrf_token %}<button type="submit">Oppdatér botens profil</button></form>
+      <h3>Developer links</h3>
+      <a href="https://developers.facebook.com/apps/{{ app_id }}">App developer dashboard</a>
+  {% endif %}
 </div>
-
-</body>
-</html>
+{% endblock %}

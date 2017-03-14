@@ -45,7 +45,7 @@ class Promise(BaseModel):
         return self.categories.values_list('name', flat=True)
 
     def __str__(self):
-        return self.body
+        return '[{}] {}'.format(self.status, self.body)
 
 
 class Party(BaseModel):
@@ -112,6 +112,7 @@ class ManuscriptItem(BaseModel):
     manuscript = models.ForeignKey(Manuscript, on_delete=models.CASCADE, related_name='items')
     order = models.IntegerField(blank=True, default=0)
     text = models.TextField(blank=True, default='')
+    button_text = models.TextField(blank=True, default='')
     url = models.URLField(blank=True, default='')
 
     class Meta:
