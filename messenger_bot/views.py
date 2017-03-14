@@ -2,9 +2,11 @@ import json
 import logging
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
+from messenger_bot.bot_profile import format_profile, update_profile
 from messenger_bot.chat import received_message, received_postback
 
 logger = logging.getLogger(__name__)
@@ -41,8 +43,8 @@ def webhook(request: HttpRequest):
         return HttpResponse('Invalid method', status=400)
 
 
-class MessageUsView(TemplateView):
-    template_name = 'messenger_bot/message_us.html'
+class AdminActionsView(TemplateView):
+    template_name = 'messenger_bot/actions.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -51,3 +53,10 @@ class MessageUsView(TemplateView):
             'page_id': settings.FACEBOOK_PAGE_ID,
         })
         return context
+
+
+def bot_profile_update(request):
+    if request.method == 'POST':
+        update_profile(format_profile())
+
+    return redirect('messenger_bot:admin-actions')

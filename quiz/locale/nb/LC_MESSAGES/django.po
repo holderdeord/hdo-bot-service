@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-13 23:56+0000\n"
+"PO-Revision-Date: 2017-03-14 00:57+0100\n"
+"Language: nb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.9\n"
+
+#: models.py:24
+msgid "Fulfilled"
+msgstr "Holdt"
+
+#: models.py:25
+msgid "Broken"
+msgstr "Brutt"
+
+#: models.py:26
+msgid "Not Yet"
+msgstr "Ikke enda"
+
+#: models.py:27
+msgid "Partial"
+msgstr "Delvis"
+
+#: models.py:59
+msgid "Parties"
+msgstr "Partier"
+
+#: models.py:70
+msgid "Categories"
+msgstr "Kategorier"
+
+#: models.py:105
+msgid "Button"
+msgstr "Knapp"
+
+#: models.py:106
+msgid "Promises"
+msgstr "Løfter"
+
+#: models.py:107
+msgid "Text"
+msgstr "Tekst"
+
+#: models.py:108
+msgid "URL"
+msgstr "URL"

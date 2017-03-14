@@ -1,11 +1,9 @@
-import pytest
 from django.core.management import call_command
 
 from messenger_bot.chat import received_message
 
 
-@pytest.mark.django_db()
-def test_on_receive_messages():
+def test_on_receive_messages(db):
     call_command('loaddata', 'testdata')
     incoming = {
         'sender': {
