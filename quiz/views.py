@@ -1,6 +1,9 @@
 from django.http import HttpResponse
+from django.views.generic import DetailView
 
 from oauth2client.contrib.django_util.decorators import oauth_enabled
+
+from quiz.models import AnswerSet
 
 
 @oauth_enabled
@@ -10,3 +13,7 @@ def get_authorize_link(request):
 
     return HttpResponse('Here is an OAuth Authorize link:<a href="{}">Authorize</a>'.format(
         request.oauth.get_authorize_redirect()))
+
+
+class AnswerSetView(DetailView):
+    model = AnswerSet

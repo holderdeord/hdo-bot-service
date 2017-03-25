@@ -33,7 +33,7 @@ def get_persistent_menu():
     return {
         "persistent_menu": [{
             "locale": "default",
-            "composer_input_disabled": True,  # Disable user input
+            "composer_input_disabled": False,  # Disable/Enable user input
             "call_to_actions": [
                 {
                     "type": "postback",

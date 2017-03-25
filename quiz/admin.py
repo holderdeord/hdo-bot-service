@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.db.models import TextField
 from django.forms import Textarea
+from django.utils.translation import ugettext as _
 
-from quiz.models import Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage
+from quiz.models import Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage, Answer
 
 
 class PromiseAdmin(admin.ModelAdmin):
@@ -59,6 +60,16 @@ class ManuscriptImageAdmin(admin.ModelAdmin):
     admin_thumbnail.short_description = 'Thumbnail'
     admin_thumbnail.allow_tags = True
 
+
+class AnswerAdmin(admin.ModelAdmin):
+    list_display = ['get_promise', 'status', 'session']
+    list_filter = ['session']
+
+    def get_promise(self, obj):
+        return '[{}] {}'.format(dict(Promise.STATUS_CHOICES)[obj.status], obj.promise.body[:100])
+
+
+admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Promise, PromiseAdmin)
 admin.site.register(Party, PartyAdmin)
 admin.site.register(Category)

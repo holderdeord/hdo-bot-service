@@ -120,9 +120,9 @@ def get_question_replies(sender_id, session, payload):
 
     # Is answer correct?
     if payload['answer'] == promise['status']:
-        text = 'Godt svar {}, det løftet ble {}'.format(first_name, _(promise['status']))
+        text = 'Godt svar {} 🙂 Det løftet ble {}'.format(first_name, _(promise['status']))
     else:
-        text = 'Beklager {}, det var ikke riktig, det løftet ble {}'.format(first_name, _(promise['status']))
+        text = 'Beklager {} 😩  Det var ikke riktig, det løftet ble {}'.format(first_name, _(promise['status']))
 
     replies = [format_text(sender_id, text)]
 
@@ -148,9 +148,13 @@ def received_postback(event):
         return
 
     if payload.get('type') == TYPE_SESSION_RESET:
+        # Set current all current sessions complete
         current_sessions = ChatSession.objects.filter(
             user_id=sender_id, state=ChatSession.STATE_IN_PROGRESS)
         current_sessions.update(state=ChatSession.STATE_COMPLETE)
+
+        # Pretend this is the first message
+        # received_message(event)
 
 
 def handle_answer(payload, sender_id, session):
@@ -162,10 +166,14 @@ def handle_answer(payload, sender_id, session):
     # Add answer replies
     if payload.get('type') == TYPE_ANSWER:
         replies = get_question_replies(sender_id, session, payload)
+
+        _update_answer_state(payload, session)
+
     replies += get_replies(sender_id, session)
 
     # Update session
     session.save()
+
     for reply in replies:
         print("reply:", reply)
         send_message(reply)
@@ -173,3 +181,9 @@ def handle_answer(payload, sender_id, session):
     if is_manuscript_complete(session):
         session.state = ChatSession.STATE_COMPLETE
         session.save()
+
+
+def _update_answer_state(payload, session):
+    current_answers = session.meta.get('answers', {})
+    current_answers[payload['question']] = payload['answer']
+    session.meta['answers'] = current_answers

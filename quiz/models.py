@@ -119,23 +119,16 @@ class ManuscriptItem(BaseModel):
         ordering = ('order',)
 
     def __str__(self):
-        return str(self.pk)
+        return 'ManuscriptItem<{}>'.format(self.pk)
 
     # TODO-maybe: support multiple buttons per item
 
-    # TODO: validate only one of each type
-    # def clean(self):
-    #     errors = {}
-    #     fields = [self.promise, self.interim]
-    #
-    #     if len([f for f in fields if f]) != 1:
-    #         errors['foreign'] = 'Exactly one foreign key must be non-null'
-    #
-    #      if errors:
-    #         raise ValidationError(errors)
-
     def save(self, *args, **kwargs):
-        # self.full_clean()
+        self._update_order()
+
+        super().save(*args, **kwargs)
+
+    def _update_order(self):
         if not self.order:
             _max = self.__class__.objects.filter().aggregate(models.Max('order'))
             try:
@@ -143,13 +136,32 @@ class ManuscriptItem(BaseModel):
             except TypeError:
                 self.order = 0
 
-        super().save(*args, **kwargs)
 
-# class Response(BaseModel):
-#     # user response
-#     pass
-#
-#
-# class Session(BaseModel):
-#     # Holds state of message session
-#     pass
+class AnswerQuerySet(models.QuerySet):
+    def based_on_yolo(self):
+        return self.all().values('professions__name').annotate(total=Count('professions__name')).order_by('total')
+
+
+class Answer(BaseModel):
+    """ Simple model for saving responses """
+    AGREE = 'agree'
+    DISAGREE = 'disagree'
+    ANSWER_CHOICES = (
+        (AGREE, _('Agrees')),
+        (DISAGREE, _('Diagrees')),
+    )
+    promise = models.ForeignKey('quiz.Promise')
+    status = models.CharField(max_length=255, choices=Promise.STATUS_CHOICES, blank=True, default='',
+                              help_text=_('Used with kept/broken quiz'))
+    answer = models.CharField(max_length=255, choices=ANSWER_CHOICES, blank=True, default='',
+                              help_text=_('Used with voting guide'))
+    session = models.ForeignKey('messenger_bot.ChatSession', null=True, blank=True)
+
+    answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True)
+
+    objects = AnswerQuerySet.as_manager()
+
+
+class AnswerSet(BaseModel):
+    pass
+
