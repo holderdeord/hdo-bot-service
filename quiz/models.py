@@ -1,6 +1,8 @@
-from django.core.exceptions import ValidationError
+import uuid
+
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 from oauth2client.contrib.django_util.models import CredentialsField
 
@@ -71,6 +73,7 @@ class Category(BaseModel):
 
 
 class GoogleProfile(models.Model):
+    """ For syncing promises from a Google Sheet """
     user = models.OneToOneField(User)
     credential = CredentialsField()
 
@@ -98,12 +101,14 @@ class ManuscriptImage(BaseModel):
 class ManuscriptItem(BaseModel):
     TYPE_BUTTON = 'button'
     TYPE_PROMISES = 'promises'
+    TYPE_QUIZ_RESULT = 'quiz_result'
     TYPE_TEXT = 'text'
     TYPE_URL = 'url'
 
     TYPE_CHOICES = (
         (TYPE_BUTTON, _('Button')),
         (TYPE_PROMISES, _('Promises')),
+        (TYPE_QUIZ_RESULT, _('Quiz results')),
         (TYPE_TEXT, _('Text')),
         (TYPE_URL, _('URL')),
     )
@@ -138,8 +143,8 @@ class ManuscriptItem(BaseModel):
 
 
 class AnswerQuerySet(models.QuerySet):
-    def based_on_yolo(self):
-        return self.all().values('professions__name').annotate(total=Count('professions__name')).order_by('total')
+    def correct_answers(self):
+        return self.all().values('answers__correct_status').annotate(correct=Count('answers__correct_status')).order_by('correct')
 
 
 class Answer(BaseModel):
@@ -155,13 +160,15 @@ class Answer(BaseModel):
                               help_text=_('Used with kept/broken quiz'))
     answer = models.CharField(max_length=255, choices=ANSWER_CHOICES, blank=True, default='',
                               help_text=_('Used with voting guide'))
-    session = models.ForeignKey('messenger_bot.ChatSession', null=True, blank=True)
+    correct_status = models.BooleanField(default=False, blank=True)
 
-    answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True)
-
-    objects = AnswerQuerySet.as_manager()
+    answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='answers')
 
 
 class AnswerSet(BaseModel):
-    pass
+    session = models.OneToOneField(
+        'messenger_bot.ChatSession', null=True, blank=True, related_name='answers', on_delete=models.SET_NULL)
+    uuid = models.UUIDField(default=uuid.uuid4, unique=True)
+
+    objects = AnswerQuerySet.as_manager()
 

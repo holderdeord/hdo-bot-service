@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 {% block head %}
 <script>
     window.fbAsyncInit = function() {
@@ -22,7 +23,7 @@
 {% block body %}
   <div style="margin: 0 auto;text-align: center; padding-top: 4em;">
     <h2>Holder de ord quiz:</h2>
-      <h3>Meld oss</h3>
+    <h3>Meld oss</h3>
     <div class="fb-messengermessageus"
         messenger_app_id="{{ app_id }}"
         page_id="{{ page_id }}"

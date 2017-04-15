@@ -1,1 +1,59 @@
-{{ results }}
+{% extends "base.html" %}
+{% load i18n quiz_extras %}
+{% block body %}
+    <script>
+        {% correct_answers_js all_answers %}
+        {% correct_answers_js answer_set "my_correct_answers" %}
+    </script>
+    <div class="container">
+        <div class="col-sm-12 header" style="margin-top: 1.5rem; margin-bottom: 3rem;">
+            <h1>{% trans "Results for " %}{{ answer_set.session.meta.first_name }}</h1>
+        </div>
+        <div class="col-sm-8">
+            <h3>{% trans "Your answers" %}</h3>
+            <table>
+            <tr>
+                <th>{% trans "Promise" %}</th>
+                <th>{% trans "Your answer" %}</th>
+            </tr>
+            {% for a in answer_set.answers.all %}
+                <tr>
+                    <td>{{ a.promise.body }}</td>
+                    <td>{% if a.correct_status %}✓{% else %}✗{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <h3>{% trans "Your distribution" %}</h3>
+            <canvas id="myChart" width="200" height="200"></canvas>
+        </div>
+        <div class="col-sm-4" style="margin-top: 1.5rem; margin-bottom: 3rem;">
+            <h3>{% trans "Totals" %}</h3>
+            {% trans "This is how well everybody else is doing" %}<br>
+            {% for t in totals %}
+                {% if t.answers__correct_status %}
+                    {% trans "Correct" %}: {{ t.correct }}<br>
+                {% else %}
+                    {% trans "Not correct" %}: {{ t.correct }}
+                {% endif %}
+            {% endfor %}
+            <canvas id="totalChart" width="200" height="200"></canvas>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+    <script>
+        (function() {
+            var ctx = document.getElementById("myChart");
+            new Chart(ctx,{
+                type: 'pie',
+                data: my_correct_answers
+            });
+            var ctx2 = document.getElementById("totalChart");
+            new Chart(ctx2,{
+                type: 'pie',
+                data: correct_answers
+            });
+        })();
+    </script>
+{% endblock %}

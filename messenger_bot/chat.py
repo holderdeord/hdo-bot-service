@@ -2,6 +2,7 @@ import json
 import logging
 import random
 
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 from rest_framework.renderers import JSONRenderer
 
@@ -13,6 +14,7 @@ from messenger_bot.models import ChatSession
 from messenger_bot.send_api import send_message
 
 from quiz.models import Manuscript, ManuscriptItem
+from quiz.utils import save_answers
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +22,9 @@ logger = logging.getLogger(__name__)
 def get_replies(sender_id, session):
     replies = []
     manus = session.meta['manuscript']
+    if session.meta['current_item'] >= len(manus['items']):
+        return []
+
     item = manus['items'][session.meta['current_item']]
 
     while item['type'] == ManuscriptItem.TYPE_TEXT and session.meta['current_item'] < len(manus['items']):
@@ -45,6 +50,11 @@ def get_replies(sender_id, session):
         print("Adding quick reply", session.meta['current_item'] + 1)
         # FIXME: Create new type quick reply
         replies.append(format_quick_reply_next(sender_id, item['text'], item['button_text'], session.uuid))
+        session.meta['current_item'] += 1
+
+    elif item['type'] == ManuscriptItem.TYPE_QUIZ_RESULT:
+        print("Adding quick reply", session.meta['current_item'] + 1)
+        replies.append(get_quiz_result(sender_id, session))
         session.meta['current_item'] += 1
 
     return replies
@@ -108,6 +118,7 @@ def init_session(sender_id):
 
 
 def get_question_replies(sender_id, session, payload):
+    # FIXME: quiz specific
     first_name = session.meta['first_name']
     if not first_name:
         first_name = session.meta['first_name'] = get_user_profile(sender_id)['first_name']
@@ -134,9 +145,15 @@ def get_question_replies(sender_id, session, payload):
 
     # Is last promise?
     if session.meta['current_promise'] == len(session.meta['manuscript']['promises']):
+        save_answers(session)
         replies += get_replies(sender_id, session)
 
     return replies
+
+
+def get_quiz_result(sender_id, session: ChatSession):
+    url = reverse('quiz:answer-set-detail', args=[session.answers.uuid])
+    return [format_text(sender_id, url)]
 
 
 def received_postback(event):
@@ -144,7 +161,7 @@ def received_postback(event):
     sender_id = event['sender']['id']
     print('in recieved_postback', payload)
     if payload.get('type') == TYPE_HELP:
-        send_message(format_text(sender_id, 'Slapp helt av 😊 To setninger som forteller deg hvor du kan få hjelp ♿'))
+        send_message(format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿'))
         return
 
     if payload.get('type') == TYPE_SESSION_RESET:
@@ -153,7 +170,7 @@ def received_postback(event):
             user_id=sender_id, state=ChatSession.STATE_IN_PROGRESS)
         current_sessions.update(state=ChatSession.STATE_COMPLETE)
 
-        # Pretend this is the first message
+        # Pretend this is the first message to start a new session immediately
         # received_message(event)
 
 

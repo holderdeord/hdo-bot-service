@@ -17,3 +17,12 @@ def get_authorize_link(request):
 
 class AnswerSetView(DetailView):
     model = AnswerSet
+    context_object_name = 'answer_set'
+    slug_field = 'uuid'
+
+    def get_context_data(self, **kwargs):
+        return {
+            'all_answers': AnswerSet.objects.all(),
+            'totals': AnswerSet.objects.correct_answers(),
+            **super().get_context_data(**kwargs)
+        }

@@ -3,7 +3,8 @@ from django.db.models import TextField
 from django.forms import Textarea
 from django.utils.translation import ugettext as _
 
-from quiz.models import Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage, Answer
+from quiz.models import Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage, Answer, \
+    AnswerSet
 
 
 class PromiseAdmin(admin.ModelAdmin):
@@ -61,14 +62,25 @@ class ManuscriptImageAdmin(admin.ModelAdmin):
     admin_thumbnail.allow_tags = True
 
 
+class AnswerInline(admin.TabularInline):
+    model = Answer
+    extra = 0
+
+
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ['get_promise', 'status', 'session']
-    list_filter = ['session']
+    list_display = ['get_promise', 'status']
 
     def get_promise(self, obj):
         return '[{}] {}'.format(dict(Promise.STATUS_CHOICES)[obj.status], obj.promise.body[:100])
 
 
+class AnswerSetAdmin(admin.ModelAdmin):
+    list_display = ['session']
+    readonly_fields = ['uuid', 'session']
+    inlines = [AnswerInline]
+
+
+admin.site.register(AnswerSet, AnswerSetAdmin)
 admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Promise, PromiseAdmin)
 admin.site.register(Party, PartyAdmin)
