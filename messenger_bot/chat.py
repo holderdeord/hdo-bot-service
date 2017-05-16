@@ -2,6 +2,7 @@ import json
 import logging
 import random
 
+from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 from rest_framework.renderers import JSONRenderer
@@ -153,7 +154,7 @@ def get_question_replies(sender_id, session, payload):
 
 def get_quiz_result(sender_id, session: ChatSession):
     url = reverse('quiz:answer-set-detail', args=[session.answers.uuid])
-    return [format_text(sender_id, url)]
+    return [format_text(sender_id, '{}{}'.format(settings.BASE_URL, url))]
 
 
 def received_postback(event):

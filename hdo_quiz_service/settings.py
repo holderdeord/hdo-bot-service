@@ -173,6 +173,8 @@ GOOGLE_SPREADSHEET_ID = os.getenv('GOOGLE_SPREADSHEET_ID')
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+BASE_URL = os.getenv('BASE_URL', 'http://example.com')
+
 try:
     from .local_settings import *  # noqa
 except ImportError:
