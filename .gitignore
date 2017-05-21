@@ -10,3 +10,4 @@ __pyvenv__
 .coverage
 db.sqlite3
 local_settings.py
+models.pdf

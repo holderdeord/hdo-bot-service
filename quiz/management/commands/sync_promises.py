@@ -129,9 +129,10 @@ class Command(BaseCommand):
         promises = {}
         for row in rows:
             # Filter out promises that is not checked yet
-            if not row.get('Holdt?'):
+            if not row.get('Holdt?') or not row.get('ID'):
                 continue
             _id = self.parse_row_id(row['ID'])
+
             # Note: Mapping from spreadsheet column name to database column name
             promises[_id] = {
                 'external_id': int(_id),

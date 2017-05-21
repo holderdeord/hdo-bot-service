@@ -5,7 +5,7 @@
 
 ## Requirements
 
-* Facebook app
+For Facebook you need to setup a page and an app. You can follow the guide [here](https://developers.facebook.com/docs/messenger-platform/guides/quick-start/).
 
 ## Install
     python3 -m venv venv
@@ -15,11 +15,22 @@
     python manage.py migrate
     python manage.py runserver
 
+## Configure
+Relevant settings:
+
+    FACEBOOK_PAGE_ID
+    FACEBOOK_APP_ID
+    FACEBOOK_APP_ACCESS_TOKEN
+    FACEBOOK_APP_VERIFICATION_TOKEN
+    GOOGLE_OAUTH2_CLIENT_ID
+    GOOGLE_OAUTH2_CLIENT_SECRET
+    GOOGLE_SPREADSHEET_ID
+    BASE_URL
+    ALLOWED_HOSTS
     
-## Import
+## Import promises
     # From CSV-file
     python manage.py sync_promises --check-file FILE
     # From Google Spreadsheet (needs configuration)
     python manage.py sync_promises --google
     
-## Configure

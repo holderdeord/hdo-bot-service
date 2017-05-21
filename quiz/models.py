@@ -82,6 +82,8 @@ class Manuscript(BaseModel):
     name = models.CharField(max_length=255, blank=True, default='')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     promises = models.ManyToManyField(Promise, blank=True)
+    # TODO: Text for boolean choices
+    # TODO: type: generic, quiz or electoral_guide
 
     def __str__(self):
         return self.name if self.name else '#{}'.format(self.pk)
@@ -99,8 +101,10 @@ class ManuscriptImage(BaseModel):
 
 
 class ManuscriptItem(BaseModel):
+    # TODO: random (til valgomaten) 3 og 3 opp til antall partier
+    # TODO: electoral_guide (resultatet for valgomaten)
     TYPE_BUTTON = 'button'
-    TYPE_PROMISES = 'promises'
+    TYPE_PROMISES = 'promises'  # FIXME: replace with more generic question?
     TYPE_QUIZ_RESULT = 'quiz_result'
     TYPE_TEXT = 'text'
     TYPE_URL = 'url'
