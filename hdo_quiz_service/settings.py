@@ -29,7 +29,7 @@ DEBUG = os.getenv('DEBUG') in ('1', 'true', 'True')
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 # Application definition
-REMOTE_APPS = [
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +39,7 @@ REMOTE_APPS = [
     'django_extensions',
     'rest_framework',
     'corsheaders',
+    'social_django',
 ]
 
 LOCAL_APPS = [
@@ -47,7 +48,7 @@ LOCAL_APPS = [
     'quiz',
 ]
 
-INSTALLED_APPS = REMOTE_APPS + LOCAL_APPS
+INSTALLED_APPS += LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,6 +128,12 @@ LOGGING = {
     },
 
 }
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -159,7 +166,6 @@ FACEBOOK_APP_VERIFICATION_TOKEN = os.getenv('FACEBOOK_APP_VERIFICATION_TOKEN', '
 FACEBOOK_APP_ID = os.getenv('FACEBOOK_APP_ID')
 FACEBOOK_PAGE_ID = os.getenv('FACEBOOK_PAGE_ID')
 
-
 # Google import
 GOOGLE_OAUTH2_CLIENT_ID = os.getenv('GOOGLE_OAUTH2_CLIENT_ID', 'DUMMY')
 GOOGLE_OAUTH2_CLIENT_SECRET = os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET', 'DUMMY')
@@ -174,6 +180,14 @@ GOOGLE_SPREADSHEET_ID = os.getenv('GOOGLE_SPREADSHEET_ID')
 CORS_ORIGIN_ALLOW_ALL = True
 
 BASE_URL = os.getenv('BASE_URL', 'http://example.com')
+
+# Social auth
+SOCIAL_AUTH_FACEBOOK_KEY = os.getenv('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_TWITTER_KEY = os.getenv('SOCIAL_AUTH_TWITTER_KEY')
+SOCIAL_AUTH_TWITTER_SECRET = os.getenv('SOCIAL_AUTH_TWITTER_SECRET')
 
 try:
     from .local_settings import *  # noqa

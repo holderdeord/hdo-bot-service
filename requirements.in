@@ -13,4 +13,5 @@ pip-tools
 psycopg2
 pytest-django
 requests>=2.12,<3.0
+social-auth-app-django
 whitenoise
