@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body %}
+    {{ user.get_full_name|default:user.username }}
+    <ul>
+    {% for auth in user.social_auth.all %}
+        <li>{{ auth.provider }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

@@ -9,7 +9,7 @@ register = Library()
 
 
 @register.simple_tag(name='correct_answers_js')
-def correct_answers_js(answers, var_name='correct_answers'):
+def correct_answers_js(answers, var_name):
     # Note: chart.js does not have a default color pallette
     color_palette = [
         '#858fa3',

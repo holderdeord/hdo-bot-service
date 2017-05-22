@@ -2,7 +2,7 @@
 {% load i18n quiz_extras %}
 {% block body %}
     <script>
-        {% correct_answers_js all_answers %}
+        {% correct_answers_js all_answers "correct_answers" %}
         {% correct_answers_js answer_set "my_correct_answers" %}
     </script>
     <div class="container">
@@ -25,12 +25,12 @@
             </table>
         </div>
         <div class="col-sm-4">
-            <h3>{% trans "Your distribution" %}</h3>
+            <h3>{% trans "Your result" %}</h3>
             <canvas id="myChart" width="200" height="200"></canvas>
         </div>
         <div class="col-sm-4" style="margin-top: 1.5rem; margin-bottom: 3rem;">
             <h3>{% trans "Totals" %}</h3>
-            {% trans "This is how well everybody else is doing" %}<br>
+            {% trans "This is how well everybody else is doing, and you are doing better than" %} <strong>{{ better_percent }}%</strong><br>
             {% for t in totals %}
                 {% if t.answers__correct_status %}
                     {% trans "Correct" %}: {{ t.correct }}<br>

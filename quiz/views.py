@@ -24,5 +24,6 @@ class AnswerSetView(DetailView):
         return {
             'all_answers': AnswerSet.objects.all(),
             'totals': AnswerSet.objects.correct_answers(),
+            'better_percent': 'TODO',  # TODO: calc
             **super().get_context_data(**kwargs)
         }
