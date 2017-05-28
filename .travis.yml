@@ -6,6 +6,6 @@ python:
 install: 
   - pip install -q -r requirements.txt
   - pip install -q codecov pytest-cov
-script: pytest --cov=messenger_bot --cov=quiz
+script: pytest --cov=messenger --cov=quiz --cov=api --cov=accounts
 after_success:
   - bash <(curl -s https://codecov.io/bash)

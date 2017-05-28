@@ -70,7 +70,7 @@ def format_question(recipient_id, question, question_text, session_id):
                 'type': TYPE_ANSWER,
                 'chat_session': str(session_id)
              }),
-            "image_url": static('messenger_bot/icon_fulfilled.png')
+            "image_url": static('messenger/icon_fulfilled.png')
         },
         {
             "content_type": "text",
@@ -81,7 +81,7 @@ def format_question(recipient_id, question, question_text, session_id):
                 'type': TYPE_ANSWER,
                 'chat_session': str(session_id)
              }),
-            "image_url": static('messenger_bot/icon_broken.png')
+            "image_url": static('messenger/icon_broken.png')
         }
     ]
 

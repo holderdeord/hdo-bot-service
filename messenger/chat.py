@@ -8,11 +8,10 @@ from django.utils.translation import ugettext as _
 from rest_framework.renderers import JSONRenderer
 
 from api.serializers.manuscript import ManuscriptSerializer
-from messenger_bot.graph_api import get_user_profile
-from messenger_bot.messages import format_text, format_question, TYPE_ANSWER, format_quick_reply_next, \
-    format_image_attachment, TYPE_HELP, TYPE_SESSION_RESET
-from messenger_bot.models import ChatSession
-from messenger_bot.send_api import send_message
+from messenger.graph_api import get_user_profile, send_message
+from messenger.messages import (format_text, format_question, TYPE_ANSWER, format_quick_reply_next,
+                                format_image_attachment, TYPE_HELP, TYPE_SESSION_RESET)
+from messenger.models import ChatSession
 
 from quiz.models import Manuscript, ManuscriptItem
 from quiz.utils import save_answers
@@ -29,32 +28,36 @@ def get_replies(sender_id, session):
     item = manus['items'][session.meta['current_item']]
 
     while item['type'] == ManuscriptItem.TYPE_TEXT and session.meta['current_item'] < len(manus['items']):
-        print("Adding text reply", session.meta['current_item'] + 1)
+        logger.debug("Adding text reply: {}".format(session.meta['current_item'] + 1))
+
         replies.append(format_text(sender_id, item['text']))
         session.meta['current_item'] += 1
         if session.meta['current_item'] < len(manus['items']):
             # Last item!
             item = manus['items'][session.meta['current_item']]
 
-    if item['type'] == ManuscriptItem.TYPE_PROMISES:
+    if item['type'] == ManuscriptItem.TYPE_Q_PROMISES_CHECKED:
         if session.meta['current_promise'] < len(manus['promises']):
-            print("Adding promise reply", session.meta['current_promise'] + 1)
+            logger.debug("Adding promise reply: {}".format(session.meta['current_promise'] + 1))
+
             question = manus['promises'][session.meta['current_promise']]
             question_text = 'Løfte #{} {}'.format(session.meta['current_promise'] + 1, question['body'])
             replies.append(format_question(sender_id, question, question_text, session.uuid))
             session.meta['current_promise'] += 1
         else:
-            print("Last promise", session.meta['current_item'] + 1)
+            logger.debug("Last promise: {}".format(session.meta['current_item'] + 1))
+
             session.meta['current_item'] += 1
 
-    elif item['type'] == ManuscriptItem.TYPE_BUTTON:
-        print("Adding quick reply", session.meta['current_item'] + 1)
-        # FIXME: Create new type quick reply
+    elif item['type'] == ManuscriptItem.TYPE_QUICK_REPLY:
+        logger.debug("Adding quick reply: {}".format(session.meta['current_item'] + 1))
+
         replies.append(format_quick_reply_next(sender_id, item['text'], item['button_text'], session.uuid))
         session.meta['current_item'] += 1
 
     elif item['type'] == ManuscriptItem.TYPE_QUIZ_RESULT:
-        print("Adding quick reply", session.meta['current_item'] + 1)
+        logger.debug("Adding quiz result: {}".format(session.meta['current_item'] + 1))
+
         replies.append(get_quiz_result(sender_id, session))
         session.meta['current_item'] += 1
 
@@ -70,7 +73,7 @@ def is_manuscript_complete(session):
 
 def received_message(event):
     sender_id = event['sender']['id']
-    print('in received_message',  event)
+    logger.debug('in received_message: {}'.format(event))
 
     # Is new session?
     session = ChatSession.objects.filter(user_id=sender_id, state=ChatSession.STATE_IN_PROGRESS).first()
@@ -91,7 +94,7 @@ def received_message(event):
     session.save()
 
     for reply in replies:
-        print("reply:", reply)
+        logger.debug("reply: {}".format(reply))
         send_message(reply)
 
     if is_manuscript_complete(session):
@@ -160,7 +163,7 @@ def get_quiz_result(sender_id, session: ChatSession):
 def received_postback(event):
     payload = json.loads(event['postback']['payload'])
     sender_id = event['sender']['id']
-    print('in recieved_postback', payload)
+    logger.debug('in recieved_postback: {}'.format(payload))
     if payload.get('type') == TYPE_HELP:
         send_message(format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿'))
         return
@@ -193,7 +196,7 @@ def handle_answer(payload, sender_id, session):
     session.save()
 
     for reply in replies:
-        print("reply:", reply)
+        logger.debug("reply: {}".format(reply))
         send_message(reply)
 
     if is_manuscript_complete(session):

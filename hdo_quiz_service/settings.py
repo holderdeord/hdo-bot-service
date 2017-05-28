@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 LOCAL_APPS = [
     'accounts',
     'api',
-    'messenger_bot',
+    'messenger',
     'quiz',
 ]
 

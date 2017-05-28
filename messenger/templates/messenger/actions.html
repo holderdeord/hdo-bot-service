@@ -32,7 +32,7 @@
     </div>
   {% if user.is_superuser %}
       <h3>Botprofil</h3>
-      <form action="{% url "messenger_bot:bot-profile-update" %}" method="post">{% csrf_token %}<button type="submit" class="btn btn-secondary">Oppdatér botens profil</button></form>
+      <form action="{% url "messenger:bot-profile-update" %}" method="post">{% csrf_token %}<button type="submit" class="btn btn-secondary">Oppdatér botens profil</button></form>
       <h3>Developer links</h3>
       <a href="https://developers.facebook.com/apps/{{ app_id }}">App developer dashboard</a>
   {% endif %}

@@ -1,6 +1,6 @@
 from django.core.management import call_command
 
-from messenger_bot.chat import received_message
+from messenger.chat import received_message
 
 
 def test_on_receive_messages(db):

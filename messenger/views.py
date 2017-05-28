@@ -6,8 +6,9 @@ from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from messenger_bot.bot_profile import format_profile, update_profile
-from messenger_bot.chat import received_message, received_postback
+from messenger.bot_profile import format_profile
+from messenger.chat import received_message, received_postback
+from messenger.graph_api import update_profile
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +45,7 @@ def webhook(request: HttpRequest):
 
 
 class AdminActionsView(TemplateView):
-    template_name = 'messenger_bot/actions.html'
+    template_name = 'messenger/actions.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -59,4 +60,4 @@ def bot_profile_update(request):
     if request.method == 'POST':
         update_profile(format_profile())
 
-    return redirect('messenger_bot:admin-actions')
+    return redirect('messenger:admin-actions')

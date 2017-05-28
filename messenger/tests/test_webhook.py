@@ -6,7 +6,7 @@ from django.core.management import call_command
 from django.test import RequestFactory
 from django.urls import reverse
 
-from messenger_bot.views import webhook
+from messenger.views import webhook
 from unittest import mock
 from urllib.parse import urlencode
 
@@ -17,7 +17,7 @@ def test_webhook_get(rf: RequestFactory):
         'hub.verify_token': settings.FACEBOOK_APP_VERIFICATION_TOKEN,
         'hub.challenge': 'this is a challenge'
     }
-    request = rf.get("{}?{}".format(reverse('messenger_bot:webhook'), urlencode(query)))
+    request = rf.get("{}?{}".format(reverse('messenger:webhook'), urlencode(query)))
     response = webhook(request)
 
     assert response.status_code == 200
@@ -61,7 +61,7 @@ def test_webhook_post(rf: RequestFactory, db):
             }
         ]
     }
-    request = rf.post(reverse('messenger_bot:webhook'), json.dumps(data), content_type='application/json')
+    request = rf.post(reverse('messenger:webhook'), json.dumps(data), content_type='application/json')
 
     with mock.patch('requests.post') as external:
         external.return_value.ok = True

@@ -6,8 +6,8 @@ from oauth2client.contrib.django_util.site import urls as oauth2_urls
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^$', RedirectView.as_view(pattern_name='messenger_bot:admin-actions'), name='index'),
-    url(r'^messenger/', include('messenger_bot.urls', namespace='messenger_bot')),
+    url(r'^$', RedirectView.as_view(pattern_name='messenger:admin-actions'), name='index'),
+    url(r'^messenger/', include('messenger.urls', namespace='messenger')),
     url(r'^quiz/', include('quiz.urls', namespace='quiz')),
     url(r'^api/', include('api.urls', namespace='api')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),

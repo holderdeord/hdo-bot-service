@@ -6,6 +6,8 @@ from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 from oauth2client.contrib.django_util.models import CredentialsField
 
+from quiz.mixins import IsDefaultMixin
+
 
 class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -13,6 +15,13 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class PromiseReference(BaseModel):
+    url = models.URLField()
+    title = models.CharField(max_length=255)
+
+    promise = models.ForeignKey('quiz.Promise', on_delete=models.CASCADE, related_name='references')
 
 
 class Promise(BaseModel):
@@ -36,6 +45,7 @@ class Promise(BaseModel):
     source = models.CharField(max_length=255)
     status = models.CharField(max_length=255, choices=STATUS_CHOICES, blank=True, default='')
     testable = models.BooleanField(default=True)
+    description = models.TextField(default='')
 
     parties = models.ManyToManyField('quiz.Party', blank=True, related_name='promises')
     categories = models.ManyToManyField('quiz.Category', blank=True, related_name='promises')
@@ -78,17 +88,6 @@ class GoogleProfile(models.Model):
     credential = CredentialsField()
 
 
-class Manuscript(BaseModel):
-    name = models.CharField(max_length=255, blank=True, default='')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    promises = models.ManyToManyField(Promise, blank=True)
-    # TODO: Text for boolean choices
-    # TODO: type: generic, quiz or electoral_guide
-
-    def __str__(self):
-        return self.name if self.name else '#{}'.format(self.pk)
-
-
 class ManuscriptImage(BaseModel):
     url = models.URLField()
     image = models.ImageField(null=True, blank=True)
@@ -100,25 +99,65 @@ class ManuscriptImage(BaseModel):
         return url if url else None
 
 
-class ManuscriptItem(BaseModel):
-    # TODO: random (til valgomaten) 3 og 3 opp til antall partier
-    # TODO: electoral_guide (resultatet for valgomaten)
-    TYPE_BUTTON = 'button'
-    TYPE_PROMISES = 'promises'  # FIXME: replace with more generic question?
-    TYPE_QUIZ_RESULT = 'quiz_result'
-    TYPE_TEXT = 'text'
-    TYPE_URL = 'url'
+class Manuscript(IsDefaultMixin, BaseModel):
+    """ A group/collection of ManuscriptItems """
+    TYPE_QUIZ = 'quiz'
+    TYPE_VOTER_GUIDE = 'voter_guide'
+    TYPE_GENERIC = 'generic'
 
     TYPE_CHOICES = (
-        (TYPE_BUTTON, _('Button')),
-        (TYPE_PROMISES, _('Promises')),
-        (TYPE_QUIZ_RESULT, _('Quiz results')),
+        (TYPE_GENERIC, _('Generic')),
+        (TYPE_QUIZ, _('Quiz')),
+        (TYPE_VOTER_GUIDE, _('Voter guide')),
+    )
+
+    name = models.CharField(max_length=255, blank=True, default='')
+    type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_GENERIC)
+    category = models.ForeignKey('quiz.Category', on_delete=models.CASCADE)
+    promises = models.ManyToManyField('quiz.Promise', blank=True)
+
+    def __str__(self):
+        return self.name if self.name else '#{}'.format(self.pk)
+
+
+class ManuscriptItem(BaseModel):
+    """ A block, ordered
+
+        Note: Types are pretty specific for our task.
+        Could be made generic in the future with inspiration from chatfuel.com interface
+    """
+
+    # Generic blocks
+    TYPE_TEXT = 'text'
+    TYPE_QUICK_REPLY = 'quick_reply'
+    TYPE_URL = 'url'
+
+    # Quiz
+    TYPE_QUIZ_RESULT = 'quiz_result'
+    TYPE_Q_PROMISES_CHECKED = 'quiz_q_promises_checked'
+    TYPE_Q_PARTY_SELECT = 'quiz_q_party_select'
+    TYPE_Q_PARTY_BOOL = 'quiz_q_party_bool'
+
+    # Voter guide
+    TYPE_VOTER_GUIDE_RESULT = 'vg_result'
+    TYPE_VG_CATEGORY_SELECT = 'vg_categories'  # Show category select
+    TYPE_VG_QUESTIONS = 'vg_questions'  # list promises in tekst w/ quick reply per party
+
+    TYPE_CHOICES = (
         (TYPE_TEXT, _('Text')),
+        (TYPE_QUICK_REPLY, _('Quick reply')),
         (TYPE_URL, _('URL')),
+        (TYPE_QUIZ_RESULT, _('Quiz result')),
+        (TYPE_Q_PROMISES_CHECKED, _('Quiz checked promises')),
+        (TYPE_Q_PARTY_SELECT, _('Quiz which party promised')),
+        (TYPE_Q_PARTY_BOOL, _('Quiz party promised yes or no')),
+        (TYPE_VOTER_GUIDE_RESULT, _('Voter guide result')),
+        (TYPE_VG_CATEGORY_SELECT, _('Voter guide category select')),
+        (TYPE_VG_QUESTIONS, _('Voter guide questions')),
     )
 
     type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_TEXT)
-    manuscript = models.ForeignKey(Manuscript, on_delete=models.CASCADE, related_name='items')
+    manuscript = models.ForeignKey('quiz.Manuscript', on_delete=models.CASCADE, related_name='items')
     order = models.IntegerField(blank=True, default=0)
     text = models.TextField(blank=True, default='')
     button_text = models.TextField(blank=True, default='')
@@ -129,8 +168,6 @@ class ManuscriptItem(BaseModel):
 
     def __str__(self):
         return 'ManuscriptItem<{}>'.format(self.pk)
-
-    # TODO-maybe: support multiple buttons per item
 
     def save(self, *args, **kwargs):
         self._update_order()
@@ -171,7 +208,7 @@ class Answer(BaseModel):
 
 class AnswerSet(BaseModel):
     session = models.OneToOneField(
-        'messenger_bot.ChatSession', null=True, blank=True, related_name='answers', on_delete=models.SET_NULL)
+        'messenger.ChatSession', null=True, blank=True, related_name='answers', on_delete=models.SET_NULL)
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
 
     objects = AnswerQuerySet.as_manager()

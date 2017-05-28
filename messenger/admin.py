@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from messenger_bot.models import ChatSession
+from messenger.models import ChatSession
 
 
 class ChatSessionAdmin(admin.ModelAdmin):

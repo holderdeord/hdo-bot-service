@@ -1,23 +1,9 @@
 import json
 import logging
-import requests
-from django.conf import settings
 
-from messenger_bot.messages import TYPE_SESSION_RESET, TYPE_HELP, TYPE_GET_STARTED
+from messenger.messages import TYPE_SESSION_RESET, TYPE_HELP, TYPE_GET_STARTED
 
 logger = logging.getLogger(__name__)
-
-
-def update_profile(data):
-    access_token = settings.FACEBOOK_APP_ACCESS_TOKEN
-    response = requests.post(
-        "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=" + access_token, json=data)
-    res = response.json()
-
-    if res is not None:
-        logger.info('Got response: {response}'.format(response=res))
-
-    return res
 
 
 def format_profile():
