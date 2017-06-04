@@ -38,6 +38,7 @@ class ManuscriptImageSerializer(serializers.ModelSerializer):
 
 
 class ManuscriptSerializer(serializers.ModelSerializer):
+    # TODO: https://github.com/beda-software/drf-writable-nested
     items = ManuscriptItemSerializer(many=True)
     promises = PromiseSerializer(many=True)
     images = serializers.SerializerMethodField()
