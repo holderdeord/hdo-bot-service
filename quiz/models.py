@@ -113,8 +113,10 @@ class Manuscript(IsDefaultMixin, BaseModel):
 
     name = models.CharField(max_length=255, blank=True, default='')
     type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_GENERIC)
-    category = models.ForeignKey('quiz.Category', on_delete=models.CASCADE)
+    category = models.ForeignKey('quiz.Category', on_delete=models.CASCADE, blank=True, null=True)
     promises = models.ManyToManyField('quiz.Promise', blank=True)
+
+    next = models.ForeignKey('self', related_name='prev', blank=True, null=True)
 
     def __str__(self):
         return self.name if self.name else '#{}'.format(self.pk)
@@ -142,6 +144,7 @@ class ManuscriptItem(BaseModel):
     TYPE_VOTER_GUIDE_RESULT = 'vg_result'
     TYPE_VG_CATEGORY_SELECT = 'vg_categories'  # Show category select
     TYPE_VG_QUESTIONS = 'vg_questions'  # list promises in tekst w/ quick reply per party
+    # TODO: Add continue voting guide or show results button
 
     TYPE_CHOICES = (
         (TYPE_TEXT, _('Text')),
@@ -162,6 +165,8 @@ class ManuscriptItem(BaseModel):
     text = models.TextField(blank=True, default='')
     button_text = models.TextField(blank=True, default='')
     url = models.URLField(blank=True, default='')
+
+    action = models.ForeignKey('self', related_name='from_item', blank=True, null=True)
 
     class Meta:
         ordering = ('order',)

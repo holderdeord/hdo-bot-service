@@ -33,4 +33,3 @@ Relevant settings:
     python manage.py sync_promises --check-file FILE
     # From Google Spreadsheet (needs configuration)
     python manage.py sync_promises --google
-    

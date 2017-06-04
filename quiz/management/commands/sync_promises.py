@@ -138,7 +138,8 @@ class Command(BaseCommand):
                 'external_id': int(_id),
                 'status': self.parse_status(row['Holdt?']),
                 'categories': row['Kategori'].split(';'),
-                'testable': self.parse_testable(row.get('Svada', ''))
+                'testable': self.parse_testable(row.get('Svada', '')),
+                'description': row['Kommentar/Forklaring']
             }
         return promises
 
