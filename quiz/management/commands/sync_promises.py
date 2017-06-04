@@ -48,7 +48,7 @@ class Command(BaseCommand):
         updated_promises = []
         for external_id, p_data in promises.items():
             if p_data.get('body') is None:
-                # FIXME: Skip empty promises for now, why?
+                # FIXME: Skip empty promises for now, why empty?
                 continue
 
             cats_data = p_data.pop('categories') if p_data.get('categories') else None
@@ -99,18 +99,25 @@ class Command(BaseCommand):
         if not ids:
             return []
 
-        ids = ','.join(sorted(ids))
+        def chunks(l, n):
+            """Yield successive n-sized chunks from l."""
+            for i in range(0, len(l), n):
+                yield l[i:i + n]
 
+        max_ids = 400  # prevent too long GET param
+        ids = sorted(ids)
         promises_paged = []
-        total_pages = requests.get(self.HDO_API_URL, {'ids': ids}).json()['total_pages']
-        for page in range(total_pages):
-            self.stdout.write('Fetching promises from {} (page {})'.format(self.HDO_API_URL, page), ending='\n')
+        for id_range in chunks(ids, max_ids):
+            id_range = ','.join(id_range)
+            total_pages = requests.get(self.HDO_API_URL, {'ids': id_range}).json()['total_pages']
+            for page in range(total_pages):
+                self.stdout.write('Fetching promises from {} (page {})'.format(self.HDO_API_URL, page), ending='\n')
 
-            request_params = {'page': page, 'ids': ids}
-            res = requests.get(self.HDO_API_URL, request_params)
-            res_data = res.json()
+                request_params = {'page': page, 'ids': id_range}
+                res = requests.get(self.HDO_API_URL, request_params)
+                res_data = res.json()
 
-            promises_paged += res_data['_embedded']['promises']
+                promises_paged += res_data['_embedded']['promises']
 
         return promises_paged
 

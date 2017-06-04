@@ -217,4 +217,3 @@ class AnswerSet(BaseModel):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
 
     objects = AnswerQuerySet.as_manager()
-
