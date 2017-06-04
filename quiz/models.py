@@ -150,13 +150,13 @@ class ManuscriptItem(BaseModel):
         (TYPE_TEXT, _('Text')),
         (TYPE_QUICK_REPLY, _('Quick reply')),
         (TYPE_URL, _('URL')),
-        (TYPE_QUIZ_RESULT, _('Quiz result')),
-        (TYPE_Q_PROMISES_CHECKED, _('Quiz checked promises')),
-        (TYPE_Q_PARTY_SELECT, _('Quiz which party promised')),
-        (TYPE_Q_PARTY_BOOL, _('Quiz party promised yes or no')),
-        (TYPE_VOTER_GUIDE_RESULT, _('Voter guide result')),
-        (TYPE_VG_CATEGORY_SELECT, _('Voter guide category select')),
-        (TYPE_VG_QUESTIONS, _('Voter guide questions')),
+        (TYPE_QUIZ_RESULT, _('Quiz: Show result')),
+        (TYPE_Q_PROMISES_CHECKED, _('Quiz: Show checked promises quesions')),
+        (TYPE_Q_PARTY_SELECT, _('Quiz: Show which party promised questions')),
+        (TYPE_Q_PARTY_BOOL, _('Quiz: Show did party x promise y questions')),
+        (TYPE_VOTER_GUIDE_RESULT, _('Voter guide: Show result')),
+        (TYPE_VG_CATEGORY_SELECT, _('Voter guide: Show category select')),
+        (TYPE_VG_QUESTIONS, _('Voter guide: Show questions')),
     )
 
     type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_TEXT)
@@ -166,7 +166,7 @@ class ManuscriptItem(BaseModel):
     button_text = models.TextField(blank=True, default='')
     url = models.URLField(blank=True, default='')
 
-    action = models.ForeignKey('self', related_name='from_item', blank=True, null=True)
+    link = models.ForeignKey('quiz.Manuscript', related_name='from_items', blank=True, null=True)
 
     class Meta:
         ordering = ('order',)

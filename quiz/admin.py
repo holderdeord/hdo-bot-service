@@ -24,6 +24,7 @@ class ManuscriptItemInline(admin.StackedInline):
     model = ManuscriptItem
     ordering = ('order', )
     extra = 0
+    fk_name = 'manuscript'
     formfield_overrides = {
         TextField: {'widget': Textarea(attrs={'rows': 4, 'cols': 40})},
     }

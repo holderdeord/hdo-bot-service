@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^quiz/', include('quiz.urls', namespace='quiz')),
     url(r'^api/', include('api.urls', namespace='api')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
+    url(r'^botadmin/', include('botadmin.urls', namespace='botadmin')),
 
     url(r'^oauth2/', include(oauth2_urls)),  # For sync
     url(r'^oauth/', include('social_django.urls', namespace='social'))  # For social login
