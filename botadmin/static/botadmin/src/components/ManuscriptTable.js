@@ -9,10 +9,10 @@ class ManuscriptTable extends React.Component {
   render() {
     return <div>
       <Link to="/create">Create new manuscript</Link>
-      <table>
+      <table className="table table-striped">
         <thead>
         <tr>
-          <th>PK</th>
+          <th>#</th>
           <th>Name</th>
           <th>Category</th>
         </tr>
