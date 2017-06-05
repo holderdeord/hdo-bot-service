@@ -7,10 +7,10 @@ import {
 } from 'react-router-dom'
 
 import AdminComponent from "./AdminComponent";
-import ManuscriptViewComponent from "./ManuscriptViewComponent";
 import NoMatch from "./NoMatch";
-import ManuscriptCreateComponent from "./ManuscriptCreateComponent";
+import ManuscriptCreateComponent from "./CreateManuscriptComponent";
 import NavItem from "./NavItem";
+import EditManuscriptComponent from "./EditManuscriptComponent";
 
 class Routes extends Component {
   render() {
@@ -31,7 +31,7 @@ class Routes extends Component {
             <Switch>
               <Route exact path="/" component={AdminComponent}/>
               <Route exact path="/create" component={ManuscriptCreateComponent}/>
-              <Route exact path="/view/:manuscriptId" component={ManuscriptViewComponent}/>
+              <Route exact path="/view/:manuscriptId" component={EditManuscriptComponent}/>
               <Route component={NoMatch}/>
             </Switch>
           </div>
