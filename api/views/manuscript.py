@@ -58,3 +58,10 @@ class CategoryRetrieveView(RetrieveAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class CategoryListView(ListCreateAPIView):
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.AllowAny]
+    queryset = Category.objects
+    serializer_class = CategorySerializer
