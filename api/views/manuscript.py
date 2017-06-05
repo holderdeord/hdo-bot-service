@@ -1,4 +1,5 @@
 from django.shortcuts import redirect
+from rest_framework.pagination import PageNumberPagination
 
 from api.serializers.manuscript import ManuscriptSerializer, CategorySerializer, ManuscriptListSerializer
 from quiz.models import Manuscript, Category
@@ -51,6 +52,7 @@ class ManuscriptListView(ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Manuscript.objects.select_related('category')
     serializer_class = ManuscriptListSerializer
+    pagination_class = PageNumberPagination
 
 
 class CategoryRetrieveView(RetrieveAPIView):

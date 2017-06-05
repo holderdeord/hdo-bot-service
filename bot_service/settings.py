@@ -197,6 +197,10 @@ SOCIAL_AUTH_TWITTER_SECRET = os.getenv('SOCIAL_AUTH_TWITTER_SECRET')
 LOGIN_SUCCESS_URL = ''
 PWA_SUCCESS_URL = os.getenv('PWA_SUCCESS_URL', '/pwaurl/')
 
+REST_FRAMEWORK = {
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+}
+
 try:
     from .local_settings import *  # noqa
 except ImportError:

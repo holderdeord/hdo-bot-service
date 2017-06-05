@@ -1,3 +1,4 @@
+from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
 from quiz.models import Manuscript, ManuscriptItem, Promise, Category, ManuscriptImage
@@ -23,7 +24,7 @@ class PromiseSerializer(serializers.ModelSerializer):
 class ManuscriptItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ManuscriptItem
-        fields = ('type', 'order', 'text', 'button_text')
+        fields = ('pk', 'type', 'order', 'text', 'button_text')
 
 
 class ManuscriptImageSerializer(serializers.ModelSerializer):
@@ -37,10 +38,9 @@ class ManuscriptImageSerializer(serializers.ModelSerializer):
         fields = ('url', 'type',)
 
 
-class ManuscriptSerializer(serializers.ModelSerializer):
-    # TODO: https://github.com/beda-software/drf-writable-nested
-    items = ManuscriptItemSerializer(many=True)
-    promises = PromiseSerializer(many=True)
+class ManuscriptSerializer(WritableNestedModelSerializer):
+    items = ManuscriptItemSerializer(many=True, required=False)
+    promises = PromiseSerializer(many=True, required=False)
     images = serializers.SerializerMethodField()
 
     def get_images(self, obj):
@@ -51,7 +51,8 @@ class ManuscriptSerializer(serializers.ModelSerializer):
         fields = ('pk', 'name', 'category', 'items', 'promises', 'images')
 
 
-class ManuscriptListSerializer(serializers.ModelSerializer):
+class ManuscriptListSerializer(WritableNestedModelSerializer):
+    items = ManuscriptItemSerializer(many=True, required=False)
     category = serializers.SerializerMethodField()
 
     def get_category(self, obj):
@@ -59,4 +60,4 @@ class ManuscriptListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'name', 'category')
+        fields = ('pk', 'name', 'category', 'items')
