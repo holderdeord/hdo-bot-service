@@ -1,4 +1,5 @@
 import React from 'react';
+import DeleteManuscriptItemButton from "./DeleteManuscriptItemButton";
 
 const ManuscriptTypeEnum = {
   Info: 'info',
@@ -72,9 +73,10 @@ class ManuscriptForm extends React.Component {
               </select>
             </div>
             <div className="well">
-              {this.props.manuscript.items.map((item, index) => this.renderManuscriptItem(item, index))}
+              {this.props.manuscript.items.map(item => this.renderManuscriptItem(item))}
               <button className="btn btn-link" type="button"
-                      onClick={event => this.addManuscriptItem(event)}>Add item</button>
+                      onClick={event => this.addManuscriptItem(event)}>Add item
+              </button>
             </div>
             <button type="submit" className="btn btn-default">Submit</button>
           </form>
@@ -90,11 +92,13 @@ class ManuscriptForm extends React.Component {
     );
   }
 
-  renderManuscriptItem(item, index) {
+  renderManuscriptItem(item) {
     let { order, text, type } = item;
     return (
       <div key={order} className="panel panel-default">
-        <div className="panel-heading">Item #{order}</div>
+        <div className="panel-heading">
+          Item #{order}
+        </div>
         <div className="panel-body">
           <div className="form-group">
             <label htmlFor={`itemType-${order}`}>Type</label>
@@ -110,6 +114,15 @@ class ManuscriptForm extends React.Component {
             <input className="form-control" type="text" id={`itemText-${order}`} name="itemText"
                    onChange={event => this.handleEventPropertyChange(event, item, 'text')}
                    defaultValue={text}/>
+          </div>
+          <div className="btn-group" role="group">
+            <button type="button" className="btn btn-default">
+              <span className="glyphicon glyphicon-arrow-up" /> Move up
+            </button>
+            <button type="button" className="btn btn-default">
+              <span className="glyphicon glyphicon-arrow-down" /> Move down
+            </button>
+            <DeleteManuscriptItemButton item={item} manuscript={this.props.manuscript}/>
           </div>
         </div>
       </div>
