@@ -8,9 +8,9 @@ import {
 } from 'react-router-dom'
 
 import AdminComponent from "./AdminComponent";
-import ManuscriptForm from "./ManuscriptForm";
 import ManuscriptViewComponent from "./ManuscriptViewComponent";
 import NoMatch from "./NoMatch";
+import ManuscriptCreateComponent from "./ManuscriptCreateComponent";
 
 class Routes extends Component {
   render() {
@@ -22,7 +22,7 @@ class Routes extends Component {
           </header>
           <Switch>
             <Route exact path="/" component={AdminComponent}/>
-            <Route exact path="/create" component={ManuscriptForm}/>
+            <Route exact path="/create" component={ManuscriptCreateComponent}/>
             <Route exact path="/view/:manuscriptId" component={ManuscriptViewComponent}/>
             <Route component={NoMatch}/>
           </Switch>
