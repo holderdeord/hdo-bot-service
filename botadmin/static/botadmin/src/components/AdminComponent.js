@@ -8,7 +8,7 @@ class AdminComponent extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://hdo-quiz.herokuapp.com/api/manuscripts/')
+    fetch('http://localhost:8000/api/manuscripts/')
       .then(response => response.json())
       .then(manuscripts => this.setState({ manuscripts }));
   }

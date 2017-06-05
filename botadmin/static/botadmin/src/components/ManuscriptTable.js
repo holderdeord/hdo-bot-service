@@ -1,29 +1,35 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 class ManuscriptTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
-    return <table>
-      <thead>
-      <tr>
-        <th>PK</th>
-        <th>Name</th>
-        <th>Category</th>
-      </tr>
-      </thead>
-      <tbody>
+    return <div>
+      <Link to="/create">Create new manuscript</Link>
+      <table>
+        <thead>
+        <tr>
+          <th>PK</th>
+          <th>Name</th>
+          <th>Category</th>
+        </tr>
+        </thead>
+        <tbody>
         { this.props.manuscripts.map(this.renderManuscript) }
-      </tbody>
-    </table>;
+        </tbody>
+      </table>
+    </div>;
   }
 
   renderManuscript({ pk, name, category }) {
     return <tr key="{ pk }">
       <td>{ pk }</td>
-      <td>{ name }</td>
+      <td>
+        <Link to={`/view/${ pk }`}>{ name }</Link>
+      </td>
       <td>{ category }</td>
     </tr>;
   }
