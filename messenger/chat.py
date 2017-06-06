@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext as _
 from rest_framework.renderers import JSONRenderer
 
-from api.serializers.manuscript import ManuscriptSerializer
+from api.serializers.manuscript import BaseManuscriptSerializer
 from messenger.graph_api import get_user_profile, send_message
 from messenger.messages import (format_text, format_question, TYPE_ANSWER, format_quick_reply_next,
                                 format_image_attachment, TYPE_HELP, TYPE_SESSION_RESET)
@@ -110,7 +110,7 @@ def init_session(sender_id):
         raise Exception(msg)
 
     # Serialize what we need and put in the session state
-    manus = json.loads(JSONRenderer().render(ManuscriptSerializer(m_initial).data).decode())
+    manus = json.loads(JSONRenderer().render(BaseManuscriptSerializer(m_initial).data).decode())
     meta = {
         'manuscript': manus,
         'current_item': 0,

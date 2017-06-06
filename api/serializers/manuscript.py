@@ -38,14 +38,21 @@ class ManuscriptImageSerializer(serializers.ModelSerializer):
         fields = ('url', 'type',)
 
 
-class ManuscriptSerializer(WritableNestedModelSerializer):
+class BaseManuscriptSerializer(WritableNestedModelSerializer):
     items = ManuscriptItemSerializer(many=True, required=False)
     promises = PromiseSerializer(many=True, required=False)
     images = serializers.SerializerMethodField()
-    url = serializers.HyperlinkedIdentityField(view_name='api:manuscript-detail')
 
     def get_images(self, obj):
         return list(ManuscriptImageSerializer(ManuscriptImage.objects.all(), many=True).data)
+
+    class Meta:
+        model = Manuscript
+        fields = ('pk', 'name', 'category', 'updated', 'items', 'promises', 'images',)
+
+
+class ManuscriptSerializer(BaseManuscriptSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='api:manuscript-detail')
 
     class Meta:
         model = Manuscript
