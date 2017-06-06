@@ -6,6 +6,12 @@ import Routes from "./components/Routes";
 import { adminApp } from "./reducers/index";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
+import 'jquery';
+import * as toastr from 'toastr';
+
+toastr.options = {
+  closeButton: true
+};
 
 const store = createStore(adminApp);
 

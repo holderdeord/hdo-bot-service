@@ -7,6 +7,7 @@ import {
 } from "../actions/manuscripts";
 import { getManuscriptFromState, sendManuscriptToApi } from "../utils/manuscript";
 import { getManuscriptsApiUrl } from "../utils/urls";
+import * as toastr from "toastr";
 
 const mapStateToProps = (state) => {
   return {
@@ -39,12 +40,18 @@ const mapDispatchToProps = (dispatch, {history}) => {
     onSubmit: (event, manuscript) => {
       event.preventDefault();
       dispatch(postManuscript(manuscript));
+      const timeoutHandleId = setTimeout(() => toastr.info('Trying to save manuscript, please wait'), 300);
       return sendManuscriptToApi(manuscript, getManuscriptsApiUrl(), 'POST')
         .then(createdManuscript => {
+          clearTimeout(timeoutHandleId);
           dispatch(postManuscript(manuscript, createdManuscript));
           history.push(`/edit/${createdManuscript.pk}`);
+          toastr.success('Successfully created manuscript, navigated you to edit-mode');
         })
-        .catch(error => dispatch(postManuscript(manuscript, error)));
+        .catch(error => {
+          dispatch(postManuscript(manuscript, error));
+          toastr.error('Failed to create manuscript');
+        });
     }
   }
 };
