@@ -25,7 +25,7 @@ class ManuscriptTable extends React.Component {
   }
 
   renderManuscript({ pk, name, category }) {
-    return <tr key="{ pk }">
+    return <tr key={ pk }>
       <td>{ pk }</td>
       <td>
         <Link to={`/view/${ pk }`}>{ name }</Link>

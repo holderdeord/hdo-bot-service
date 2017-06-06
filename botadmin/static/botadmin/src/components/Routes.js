@@ -8,9 +8,9 @@ import {
 
 import Admin from "../containers/Admin";
 import NoMatch from "./NoMatch";
-import ManuscriptCreate from "../containers/CreateManuscript";
 import NavItem from "./NavItem";
-import EditManuscriptComponent from "./EditManuscriptComponent";
+import EditManuscript from "../containers/EditManuscript";
+import CreateManuscript from "../containers/CreateManuscript";
 
 class Routes extends Component {
   render() {
@@ -30,8 +30,8 @@ class Routes extends Component {
           <div className="container">
             <Switch>
               <Route exact path="/" component={Admin}/>
-              <Route exact path="/create" component={ManuscriptCreate}/>
-              <Route exact path="/view/:manuscriptId" component={EditManuscriptComponent}/>
+              <Route exact path="/create" component={CreateManuscript}/>
+              <Route exact path="/edit/:manuscriptId" component={EditManuscript}/>
               <Route component={NoMatch}/>
             </Switch>
           </div>

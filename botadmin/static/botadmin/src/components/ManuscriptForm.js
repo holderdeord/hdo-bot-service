@@ -14,7 +14,7 @@ const ManuscriptForm = ({
   return (
     <div className="row">
       <div className="col-md-6">
-        <form onSubmit={event => onSubmit(event)}>
+        <form onSubmit={event => onSubmit(event, manuscript)}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
             <input className="form-control" type="text" id="name" name="name"

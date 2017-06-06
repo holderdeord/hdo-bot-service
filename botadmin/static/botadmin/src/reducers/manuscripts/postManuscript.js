@@ -1,8 +1,8 @@
 export default function postManuscript(state, action) {
-  const selectedManuscript = state.find(manuscript => manuscript.id === action.manuscriptId);
-  if (!selectedManuscript) {
+  const manuscript = state.find(manuscript => manuscript.id === action.manuscriptId);
+  if (!manuscript) {
     return state;
   }
-  console.log('posting manuscript', selectedManuscript);
+
   return state;
 }

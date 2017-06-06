@@ -55,9 +55,10 @@ export const deleteManuscriptItem = (manuscriptId, order) => {
   }
 };
 
-export const postManuscript = (manuscriptId) => {
+export const postManuscript = (manuscript, json) => {
   return {
     type: POST_MANUSCRIPT,
-    manuscriptId
+    manuscript,
+    json
   }
 };

@@ -5,6 +5,7 @@ import {
   addManuscript, addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty,
   deleteManuscriptItem, postManuscript
 } from "../actions/manuscripts";
+import { getManuscriptApiUrl } from "../utils/urls";
 
 const mapStateToProps = (state) => {
   return {
@@ -16,7 +17,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   let manuscript = addManuscript();
   dispatch(manuscript);
   dispatch(addManuscriptItem(manuscript.id));
@@ -33,9 +34,32 @@ const mapDispatchToProps = (dispatch) => {
     deleteManuscriptItem: (order) => {
       dispatch(deleteManuscriptItem(manuscript.id, order));
     },
-    onSubmit: (event) => {
+    onSubmit: (event, manuscript) => {
       event.preventDefault();
-      dispatch(postManuscript(manuscript.id));
+      dispatch(postManuscript(manuscript));
+      const payload = {
+        name: manuscript.name,
+        items: manuscript.items.map(item => {
+          return {
+            type: item.type,
+            order: item.order,
+            text: item.text,
+            buttonText: ''
+          };
+        })
+      };
+      return fetch(getManuscriptApiUrl(), {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        })
+      })
+        .then(response => response.json())
+        .then(createdManuscript => {
+          ownProps.history.push(`/edit/${createdManuscript.pk}`);
+        })
+        .catch(response => dispatch(postManuscript(manuscript, response)));
     }
   }
 };
