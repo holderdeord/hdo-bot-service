@@ -67,22 +67,26 @@ const ManuscriptForm = ({
                     </div>
                   </div>
                   <div className="panel-footer clearfix">
-                    <div className="btn-group btn-group-xs pull-right" role="group">
-                      <button type="button" className="btn btn-default"
-                              onClick={() => moveManuscriptItemUp(order)}
-                              disabled={order === 1}>
-                        <span className="glyphicon glyphicon-arrow-up"/> Move up
-                      </button>
-                      <button type="button" className="btn btn-default"
-                              onClick={() => moveManuscriptItemDown(order)}
-                              disabled={order === manuscript.items.length}>
-                        <span className="glyphicon glyphicon-arrow-down"/> Move down
-                      </button>
-                      <button type="button" className="btn btn-danger"
-                              onClick={() => deleteManuscriptItem(order)}
-                              disabled={manuscript.items.length === 1}>
-                        <span className="glyphicon glyphicon-remove"/> Remove
-                      </button>
+                    <div className="btn-toolbar pull-right" role="toolbar">
+                      <div className="btn-group btn-group-xs" role="group">
+                        <button type="button" className="btn btn-default"
+                                onClick={() => moveManuscriptItemUp(order)}
+                                disabled={order === 1}>
+                          <span className="glyphicon glyphicon-arrow-up"/> Move up
+                        </button>
+                        <button type="button" className="btn btn-default"
+                                onClick={() => moveManuscriptItemDown(order)}
+                                disabled={order === manuscript.items.length}>
+                          <span className="glyphicon glyphicon-arrow-down"/> Move down
+                        </button>
+                      </div>
+                      <div className="btn-group btn-group-xs" role="group">
+                        <button type="button" className="btn btn-danger"
+                                onClick={() => deleteManuscriptItem(order)}
+                                disabled={manuscript.items.length === 1}>
+                          <span className="glyphicon glyphicon-remove"/> Remove
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -93,7 +97,7 @@ const ManuscriptForm = ({
               </button>
             </div>
             <div className="form-group">
-              <button type="submit" className="btn btn-primary">Submit</button>
+              <button type="submit" className="btn btn-primary btn-block">Submit</button>
             </div>
           </form>
         </div>
