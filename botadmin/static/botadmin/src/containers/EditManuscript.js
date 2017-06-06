@@ -4,7 +4,7 @@ import ManuscriptForm from "../components/ManuscriptForm";
 import {
   addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem,
   editManuscript,
-  loadManuscript
+  loadManuscript, moveManuscriptItem
 } from "../actions/manuscripts";
 import { getManuscriptApiUrl } from "../utils/urls";
 import { getManuscriptFromState, sendManuscriptToApi } from "../utils/manuscript";
@@ -33,6 +33,12 @@ const mapDispatchToProps = (dispatch, { match }) => {
     },
     deleteManuscriptItem: (order) => {
       dispatch(deleteManuscriptItem(match.params.manuscriptId, order));
+    },
+    moveManuscriptItemDown: (order) => {
+      dispatch(moveManuscriptItem(match.params.manuscriptId, order, 1));
+    },
+    moveManuscriptItemUp: (order) => {
+      dispatch(moveManuscriptItem(match.params.manuscriptId, order, -1));
     },
     onSubmit: (event, manuscript) => {
       event.preventDefault();

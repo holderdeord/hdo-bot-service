@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ManuscriptItemTypeEnum, ManuscriptTypeEnum } from "../utils/enums";
 import { Link } from "react-router-dom";
-import DeleteManuscriptItemButton from "./DeleteManuscriptItemButton";
 
 const ManuscriptForm = ({
                           manuscript,
@@ -10,6 +9,8 @@ const ManuscriptForm = ({
                           changeManuscriptItemProperty,
                           changeManuscriptProperty,
                           deleteManuscriptItem,
+                          moveManuscriptItemDown,
+                          moveManuscriptItemUp,
                           onSubmit
                         }) => {
   return (
@@ -64,14 +65,21 @@ const ManuscriptForm = ({
                              onChange={(event) => changeManuscriptItemProperty(event, order, 'text')}/>
                     </div>
                     <div className="btn-group" role="group">
-                      <button type="button" className="btn btn-default">
+                      <button type="button" className="btn btn-default"
+                              onClick={() => moveManuscriptItemUp(order)}
+                              disabled={order === 1}>
                         <span className="glyphicon glyphicon-arrow-up"/> Move up
                       </button>
-                      <button type="button" className="btn btn-default">
+                      <button type="button" className="btn btn-default"
+                              onClick={() => moveManuscriptItemDown(order)}
+                              disabled={order === manuscript.items.length}>
                         <span className="glyphicon glyphicon-arrow-down"/> Move down
                       </button>
-                      <DeleteManuscriptItemButton manuscript={manuscript}
-                                                  onClick={() => deleteManuscriptItem(order)}/>
+                      <button type="button" className="btn btn-danger"
+                              onClick={() => deleteManuscriptItem(order)}
+                              disabled={manuscript.items.length === 1}>
+                        <span className="glyphicon glyphicon-remove"/> Delete
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -104,6 +112,8 @@ ManuscriptForm.propTypes = {
   changeManuscriptItemProperty: PropTypes.func.isRequired,
   changeManuscriptProperty: PropTypes.func.isRequired,
   deleteManuscriptItem: PropTypes.func.isRequired,
+  moveManuscriptItemDown: PropTypes.func.isRequired,
+  moveManuscriptItemUp: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired
 };
 

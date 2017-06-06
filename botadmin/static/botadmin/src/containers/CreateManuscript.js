@@ -3,7 +3,7 @@ import ManuscriptForm from "../components/ManuscriptForm";
 import { connect } from "react-redux";
 import {
   addManuscript, addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty,
-  deleteManuscriptItem, postManuscript
+  deleteManuscriptItem, moveManuscriptItem, postManuscript
 } from "../actions/manuscripts";
 import { getManuscriptFromState, sendManuscriptToApi } from "../utils/manuscript";
 import { getManuscriptsApiUrl } from "../utils/urls";
@@ -15,21 +15,26 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch, {history}) => {
-  let manuscript = addManuscript();
-  dispatch(manuscript);
-  dispatch(addManuscriptItem(manuscript.pk));
+  dispatch(addManuscript());
+  dispatch(addManuscriptItem(-1));
   return {
     addManuscriptItem: () => {
-      dispatch(addManuscriptItem(manuscript.pk));
+      dispatch(addManuscriptItem(-1));
     },
     changeManuscriptProperty: (event, propertyName) => {
-      dispatch(changeManuscriptProperty(manuscript.pk, propertyName, event.target.value));
+      dispatch(changeManuscriptProperty(-1, propertyName, event.target.value));
     },
     changeManuscriptItemProperty: (event, order, propertyName) => {
-      dispatch(changeManuscriptItemProperty(manuscript.pk, order, propertyName, event.target.value));
+      dispatch(changeManuscriptItemProperty(-1, order, propertyName, event.target.value));
     },
     deleteManuscriptItem: (order) => {
-      dispatch(deleteManuscriptItem(manuscript.pk, order));
+      dispatch(deleteManuscriptItem(-1, order));
+    },
+    moveManuscriptItemDown: (order) => {
+      dispatch(moveManuscriptItem(-1, order, 1));
+    },
+    moveManuscriptItemUp: (order) => {
+      dispatch(moveManuscriptItem(-1, order, -1));
     },
     onSubmit: (event, manuscript) => {
       event.preventDefault();
