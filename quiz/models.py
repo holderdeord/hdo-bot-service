@@ -181,7 +181,7 @@ class ManuscriptItem(BaseModel):
 
     def _update_order(self):
         if not self.order:
-            _max = self.__class__.objects.filter().aggregate(models.Max('order'))
+            _max = self.__class__.objects.filter().aggregate(order=models.Max('order'))
             try:
                 self.order = _max['order'] + 1
             except TypeError:
