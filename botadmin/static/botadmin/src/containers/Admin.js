@@ -1,8 +1,8 @@
 import React from 'react';
 import ManuscriptTable from "../components/ManuscriptTable";
 import { connect } from "react-redux";
-import { loadManuscripts } from "../actions/manuscripts";
-import { getManuscriptsApiUrl } from "../utils/urls";
+import { deleteManuscript, loadManuscripts } from "../actions/manuscripts";
+import { getManuscriptApiUrl, getManuscriptsApiUrl } from "../utils/urls";
 
 const mapStateToProps = (state) => {
   return {
@@ -17,6 +17,16 @@ const mapDispatchToProps = (dispatch) => {
     .then(manuscripts => dispatch(loadManuscripts(manuscripts)))
     .catch(error => dispatch(loadManuscripts(error)));
   return {
+    deleteManuscript: (manuscriptId) => {
+      if (window.confirm('Are you sure?')) {
+        dispatch(deleteManuscript(manuscriptId));
+        fetch(getManuscriptApiUrl(manuscriptId), {
+          method: 'DELETE'
+        })
+          .then(response => dispatch(deleteManuscript(manuscriptId, response)))
+          .catch(error => dispatch(deleteManuscript(manuscriptId, error)));
+      }
+    }
     // addManuscriptItem: () => {
     //   dispatch(addManuscriptItem(match.params.manuscriptId));
     // },
@@ -45,22 +55,3 @@ const Admin = connect(
 )(ManuscriptTable);
 
 export default Admin;
-
-// class Admin extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = { manuscripts: [] };
-//   }
-//
-//   componentDidMount() {
-//     fetch('http://localhost:8000/api/manuscripts/')
-//       .then(response => response.json())
-//       .then(manuscripts => this.setState({ manuscripts }));
-//   }
-//
-//   render() {
-//     return <ManuscriptTable manuscripts={this.state.manuscripts}/>;
-//   }
-// }
-//
-// export default Admin;

@@ -7,6 +7,7 @@ import changeManuscriptItemProperty from "./manuscripts/changeManuscriptItemProp
 import editManuscript from "./manuscripts/editManuscript";
 import loadManuscript from "./manuscripts/loadManuscript";
 import loadManuscripts from "./manuscripts/loadManuscripts";
+import deleteManuscript from "./manuscripts/deleteManuscript";
 
 export const ADD_MANUSCRIPT = 'ADD_MANUSCRIPT';
 export const ADD_MANUSCRIPT_ITEM = 'ADD_MANUSCRIPT_ITEM';
@@ -29,6 +30,8 @@ const manuscripts = (state = [], action) => {
       return changeManuscriptItemProperty(state, action);
     case CHANGE_MANUSCRIPT_PROPERTY:
       return changeManuscriptProperty(state, action);
+    case DELETE_MANUSCRIPT:
+      return deleteManuscript(state, action);
     case DELETE_MANUSCRIPT_ITEM:
       return deleteManuscriptItem(state, action);
     case EDIT_MANUSCRIPT:

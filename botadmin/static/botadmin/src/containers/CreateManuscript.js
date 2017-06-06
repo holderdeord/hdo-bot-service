@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch, {history}) => {
       dispatch(postManuscript(manuscript));
       return sendManuscriptToApi(manuscript, getManuscriptsApiUrl(), 'POST')
         .then(createdManuscript => {
-          dispatch(postManuscript(manuscript, createdManuscript))
-          history.push(`/edit/${createdManuscript.pk}`)
+          dispatch(postManuscript(manuscript, createdManuscript));
+          history.push(`/edit/${createdManuscript.pk}`);
         })
         .catch(error => dispatch(postManuscript(manuscript, error)));
     }

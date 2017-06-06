@@ -44,10 +44,11 @@ export const changeManuscriptProperty = (manuscriptId, propertyName, value) => {
   }
 };
 
-export const deleteManuscript = (manuscriptId) => {
+export const deleteManuscript = (manuscriptId, json) => {
   return {
     type: DELETE_MANUSCRIPT,
-    manuscriptId
+    manuscriptId,
+    json
   }
 };
 
