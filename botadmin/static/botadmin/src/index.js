@@ -10,7 +10,8 @@ import 'jquery';
 import * as toastr from 'toastr';
 
 toastr.options = {
-  closeButton: true
+  closeButton: true,
+  newestOnTop: true
 };
 
 const store = createStore(adminApp);

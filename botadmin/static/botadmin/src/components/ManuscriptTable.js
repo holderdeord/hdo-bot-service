@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import * as moment from 'moment';
 
 const ManuscriptTable = ({ manuscripts, deleteManuscript }) => (
   <div>
-    <Link to="/create">Create new manuscript</Link>
+    <ul className="nav nav-pills">
+      <li role="presentation">
+        <Link to="/create">Create new manuscript</Link>
+      </li>
+    </ul>
     <table className="table table-striped">
       <thead>
       <tr>
@@ -23,7 +28,7 @@ const ManuscriptTable = ({ manuscripts, deleteManuscript }) => (
             <Link to={`/edit/${ pk }`}>{ name }</Link>
           </td>
           <td>{items.length}</td>
-          <td>{updated}</td>
+          <td>{moment().from(updated)}</td>
           <td>
             <button className="btn btn-default" type="button" onClick={() => deleteManuscript(pk)}>
               <span className="glyphicon glyphicon-trash"></span>

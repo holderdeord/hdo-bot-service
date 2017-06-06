@@ -36,25 +36,6 @@ const mapDispatchToProps = (dispatch) => {
           });
       }
     }
-    // addManuscriptItem: () => {
-    //   dispatch(addManuscriptItem(match.params.manuscriptId));
-    // },
-    // changeManuscriptProperty: (event, propertyName) => {
-    //   dispatch(changeManuscriptProperty(match.params.manuscriptId, propertyName, event.target.value));
-    // },
-    // changeManuscriptItemProperty: (event, order, propertyName) => {
-    //   dispatch(changeManuscriptItemProperty(match.params.manuscriptId, order, propertyName, event.target.value));
-    // },
-    // deleteManuscriptItem: (order) => {
-    //   dispatch(deleteManuscriptItem(match.params.manuscriptId, order));
-    // },
-    // onSubmit: (event, manuscript) => {
-    //   event.preventDefault();
-    //   dispatch(editManuscript(manuscript));
-    //   return sendManuscriptToApi(manuscript, 'PUT')
-    //     .then(createdManuscript => dispatch(editManuscript(createdManuscript, createdManuscript)))
-    //     .catch(error => dispatch(editManuscript(manuscript, error)));
-    // }
   }
 };
 
