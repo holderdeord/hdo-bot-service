@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from "react-redux";
 import ManuscriptForm from "../components/ManuscriptForm";
 import {
-  addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem, editManuscript,
+  addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem,
+  editManuscript,
   loadManuscript
 } from "../actions/manuscripts";
 import { getManuscriptApiUrl } from "../utils/urls";
