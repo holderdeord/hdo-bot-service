@@ -28,7 +28,7 @@ class ManuscriptTable extends React.Component {
     return <tr key={ pk }>
       <td>{ pk }</td>
       <td>
-        <Link to={`/view/${ pk }`}>{ name }</Link>
+        <Link to={`/edit/${ pk }`}>{ name }</Link>
       </td>
       <td>{ category }</td>
     </tr>;

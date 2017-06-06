@@ -3,16 +3,14 @@ import {
   ADD_MANUSCRIPT_ITEM,
   CHANGE_MANUSCRIPT_ITEM_PROPERTY,
   CHANGE_MANUSCRIPT_PROPERTY,
-  DELETE_MANUSCRIPT_ITEM, POST_MANUSCRIPT
+  DELETE_MANUSCRIPT_ITEM, EDIT_MANUSCRIPT, LOAD_MANUSCRIPT, POST_MANUSCRIPT
 } from "../reducers/manuscripts";
 import { ManuscriptTypeEnum } from "../utils/enums";
-
-let nextManuscriptId = 0;
 
 export const addManuscript = (name = 'Nytt manuskript', manuscriptType = ManuscriptTypeEnum.Info.key, items = []) => {
   return {
     type: ADD_MANUSCRIPT,
-    id: nextManuscriptId++,
+    id: -1,
     name,
     manuscriptType,
     items
@@ -52,6 +50,21 @@ export const deleteManuscriptItem = (manuscriptId, order) => {
     type: DELETE_MANUSCRIPT_ITEM,
     manuscriptId,
     order
+  }
+};
+
+export const editManuscript = (manuscript) => {
+  return {
+    type: EDIT_MANUSCRIPT,
+    manuscript
+  }
+};
+
+export const loadManuscript = (manuscriptId, manuscript) => {
+  return {
+    type: LOAD_MANUSCRIPT,
+    manuscriptId,
+    manuscript
   }
 };
 

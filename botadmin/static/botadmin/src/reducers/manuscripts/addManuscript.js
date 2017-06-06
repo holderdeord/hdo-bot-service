@@ -15,6 +15,10 @@ const manuscript = (state = {}, action) => {
 };
 
 export default function addManuscript (state, action) {
+  const selectedManuscript = state.find(manuscript => manuscript.id === action.id);
+  if (selectedManuscript) {
+    return state;
+  }
   return [
     ...state,
     manuscript(undefined, action)

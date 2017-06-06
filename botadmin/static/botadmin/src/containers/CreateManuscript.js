@@ -5,7 +5,7 @@ import {
   addManuscript, addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty,
   deleteManuscriptItem, postManuscript
 } from "../actions/manuscripts";
-import { getManuscriptApiUrl } from "../utils/urls";
+import { getManuscriptsApiUrl } from "../utils/urls";
 
 const mapStateToProps = (state) => {
   return {
@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           };
         })
       };
-      return fetch(getManuscriptApiUrl(), {
+      return fetch(getManuscriptsApiUrl(), {
         method: 'POST',
         body: JSON.stringify(payload),
         headers: new Headers({

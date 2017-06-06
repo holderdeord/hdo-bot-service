@@ -1,61 +1,69 @@
 import React from 'react';
 import { connect } from "react-redux";
 import ManuscriptForm from "../components/ManuscriptForm";
+import {
+  addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem, editManuscript,
+  loadManuscript
+} from "../actions/manuscripts";
+import { getManuscriptApiUrl, getManuscriptsApiUrl } from "../utils/urls";
 
-const mapStateToProps = (state, {match}) => {
-  console.log('test', match.params.manuscriptId);
-  return {
-    manuscript: {
-      name: 'Test',
+const mapStateToProps = (state, { match }) => {
+  const manuscript = state.manuscripts.find(manuscript => manuscript.id === match.params.manuscriptId) || {
+      name: '',
       type: 'info',
       items: []
-    }
+    };
+  return {
+    manuscript
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, { match }) => {
   // let manuscript = addManuscript();
   // dispatch(manuscript);
   // dispatch(addManuscriptItem(manuscript.id));
+  dispatch(loadManuscript(match.params.manuscriptId));
+  fetch(getManuscriptApiUrl(match.params.manuscriptId))
+    .then(response => response.json())
+    .then(manuscript => dispatch(loadManuscript(match.params.manuscriptId, manuscript)));
+  // .catch(error => dispatch(loadManuscript()))
   return {
     addManuscriptItem: () => {
-      // dispatch(addManuscriptItem(manuscript.id));
+      dispatch(addManuscriptItem(match.params.manuscriptId));
     },
     changeManuscriptProperty: (event, propertyName) => {
-      // dispatch(changeManuscriptProperty(manuscript.id, propertyName, event.target.value));
+      dispatch(changeManuscriptProperty(match.params.manuscriptId, propertyName, event.target.value));
     },
     changeManuscriptItemProperty: (event, order, propertyName) => {
-      // dispatch(changeManuscriptItemProperty(manuscript.id, order, propertyName, event.target.value));
+      dispatch(changeManuscriptItemProperty(match.params.manuscriptId, order, propertyName, event.target.value));
     },
     deleteManuscriptItem: (order) => {
-      // dispatch(deleteManuscriptItem(manuscript.id, order));
+      dispatch(deleteManuscriptItem(match.params.manuscriptId, order));
     },
     onSubmit: (event, manuscript) => {
       event.preventDefault();
-      // dispatch(postManuscript(manuscript));
-      // const payload = {
-      //   name: manuscript.name,
-      //   items: manuscript.items.map(item => {
-      //     return {
-      //       type: item.type,
-      //       order: item.order,
-      //       text: item.text,
-      //       buttonText: ''
-      //     };
-      //   })
-      // };
-      // return fetch(getManuscriptApiUrl(), {
-      //   method: 'POST',
-      //   body: JSON.stringify(payload),
-      //   headers: new Headers({
-      //     'Content-Type': 'application/json'
-      //   })
-      // })
-      //   .then(response => response.json())
-      //   .then(createdManuscript => {
-      //     console.log('createdManuscript', createdManuscript, ownProps);
-      //   })
-      //   .catch(response => dispatch(postManuscript(manuscript, response)));
+      dispatch(editManuscript(manuscript));
+      const payload = {
+        name: manuscript.name,
+        items: manuscript.items.map(item => {
+          return {
+            type: item.type,
+            order: item.order,
+            text: item.text,
+            buttonText: ''
+          };
+        })
+      };
+      return fetch(getManuscriptsApiUrl(), {
+        method: 'PUT',
+        body: JSON.stringify(payload),
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        })
+      })
+        .then(response => response.json())
+        .then(createdManuscript => dispatch(editManuscript(createdManuscript)))
+        .catch(response => dispatch(editManuscript(manuscript, response)));
     }
   }
 };
@@ -66,8 +74,6 @@ const EditManuscript = connect(
 )(ManuscriptForm);
 
 export default EditManuscript;
-
-
 
 
 // import ManuscriptForm from "./ManuscriptForm";
