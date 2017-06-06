@@ -5,20 +5,15 @@ import {
   addManuscript, addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty,
   deleteManuscriptItem, postManuscript
 } from "../actions/manuscripts";
-import { getManuscriptsApiUrl } from "../utils/urls";
-import { createManuscriptPayload } from "../utils/manuscript";
+import { getManuscriptFromState, sendManuscriptToApi } from "../utils/manuscript";
 
 const mapStateToProps = (state) => {
   return {
-    manuscript: state.manuscripts.length > 0 ? state.manuscripts[state.manuscripts.length - 1] : {
-      name: '',
-      type: 'info',
-      items: []
-    }
+    manuscript: getManuscriptFromState(state, -1)
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, {history}) => {
   let manuscript = addManuscript();
   dispatch(manuscript);
   dispatch(addManuscriptItem(manuscript.id));
@@ -38,18 +33,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onSubmit: (event, manuscript) => {
       event.preventDefault();
       dispatch(postManuscript(manuscript));
-      return fetch(getManuscriptsApiUrl(), {
-        method: 'POST',
-        body: JSON.stringify(createManuscriptPayload(manuscript)),
-        headers: new Headers({
-          'Content-Type': 'application/json'
-        })
-      })
-        .then(response => response.json())
+      return sendManuscriptToApi(manuscript, 'POST')
         .then(createdManuscript => {
-          ownProps.history.push(`/edit/${createdManuscript.pk}`);
+          dispatch(postManuscript(manuscript, createdManuscript))
+          history.push(`/edit/${createdManuscript.pk}`)
         })
-        .catch(response => dispatch(postManuscript(manuscript, response)));
+        .catch(error => dispatch(postManuscript(manuscript, error)));
     }
   }
 };
@@ -60,20 +49,3 @@ const CreateManuscript = connect(
 )(ManuscriptForm);
 
 export default CreateManuscript;
-
-
-// export default class CreateManuscript extends React.Component {
-//   // componentDidMount() {
-//   //   fetch('http://localhost:8000/api/categories/')
-//   //     .then(response => response.json())
-//   //     .then(categories => this.setState({ categories }));
-//   // }
-//
-//   // handleSubmit(event) {
-//   //   console.log('submitting', this.state.manuscript);
-//   // }
-//
-//   render() {
-//     return connect()(ManuscriptForm);
-//   }
-// }

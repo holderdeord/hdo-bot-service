@@ -3,7 +3,7 @@ const manuscript = (state = {}, action) => {
   switch (action.type) {
     case ADD_MANUSCRIPT:
       return {
-        id: action.id,
+        id: -1,
         name: action.name,
         type: action.manuscriptType,
         items: action.items
@@ -15,7 +15,7 @@ const manuscript = (state = {}, action) => {
 };
 
 export default function addManuscript (state, action) {
-  const selectedManuscript = state.find(manuscript => manuscript.id === action.id);
+  const selectedManuscript = state.find(manuscript => manuscript.id === -1);
   if (selectedManuscript) {
     return state;
   }

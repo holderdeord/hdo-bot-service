@@ -10,7 +10,6 @@ import { ManuscriptTypeEnum } from "../utils/enums";
 export const addManuscript = (name = 'Nytt manuskript', manuscriptType = ManuscriptTypeEnum.Info.key, items = []) => {
   return {
     type: ADD_MANUSCRIPT,
-    id: -1,
     name,
     manuscriptType,
     items
@@ -53,10 +52,11 @@ export const deleteManuscriptItem = (manuscriptId, order) => {
   }
 };
 
-export const editManuscript = (manuscript) => {
+export const editManuscript = (manuscript, json) => {
   return {
     type: EDIT_MANUSCRIPT,
-    manuscript
+    manuscript,
+    json
   }
 };
 
