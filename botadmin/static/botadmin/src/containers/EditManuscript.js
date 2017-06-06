@@ -6,6 +6,7 @@ import {
   loadManuscript
 } from "../actions/manuscripts";
 import { getManuscriptApiUrl, getManuscriptsApiUrl } from "../utils/urls";
+import { createManuscriptPayload } from "../utils/manuscript";
 
 const mapStateToProps = (state, { match }) => {
   const manuscript = state.manuscripts.find(manuscript => manuscript.id === match.params.manuscriptId) || {
@@ -43,20 +44,9 @@ const mapDispatchToProps = (dispatch, { match }) => {
     onSubmit: (event, manuscript) => {
       event.preventDefault();
       dispatch(editManuscript(manuscript));
-      const payload = {
-        name: manuscript.name,
-        items: manuscript.items.map(item => {
-          return {
-            type: item.type,
-            order: item.order,
-            text: item.text,
-            buttonText: ''
-          };
-        })
-      };
       return fetch(getManuscriptsApiUrl(), {
         method: 'PUT',
-        body: JSON.stringify(payload),
+        body: JSON.stringify(createManuscriptPayload(manuscript)),
         headers: new Headers({
           'Content-Type': 'application/json'
         })

@@ -6,6 +6,7 @@ import {
   deleteManuscriptItem, postManuscript
 } from "../actions/manuscripts";
 import { getManuscriptsApiUrl } from "../utils/urls";
+import { createManuscriptPayload } from "../utils/manuscript";
 
 const mapStateToProps = (state) => {
   return {
@@ -37,20 +38,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onSubmit: (event, manuscript) => {
       event.preventDefault();
       dispatch(postManuscript(manuscript));
-      const payload = {
-        name: manuscript.name,
-        items: manuscript.items.map(item => {
-          return {
-            type: item.type,
-            order: item.order,
-            text: item.text,
-            buttonText: ''
-          };
-        })
-      };
       return fetch(getManuscriptsApiUrl(), {
         method: 'POST',
-        body: JSON.stringify(payload),
+        body: JSON.stringify(createManuscriptPayload(manuscript)),
         headers: new Headers({
           'Content-Type': 'application/json'
         })
