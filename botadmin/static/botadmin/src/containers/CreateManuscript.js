@@ -6,6 +6,7 @@ import {
   deleteManuscriptItem, postManuscript
 } from "../actions/manuscripts";
 import { getManuscriptFromState, sendManuscriptToApi } from "../utils/manuscript";
+import { getManuscriptsApiUrl } from "../utils/urls";
 
 const mapStateToProps = (state) => {
   return {
@@ -33,7 +34,7 @@ const mapDispatchToProps = (dispatch, {history}) => {
     onSubmit: (event, manuscript) => {
       event.preventDefault();
       dispatch(postManuscript(manuscript));
-      return sendManuscriptToApi(manuscript, 'POST')
+      return sendManuscriptToApi(manuscript, getManuscriptsApiUrl(), 'POST')
         .then(createdManuscript => {
           dispatch(postManuscript(manuscript, createdManuscript))
           history.push(`/edit/${createdManuscript.pk}`)

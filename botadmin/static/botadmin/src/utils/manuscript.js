@@ -1,4 +1,3 @@
-import { getManuscriptsApiUrl } from "./urls";
 export function createManuscriptPayload(manuscript) {
   return JSON.stringify({
     pk: manuscript.id,
@@ -22,8 +21,8 @@ export function getManuscriptFromState(state, manuscriptId) {
     };
 }
 
-export function sendManuscriptToApi(manuscript, method) {
-  return fetch(getManuscriptsApiUrl(), {
+export function sendManuscriptToApi(manuscript, url, method) {
+  return fetch(url, {
     method: method,
     body: createManuscriptPayload(manuscript),
     headers: new Headers({
