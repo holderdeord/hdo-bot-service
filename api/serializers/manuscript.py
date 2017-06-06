@@ -42,22 +42,24 @@ class ManuscriptSerializer(WritableNestedModelSerializer):
     items = ManuscriptItemSerializer(many=True, required=False)
     promises = PromiseSerializer(many=True, required=False)
     images = serializers.SerializerMethodField()
+    url = serializers.HyperlinkedIdentityField(view_name='api:manuscript-detail')
 
     def get_images(self, obj):
         return list(ManuscriptImageSerializer(ManuscriptImage.objects.all(), many=True).data)
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'name', 'category', 'updated', 'items', 'promises', 'images',)
+        fields = ('pk', 'url', 'name', 'category', 'updated', 'items', 'promises', 'images',)
 
 
 class ManuscriptListSerializer(WritableNestedModelSerializer):
     items = ManuscriptItemSerializer(many=True, required=False)
     category = serializers.SerializerMethodField()
+    url = serializers.HyperlinkedIdentityField(view_name='api:manuscript-detail')
 
     def get_category(self, obj):
         return obj.category.name if obj.category else None
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'name', 'category', 'updated', 'items',)
+        fields = ('pk', 'url', 'name', 'category', 'updated', 'items')
