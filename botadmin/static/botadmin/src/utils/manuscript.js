@@ -1,6 +1,6 @@
 export function createManuscriptPayload(manuscript) {
   return JSON.stringify({
-    pk: manuscript.id,
+    pk: manuscript.pk,
     name: manuscript.name,
     items: manuscript.items.map(item => {
       return {
@@ -13,8 +13,8 @@ export function createManuscriptPayload(manuscript) {
 }
 
 export function getManuscriptFromState(state, manuscriptId) {
-  return state.manuscripts.find(manuscript => manuscript.id === manuscriptId) || {
-      id: manuscriptId,
+  return state.manuscripts.find(manuscript => manuscript.pk === manuscriptId) || {
+      pk: manuscriptId,
       name: '',
       type: 'info',
       items: []

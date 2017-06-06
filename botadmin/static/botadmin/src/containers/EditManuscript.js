@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch, { match }) => {
     onSubmit: (event, manuscript) => {
       event.preventDefault();
       dispatch(editManuscript(manuscript));
-      return sendManuscriptToApi(manuscript, getManuscriptApiUrl(manuscript.id), 'PUT')
+      return sendManuscriptToApi(manuscript, getManuscriptApiUrl(manuscript.pk), 'PUT')
         .then(createdManuscript => dispatch(editManuscript(createdManuscript, createdManuscript)))
         .catch(error => dispatch(editManuscript(manuscript, error)));
     }

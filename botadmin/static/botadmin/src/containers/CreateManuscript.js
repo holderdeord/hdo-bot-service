@@ -17,19 +17,19 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, {history}) => {
   let manuscript = addManuscript();
   dispatch(manuscript);
-  dispatch(addManuscriptItem(manuscript.id));
+  dispatch(addManuscriptItem(manuscript.pk));
   return {
     addManuscriptItem: () => {
-      dispatch(addManuscriptItem(manuscript.id));
+      dispatch(addManuscriptItem(manuscript.pk));
     },
     changeManuscriptProperty: (event, propertyName) => {
-      dispatch(changeManuscriptProperty(manuscript.id, propertyName, event.target.value));
+      dispatch(changeManuscriptProperty(manuscript.pk, propertyName, event.target.value));
     },
     changeManuscriptItemProperty: (event, order, propertyName) => {
-      dispatch(changeManuscriptItemProperty(manuscript.id, order, propertyName, event.target.value));
+      dispatch(changeManuscriptItemProperty(manuscript.pk, order, propertyName, event.target.value));
     },
     deleteManuscriptItem: (order) => {
-      dispatch(deleteManuscriptItem(manuscript.id, order));
+      dispatch(deleteManuscriptItem(manuscript.pk, order));
     },
     onSubmit: (event, manuscript) => {
       event.preventDefault();

@@ -14,8 +14,8 @@ const ManuscriptTable = ({ manuscripts, deleteManuscript }) => (
       </tr>
       </thead>
       <tbody>
-      { manuscripts.map(({ pk, name, category }) => (
-        <tr key={ `manuscript-${pk}` }>
+      { manuscripts.map(({ pk, name, category }, index) => (
+        <tr key={ `manuscript-${index}` }>
           <td>{ pk }</td>
           <td>
             <Link to={`/edit/${ pk }`}>{ name }</Link>
@@ -34,7 +34,7 @@ const ManuscriptTable = ({ manuscripts, deleteManuscript }) => (
 
 ManuscriptTable.propTypes = {
   manuscripts: PropTypes.arrayOf(PropTypes.shape({
-    pk: PropTypes.number.isRequired,
+    // pk: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired
   })),
   deleteManuscript: PropTypes.func.isRequired

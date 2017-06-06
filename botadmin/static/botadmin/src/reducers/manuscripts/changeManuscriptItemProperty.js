@@ -1,5 +1,5 @@
 export default function changeManuscriptItemProperty(state, action) {
-  const selectedManuscript = state.find(manuscript => manuscript.id === action.manuscriptId);
+  const selectedManuscript = state.find(manuscript => manuscript.pk === action.manuscriptId);
   if (!selectedManuscript) {
     return state;
   }

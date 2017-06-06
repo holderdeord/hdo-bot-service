@@ -10,6 +10,7 @@ import { ManuscriptTypeEnum } from "../utils/enums";
 export const addManuscript = (name = 'Nytt manuskript', manuscriptType = ManuscriptTypeEnum.Info.key, items = []) => {
   return {
     type: ADD_MANUSCRIPT,
+    pk: -1,
     name,
     manuscriptType,
     items
