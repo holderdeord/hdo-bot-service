@@ -1,7 +1,7 @@
 import React from 'react';
-import ManuscriptTable from "./ManuscriptTable";
+import ManuscriptTable from "../components/ManuscriptTable";
 
-class AdminComponent extends React.Component {
+class Admin extends React.Component {
   constructor() {
     super();
     this.state = { manuscripts: [] };
@@ -18,4 +18,4 @@ class AdminComponent extends React.Component {
   }
 }
 
-export default AdminComponent;
+export default Admin;

@@ -18,7 +18,7 @@ export default class CoreManuscript {
   }
 
   removeItem(itemToBeDeleted) {
-    const index = this.items.indexOf(itemToBeDeleted)
+    const index = this.items.indexOf(itemToBeDeleted);
     this.items.splice(index, 1);
     this.items.forEach((item, index) => item.order = index + 1);
   }

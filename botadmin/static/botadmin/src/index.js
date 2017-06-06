@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import Routes from "./components/Routes";
+import { adminApp } from "./reducers/index";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
-ReactDOM.render(<Routes />, document.getElementById('root'));
+const store = createStore(adminApp);
+
+ReactDOM.render(<Provider store={store}>
+  <Routes />
+</Provider>, document.getElementById('root'));
 registerServiceWorker();

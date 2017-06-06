@@ -6,9 +6,9 @@ import {
   Switch
 } from 'react-router-dom'
 
-import AdminComponent from "./AdminComponent";
+import Admin from "../containers/Admin";
 import NoMatch from "./NoMatch";
-import ManuscriptCreateComponent from "./CreateManuscriptComponent";
+import ManuscriptCreate from "../containers/CreateManuscript";
 import NavItem from "./NavItem";
 import EditManuscriptComponent from "./EditManuscriptComponent";
 
@@ -29,8 +29,8 @@ class Routes extends Component {
           </header>
           <div className="container">
             <Switch>
-              <Route exact path="/" component={AdminComponent}/>
-              <Route exact path="/create" component={ManuscriptCreateComponent}/>
+              <Route exact path="/" component={Admin}/>
+              <Route exact path="/create" component={ManuscriptCreate}/>
               <Route exact path="/view/:manuscriptId" component={EditManuscriptComponent}/>
               <Route component={NoMatch}/>
             </Switch>
