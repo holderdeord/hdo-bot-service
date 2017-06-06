@@ -33,7 +33,9 @@ const mapDispatchToProps = (dispatch, { match }) => {
       dispatch(changeManuscriptItemProperty(match.params.manuscriptId, order, propertyName, event.target.value));
     },
     deleteManuscriptItem: (order) => {
-      dispatch(deleteManuscriptItem(match.params.manuscriptId, order));
+      if (window.confirm('Are you sure?')) {
+        dispatch(deleteManuscriptItem(match.params.manuscriptId, order));
+      }
     },
     moveManuscriptItemDown: (order) => {
       dispatch(moveManuscriptItem(match.params.manuscriptId, order, 1));

@@ -30,9 +30,11 @@ const ManuscriptTable = ({ manuscripts, deleteManuscript }) => (
           <td>{items.length}</td>
           <td>{moment().from(updated)}</td>
           <td>
-            <button className="btn btn-default" type="button" onClick={() => deleteManuscript(pk)}>
-              <span className="glyphicon glyphicon-trash"></span>
-            </button>
+            <div className="btn-group btn-group-xs" role="group">
+              <button className="btn btn-danger" type="button" onClick={() => deleteManuscript(pk)}>
+                <span className="glyphicon glyphicon-trash" /> Delete
+              </button>
+            </div>
           </td>
         </tr>
       )) }

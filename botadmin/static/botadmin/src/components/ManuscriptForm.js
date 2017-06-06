@@ -40,6 +40,7 @@ const ManuscriptForm = ({
                 ))}
               </select>
             </div>
+            <label>Items</label>
             <div className="well">
               {manuscript.items.map(({ order, text, type }) => (
                 <div key={order} className="panel panel-default">
@@ -60,11 +61,13 @@ const ManuscriptForm = ({
                     </div>
                     <div className="form-group">
                       <label htmlFor={`itemText-${order}`}>Text</label>
-                      <input className="form-control" type="text" id={`itemText-${order}`} name="itemText"
-                             value={text}
-                             onChange={(event) => changeManuscriptItemProperty(event, order, 'text')}/>
+                      <textarea className="form-control" type="text" id={`itemText-${order}`} name="itemText" rows="1"
+                                value={text}
+                                onChange={(event) => changeManuscriptItemProperty(event, order, 'text')}/>
                     </div>
-                    <div className="btn-group" role="group">
+                  </div>
+                  <div className="panel-footer clearfix">
+                    <div className="btn-group btn-group-xs pull-right" role="group">
                       <button type="button" className="btn btn-default"
                               onClick={() => moveManuscriptItemUp(order)}
                               disabled={order === 1}>
@@ -78,21 +81,42 @@ const ManuscriptForm = ({
                       <button type="button" className="btn btn-danger"
                               onClick={() => deleteManuscriptItem(order)}
                               disabled={manuscript.items.length === 1}>
-                        <span className="glyphicon glyphicon-remove"/> Delete
+                        <span className="glyphicon glyphicon-remove"/> Remove
                       </button>
                     </div>
                   </div>
                 </div>
               ))}
-              <button className="btn btn-link" type="button"
+              <button className="btn btn-default" type="button"
                       onClick={() => addManuscriptItem()}>
                 Add item
               </button>
             </div>
-            <button type="submit" className="btn btn-default">Submit</button>
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary">Submit</button>
+            </div>
           </form>
         </div>
-        <div className="col-md-6">Preview</div>
+        <div className="col-md-6">
+          <label>Preview</label>
+          <div className="well">
+            {manuscript.items.map(({ order, text, type }) => {
+              switch (type) {
+                case ManuscriptItemTypeEnum.Text.key:
+                  return (
+                    <div key={`preview-item-${order}`}>Text: {text}</div>
+                  );
+                case ManuscriptItemTypeEnum.Button.key:
+                  return (
+                    <div key={`preview-item-${order}`}>Button: {text}</div>
+                  );
+              }
+              return (
+                <div key={`preview-item-${order}`}>Not supported yet</div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
