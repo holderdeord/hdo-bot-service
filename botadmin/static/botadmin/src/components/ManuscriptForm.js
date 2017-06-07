@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ManuscriptItemTypeEnum, ManuscriptTypeEnum } from "../utils/enums";
 import { Link } from "react-router-dom";
+import ManuscriptPreview from "./ManuscriptPreview";
 
 const ManuscriptForm = ({
                           manuscript,
@@ -104,21 +105,7 @@ const ManuscriptForm = ({
         <div className="col-md-6">
           <label>Preview</label>
           <div className="well">
-            {manuscript.items.map(({ order, text, type }) => {
-              switch (type) {
-                case ManuscriptItemTypeEnum.Text.key:
-                  return (
-                    <div key={`preview-item-${order}`}>Text: {text}</div>
-                  );
-                case ManuscriptItemTypeEnum.Button.key:
-                  return (
-                    <div key={`preview-item-${order}`}>Button: {text}</div>
-                  );
-              }
-              return (
-                <div key={`preview-item-${order}`}>Not supported yet</div>
-              );
-            })}
+            <ManuscriptPreview manuscript={manuscript}/>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 export const ManuscriptItemTypeEnum = {
-  Button: { key: 'button', text: 'Button' },
+  Button: { key: 'quick_reply', text: 'Quick Reply' },
   Text: { key: 'text', text: 'Text' },
 };
 
