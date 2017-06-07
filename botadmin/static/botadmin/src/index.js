@@ -7,11 +7,11 @@ import { adminApp } from "./reducers/index";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
-// importing dependencies to expose
 import * as toastr from 'toastr';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'toastr/build/toastr.css';
+import 'jquery';
 
 toastr.options = {
   closeButton: true,

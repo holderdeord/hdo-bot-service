@@ -1,13 +1,13 @@
 import React from 'react';
 import './ChatEntry.css';
+import { Image } from "react-bootstrap";
 
 const ChatEntry = ({ isBot, hasContainer, children }) => {
-  console.log(hasContainer);
   return (
     <div className="media">
       {isBot ? (
         <div className="media-left media-bottom">
-          <img className="user-avatar" src="/img/bot_picture.png" alt="Bot picture"/>
+          <Image className="user-avatar" src="/img/bot_picture.png" alt="Bot" circle/>
         </div>
       ) : null}
       <div className="media-body">
@@ -17,7 +17,7 @@ const ChatEntry = ({ isBot, hasContainer, children }) => {
       </div>
       {!isBot ? (
         <div className="media-right media-bottom">
-          <img className="user-avatar" src="/img/fallback_avatar.png" alt="User picture"/>
+          <Image className="user-avatar" src="/img/fallback_avatar.png" alt="User" circle/>
         </div>
       ) : null}
     </div>
