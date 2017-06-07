@@ -25,7 +25,7 @@ function generateItemMarkup({ order, text, type }) {
       return text;
     case ManuscriptItemTypeEnum.Button.key:
       return (
-        <div className="text-center">
+        <div className="text-right">
           <button type="button" className="btn btn-default">{text}</button>
         </div>
       );
