@@ -1,6 +1,7 @@
 export function createManuscriptPayload(manuscript) {
   return JSON.stringify({
     pk: manuscript.pk,
+    type: manuscript.type,
     name: manuscript.name,
     items: manuscript.items.map(item => {
       return {

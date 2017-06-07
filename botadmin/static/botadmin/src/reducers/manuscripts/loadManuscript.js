@@ -9,7 +9,7 @@ export default function loadManuscript(state, action) {
   return [...state, {
     pk: action.manuscriptId,
     name: action.manuscript.name,
-    type: 'info',
+    type: action.manuscript.type,
     items: action.manuscript.items
   }];
 }

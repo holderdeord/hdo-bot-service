@@ -4,6 +4,7 @@ export const ManuscriptItemTypeEnum = {
 };
 
 export const ManuscriptTypeEnum = {
-  ElectoralGuide: { key: 'electoralGuide', text: 'Electoral Guide' },
-  Info: { key: 'info', text: 'Info' },
+  ElectoralGuide: { key: 'voter_guide', text: 'Electoral Guide' },
+  Info: { key: 'generic', text: 'Info' },
+  Quiz: { key: 'quiz', text: 'Quiz' }
 };
