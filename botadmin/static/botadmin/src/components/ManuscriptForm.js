@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { ManuscriptItemTypeEnum, ManuscriptTypeEnum } from "../utils/enums";
 import { Link } from "react-router-dom";
 import ManuscriptPreview from "./ManuscriptPreview";
+import Textarea from 'react-textarea-autosize';
+import './ManuscriptForm.css';
 
 const ManuscriptForm = ({
                           manuscript,
@@ -24,7 +26,7 @@ const ManuscriptForm = ({
       </ol>
       <div className="row">
         <div className="col-md-6">
-          <form onSubmit={event => onSubmit(event, manuscript)}>
+          <form className="manuscript-form" onSubmit={event => onSubmit(event, manuscript)}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input className="form-control" type="text" id="name" name="name"
@@ -62,9 +64,9 @@ const ManuscriptForm = ({
                     </div>
                     <div className="form-group">
                       <label htmlFor={`itemText-${order}`}>Text</label>
-                      <textarea className="form-control" type="text" id={`itemText-${order}`} name="itemText" rows="1"
+                      <Textarea className="form-control" id={`itemText-${order}`} name="itemText"
                                 value={text}
-                                onChange={(event) => changeManuscriptItemProperty(event, order, 'text')}/>
+                                onChange={(event) => changeManuscriptItemProperty(event, order, 'text')}></Textarea>
                     </div>
                   </div>
                   <div className="panel-footer clearfix">
