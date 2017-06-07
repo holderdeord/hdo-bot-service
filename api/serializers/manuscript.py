@@ -56,7 +56,7 @@ class ManuscriptSerializer(BaseManuscriptSerializer):
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'url', 'name', 'category', 'updated', 'items', 'promises', 'images',)
+        fields = ('pk', 'url', 'name', 'type', 'category', 'updated', 'items', 'promises', 'images',)
 
 
 class ManuscriptListSerializer(WritableNestedModelSerializer):
@@ -69,4 +69,4 @@ class ManuscriptListSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'url', 'name', 'category', 'updated', 'items')
+        fields = ('pk', 'url', 'name', 'type', 'category', 'updated', 'items')
