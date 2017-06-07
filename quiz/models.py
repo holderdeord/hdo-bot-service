@@ -163,10 +163,15 @@ class ManuscriptItem(BaseModel):
     manuscript = models.ForeignKey('quiz.Manuscript', on_delete=models.CASCADE, related_name='items')
     order = models.IntegerField(blank=True, default=0)
     text = models.TextField(blank=True, default='')
-    button_text = models.TextField(blank=True, default='')
     url = models.URLField(blank=True, default='')
 
-    link = models.ForeignKey('quiz.Manuscript', related_name='from_items', blank=True, null=True)
+    # FIXME: Classic "get's the job done"-code incoming
+    reply_text_1 = models.TextField(blank=True, default='')
+    reply_text_2 = models.TextField(blank=True, default='')
+    reply_text_3 = models.TextField(blank=True, default='')
+    reply_action_1 = models.ForeignKey('quiz.Manuscript', related_name='action_1_items', blank=True, null=True)
+    reply_action_2 = models.ForeignKey('quiz.Manuscript', related_name='action_2_items', blank=True, null=True)
+    reply_action_3 = models.ForeignKey('quiz.Manuscript', related_name='action_3_items', blank=True, null=True)
 
     class Meta:
         ordering = ('order',)

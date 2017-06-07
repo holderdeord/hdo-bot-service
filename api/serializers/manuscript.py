@@ -24,7 +24,10 @@ class PromiseSerializer(serializers.ModelSerializer):
 class ManuscriptItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ManuscriptItem
-        fields = ('pk', 'type', 'order', 'text', 'button_text')
+        fields = ('pk', 'type', 'order', 'text',
+                  # FIXME: Not very nice
+                  'reply_text_1', 'reply_text_2', 'reply_text_3',
+                  'reply_action_1', 'reply_action_2', 'reply_action_3')
 
 
 class ManuscriptImageSerializer(serializers.ModelSerializer):
