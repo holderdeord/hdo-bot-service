@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ManuscriptPreview from "./ManuscriptPreview";
 import Textarea from 'react-textarea-autosize';
 import './ManuscriptForm.css';
+import { FormGroup, Navbar, Tab, Tabs, Well } from "react-bootstrap";
 
 const ManuscriptForm = ({
                           manuscript,
@@ -15,36 +16,36 @@ const ManuscriptForm = ({
                           moveManuscriptItemDown,
                           moveManuscriptItemUp,
                           onSubmit
-                        }) => {
-  return (
-    <div>
-      <ol className="breadcrumb">
-        <li>
-          <Link to="/">Admin</Link>
-        </li>
-        <li className="active">{manuscript.name}</li>
-      </ol>
-      <div className="row">
-        <div className="col-md-6">
-          <form className="manuscript-form" onSubmit={event => onSubmit(event, manuscript)}>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input className="form-control" type="text" id="name" name="name"
-                     value={manuscript.name}
-                     onChange={(event) => changeManuscriptProperty(event, 'name')}/>
-            </div>
-            <div className="form-group">
-              <label htmlFor="type">Category</label>
-              <select className="form-control" id="type" name="type"
-                      value={manuscript.type}
-                      onChange={(event) => changeManuscriptProperty(event, 'type')}>
-                {Object.keys(ManuscriptTypeEnum).map(key => (
-                  <option key={key} value={ManuscriptTypeEnum[ key ].key}>{ManuscriptTypeEnum[ key ].text}</option>
-                ))}
-              </select>
-            </div>
-            <label>Items</label>
-            <div className="well">
+                        }) => (
+  <form className="manuscript-form" onSubmit={event => onSubmit(event, manuscript)}>
+
+    <ol className="breadcrumb">
+      <li>
+        <Link to="/">Admin</Link>
+      </li>
+      <li className="active">{manuscript.name}</li>
+    </ol>
+    <div className="row">
+      <div className="col-md-6">
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
+          <input className="form-control" type="text" id="name" name="name"
+                 value={manuscript.name}
+                 onChange={(event) => changeManuscriptProperty(event, 'name')}/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="type">Category</label>
+          <select className="form-control" id="type" name="type"
+                  value={manuscript.type}
+                  onChange={(event) => changeManuscriptProperty(event, 'type')}>
+            {Object.keys(ManuscriptTypeEnum).map(key => (
+              <option key={key} value={ManuscriptTypeEnum[ key ].key}>{ManuscriptTypeEnum[ key ].text}</option>
+            ))}
+          </select>
+        </div>
+        <Tabs id="ManuscriptTypeOptions" defaultActiveKey={1}>
+          <Tab eventKey={1} title="Items">
+            <Well>
               {manuscript.items.map(({ order, text, type }) => (
                 <div key={order} className="panel panel-default">
                   <div className="panel-heading">
@@ -66,7 +67,7 @@ const ManuscriptForm = ({
                       <label htmlFor={`itemText-${order}`}>Text</label>
                       <Textarea className="form-control" id={`itemText-${order}`} name="itemText"
                                 value={text}
-                                onChange={(event) => changeManuscriptItemProperty(event, order, 'text')}></Textarea>
+                                onChange={(event) => changeManuscriptItemProperty(event, order, 'text')}/>
                     </div>
                   </div>
                   <div className="panel-footer clearfix">
@@ -98,22 +99,30 @@ const ManuscriptForm = ({
                       onClick={() => addManuscriptItem()}>
                 Add item
               </button>
-            </div>
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary btn-block">Submit</button>
-            </div>
-          </form>
-        </div>
-        <div className="col-md-6">
-          <label>Preview</label>
-          <div className="well">
-            <ManuscriptPreview manuscript={manuscript}/>
-          </div>
+            </Well>
+          </Tab>
+          <Tab eventKey={2} title="Voter guide" disabled={manuscript.type !== ManuscriptTypeEnum.ElectoralGuide.key}>
+            <p>Admin for valgomat</p>
+          </Tab>
+          <Tab eventKey={3} title="Quiz" disabled={manuscript.type !== ManuscriptTypeEnum.Quiz.key}>
+            <p>Admin for quiz</p>
+          </Tab>
+        </Tabs>
+      </div>
+      <div className="col-md-6">
+        <label>Preview</label>
+        <div className="well">
+          <ManuscriptPreview manuscript={manuscript}/>
         </div>
       </div>
     </div>
-  );
-};
+    <Navbar fixedBottom={true}>
+      <Navbar.Form>
+        <button type="submit" className="btn btn-primary btn-block">Submit</button>
+      </Navbar.Form>
+    </Navbar>
+  </form>
+);
 
 ManuscriptForm.propTypes = {
   manuscript: PropTypes.shape({

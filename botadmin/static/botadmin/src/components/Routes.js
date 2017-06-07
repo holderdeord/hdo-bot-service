@@ -2,30 +2,20 @@ import React from 'react';
 
 import {
   BrowserRouter as Router,
-  Link,
   Route,
   Switch
 } from 'react-router-dom'
 
 import Admin from "../containers/Admin";
 import NoMatch from "./NoMatch";
-import NavItem from "./NavItem";
 import EditManuscript from "../containers/EditManuscript";
 import CreateManuscript from "../containers/CreateManuscript";
+import Header from "./Header";
 
 const Routes = () => (
   <Router>
     <div>
-      <header>
-        <nav className="navbar navbar-default">
-          <div className="container">
-            <Link className="navbar-brand" to="/">Holder de ord</Link>
-            <ul className="nav navbar-nav">
-              <NavItem activeClassName="active" to="/">Manuscripts</NavItem>
-            </ul>
-          </div>
-        </nav>
-      </header>
+      <Header />
       <div className="container">
         <Switch>
           <Route exact path="/" component={Admin}/>
