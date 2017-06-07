@@ -21,7 +21,7 @@ const Routes = () => (
           <div className="container">
             <Link className="navbar-brand" to="/">Holder de ord</Link>
             <ul className="nav navbar-nav">
-              <NavItem activeClassName="active" to="/">Admin</NavItem>
+              <NavItem activeClassName="active" to="/">Manuscripts</NavItem>
             </ul>
           </div>
         </nav>

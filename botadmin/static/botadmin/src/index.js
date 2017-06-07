@@ -6,8 +6,12 @@ import Routes from "./components/Routes";
 import { adminApp } from "./reducers/index";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import 'jquery';
+
+// importing dependencies to expose
 import * as toastr from 'toastr';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+import 'toastr/build/toastr.css';
 
 toastr.options = {
   closeButton: true,
