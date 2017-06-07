@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ManuscriptItemTypeEnum, ManuscriptTypeEnum } from "../utils/enums";
+import { ManuscriptTypeEnum } from "../utils/enums";
 import { Link } from "react-router-dom";
 import ManuscriptPreview from "./ManuscriptPreview";
-import Textarea from 'react-textarea-autosize';
 import './ManuscriptForm.css';
-import { FormGroup, Navbar, Tab, Tabs, Well } from "react-bootstrap";
+import { Navbar, Tab, Tabs, Well } from "react-bootstrap";
+import ManuscriptItemForm from "./ManuscriptItemForm";
 
 const ManuscriptForm = ({
                           manuscript,
@@ -46,54 +46,14 @@ const ManuscriptForm = ({
         <Tabs id="ManuscriptTypeOptions" defaultActiveKey={1}>
           <Tab eventKey={1} title="Items">
             <Well>
-              {manuscript.items.map(({ order, text, type }) => (
-                <div key={order} className="panel panel-default">
-                  <div className="panel-heading">
-                    Item #{order}
-                  </div>
-                  <div className="panel-body">
-                    <div className="form-group">
-                      <label htmlFor={`itemType-${order}`}>Type</label>
-                      <select className="form-control" id={`itemType-${order}`} name="itemType"
-                              value={type}
-                              onChange={(event) => changeManuscriptItemProperty(event, order, 'type')}>
-                        {Object.keys(ManuscriptItemTypeEnum).map(key => (
-                          <option key={`${manuscript.id}-${order}-${key}`}
-                                  value={ManuscriptItemTypeEnum[ key ].key}>{ManuscriptItemTypeEnum[ key ].text}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor={`itemText-${order}`}>Text</label>
-                      <Textarea className="form-control" id={`itemText-${order}`} name="itemText"
-                                value={text}
-                                onChange={(event) => changeManuscriptItemProperty(event, order, 'text')}/>
-                    </div>
-                  </div>
-                  <div className="panel-footer clearfix">
-                    <div className="btn-toolbar pull-right" role="toolbar">
-                      <div className="btn-group btn-group-xs" role="group">
-                        <button type="button" className="btn btn-default"
-                                onClick={() => moveManuscriptItemUp(order)}
-                                disabled={order === 1}>
-                          <span className="glyphicon glyphicon-arrow-up"/> Move up
-                        </button>
-                        <button type="button" className="btn btn-default"
-                                onClick={() => moveManuscriptItemDown(order)}
-                                disabled={order === manuscript.items.length}>
-                          <span className="glyphicon glyphicon-arrow-down"/> Move down
-                        </button>
-                      </div>
-                      <div className="btn-group btn-group-xs" role="group">
-                        <button type="button" className="btn btn-danger"
-                                onClick={() => deleteManuscriptItem(order)}
-                                disabled={manuscript.items.length === 1}>
-                          <span className="glyphicon glyphicon-remove"/> Remove
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              {manuscript.items.map((item, index) => (
+                <ManuscriptItemForm key={item.order}
+                                    item={item}
+                                    manuscript={manuscript}
+                                    changeManuscriptItemProperty={changeManuscriptItemProperty}
+                                    deleteManuscriptItem={deleteManuscriptItem}
+                                    moveManuscriptItemDown={moveManuscriptItemDown}
+                                    moveManuscriptItemUp={moveManuscriptItemUp}/>
               ))}
               <button className="btn btn-default" type="button"
                       onClick={() => addManuscriptItem()}>
