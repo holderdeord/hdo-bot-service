@@ -1,4 +1,3 @@
-import React from 'react';
 import ManuscriptTable from "../components/ManuscriptTable";
 import { connect } from "react-redux";
 import { deleteManuscript } from "../actions/manuscripts";

@@ -2,7 +2,7 @@ import React from 'react';
 import { ChatEntryTypeEnum, ManuscriptItemTypeEnum } from "../utils/enums";
 import ChatEntry from "./ChatEntry";
 import './ManuscriptPreview.css';
-import { Button, ButtonToolbar, OverlayTrigger, Popover } from "react-bootstrap";
+import { Button, ButtonToolbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const ManuscriptPreview = ({ manuscript }) => (

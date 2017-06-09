@@ -1,4 +1,3 @@
-import React from 'react';
 import ManuscriptForm from "../components/ManuscriptForm";
 import { connect } from "react-redux";
 import {
