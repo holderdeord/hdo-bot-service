@@ -1,3 +1,10 @@
 .manuscript-preview .list-group {
     margin-bottom: 0;
 }
+
+.manuscript-preview .btn-toolbar.chat-quick-replies {
+    text-align: right;
+}
+.manuscript-preview .btn-toolbar.chat-quick-replies .btn {
+    float: none;
+}

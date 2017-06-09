@@ -34,6 +34,7 @@ const ManuscriptItemForm = ({
                     value={text}
                     onChange={(event) => changeManuscriptItemProperty(event, order, 'text')}/>
         </div>
+        {getTypeExtraControlsComponent(item, changeManuscriptItemProperty)}
       </div>
       <div className="panel-footer clearfix">
         <div className="btn-toolbar pull-right" role="toolbar">
@@ -68,7 +69,7 @@ function getItemTypes(type) {
   switch (type) {
     case ManuscriptTypeEnum.ElectoralGuide.key:
       return [
-        ManuscriptItemTypeEnum.Button,
+        ManuscriptItemTypeEnum.QuickReply,
         ManuscriptItemTypeEnum.Text,
         ManuscriptItemTypeEnum.VG_Categories,
         ManuscriptItemTypeEnum.VG_Questions,
@@ -76,7 +77,7 @@ function getItemTypes(type) {
       ];
     case ManuscriptTypeEnum.Quiz.key:
       return [
-        ManuscriptItemTypeEnum.Button,
+        ManuscriptItemTypeEnum.QuickReply,
         ManuscriptItemTypeEnum.Text,
         ManuscriptItemTypeEnum.Quiz_Result,
         ManuscriptItemTypeEnum.Quiz_PromisesChecked,
@@ -85,7 +86,31 @@ function getItemTypes(type) {
       ];
   }
   return [
-    ManuscriptItemTypeEnum.Button,
+    ManuscriptItemTypeEnum.QuickReply,
     ManuscriptItemTypeEnum.Text,
   ];
+}
+
+function getTypeExtraControlsComponent(item, changeManuscriptItemProperty) {
+  const { type, order } = item;
+  switch (type) {
+    case ManuscriptItemTypeEnum.QuickReply.key:
+      return [ 1, 2, 3 ].map(index => (
+        <div key={`quick-reply-group-${order}-${index}`}>
+          <div className="form-group">
+            <label htmlFor={`quick-reply-button-text-${order}-${index}`}>Button text #{index}</label>
+            <input className="form-control" id={`quick-reply-button-text-${order}-${index}`} type="text"
+                   defaultValue={item[ `reply_text_${index}` ]}
+                   onChange={event => changeManuscriptItemProperty(event, order, `reply_text_${index}`)}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor={`quick-reply-button-url-${order}-${index}`}>Button URL #{index}</label>
+            <input className="form-control" id={`quick-reply-button-url-${order}-${index}`} type="number"
+                   defaultValue={item[ `reply_action_${index}` ]}
+                   onChange={event => changeManuscriptItemProperty(event, order, `reply_action_${index}`)}/>
+          </div>
+        </div>
+      ));
+  }
+  return null;
 }

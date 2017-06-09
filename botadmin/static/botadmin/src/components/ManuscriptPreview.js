@@ -1,16 +1,18 @@
 import React from 'react';
-import { ManuscriptItemTypeEnum } from "../utils/enums";
+import { ChatEntryTypeEnum, ManuscriptItemTypeEnum } from "../utils/enums";
 import ChatEntry from "./ChatEntry";
 import './ManuscriptPreview.css';
+import { Button, ButtonToolbar, OverlayTrigger, Popover } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const ManuscriptPreview = ({ manuscript }) => (
   <div className="manuscript-preview">
-    {groupManuscriptIntoEntries(manuscript).map(({ isBot, hasContainer, items }, index) => (
+    {getChatEntries(manuscript).map(({ isBot, hasContainer, items }, index) => (
       <ChatEntry key={`manuscript-preview-item-${index}`} isBot={isBot} hasContainer={hasContainer}>
-        {items.map(({ order, text, type }) => hasContainer ? (
-          <li key={`preview-item-${order}`} className="list-group-item">{generateItemMarkup({ order, text, type })}</li>
+        {items.map(({ hasContainer, component }, index) => hasContainer ? (
+          <li key={`preview-item-${index}`} className="list-group-item">{component}</li>
         ) : (
-          <div key={`preview-item-${order}`}>{generateItemMarkup({ order, text, type })}</div>
+          <div key={`preview-item-${index}`}>{component}</div>
         ))}
       </ChatEntry>
     ))}
@@ -19,49 +21,91 @@ const ManuscriptPreview = ({ manuscript }) => (
 
 export default ManuscriptPreview;
 
-function generateItemMarkup({ order, text, type }) {
-  switch (type) {
-    case ManuscriptItemTypeEnum.Text.key:
-      return text;
-    case ManuscriptItemTypeEnum.Button.key:
-      return (
-        <div className="text-right">
-          <button type="button" className="btn btn-default">{text}</button>
-        </div>
-      );
-  }
-  return (
-    <div key={`preview-item-${order}`}>Not supported yet</div>
-  );
-}
-
-function groupManuscriptIntoEntries(manuscript) {
+function getChatEntries(manuscript) {
   return manuscript.items
-    .map(item => {
-      return {
-        ...item,
-        isBot: isItemBotEntry(item.type),
-        hasContainer: hasContainerEntry(item.type)
-      };
-    })
-    .reduce((memo, item) => {
-      if (memo.length === 0 || memo[ 0 ].isBot !== item.isBot) {
-        memo.unshift({
-          isBot: item.isBot,
-          hasContainer: item.hasContainer,
-          items: []
-        });
-      }
-      memo[ 0 ].items.push(item);
-      return memo;
-    }, [])
+    .reduce((memo, item) => [ ...memo, ...getChatEntryFromManuscriptItem(item) ], [])
+    .reduce((memo, item) => groupChatEntries(memo, item), [])
     .reverse();
 }
 
-function hasContainerEntry(type) {
-  return type === ManuscriptItemTypeEnum.Text.key;
+function getChatEntryFromManuscriptItem(item) {
+  const { order, type, text } = item;
+  switch (type) {
+    case ManuscriptItemTypeEnum.QuickReply.key:
+      return [
+        {
+          type: ChatEntryTypeEnum.Text,
+          isBot: true,
+          hasContainer: true,
+          component: text
+        },
+        {
+          type: ChatEntryTypeEnum.Button,
+          isBot: false,
+          hasContainer: false,
+          component: (
+            <ButtonToolbar className="chat-quick-replies">
+              {[ 1, 2, 3 ].map((number) => createReplyButton(item[ `reply_text_${number}` ],
+                item[ `reply_action_${number}` ],
+                order,
+                number)
+              )}
+            </ButtonToolbar>
+          )
+        }
+      ];
+    case ManuscriptItemTypeEnum.Text.key:
+      return [
+        {
+          type: ChatEntryTypeEnum.Text,
+          isBot: true,
+          hasContainer: true,
+          component: text
+        }
+      ];
+  }
+  return [];
 }
 
-function isItemBotEntry(type) {
-  return type === ManuscriptItemTypeEnum.Text.key;
+function groupChatEntries(memo, item) {
+  if (memo.length === 0 || memo[ 0 ].isBot !== item.isBot) {
+    memo.unshift({
+      isBot: item.isBot,
+      hasContainer: item.hasContainer,
+      items: []
+    });
+  }
+  memo[ 0 ].items.push(item);
+  return memo;
 }
+
+function createReplyButton(replyText, replyAction, order, number) {
+  const actionPopover = (
+    <Popover id={`quick-reply-button-popover-${order}-${number}`} title="Loads manuscript">
+      Clicking this button will load another manuscript; click <Link to={`/edit/${replyAction}`}>here</Link> to load it.
+    </Popover>
+  );
+  const key = `chat-quick-reply-button-${order}-${number}`;
+  console.log(replyText, replyAction);
+  switch (true) {
+    case replyText !== '' && replyAction !== null:
+      return (
+        <OverlayTrigger key={key} trigger="click" placement="top" overlay={actionPopover}>
+          <Button>{replyText}</Button>
+        </OverlayTrigger>
+      );
+    case replyText !== '':
+      return (
+        <Button key={key}>{replyText}</Button>
+      );
+  }
+  return [];
+}
+
+// function hasContainerEntry(type) {
+//   return type === ManuscriptItemTypeEnum.Text.key;
+// }
+//
+// function isItemBotEntry(type) {
+//   return type === ManuscriptItemTypeEnum.Text.key;
+// }

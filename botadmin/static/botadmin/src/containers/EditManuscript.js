@@ -50,6 +50,7 @@ const mapDispatchToProps = (dispatch, { match }) => {
       return sendManuscriptToApi(manuscript, getManuscriptApiUrl(manuscript.pk), 'PUT')
         .then(createdManuscript => {
           clearTimeout(timeoutHandleId);
+          console.log(createdManuscript);
           dispatch(editManuscript(createdManuscript, createdManuscript));
           toastr.success('Successfully saved manuscript')
         })

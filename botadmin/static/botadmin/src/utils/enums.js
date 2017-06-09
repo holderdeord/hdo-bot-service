@@ -1,5 +1,10 @@
+export const ChatEntryTypeEnum = {
+  Button: 'button',
+  Text: 'text'
+};
+
 export const ManuscriptItemTypeEnum = {
-  Button: { key: 'quick_reply', text: 'Quick Reply' },
+  QuickReply: { key: 'quick_reply', text: 'Quick Reply' },
   Text: { key: 'text', text: 'Text' },
   Quiz_Result: { key: 'quiz_result', text: 'Quiz: Show result'},
   Quiz_PromisesChecked: { key: 'quiz_q_promises_checked', text: 'Quiz: Show checked promises questions'},

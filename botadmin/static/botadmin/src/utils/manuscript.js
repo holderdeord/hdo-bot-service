@@ -7,7 +7,13 @@ export function createManuscriptPayload(manuscript) {
       return {
         type: item.type,
         order: item.order,
-        text: item.text
+        text: item.text,
+        reply_action_1: item.reply_action_1,
+        reply_action_2: item.reply_action_2,
+        reply_action_3: item.reply_action_3,
+        reply_text_1: item.reply_text_1,
+        reply_text_2: item.reply_text_2,
+        reply_text_3: item.reply_text_3
       };
     })
   });
