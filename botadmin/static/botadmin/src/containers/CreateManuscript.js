@@ -5,7 +5,7 @@ import {
   addManuscript, addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty,
   deleteManuscriptItem, moveManuscriptItem, postManuscript
 } from "../actions/manuscripts";
-import { getManuscriptFromState, sendManuscriptToApi } from "../utils/manuscript";
+import { getManuscriptFromState, loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
 import { getManuscriptsApiUrl } from "../utils/urls";
 import * as toastr from "toastr";
 
@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, {history}) => {
   dispatch(addManuscript());
   dispatch(addManuscriptItem(-1));
+  loadAndDispatchManuscripts(dispatch);
   return {
     addManuscriptItem: () => {
       dispatch(addManuscriptItem(-1));

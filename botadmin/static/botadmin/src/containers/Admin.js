@@ -1,9 +1,10 @@
 import React from 'react';
 import ManuscriptTable from "../components/ManuscriptTable";
 import { connect } from "react-redux";
-import { deleteManuscript, loadManuscripts } from "../actions/manuscripts";
-import { getManuscriptApiUrl, getManuscriptsApiUrl } from "../utils/urls";
+import { deleteManuscript } from "../actions/manuscripts";
+import { getManuscriptApiUrl } from "../utils/urls";
 import * as toastr from "toastr";
+import { loadAndDispatchManuscripts } from "../utils/manuscript";
 
 const mapStateToProps = (state) => {
   return {
@@ -12,11 +13,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  dispatch(loadManuscripts());
-  fetch(getManuscriptsApiUrl())
-    .then(response => response.json())
-    .then(manuscripts => dispatch(loadManuscripts(manuscripts)))
-    .catch(error => dispatch(loadManuscripts(error)));
+  loadAndDispatchManuscripts(dispatch);
   return {
     deleteManuscript: (manuscriptId) => {
       if (window.confirm('Are you sure?')) {

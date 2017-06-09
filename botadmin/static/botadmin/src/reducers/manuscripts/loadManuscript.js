@@ -1,5 +1,5 @@
 export default function loadManuscript(state, action) {
-  if (!action.manuscript) {
+  if (!action.json || action.json.message) {
     return state;
   }
   const selectedManuscript = state.find(manuscript => manuscript.pk === action.manuscriptId);
@@ -8,8 +8,8 @@ export default function loadManuscript(state, action) {
   }
   return [...state, {
     pk: action.manuscriptId,
-    name: action.manuscript.name,
-    type: action.manuscript.type,
-    items: action.manuscript.items
+    name: action.json.name,
+    type: action.json.type,
+    items: action.json.items
   }];
 }

@@ -4,44 +4,48 @@ import ManuscriptForm from "../components/ManuscriptForm";
 import {
   addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem,
   editManuscript,
-  loadManuscript, moveManuscriptItem
+  moveManuscriptItem
 } from "../actions/manuscripts";
 import { getManuscriptApiUrl } from "../utils/urls";
-import { getManuscriptFromState, sendManuscriptToApi } from "../utils/manuscript";
+import { getManuscriptFromState, loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
 import * as toastr from "toastr";
 
 const mapStateToProps = (state, { match }) => {
+  let manuscriptFromState = getManuscriptFromState(state, parseInt(match.params.manuscriptId, 10));
   return {
-    manuscript: getManuscriptFromState(state, match.params.manuscriptId)
+    manuscript: manuscriptFromState,
+    manuscripts: state.manuscripts
   };
 };
 
 const mapDispatchToProps = (dispatch, { match }) => {
-  dispatch(loadManuscript(match.params.manuscriptId));
-  fetch(getManuscriptApiUrl(match.params.manuscriptId))
-    .then(response => response.json())
-    .then(manuscript => dispatch(loadManuscript(match.params.manuscriptId, manuscript)));
-  // .catch(error => dispatch(loadManuscript()))
+  // dispatch(loadManuscript(match.params.manuscriptId));
+  // fetch(getManuscriptApiUrl(match.params.manuscriptId))
+  //   .then(response => response.json())
+  //   .then(manuscript => dispatch(loadManuscript(match.params.manuscriptId, manuscript)))
+  //   .catch(error => dispatch(loadManuscript(match.params.manuscriptId, error)));
+  loadAndDispatchManuscripts(dispatch);
+  const manuscriptId = parseInt(match.params.manuscriptId, 10);
   return {
     addManuscriptItem: () => {
-      dispatch(addManuscriptItem(match.params.manuscriptId));
+      dispatch(addManuscriptItem(manuscriptId));
     },
     changeManuscriptProperty: (event, propertyName) => {
-      dispatch(changeManuscriptProperty(match.params.manuscriptId, propertyName, event.target.value));
+      dispatch(changeManuscriptProperty(manuscriptId, propertyName, event.target.value));
     },
     changeManuscriptItemProperty: (event, order, propertyName) => {
-      dispatch(changeManuscriptItemProperty(match.params.manuscriptId, order, propertyName, event.target.value));
+      dispatch(changeManuscriptItemProperty(manuscriptId, order, propertyName, event.target.value));
     },
     deleteManuscriptItem: (order) => {
       if (window.confirm('Are you sure?')) {
-        dispatch(deleteManuscriptItem(match.params.manuscriptId, order));
+        dispatch(deleteManuscriptItem(manuscriptId, order));
       }
     },
     moveManuscriptItemDown: (order) => {
-      dispatch(moveManuscriptItem(match.params.manuscriptId, order, 1));
+      dispatch(moveManuscriptItem(manuscriptId, order, 1));
     },
     moveManuscriptItemUp: (order) => {
-      dispatch(moveManuscriptItem(match.params.manuscriptId, order, -1));
+      dispatch(moveManuscriptItem(manuscriptId, order, -1));
     },
     onSubmit: (event, manuscript) => {
       event.preventDefault();
@@ -50,7 +54,6 @@ const mapDispatchToProps = (dispatch, { match }) => {
       return sendManuscriptToApi(manuscript, getManuscriptApiUrl(manuscript.pk), 'PUT')
         .then(createdManuscript => {
           clearTimeout(timeoutHandleId);
-          console.log(createdManuscript);
           dispatch(editManuscript(createdManuscript, createdManuscript));
           toastr.success('Successfully saved manuscript')
         })

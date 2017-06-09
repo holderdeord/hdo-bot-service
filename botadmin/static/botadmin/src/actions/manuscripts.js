@@ -69,11 +69,11 @@ export const editManuscript = (manuscript, json) => {
   }
 };
 
-export const loadManuscript = (manuscriptId, manuscript) => {
+export const loadManuscript = (manuscriptId, json) => {
   return {
     type: LOAD_MANUSCRIPT,
     manuscriptId,
-    manuscript
+    json
   }
 };
 

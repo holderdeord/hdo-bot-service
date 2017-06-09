@@ -9,6 +9,7 @@ import ManuscriptItemForm from "./ManuscriptItemForm";
 
 const ManuscriptForm = ({
                           manuscript,
+                          manuscripts,
                           addManuscriptItem,
                           changeManuscriptItemProperty,
                           changeManuscriptProperty,
@@ -18,7 +19,6 @@ const ManuscriptForm = ({
                           onSubmit
                         }) => (
   <form className="manuscript-form" onSubmit={event => onSubmit(event, manuscript)}>
-
     <ol className="breadcrumb">
       <li>
         <Link to="/">Admin</Link>
@@ -50,6 +50,7 @@ const ManuscriptForm = ({
                 <ManuscriptItemForm key={item.order}
                                     item={item}
                                     manuscript={manuscript}
+                                    manuscripts={manuscripts}
                                     changeManuscriptItemProperty={changeManuscriptItemProperty}
                                     deleteManuscriptItem={deleteManuscriptItem}
                                     moveManuscriptItemDown={moveManuscriptItemDown}

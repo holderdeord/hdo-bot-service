@@ -63,8 +63,16 @@ function getChatEntryFromManuscriptItem(item) {
           component: text
         }
       ];
+    default:
+      return [
+        {
+          type: ChatEntryTypeEnum.Text,
+          isBot: true,
+          hasContainer: false,
+          component: `Not supported yet [${type}]`
+        }
+      ];
   }
-  return [];
 }
 
 function groupChatEntries(memo, item) {
@@ -80,32 +88,17 @@ function groupChatEntries(memo, item) {
 }
 
 function createReplyButton(replyText, replyAction, order, number) {
-  const actionPopover = (
-    <Popover id={`quick-reply-button-popover-${order}-${number}`} title="Loads manuscript">
-      Clicking this button will load another manuscript; click <Link to={`/edit/${replyAction}`}>here</Link> to load it.
-    </Popover>
-  );
   const key = `chat-quick-reply-button-${order}-${number}`;
-  console.log(replyText, replyAction);
   switch (true) {
-    case replyText !== '' && replyAction !== null:
+    case !!replyText && !!replyAction:
       return (
-        <OverlayTrigger key={key} trigger="click" placement="top" overlay={actionPopover}>
-          <Button>{replyText}</Button>
-        </OverlayTrigger>
+        <Link key={key} className="btn btn-default" to={`/edit/${replyAction}`}>{replyText}</Link>
       );
-    case replyText !== '':
+    case !!replyText:
       return (
         <Button key={key}>{replyText}</Button>
       );
+    default:
+      return [];
   }
-  return [];
 }
-
-// function hasContainerEntry(type) {
-//   return type === ManuscriptItemTypeEnum.Text.key;
-// }
-//
-// function isItemBotEntry(type) {
-//   return type === ManuscriptItemTypeEnum.Text.key;
-// }

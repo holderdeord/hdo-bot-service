@@ -1,3 +1,5 @@
+import { getManuscriptsApiUrl } from "./urls";
+import { loadManuscripts } from "../actions/manuscripts";
 export function createManuscriptPayload(manuscript) {
   return JSON.stringify({
     pk: manuscript.pk,
@@ -26,6 +28,14 @@ export function getManuscriptFromState(state, manuscriptId) {
       type: 'info',
       items: []
     };
+}
+
+export function loadAndDispatchManuscripts(dispatch) {
+  dispatch(loadManuscripts());
+  fetch(getManuscriptsApiUrl())
+    .then(response => response.json())
+    .then(manuscripts => dispatch(loadManuscripts(manuscripts)))
+    .catch(error => dispatch(loadManuscripts(error)));
 }
 
 export function sendManuscriptToApi(manuscript, url, method) {

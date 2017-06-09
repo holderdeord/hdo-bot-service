@@ -5,6 +5,7 @@ import Textarea from 'react-textarea-autosize';
 const ManuscriptItemForm = ({
                               item,
                               manuscript,
+                              manuscripts,
                               changeManuscriptItemProperty,
                               deleteManuscriptItem,
                               moveManuscriptItemDown,
@@ -34,7 +35,7 @@ const ManuscriptItemForm = ({
                     value={text}
                     onChange={(event) => changeManuscriptItemProperty(event, order, 'text')}/>
         </div>
-        {getTypeExtraControlsComponent(item, changeManuscriptItemProperty)}
+        {getTypeExtraControlsComponent(item, manuscripts, changeManuscriptItemProperty)}
       </div>
       <div className="panel-footer clearfix">
         <div className="btn-toolbar pull-right" role="toolbar">
@@ -84,33 +85,43 @@ function getItemTypes(type) {
         ManuscriptItemTypeEnum.Quiz_PartySelect,
         ManuscriptItemTypeEnum.Quiz_PartyBool,
       ];
+    default:
+      return [
+        ManuscriptItemTypeEnum.QuickReply,
+        ManuscriptItemTypeEnum.Text,
+      ];
   }
-  return [
-    ManuscriptItemTypeEnum.QuickReply,
-    ManuscriptItemTypeEnum.Text,
-  ];
 }
 
-function getTypeExtraControlsComponent(item, changeManuscriptItemProperty) {
+function getTypeExtraControlsComponent(item, manuscripts, changeManuscriptItemProperty) {
   const { type, order } = item;
   switch (type) {
     case ManuscriptItemTypeEnum.QuickReply.key:
-      return [ 1, 2, 3 ].map(index => (
-        <div key={`quick-reply-group-${order}-${index}`}>
-          <div className="form-group">
-            <label htmlFor={`quick-reply-button-text-${order}-${index}`}>Button text #{index}</label>
-            <input className="form-control" id={`quick-reply-button-text-${order}-${index}`} type="text"
-                   defaultValue={item[ `reply_text_${index}` ]}
-                   onChange={event => changeManuscriptItemProperty(event, order, `reply_text_${index}`)}/>
+      return [ 1, 2, 3 ].map(number => {
+        return (
+          <div key={`quick-reply-group-${order}-${number}`}>
+            <div className="form-group">
+              <label htmlFor={`quick-reply-button-text-${order}-${number}`}>Button text #{number}</label>
+              <input className="form-control" id={`quick-reply-button-text-${order}-${number}`} type="text"
+                     defaultValue={item[ `reply_text_${number}` ]}
+                     onChange={event => changeManuscriptItemProperty(event, order, `reply_text_${number}`)}/>
+            </div>
+            <div className="form-group">
+              <label htmlFor={`quick-reply-button-url-${order}-${number}`}>Button URL #{number}</label>
+              <select className="form-control"
+                      defaultValue={item[ `reply_action_${number}` ]}
+                      onChange={event => changeManuscriptItemProperty(event, order, `reply_action_${number}`)}>
+                <option></option>
+                {manuscripts.map(manuscript => (
+                  <option key={`quick-reply-button-url-option-${order}-${manuscript.pk}`}
+                          value={manuscript.pk}>{manuscript.name}</option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor={`quick-reply-button-url-${order}-${index}`}>Button URL #{index}</label>
-            <input className="form-control" id={`quick-reply-button-url-${order}-${index}`} type="number"
-                   defaultValue={item[ `reply_action_${index}` ]}
-                   onChange={event => changeManuscriptItemProperty(event, order, `reply_action_${index}`)}/>
-          </div>
-        </div>
-      ));
+        )
+      });
+    default:
+      return null;
   }
-  return null;
 }
