@@ -32,7 +32,7 @@ export function getManuscriptFromState(state, manuscriptId) {
 
 export function loadAndDispatchManuscripts(dispatch) {
   dispatch(loadManuscripts());
-  fetch(getManuscriptsApiUrl())
+  return fetch(getManuscriptsApiUrl())
     .then(response => response.json())
     .then(manuscripts => dispatch(loadManuscripts(manuscripts)))
     .catch(error => dispatch(loadManuscripts(error)));

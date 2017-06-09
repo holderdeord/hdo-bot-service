@@ -10,14 +10,16 @@ import * as toastr from "toastr";
 
 const mapStateToProps = (state) => {
   return {
-    manuscript: getManuscriptFromState(state, -1)
+    manuscript: getManuscriptFromState(state, -1),
+    manuscripts: state.manuscripts
   };
 };
 
 const mapDispatchToProps = (dispatch, {history}) => {
-  dispatch(addManuscript());
-  dispatch(addManuscriptItem(-1));
-  loadAndDispatchManuscripts(dispatch);
+  loadAndDispatchManuscripts(dispatch).then(() => {
+    dispatch(addManuscript());
+    dispatch(addManuscriptItem(-1));
+  });
   return {
     addManuscriptItem: () => {
       dispatch(addManuscriptItem(-1));
