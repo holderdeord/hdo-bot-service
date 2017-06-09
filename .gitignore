@@ -13,3 +13,5 @@ local_settings.py
 models.pdf
 
 botadmin/static/botadmin/.idea
+
+temp
