@@ -10,7 +10,6 @@
   "dependencies": [
     {"name":"puppetlabs/apt"},
     {"name":"puppetlabs/stdlib"},
-    {"name":"saz/timezone"},
     {"name":"puppet/nginx"}
   ]
 }

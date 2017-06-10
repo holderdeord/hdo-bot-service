@@ -3,6 +3,8 @@ node default {
 }
 
 node "hdo-bot-service" {
-  include timezone
+  class { 'timezone':
+    timezone => 'Europe/Oslo',
+  }
   include bot_service
 }

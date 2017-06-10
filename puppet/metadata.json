@@ -11,6 +11,7 @@
     {"name":"puppetlabs/apt", "version_requirement": ">= 2.0.0 < 3.0.0"},
     {"name":"puppetlabs/ntp"},
     {"name":"puppet/nginx"},
-    {"name":"puppet/unattended_upgrades"}
+    {"name":"puppet/unattended_upgrades"},
+    {"name":"saz/timezone"}
   ]
 }
