@@ -1,5 +1,4 @@
 class bot_service::nginx (
-  String $webuser,
   String $tls_letsencrypt_account,
   String $tls_letsencrypt_method = 'dns-01',
 ) {
@@ -8,7 +7,7 @@ class bot_service::nginx (
   $ssl_ciphers = 'EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5'
 
   $full_web_path = '/var/www'
-  $www_root = "${full_web_path}/${webuser}/${name}"
+  $www_root = "${full_web_path}/${name}"
 
   $server_name = [$name]
   $domains = $server_name
