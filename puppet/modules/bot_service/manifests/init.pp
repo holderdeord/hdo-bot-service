@@ -7,7 +7,8 @@ class bot_service {
     ensure => 'installed'
   }
 
-  class { 'bot_service::nginx':
+  $domain = 'hdo-bot-service.nkweb.no'
+  bot_service::nginx { $domain:
     tls_letsencrypt_account => 'nikolaik@gmail.com'
   }
 

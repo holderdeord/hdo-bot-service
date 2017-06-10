@@ -1,4 +1,4 @@
-class bot_service::nginx (
+define bot_service::nginx (
   String $tls_letsencrypt_account,
   String $tls_letsencrypt_method = 'dns-01',
 ) {
@@ -25,17 +25,17 @@ class bot_service::nginx (
     www_root            => $www_root,
     location_cfg_append => '',  # FIXME: More
     index_files         => ['index.htm', 'index.html'],
+    listen_port         => 443,
+    ssl                 => true,
+    ssl_cert            => "${bot_service::letsencrypt::certificate_path}/${domains[0]}.crt",
+    ssl_key             => "${bot_service::letsencrypt::certificate_path}/${domains[0]}.key",
+    ssl_ciphers         => $ssl_ciphers,
+    ssl_dhparam         => $dhparam_path,
+    ssl_port            => 443,
+    http2               => 'on',
     server_cfg_append   => {
       client_max_body_size => '100M'
     },
-    listen_port => 443,
-    ssl         => true,
-    ssl_cert    => "${bot_service::letsencrypt::certificate_path}/${domains[0]}.crt",
-    ssl_key     => "${bot_service::letsencrypt::certificate_path}/${domains[0]}.key",
-    ssl_ciphers => $ssl_ciphers,
-    ssl_dhparam => $dhparam_path,
-    ssl_port    => 443,
-    http2       => 'on'
   }
 
   # Lets Encrypt cert
