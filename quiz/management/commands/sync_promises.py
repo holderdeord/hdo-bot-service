@@ -22,12 +22,16 @@ class Command(BaseCommand):
     HDO_API_URL = 'https://data.holderdeord.no/api/promises/'
 
     def add_arguments(self, parser):
+        parser.add_argument('--category-map', type=str, help='Path to file with mapping between categories and HDO categories')
         # Figured it is easier/better to just use the existing APIs to handle promises
         # parser.add_argument('--all', action='store_true', help='Import _all_ promises from Holder de ord API')
         parser.add_argument('--check-file', type=str, help='Path to check file in CSV format')
         parser.add_argument('--google', action='store_true', help='Fetch promise check data from Google Spreadsheet')
 
     def handle(self, *args, **options):
+        category_map = self.get_category_map(options['category_map'])
+        logging.info(category_map)
+
         if options['google']:
             checked_promises = self.get_promise_check_data_from_google_sheet()
         elif options['check_file']:
@@ -35,8 +39,9 @@ class Command(BaseCommand):
         # elif options['all']:
         #     checked_promises = self.get_promises_from_api()
         else:
-            self.stderr.write('Either --google or --check-file needs to provided', ending='\n')
-            sys.exit(1)
+            checked_promises = {}
+            # self.stderr.write('Either --google or --check-file needs to provided', ending='\n')
+            # sys.exit(1)
 
         self.stdout.write('Found {} checked promise(s) in spreadsheet'.format(len(checked_promises)), ending='\n')
 
@@ -197,3 +202,14 @@ class Command(BaseCommand):
 
     def parse_row_id(self, _id):
         return _id.strip().split('-')[0]
+
+    def get_category_map(self, file_name):
+        with open(file_name) as f:
+            csv_file = csv.DictReader(f)
+            for row in csv_file:
+                category_name = row['Storting']
+                logging.info(category_name)
+                for hdo_category_name in row['HDO'].split('; '):
+                    logging.info(hdo_category_name)
+
+        return {}
