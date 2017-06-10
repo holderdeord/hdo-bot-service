@@ -37,6 +37,10 @@ def get_google_access_token():
     return gp.credential.access_token if gp else None
 
 
+def get_promise_id(promise_document):
+    return promise_document['_links']['self']['href'].split('/')[-1]
+
+
 def _promises_as_dict(promise_list):
     return {str(p['pk']): p['status'] for p in promise_list}
 

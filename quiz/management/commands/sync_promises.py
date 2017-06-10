@@ -6,7 +6,9 @@ from django.core.management import BaseCommand
 import requests
 
 from quiz.models import Promise, Category, Party
-from quiz.utils import get_google_sheet_data
+from quiz.utils import get_google_sheet_data, get_promise_id
+
+import logging
 
 
 class Command(BaseCommand):
@@ -20,6 +22,8 @@ class Command(BaseCommand):
     HDO_API_URL = 'https://data.holderdeord.no/api/promises/'
 
     def add_arguments(self, parser):
+        # Figured it is easier/better to just use the existing APIs to handle promises
+        # parser.add_argument('--all', action='store_true', help='Import _all_ promises from Holder de ord API')
         parser.add_argument('--check-file', type=str, help='Path to check file in CSV format')
         parser.add_argument('--google', action='store_true', help='Fetch promise check data from Google Spreadsheet')
 
@@ -28,6 +32,8 @@ class Command(BaseCommand):
             checked_promises = self.get_promise_check_data_from_google_sheet()
         elif options['check_file']:
             checked_promises = self.get_promise_check_data_from_file(options['check_file'])
+        # elif options['all']:
+        #     checked_promises = self.get_promises_from_api()
         else:
             self.stderr.write('Either --google or --check-file needs to provided', ending='\n')
             sys.exit(1)
@@ -83,7 +89,7 @@ class Command(BaseCommand):
     def merge_api_and_check_data(self, checked_promises, api_data):
         promises = checked_promises
         for p_data in api_data:
-            _id = p_data['_links']['self']['href'].split('/')[-1]
+            _id = get_promise_id(p_data)
             new_data = {
                 'body': p_data['body'],
                 'parliament_period_name': p_data['parliament_period_name'],
@@ -131,6 +137,24 @@ class Command(BaseCommand):
             return {}
 
         return self.format_for_db(_sheet_rows_to_dict(rows))
+
+    # def get_promises_from_api(self, url=HDO_API_URL, promises=None):
+    #     if promises is None:
+    #         promises = {}
+    #     document = requests.get(url).json()
+    #     promises = document['_embedded']['promises']
+    #     for p_data in promises:
+    #         _id = get_promise_id(p_data)
+    #         promises[_id] = {
+    #             'external_id': int(_id),
+    #             'categories': p_data['Kategori'].split(';'),
+    #             'description': p_data['Kommentar/Forklaring']
+    #         }
+    #     # Parsing next document, if available
+    #     # links_next = document['_links']['next']
+    #     # if links_next:
+    #     #     self.get_promises_from_api(links_next['href'], promises)
+    #     return promises
 
     def format_for_db(self, rows):
         promises = {}
