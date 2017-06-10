@@ -204,12 +204,19 @@ class Command(BaseCommand):
         return _id.strip().split('-')[0]
 
     def get_category_map(self, file_name):
+        categories = []
+        hdo_categories = []
+        mapper = []
         with open(file_name) as f:
             csv_file = csv.DictReader(f)
             for row in csv_file:
-                category_name = row['Storting']
-                logging.info(category_name)
-                for hdo_category_name in row['HDO'].split('; '):
-                    logging.info(hdo_category_name)
+                categories += row['Storting']
+                category_hdo_categories = row['HDO'].split('; ')
+                mapper += {
+                    'category_name': row['Storting'],
+                    'hdo_category_names': category_hdo_categories
+                }
+                hdo_categories += category_hdo_categories
+        logging.info(categories)
 
         return {}
