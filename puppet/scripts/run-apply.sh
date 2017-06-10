@@ -4,4 +4,4 @@ set -e
 
 scripts/bootstrap.sh
 scripts/install_puppet.sh
-puppet apply --test --modulepath modules:third-party manifests
+/opt/puppetlabs/bin/puppet apply --test --modulepath modules:third-party manifests
