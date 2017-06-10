@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-# Bundle install unless we're already up to date.
-bundle install
+ROOT="$(dirname $0)/.."
 
-librarian-puppet install --path=third-party
+# Bundle install unless we're already up to date.
+bundle install --binstubs bin --path .bundle --quiet
+
+${ROOT}/bin/librarian-puppet install --path=third-party
