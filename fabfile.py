@@ -5,7 +5,7 @@ from fabric.state import env
 env.use_ssh_config = True
 env.forward_agent = True
 env.hosts = ['hdo-bot-service.nkweb.no']
-env.puppet_path = '/home/nikolark/hdo-quiz-service'
+env.puppet_path = '/home/nikolark/hdo-quiz-service/puppet'
 
 
 def deploy():
@@ -16,4 +16,4 @@ def deploy():
 def puppet_apply():
     with cd(env.puppet_path):
         run('git pull --ff-only')
-        sudo('./puppet/scripts/run-apply.sh')
+        sudo('./scripts/run-apply.sh')
