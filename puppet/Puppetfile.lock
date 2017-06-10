@@ -1,0 +1,29 @@
+FORGE
+  remote: https://forgeapi.puppetlabs.com
+  specs:
+    puppet-nginx (0.6.0)
+      puppetlabs-apt (< 3.0.0, >= 2.1.0)
+      puppetlabs-concat (< 3.0.0, >= 1.2.5)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
+    puppet-unattended_upgrades (2.2.0)
+      puppetlabs-apt (< 3.0.0, >= 2.2.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
+    puppetlabs-apt (2.4.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.13.0)
+    puppetlabs-concat (2.2.1)
+      puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
+    puppetlabs-ntp (6.2.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.13.1)
+    puppetlabs-stdlib (4.17.0)
+    saz-timezone (3.4.0)
+      puppetlabs-stdlib (>= 2.3.0)
+      stm-debconf (>= 1.0.0)
+    stm-debconf (2.0.0)
+
+DEPENDENCIES
+  puppet-nginx (>= 0)
+  puppet-unattended_upgrades (>= 0)
+  puppetlabs-apt (< 3.0.0, >= 2.0.0)
+  puppetlabs-ntp (>= 0)
+  saz-timezone (>= 0)
+

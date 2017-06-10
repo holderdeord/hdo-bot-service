@@ -1,0 +1,16 @@
+{
+  "name": "hdo-bot-service",
+  "version": "0.1.0",
+  "author": "Nikolai Kristiansen <nikolaik@gmail.com>",
+  "summary": null,
+  "license": "MIT",
+  "source": "",
+  "project_page": null,
+  "issues_url": null,
+  "dependencies": [
+    {"name":"puppetlabs/apt"},
+    {"name":"puppetlabs/stdlib"},
+    {"name":"saz/timezone"},
+    {"name":"puppet/nginx"},
+  ]
+}

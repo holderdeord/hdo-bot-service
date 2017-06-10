@@ -1,0 +1,64 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    facter (2.4.6)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.10.1)
+      faraday (>= 0.7.4, < 1.0)
+    fast_gettext (1.1.0)
+    gettext (3.2.2)
+      locale (>= 2.0.5)
+      text (>= 1.3.0)
+    gettext-setup (0.25)
+      fast_gettext (~> 1.1.0)
+      gettext (>= 3.0.2)
+      locale
+    hiera (3.3.1)
+    hiera-eyaml (2.1.0)
+      highline (~> 1.6.19)
+      trollop (~> 2.0)
+    highline (1.6.21)
+    json_pure (1.8.6)
+    librarian-puppet (2.2.3)
+      librarianp (>= 0.6.3)
+      puppet_forge (~> 2.1)
+      rsync
+    librarianp (0.6.3)
+      thor (~> 0.15)
+    locale (2.1.2)
+    minitar (0.6.1)
+    multipart-post (2.0.0)
+    puppet (4.10.1)
+      facter (> 2.0, < 4)
+      gettext-setup (>= 0.10, < 1)
+      hiera (>= 2.0, < 4)
+      json_pure (~> 1.8)
+      locale (~> 2.1)
+    puppet-lint (2.2.1)
+    puppet_forge (2.2.4)
+      faraday (~> 0.9.0)
+      faraday_middleware (>= 0.9.0, < 0.11.0)
+      gettext-setup (~> 0.11)
+      minitar
+      semantic_puppet (~> 0.1.0)
+    rsync (1.0.9)
+    semantic_puppet (0.1.4)
+      gettext-setup (>= 0.3)
+    text (1.3.1)
+    thor (0.19.4)
+    trollop (2.1.2)
+    yaml-lint (0.0.9)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  hiera-eyaml
+  librarian-puppet
+  puppet
+  puppet-lint
+  yaml-lint
+
+BUNDLED WITH
+   1.14.6
