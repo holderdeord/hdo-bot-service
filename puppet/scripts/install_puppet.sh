@@ -3,7 +3,7 @@
 set -e
 
 REPO_DEB="puppetlabs-release-pc1-xenial.deb"
-if ! dpkg -s puppet-agent 2>1&>/dev/null; then
+if ! dpkg -s puppet-agent &>/dev/null; then
     echo "Installing puppet"
     wget https://apt.puppetlabs.com/${REPO_DEB}
     sudo dpkg -i ${REPO_DEB}
