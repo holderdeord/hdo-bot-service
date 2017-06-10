@@ -49,6 +49,7 @@ class Promise(BaseModel):
 
     parties = models.ManyToManyField('quiz.Party', blank=True, related_name='promises')
     categories = models.ManyToManyField('quiz.Category', blank=True, related_name='promises')
+    hdo_categories = models.ManyToManyField('quiz.HdoCategory', blank=True, related_name='promises')
 
     def party_names(self):
         return self.parties.values_list('name', flat=True)
@@ -222,3 +223,14 @@ class AnswerSet(BaseModel):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
 
     objects = AnswerQuerySet.as_manager()
+
+
+class HdoCategory(BaseModel):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = _('HdoCategories')
