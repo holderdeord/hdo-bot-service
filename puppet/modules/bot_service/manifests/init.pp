@@ -7,11 +7,16 @@ class bot_service {
     ensure => 'installed'
   }
 
+  include nginx
+
   $domain = 'hdo-bot-service.nkweb.no'
   bot_service::nginx { $domain:
     tls_letsencrypt_account => 'nikolaik@gmail.com'
   }
 
-  include nginx
-
+  # TODO: python -m venv venv
+  # TODO: vcsrepo in code
+  # TODO: supervisor config with env vars and gunicorn
+  # TODO: postgresql
+  # TODO: redis-server
 }

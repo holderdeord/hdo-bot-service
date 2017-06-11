@@ -26,6 +26,7 @@ define bot_service::nginx (
     index_files    => []
   }
 
+  # FIXME: The following should run after Anchor[nginx::end] if possible
   # Lets Encrypt cert
   class {'bot_service::letsencrypt':
     account => $tls_letsencrypt_account
