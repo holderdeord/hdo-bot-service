@@ -1,0 +1,5 @@
+.idea/
+.tmp/
+third-party/
+bin/
+.bundle/
