@@ -5,7 +5,7 @@ import sys
 from django.core.management import BaseCommand
 import requests
 
-from quiz.models import Promise, Category, Party
+from quiz.models import Promise, Category, Party, HdoCategory
 from quiz.utils import get_google_sheet_data, get_promise_id
 
 import logging
@@ -30,10 +30,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         category_map = self.get_category_map(options['category_map'])
-        logging.info(category_map)
 
         if options['google']:
-            checked_promises = self.get_promise_check_data_from_google_sheet()
+            checked_promises = self.get_promise_check_data_from_google_sheet
         elif options['check_file']:
             checked_promises = self.get_promise_check_data_from_file(options['check_file'])
         # elif options['all']:
@@ -49,12 +48,12 @@ class Command(BaseCommand):
 
         promises = self.merge_api_and_check_data(checked_promises, api_data)
 
-        new_promises, updated_promises = self.create_or_update_promise_objects(promises)
+        new_promises, updated_promises = self.create_or_update_promise_objects(promises, category_map)
 
         self.stdout.write('Imported {} new promise(s), updated {} promise(s)'.format(
             len(new_promises), len(updated_promises)), ending='\n')
 
-    def create_or_update_promise_objects(self, promises):
+    def create_or_update_promise_objects(self, promises, category_map):
         new_promises = []
         updated_promises = []
         for external_id, p_data in promises.items():
@@ -83,6 +82,8 @@ class Command(BaseCommand):
                 # Note: inefficient
                 cats = [Category.objects.get_or_create(name=cat)[0] for cat in cats_data]
                 p.categories.add(*cats)
+                hdo_categories = [category_map[category_name][0] for category_name in cats_data] if cats_data[0] != '' else []
+                p.hdo_categories.add(*hdo_categories)
 
             if parties_data:
                 # Note: inefficient
@@ -170,10 +171,13 @@ class Command(BaseCommand):
             _id = self.parse_row_id(row['ID'])
 
             # Note: Mapping from spreadsheet column name to database column name
+            category_names = row['Kategori'].split(';')
+            # hdo_categories = [category_map[category_name][0] for category_name in category_names] if category_names[0] != '' else []
             promises[_id] = {
                 'external_id': int(_id),
                 'status': self.parse_status(row['Holdt?']),
-                'categories': row['Kategori'].split(';'),
+                'categories': category_names,
+                # 'hdo_categories': hdo_categories,
                 'testable': self.parse_testable(row.get('Svada', '')),
                 'description': row['Kommentar/Forklaring']
             }
@@ -204,19 +208,15 @@ class Command(BaseCommand):
         return _id.strip().split('-')[0]
 
     def get_category_map(self, file_name):
-        categories = []
-        hdo_categories = []
-        mapper = []
+        mapper = {}
         with open(file_name) as f:
             csv_file = csv.DictReader(f)
             for row in csv_file:
-                categories += row['Storting']
-                category_hdo_categories = row['HDO'].split('; ')
-                mapper += {
-                    'category_name': row['Storting'],
-                    'hdo_category_names': category_hdo_categories
-                }
-                hdo_categories += category_hdo_categories
-        logging.info(categories)
+                mapper[row['Storting']] = list(map(self.get_hdo_category_id, row['HDO'].split('; ')))
+        return mapper
 
-        return {}
+    def get_category_id(self, category_name):
+        return Category.objects.get_or_create(name=category_name)[0].pk
+
+    def get_hdo_category_id(self, hdo_category_name):
+        return HdoCategory.objects.get_or_create(name=hdo_category_name)[0].pk
