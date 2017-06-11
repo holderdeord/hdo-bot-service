@@ -13,8 +13,13 @@ define bot_service::nginx (
   $domains = $server_name
 
   # DH params
-  $dhparam_path = '/etc/nginx/ssl/dhparam.pem'
-  exec {"openssl dhparam -out ${dhparam_path} 2048":
+  file {'/etc/nginx/ssl/':
+    ensure  => directory,
+    recurse => true
+  }
+
+  $dhparam_path = "/etc/nginx/ssl/${name}-dhparam.pem"
+  exec {"/usr/bin/openssl dhparam -out ${dhparam_path} 2048":
     creates => $dhparam_path
   }
 
@@ -23,7 +28,7 @@ define bot_service::nginx (
     ensure              => present,
     server_name         => $server_name,
     www_root            => $www_root,
-    location_cfg_append => '',  # FIXME: More
+    # location_cfg_append => '',  # FIXME: More
     index_files         => ['index.htm', 'index.html'],
     listen_port         => 443,
     ssl                 => true,

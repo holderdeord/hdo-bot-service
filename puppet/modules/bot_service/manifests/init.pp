@@ -12,4 +12,6 @@ class bot_service {
     tls_letsencrypt_account => 'nikolaik@gmail.com'
   }
 
+  include nginx
+
 }

@@ -6,6 +6,14 @@ env.use_ssh_config = True
 env.forward_agent = True
 env.hosts = ['hdo-bot-service.nkweb.no']
 env.puppet_path = '/home/nikolark/hdo-quiz-service/puppet'
+env.docker = False
+
+
+def docker():
+    env.docker = True
+    env.hosts = ['localhost:2222']
+    env.user = 'root'
+    env.puppet_path = '/app/puppet'
 
 
 def deploy():
@@ -15,5 +23,6 @@ def deploy():
 
 def puppet_apply():
     with cd(env.puppet_path):
-        run('git pull --ff-only')
+        if not env.docker:
+            run('git pull --ff-only')
         sudo('./scripts/run-apply.sh')
