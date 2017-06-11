@@ -4,10 +4,7 @@ node default {
 
 node "hdo-bot-service" {
   include apt
-
-  class { 'timezone':
-    timezone => 'Europe/Oslo',
-  }
+  include timezone
 
   class { 'unattended_upgrades':
     origins => ['${distro_id}:${distro_codename}',
