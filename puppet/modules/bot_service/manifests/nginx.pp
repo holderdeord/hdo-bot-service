@@ -4,7 +4,8 @@ define bot_service::nginx (
   # From https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-with-http-2-support-on-ubuntu-16-04 :
   String $ssl_ciphers = 'EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5',
   String $full_web_path = '/var/www',
-  String $www_root = "${full_web_path}/${name}"
+  String $www_root = "${full_web_path}/${name}",
+  String $static_path = '/static/'
 ) {
   $server_name = [$name]
 
@@ -29,13 +30,15 @@ define bot_service::nginx (
     creates => $dhparam_path
   }
 
+
+  nginx::resource::upstream { 'upstream_app':
+    members => ["localhost:${::bot_service::gunicorn_port}"]
+  }
+
   # server with location /
   nginx::resource::server { $name:
     ensure              => present,
     server_name         => $server_name,
-    www_root            => $www_root,
-    location_cfg_append => {},  # FIXME: More
-    index_files         => ['index.htm', 'index.html'],
     listen_port         => 443,
     ssl                 => true,
     ssl_cert            => $ssl_cert,
@@ -43,10 +46,18 @@ define bot_service::nginx (
     ssl_ciphers         => $ssl_ciphers,
     ssl_dhparam         => $dhparam_path,
     ssl_port            => 443,
+    proxy               => "http://upstream_app",
     http2               => 'on',
     server_cfg_append   => {
       client_max_body_size => '100M'
     },
+  }
+
+  # static
+  nginx::resource::location { "${name}_static":
+    location       => $static_path,
+    server         => $name,
+    location_alias => $www_root
   }
 
   # Redirect port 80 to $name
