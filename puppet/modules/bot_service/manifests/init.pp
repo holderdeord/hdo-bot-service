@@ -25,7 +25,7 @@ class bot_service (
     ensure => 'installed'
   }
 
-  Lets Encrypt cert
+  # Lets Encrypt cert
   class {'bot_service::letsencrypt':
     account => 'nikolaik@gmail.com'
   }

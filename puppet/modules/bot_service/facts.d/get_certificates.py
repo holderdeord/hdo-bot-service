@@ -30,6 +30,8 @@ for root, dirs, files in os.walk(CERT_PATH):
             if p.returncode != 0:
                 continue
 
+            stdout = stdout.decode('utf-8')
+
             subject_alt_names = alt_name_re.findall(stdout)
             expires = expires_re.findall(stdout)[0]
 
