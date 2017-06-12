@@ -57,7 +57,9 @@ define bot_service::nginx (
   nginx::resource::location { "${name}_static":
     location       => $static_path,
     server         => $name,
-    location_alias => $www_root
+    location_alias => $www_root,
+    ssl            => true,
+    ssl_only       => true
   }
 
   # Redirect port 80 to $name
