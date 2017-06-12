@@ -13,5 +13,7 @@ node "hdo-bot-service" {
                 '${distro_id}:${distro_codename}-proposed']
   }
 
-  include bot_service
+  class { 'bot_service':
+    domain => 'hdo-bot-service.nkweb.no'
+  }
 }
