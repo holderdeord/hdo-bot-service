@@ -5,7 +5,7 @@ define bot_service::nginx (
   String $ssl_ciphers = 'EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5',
   String $full_web_path = '/var/www',
   String $www_root = "${full_web_path}/${name}",
-  String $static_path = '/static/'
+  String $static_path = '/static'
 ) {
   $server_name = [$name]
 
