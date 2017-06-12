@@ -81,10 +81,12 @@ class bot_service (
   # Supervisor
   class { 'supervisord':
     package_provider => 'apt',
-    install_init => false,
-    service_name => 'supervisor',
-    executable => '/usr/bin/supervisord',
-    executable_ctl => '/usr/bin/supervisorctl',
+    install_init     => false,
+    service_name     => 'supervisor',
+    executable       => '/usr/bin/supervisord',
+    executable_ctl   => '/usr/bin/supervisorctl',
+    config_include   => '/etc/supervisor/conf.d',
+    config_file      => '/etc/supervisor/supervisord.conf'
   }
 
   supervisord::program { $name:
