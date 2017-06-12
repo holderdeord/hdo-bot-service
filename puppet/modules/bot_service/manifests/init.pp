@@ -48,7 +48,8 @@ class bot_service (
 
   file { $app_path:
     ensure => directory,
-    owner => $app_user
+    owner => $app_user,
+    recurse => true
   }
 
   # Clone app
