@@ -14,10 +14,14 @@ define bot_service::nginx (
     recurse => true
   }
 
+  file { $full_web_path:
+    ensure => directory,
+    owner => $::bot_service::app_user,
+  }
+
   file { $www_root:
     ensure => directory,
     owner => $::bot_service::app_user,
-    recurse => true
   }
 
   $dhparam_path = "/etc/nginx/ssl/${name}-dhparam.pem"

@@ -64,15 +64,18 @@ class bot_service (
   # Python virtualenv and requirements
   exec {'/usr/bin/env python3 -m venv venv':
     creates => "${app_path}/bin/activate",
-    cwd     => $app_path
+    cwd     => $app_path,
+    user     => $app_user,
   }
 
   exec {"${pip_path} install -U pip wheel":
-    cwd => $app_path
+    cwd => $app_path,
+    user     => $app_user,
   }
 
   exec {"${pip_path} install -r requirements.txt":
-    cwd => $app_path
+    cwd => $app_path,
+    user     => $app_user,
   }
 
   # Supervisor
