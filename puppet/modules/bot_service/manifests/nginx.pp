@@ -1,6 +1,6 @@
 define bot_service::nginx (
   String $tls_letsencrypt_account,
-  String $tls_letsencrypt_method = 'dns-01',
+  String $tls_letsencrypt_method = 'http-01',
 ) {
 
   # From https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-with-http-2-support-on-ubuntu-16-04 :
@@ -12,21 +12,6 @@ define bot_service::nginx (
   $server_name = [$name]
   $domains = $server_name
 
-  # Redirect port 80 to $name
-  nginx::resource::server { "${name}_redir":
-    ensure              => present,
-    server_name         => $domains,
-    www_root            => '/var/www/html/',
-    location_cfg_append => { 'rewrite' => "^ https://${name}\$request_uri? permanent" },
-  }
-  nginx::resource::location { "${name}_redir_letsencrypt":
-    server         => "${name}_redir",
-    location       => '/.well-known/acme-challenge',
-    location_alias => '/tmp/letsencrypt/.well-known/acme-challenge',
-    index_files    => []
-  }
-
-  # FIXME: The following should run after Anchor[nginx::end] if possible
   # Lets Encrypt cert
   class {'bot_service::letsencrypt':
     account => $tls_letsencrypt_account
@@ -66,6 +51,20 @@ define bot_service::nginx (
     server_cfg_append   => {
       client_max_body_size => '100M'
     },
+  }
+
+  # Redirect port 80 to $name
+  nginx::resource::server { "${name}_redir":
+    ensure              => present,
+    server_name         => $domains,
+    www_root            => '/var/www/html/',
+    location_cfg_append => { 'rewrite' => "^ https://${name}\$request_uri? permanent" },
+  }
+  nginx::resource::location { "${name}_redir_letsencrypt":
+    server         => "${name}_redir",
+    location       => '/.well-known/acme-challenge',
+    location_alias => '/tmp/letsencrypt/.well-known/acme-challenge',
+    index_files    => []
   }
 
 }

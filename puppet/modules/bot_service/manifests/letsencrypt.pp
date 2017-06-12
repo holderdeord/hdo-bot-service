@@ -8,7 +8,6 @@ class bot_service::letsencrypt (
   $config_path = '/var/lib/lego'
   $certificate_path = "${config_path}/certificates"
   $owner = 'root'
-  $webroot_path = '/tmp/letsencrypt'
 
   file { $bin:
     source => $lego_binary_url,
@@ -18,13 +17,6 @@ class bot_service::letsencrypt (
   }
 
   file { $config_path:
-    ensure => directory,
-    owner  => $owner,
-    group  => $owner,
-    mode   => '0755'
-  }
-
-  file { $webroot_path:
     ensure => directory,
     owner  => $owner,
     group  => $owner,

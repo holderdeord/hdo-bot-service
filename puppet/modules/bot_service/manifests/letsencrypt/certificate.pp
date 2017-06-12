@@ -3,7 +3,7 @@ define bot_service::letsencrypt::certificate (
   Array $domains = [],
   Integer $renew_min_days = 30,
   Array $services = ['nginx'],
-  String $webroot_path = $bot_service::letsencrypt::webroot_path
+  Integer $http_port = 0  # Random by default
 ) {
 
   if( !$method in ['http-01']) {
@@ -16,9 +16,9 @@ define bot_service::letsencrypt::certificate (
   $cert_name = $domains[0]
 
   $domain_params = join($domains, ' -d ')
-  $_base_params = "--accept-tos --email ${bot_service::letsencrypt::account} --path ${bot_service::letsencrypt::config_path} -d ${domain_params}"
+  $_base_params = "--accept-tos --email ${bot_service::letsencrypt::account} --http :${http_port}"
 
-  $base_params = "${_base_params} --webroot ${webroot_path}"
+  $base_params = "${_base_params} --path ${bot_service::letsencrypt::config_path} -d ${domain_params}"
 
   $renew_params = "--days ${renew_min_days} --reuse-key"
   $certificate_file = "${bot_service::letsencrypt::certificate_path}/${cert_name}.crt"
