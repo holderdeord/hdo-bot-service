@@ -8,8 +8,13 @@
   "project_page": null,
   "issues_url": null,
   "dependencies": [
+    {"name":"ajcrowe/supervisord"},
+    {"name":"arioch/redis"},
     {"name":"puppetlabs/apt"},
     {"name":"puppetlabs/stdlib"},
-    {"name":"puppet/nginx"}
+    {"name":"puppetlabs/postgresql"},
+    {"name":"puppetlabs/vcsrepo"},
+    {"name":"puppet/nginx"},
+    {"name":"saz/timezone"}
   ]
 }
