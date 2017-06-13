@@ -3,12 +3,12 @@ class bot_service (
   String $app_path = '/opt/hdo-bot-service',
   String $app_user = 'botapp',
   Hash $app_environment = {},
-  String $botadmin_path = "${app_path}/botadmin/static/botadmin",
-  String $botadmin_build_cmd = "${botadmin_path}/node_modules/.bin/react-scripts build",
   String $python_path = "${app_path}/venv/bin/python3",
   String $pip_path = "${app_path}/venv/bin/pip",
   String $gunicorn_path = "${app_path}/venv/bin/gunicorn",
   String $yarn_path = '/usr/bin/yarn',
+  String $botadmin_path = "${app_path}/botadmin/static/botadmin",
+  String $botadmin_build_cmd = "${yarn_path} run build",
   Integer $gunicorn_port = 8000,
   Integer $gunicorn_num_workers = 2,
   String $gunicorn_wsgi = 'bot_service.wsgi',
@@ -59,7 +59,7 @@ class bot_service (
 
   # Clone app
   vcsrepo { $app_path:
-    ensure   => present,
+    ensure   => latest,
     user     => $app_user,
     provider => git,
     source   => 'https://github.com/holderdeord/hdo-quiz-service.git',
