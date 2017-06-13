@@ -3,9 +3,12 @@ class bot_service (
   String $app_path = '/opt/hdo-bot-service',
   String $app_user = 'botapp',
   Hash $app_environment = {},
+  String $botadmin_path = "${app_path}/botadmin/static/botadmin",
+  String $botadmin_build_cmd = "${botadmin_path}/node_modules/.bin/react-scripts build",
   String $python_path = "${app_path}/venv/bin/python3",
   String $pip_path = "${app_path}/venv/bin/pip",
   String $gunicorn_path = "${app_path}/venv/bin/gunicorn",
+  String $yarn_path = '/usr/bin/yarn',
   Integer $gunicorn_port = 8000,
   Integer $gunicorn_num_workers = 2,
   String $gunicorn_wsgi = 'bot_service.wsgi',
@@ -17,13 +20,9 @@ class bot_service (
   $db_env = {'DATABASE_URL' => "postgresql://${db_user}:${db_password}@localhost:5432/${db_name}"}
   $_app_environment = merge($app_environment, lookup('bot_service_environment'), $db_env)
 
+
   # Packages
-  $packages = [
-    'python3', 'python3-dev', 'python3-venv', 'python3-pip', 'git-core'
-  ]
-  package { $packages:
-    ensure => 'installed'
-  }
+  include bot_service::packages
 
   # Lets Encrypt cert
   class {'bot_service::letsencrypt':
@@ -43,13 +42,19 @@ class bot_service (
   }
 
   user { $app_user:
-    ensure => present
+    ensure     => present,
+    home       => "/home/${app_user}",
+    managehome => true
+  }
+
+  file { "/home/${app_user}":
+    ensure  => directory,
+    owner   => $app_user
   }
 
   file { $app_path:
-    ensure => directory,
-    owner => $app_user,
-    recurse => true
+    ensure  => directory,
+    owner   => $app_user
   }
 
   # Clone app
@@ -59,23 +64,29 @@ class bot_service (
     provider => git,
     source   => 'https://github.com/holderdeord/hdo-quiz-service.git',
     revision => 'workymcworkson',
+    require  => File[$app_path]
   }
 
   # Python virtualenv and requirements
-  exec {'/usr/bin/env python3 -m venv venv':
+  $venv_cmd = '/usr/bin/env python3 -m venv venv'
+  exec { $venv_cmd:
     creates => "${app_path}/bin/activate",
     cwd     => $app_path,
-    user     => $app_user,
+    user    => $app_user,
+    require => Package[$bot_service::packages::packages]
   }
 
-  exec {"${pip_path} install -U pip wheel":
-    cwd => $app_path,
-    user     => $app_user,
+  exec { "${pip_path} install -U pip wheel":
+    cwd     => $app_path,
+    user    => $app_user,
+    require => Exec[$venv_cmd]
   }
 
-  exec {"${pip_path} install -r requirements.txt":
-    cwd => $app_path,
-    user     => $app_user,
+  $pip_install = "${pip_path} install -r requirements.txt"
+  exec { $pip_install:
+    cwd     => $app_path,
+    user    => $app_user,
+    require => Exec[$venv_cmd]
   }
 
   # Supervisor
@@ -116,19 +127,32 @@ class bot_service (
 
   # App: Django database migrations
   exec { "${python_path} manage.py migrate --noinput":
-    cwd => $app_path,
-    user => $app_user,
-    environment => $_app_environment_array
+    cwd         => $app_path,
+    user        => $app_user,
+    environment => $_app_environment_array,
+    require     => Exec[$pip_install]
   }
 
-  # TODO: install node
-  # TODO: build webapps
+  # App: Build botadmin
+  exec { $yarn_path:
+    cwd     => $botadmin_path,
+    user    => $app_user,
+    require => Package[$bot_service::packages::packages]
+  }
+
+  exec { $botadmin_build_cmd:
+    cwd     => $botadmin_path,
+    user    => $app_user,
+    require => Exec[$yarn_path]
+  }
 
   # App: Django collect static
   exec { "${python_path} manage.py collectstatic --noinput -i node_modules -i bower_components":
-    cwd => $app_path,
-    user => $app_user,
-    environment => $_app_environment_array
+    cwd         => $app_path,
+    user        => $app_user,
+    environment => $_app_environment_array,
+    require     => Exec[$botadmin_build_cmd]
   }
+
 
 }
