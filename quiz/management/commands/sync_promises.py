@@ -24,7 +24,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--category-map', type=str, help='Path to file with mapping between categories and HDO categories')
         # Figured it is easier/better to just use the existing APIs to handle promises
-        # parser.add_argument('--all', action='store_true', help='Import _all_ promises from Holder de ord API')
+        parser.add_argument('--all', action='store_true', help='Import _all_ promises from Holder de ord API')
         parser.add_argument('--check-file', type=str, help='Path to check file in CSV format')
         parser.add_argument('--google', action='store_true', help='Fetch promise check data from Google Spreadsheet')
 
@@ -35,12 +35,12 @@ class Command(BaseCommand):
             checked_promises = self.get_promise_check_data_from_google_sheet
         elif options['check_file']:
             checked_promises = self.get_promise_check_data_from_file(options['check_file'])
-        # elif options['all']:
-        #     checked_promises = self.get_promises_from_api()
+        elif options['all']:
+            checked_promises = self.get_promises_from_api()
+            logging.info(checked_promises)
         else:
-            checked_promises = {}
-            # self.stderr.write('Either --google or --check-file needs to provided', ending='\n')
-            # sys.exit(1)
+            self.stderr.write('Either --google or --check-file needs to provided', ending='\n')
+            sys.exit(1)
 
         self.stdout.write('Found {} checked promise(s) in spreadsheet'.format(len(checked_promises)), ending='\n')
 
@@ -144,23 +144,23 @@ class Command(BaseCommand):
 
         return self.format_for_db(_sheet_rows_to_dict(rows))
 
-    # def get_promises_from_api(self, url=HDO_API_URL, promises=None):
-    #     if promises is None:
-    #         promises = {}
-    #     document = requests.get(url).json()
-    #     promises = document['_embedded']['promises']
-    #     for p_data in promises:
-    #         _id = get_promise_id(p_data)
-    #         promises[_id] = {
-    #             'external_id': int(_id),
-    #             'categories': p_data['Kategori'].split(';'),
-    #             'description': p_data['Kommentar/Forklaring']
-    #         }
-    #     # Parsing next document, if available
-    #     # links_next = document['_links']['next']
-    #     # if links_next:
-    #     #     self.get_promises_from_api(links_next['href'], promises)
-    #     return promises
+    def get_promises_from_api(self, url=HDO_API_URL, promises=None):
+        if promises is None:
+            promises = {}
+        document = requests.get(url).json()
+        promises_data = document['_embedded']['promises']
+        for p_data in promises_data:
+            _id = get_promise_id(p_data)
+            promises[_id] = {
+                'external_id': int(_id),
+                'categories': p_data['category_names'],
+                'description': p_data['body']
+            }
+        # Parsing next document, if available
+        links_next = document['_links']['next']
+        if links_next:
+            self.get_promises_from_api(links_next['href'], promises)
+        return promises
 
     def format_for_db(self, rows):
         promises = {}
