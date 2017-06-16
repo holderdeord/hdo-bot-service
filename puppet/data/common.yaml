@@ -7,3 +7,5 @@ bot_service_environment:
   STATIC_ROOT: '/var/www/hdo-bot-service.nkweb.no/'
   ALLOWED_HOSTS: 'hdo-bot-service.nkweb.no'
   STATIC_URL: 'https://hdo-bot-service.nkweb.no/static/'
+  PUBLIC_URL: '/botadmin'
+  REACT_APP_API_URL: 'https://hdo-bot-service.nkweb.no/api'

@@ -48,6 +48,7 @@ class Promise(BaseModel):
     description = models.TextField(default='')
 
     parties = models.ManyToManyField('quiz.Party', blank=True, related_name='promises')
+    # agreeing_parties = models.ManyToManyField('quiz.Party', blank=True, related_name='agreed_to_promises')
     categories = models.ManyToManyField('quiz.Category', blank=True, related_name='promises')
     hdo_categories = models.ManyToManyField('quiz.HdoCategory', blank=True, related_name='promises')
 

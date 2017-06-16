@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
-  Switch
+  Switch,
 } from 'react-router-dom'
 
 import Admin from "../containers/Admin";
@@ -13,7 +13,7 @@ import CreateManuscript from "../containers/CreateManuscript";
 import Header from "./Header";
 
 const Routes = () => (
-  <Router>
+  <BrowserRouter basename='/botadmin'>
     <div>
       <Header />
       <div className="container">
@@ -25,7 +25,7 @@ const Routes = () => (
         </Switch>
       </div>
     </div>
-  </Router>
+  </BrowserRouter>
 );
 
 export default Routes;

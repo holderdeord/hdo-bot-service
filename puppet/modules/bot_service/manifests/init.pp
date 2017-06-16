@@ -133,17 +133,19 @@ class bot_service (
     require     => Exec[$pip_install]
   }
 
-  # App: Build botadmin
+  # App: yarn install
   exec { $yarn_path:
     cwd     => $botadmin_path,
     user    => $app_user,
     require => Package[$bot_service::packages::packages]
   }
 
+  # App: Build botadmin
   exec { $botadmin_build_cmd:
-    cwd     => $botadmin_path,
-    user    => $app_user,
-    require => Exec[$yarn_path]
+    cwd         => $botadmin_path,
+    user        => $app_user,
+    environment => $_app_environment_array,
+    require     => Exec[$yarn_path]
   }
 
   # App: Django collect static
