@@ -7,7 +7,7 @@ const ChatEntry = ({ isBot, hasContainer, children }) => {
     <div className="media">
       {isBot ? (
         <div className="media-left media-bottom">
-          <Image className="user-avatar" src="/img/bot_picture.png" alt="Bot" circle/>
+          <Image className="user-avatar" src={`${process.env.PUBLIC_URL}/img/bot_picture.png`} alt="Bot" circle/>
         </div>
       ) : null}
       <div className="media-body">
@@ -17,7 +17,7 @@ const ChatEntry = ({ isBot, hasContainer, children }) => {
       </div>
       {!isBot ? (
         <div className="media-right media-bottom">
-          <Image className="user-avatar" src="/img/fallback_avatar.png" alt="User" circle/>
+          <Image className="user-avatar" src={`${process.env.PUBLIC_URL}/img/fallback_avatar.png`} alt="User" circle/>
         </div>
       ) : null}
     </div>
