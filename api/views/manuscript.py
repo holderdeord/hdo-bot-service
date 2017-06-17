@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from rest_framework.pagination import PageNumberPagination
 
+from api.permissions import AllowAnyOrDjangoModelPermissionsOrAnonReadOnly
 from api.serializers.manuscript import ManuscriptSerializer, CategorySerializer, ManuscriptListSerializer
 from quiz.models import Manuscript, Category
 from rest_framework import exceptions, permissions, views, reverse, authentication
@@ -38,18 +39,14 @@ class ManuscriptView(views.APIView):
 
 class ManuscriptDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = [authentication.SessionAuthentication]
-    # FIXME: Enable this when botadmin react app is working
-    # permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [AllowAnyOrDjangoModelPermissionsOrAnonReadOnly]
     queryset = Manuscript.objects.select_related('category')
     serializer_class = ManuscriptSerializer
 
 
 class ManuscriptListView(ListCreateAPIView):
     authentication_classes = [authentication.SessionAuthentication]
-    # FIXME: Enable this when botadmin react app is working
-    # permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [AllowAnyOrDjangoModelPermissionsOrAnonReadOnly]
     queryset = Manuscript.objects.select_related('category')
     serializer_class = ManuscriptListSerializer
     pagination_class = PageNumberPagination

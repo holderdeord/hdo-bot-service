@@ -27,6 +27,7 @@ Relevant settings:
     GOOGLE_SPREADSHEET_ID
     BASE_URL
     ALLOWED_HOSTS
+    MANUSCRIPT_API_ALLOW_ANY
     
 ## Import promises
     # From CSV-file

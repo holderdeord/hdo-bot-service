@@ -201,6 +201,9 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
+# API write access to everyone (default True)
+MANUSCRIPT_API_ALLOW_ANY = bool(os.getenv('MANUSCRIPT_API_ALLOW_ANY', True))
+
 try:
     from .local_settings import *  # noqa
 except ImportError:
