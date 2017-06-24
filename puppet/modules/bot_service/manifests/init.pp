@@ -18,7 +18,7 @@ class bot_service (
 ) {
   # App environment
   $db_env = {'DATABASE_URL' => "postgresql://${db_user}:${db_password}@localhost:5432/${db_name}"}
-  $_app_environment = merge($app_environment, lookup('bot_service_environment'), $db_env)
+  $_app_environment = merge($app_environment, lookup('bot_service_environment', {merge => 'hash'}), $db_env)
 
 
   # Packages
