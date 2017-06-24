@@ -1,6 +1,8 @@
 import json
 import logging
 
+from django.conf import settings
+
 from messenger.messages import TYPE_SESSION_RESET, TYPE_HELP, TYPE_GET_STARTED
 
 logger = logging.getLogger(__name__)
@@ -28,13 +30,13 @@ def get_persistent_menu():
                 },
                 {
                     "type": "postback",
-                    "title": "Ny quiz (slett sesjon)",
+                    "title": "Ny sesjon (slett sesjon)",
                     "payload": json.dumps({'type': TYPE_SESSION_RESET})
                 },
                 {
                     "type": "web_url",
-                    "title": "Om quizen",
-                    "url": "http://hdo-quiz.herokuapp.com/"
+                    "title": "Om boten",
+                    "url": settings.BASE_URL
                 }
             ]
         }]
