@@ -10,4 +10,5 @@ if ! dpkg -s puppet-agent &>/dev/null; then
     rm ${REPO_DEB}
     sudo apt update
     sudo apt install puppet-agent
+    /opt/puppetlabs/puppet/bin/gem install hiera-eyaml
 fi
