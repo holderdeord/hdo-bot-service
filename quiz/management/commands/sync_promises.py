@@ -33,25 +33,34 @@ class Command(BaseCommand):
 
         if options['google']:
             checked_promises = self.get_promise_check_data_from_google_sheet
+            promises = self.get_promises(checked_promises)
         elif options['check_file']:
             checked_promises = self.get_promise_check_data_from_file(options['check_file'])
+            promises = self.get_promises(checked_promises)
         elif options['all']:
-            checked_promises = self.get_promises_from_api()
-            logging.info(checked_promises)
+            promises = {}
+            links_next = {
+                'href': 'https://data.holderdeord.no/api/promises'
+            }
+            while links_next is not None:
+                promises, links_next = self.get_promises_from_api(links_next['href'], promises)
+            self.stdout.write('Downloaded {} promises from API'.format(len(promises)), ending='\n')
         else:
             self.stderr.write('Either --google or --check-file needs to provided', ending='\n')
             sys.exit(1)
-
-        self.stdout.write('Found {} checked promise(s) in spreadsheet'.format(len(checked_promises)), ending='\n')
-
-        api_data = self.get_promise_api_data(checked_promises.keys())
-
-        promises = self.merge_api_and_check_data(checked_promises, api_data)
 
         new_promises, updated_promises = self.create_or_update_promise_objects(promises, category_map)
 
         self.stdout.write('Imported {} new promise(s), updated {} promise(s)'.format(
             len(new_promises), len(updated_promises)), ending='\n')
+
+    def get_promises(self, checked_promises):
+        self.stdout.write('Found {} checked promise(s) in spreadsheet'.format(len(checked_promises)), ending='\n')
+
+        api_data = self.get_promise_api_data(checked_promises.keys())
+
+        return self.merge_api_and_check_data(checked_promises, api_data)
+
 
     def create_or_update_promise_objects(self, promises, category_map):
         new_promises = []
@@ -144,9 +153,7 @@ class Command(BaseCommand):
 
         return self.format_for_db(_sheet_rows_to_dict(rows))
 
-    def get_promises_from_api(self, url=HDO_API_URL, promises=None):
-        if promises is None:
-            promises = {}
+    def get_promises_from_api(self, url, promises):
         document = requests.get(url).json()
         promises_data = document['_embedded']['promises']
         for p_data in promises_data:
@@ -154,13 +161,16 @@ class Command(BaseCommand):
             promises[_id] = {
                 'external_id': int(_id),
                 'categories': p_data['category_names'],
-                'description': p_data['body']
+                'body': p_data['body'],
+                'promisor_name': p_data['promisor_name'],
+                'parliament_period_name': p_data['parliament_period_name'],
+                'source': p_data['source']
             }
         # Parsing next document, if available
-        links_next = document['_links']['next']
-        if links_next:
-            self.get_promises_from_api(links_next['href'], promises)
-        return promises
+        links_next = document['_links']['next'] if 'next' in document['_links'] else None
+        # if links_next:
+        #     self.get_promises_from_api(links_next['href'], promises)
+        return promises, links_next
 
     def format_for_db(self, rows):
         promises = {}
