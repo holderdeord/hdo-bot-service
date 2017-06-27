@@ -113,15 +113,31 @@ class Manuscript(IsDefaultMixin, BaseModel):
         (TYPE_VOTER_GUIDE, _('Voter guide')),
     )
 
-    name = models.CharField(max_length=255, blank=True, default='')
+    name = models.CharField(
+        max_length=255,
+        blank=True,
+        default='',
+        help_text=_('Used both for admin display and user display when tyoe=voting guide'))
     type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_GENERIC)
-    category = models.ForeignKey('quiz.Category', on_delete=models.CASCADE, blank=True, null=True)
+    category = models.ForeignKey('quiz.Category', on_delete=models.SET_NULL, blank=True, null=True)
     promises = models.ManyToManyField('quiz.Promise', blank=True)
 
     next = models.ForeignKey('self', related_name='prev', blank=True, null=True)
 
+    hdo_category = models.ForeignKey('quiz.HdoCategory', on_delete=models.SET_NULL, blank=True, null=True)
+
     def __str__(self):
         return self.name if self.name else '#{}'.format(self.pk)
+
+
+class VoterGuideAlternative(BaseModel):
+    """Tema, tekst, løfte-ider"""
+    text = models.CharField(max_length=255)
+    manuscript = models.ForeignKey('quiz.Manuscript')
+    promises = models.ManyToManyField('quiz.Promise', blank=True)
+
+    def __str__(self):
+        return self.text
 
 
 class ManuscriptItem(BaseModel):
@@ -234,4 +250,4 @@ class HdoCategory(BaseModel):
 
     class Meta:
         ordering = ['name']
-        verbose_name_plural = _('HdoCategories')
+        verbose_name_plural = _('HDO Categories')
