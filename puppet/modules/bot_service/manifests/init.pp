@@ -63,7 +63,6 @@ class bot_service (
     user     => $app_user,
     provider => git,
     source   => 'https://github.com/holderdeord/hdo-quiz-service.git',
-    revision => 'workymcworkson',
     require  => File[$app_path]
   }
 
