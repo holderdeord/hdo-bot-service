@@ -16,7 +16,7 @@
     ssh-copy-id root@localhost -p 2222  # password is root
 
     # Run puppet
-    fab docker puppet_apply
+    fab docker deploy
 
     # SSH into container
     ssh root@localhost -p 2222

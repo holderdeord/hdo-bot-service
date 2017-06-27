@@ -17,11 +17,6 @@ def docker():
 
 
 def deploy():
-    lrun('git push heroku master')
-    lrun('heroku run python manage.py migrate')
-
-
-def puppet_apply():
     with cd(env.puppet_path):
         if not env.docker:
             run('git pull --ff-only')
