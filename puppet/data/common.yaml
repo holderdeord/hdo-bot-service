@@ -1,6 +1,5 @@
 ---
 timezone::timezone: 'Europe/Oslo'
-bot_service_db_password: 'changeme'
 bot_service_environment:
   DEBUG: 'true'
   TIME_ZONE: 'Europe/Oslo'
@@ -10,4 +9,4 @@ bot_service_environment:
   STATIC_URL: 'https://hdo-bot-service.nkweb.no/static/'
   PUBLIC_URL: '/botadmin'
   REACT_APP_API_URL: 'https://hdo-bot-service.nkweb.no/api'
-  
+  BASE_URL: 'https://hdo-bot-service.nkweb.no'

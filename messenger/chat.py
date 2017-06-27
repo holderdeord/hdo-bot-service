@@ -52,7 +52,7 @@ def get_replies(sender_id, session):
     elif item['type'] == ManuscriptItem.TYPE_QUICK_REPLY:
         logger.debug("Adding quick reply: {}".format(session.meta['current_item'] + 1))
 
-        replies.append(format_quick_reply_next(sender_id, item['text'], item['reply_action_1'], session.uuid))
+        replies.append(format_quick_reply_next(sender_id, item['text'], item['reply_text_1'], session.uuid))
         session.meta['current_item'] += 1
 
     elif item['type'] == ManuscriptItem.TYPE_QUIZ_RESULT:
