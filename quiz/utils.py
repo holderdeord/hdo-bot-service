@@ -1,10 +1,12 @@
 from pprint import pprint
+from random import randint
 
 import requests
 from django.conf import settings
+from django.db.models import Count
 
-from messenger_bot.models import ChatSession
-from quiz.models import GoogleProfile, AnswerSet, Answer
+from messenger.models import ChatSession
+from quiz.models import GoogleProfile, AnswerSet, Answer, Promise, Party
 
 
 def get_google_sheet_data():
@@ -35,6 +37,10 @@ def get_google_access_token():
     return gp.credential.access_token if gp else None
 
 
+def get_promise_id(promise_document):
+    return promise_document['_links']['self']['href'].split('/')[-1]
+
+
 def _promises_as_dict(promise_list):
     return {str(p['pk']): p['status'] for p in promise_list}
 
@@ -59,3 +65,29 @@ def save_answers(chat_session: ChatSession):
             status=status,
             answer_set=answer_set,
             correct_status=promises[str(promise_id)] == status)
+
+
+def format_question(promise: Promise, question_type='checked'):
+    # TODO: You are here
+    if question_type == 'checked':
+        return {
+            'possible': [promise.FULFILLED, promise.BROKEN],
+            'answer': promise.status
+        }
+    elif question_type == 'a_or_b':
+        right = promise.parties.first()
+
+        wrong_parties = Party.objects.filter(pk=right.pk)
+        count = wrong_parties.aggregate(count=Count('id'))['count']
+        random_index = randint(0, count - 1)
+        wrong = wrong_parties[random_index]
+
+        return {
+            'possible': [right, wrong],
+            'answer': right
+        }
+    elif question_type == 'true_or_false':
+        return {
+            'possible': [True, False],
+            'answer': promise
+        }

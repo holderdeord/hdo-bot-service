@@ -10,13 +10,17 @@ from quiz.models import Promise
 def test_sync_promises_command():
     test_data_external_id = 13020
     cmd = sync_promises.Command()
-    call_command(cmd, '--check-file', os.path.join(settings.BASE_DIR, 'quiz/tests/testdata/check_file.csv'))
+    call_command(cmd,
+                 '--check-file', os.path.join(settings.BASE_DIR, 'quiz/tests/testdata/check_file.csv'),
+                 '--category-map', os.path.join(settings.BASE_DIR, 'file/category_map.csv'))
     ps = Promise.objects.filter(external_id=test_data_external_id)
     assert ps.count() == 1
     p = ps.first()
     assert p.status == Promise.FULFILLED
 
     # Update data
-    call_command(cmd, '--check-file', os.path.join(settings.BASE_DIR, 'quiz/tests/testdata/check_file_update.csv'))
+    call_command(cmd,
+                 '--check-file', os.path.join(settings.BASE_DIR, 'quiz/tests/testdata/check_file_update.csv'),
+                 '--category-map', os.path.join(settings.BASE_DIR, 'file/category_map.csv'))
     p.refresh_from_db()
     assert p.status == Promise.BROKEN

@@ -1,7 +1,7 @@
-# Quiz Service
+# Bot Service
 
-[![Build Status](https://travis-ci.org/holderdeord/hdo-quiz-service.svg?branch=master)](https://travis-ci.org/holderdeord/hdo-quiz-service)
-[![codecov](https://codecov.io/gh/holderdeord/hdo-quiz-service/branch/master/graph/badge.svg)](https://codecov.io/gh/holderdeord/hdo-quiz-service)
+[![Build Status](https://travis-ci.org/holderdeord/hdo-bot-service.svg?branch=master)](https://travis-ci.org/holderdeord/hdo-bot-service)
+[![codecov](https://codecov.io/gh/holderdeord/hdo-bot-service/branch/master/graph/badge.svg)](https://codecov.io/gh/holderdeord/hdo-bot-service)
 
 ## Requirements
 
@@ -27,10 +27,10 @@ Relevant settings:
     GOOGLE_SPREADSHEET_ID
     BASE_URL
     ALLOWED_HOSTS
+    MANUSCRIPT_API_ALLOW_ANY
     
 ## Import promises
     # From CSV-file
     python manage.py sync_promises --check-file FILE
     # From Google Spreadsheet (needs configuration)
     python manage.py sync_promises --google
-    

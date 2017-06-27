@@ -4,6 +4,7 @@ django-extensions
 django-jsonfield
 django>=1.11,<1.12
 djangorestframework
+drf-writable-nested
 flake8
 gunicorn
 jsonpickle

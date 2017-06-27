@@ -1,0 +1,21 @@
+{
+  "name": "hdo-bot-service",
+  "version": "0.1.0",
+  "author": "Nikolai Kristiansen <nikolaik@gmail.com>",
+  "summary": null,
+  "license": "MIT",
+  "source": "",
+  "project_page": null,
+  "issues_url": null,
+  "dependencies": [
+    {"name":"ajcrowe/supervisord"},
+    {"name":"arioch/redis"},
+    {"name":"puppetlabs/apt", "version_requirement": ">= 2.0.0 < 3.0.0"},
+    {"name":"puppetlabs/ntp"},
+    {"name":"puppetlabs/postgresql"},
+    {"name":"puppetlabs/vcsrepo"},
+    {"name":"puppet/nginx"},
+    {"name":"puppet/unattended_upgrades"},
+    {"name":"saz/timezone"}
+  ]
+}

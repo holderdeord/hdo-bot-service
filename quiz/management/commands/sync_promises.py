@@ -5,8 +5,10 @@ import sys
 from django.core.management import BaseCommand
 import requests
 
-from quiz.models import Promise, Category, Party
-from quiz.utils import get_google_sheet_data
+from quiz.models import Promise, Category, Party, HdoCategory
+from quiz.utils import get_google_sheet_data, get_promise_id
+
+import logging
 
 
 class Command(BaseCommand):
@@ -20,35 +22,52 @@ class Command(BaseCommand):
     HDO_API_URL = 'https://data.holderdeord.no/api/promises/'
 
     def add_arguments(self, parser):
+        parser.add_argument('--category-map', type=str, help='Path to file with mapping between categories and HDO categories')
+        # Figured it is easier/better to just use the existing APIs to handle promises
+        parser.add_argument('--all', action='store_true', help='Import _all_ promises from Holder de ord API')
         parser.add_argument('--check-file', type=str, help='Path to check file in CSV format')
         parser.add_argument('--google', action='store_true', help='Fetch promise check data from Google Spreadsheet')
 
     def handle(self, *args, **options):
+        category_map = self.get_category_map(options['category_map'])
+
         if options['google']:
-            checked_promises = self.get_promise_check_data_from_google_sheet()
+            checked_promises = self.get_promise_check_data_from_google_sheet
+            promises = self.get_promises(checked_promises)
         elif options['check_file']:
             checked_promises = self.get_promise_check_data_from_file(options['check_file'])
+            promises = self.get_promises(checked_promises)
+        elif options['all']:
+            promises = {}
+            links_next = {
+                'href': 'https://data.holderdeord.no/api/promises'
+            }
+            while links_next is not None:
+                promises, links_next = self.get_promises_from_api(links_next['href'], promises)
+            self.stdout.write('Downloaded {} promises from API'.format(len(promises)), ending='\n')
         else:
             self.stderr.write('Either --google or --check-file needs to provided', ending='\n')
             sys.exit(1)
 
-        self.stdout.write('Found {} checked promise(s) in spreadsheet'.format(len(checked_promises)), ending='\n')
-
-        api_data = self.get_promise_api_data(checked_promises.keys())
-
-        promises = self.merge_api_and_check_data(checked_promises, api_data)
-
-        new_promises, updated_promises = self.create_or_update_promise_objects(promises)
+        new_promises, updated_promises = self.create_or_update_promise_objects(promises, category_map)
 
         self.stdout.write('Imported {} new promise(s), updated {} promise(s)'.format(
             len(new_promises), len(updated_promises)), ending='\n')
 
-    def create_or_update_promise_objects(self, promises):
+    def get_promises(self, checked_promises):
+        self.stdout.write('Found {} checked promise(s) in spreadsheet'.format(len(checked_promises)), ending='\n')
+
+        api_data = self.get_promise_api_data(checked_promises.keys())
+
+        return self.merge_api_and_check_data(checked_promises, api_data)
+
+
+    def create_or_update_promise_objects(self, promises, category_map):
         new_promises = []
         updated_promises = []
         for external_id, p_data in promises.items():
             if p_data.get('body') is None:
-                # FIXME: Skip empty promises for now, why?
+                # FIXME: Skip empty promises for now, why empty?
                 continue
 
             cats_data = p_data.pop('categories') if p_data.get('categories') else None
@@ -72,6 +91,8 @@ class Command(BaseCommand):
                 # Note: inefficient
                 cats = [Category.objects.get_or_create(name=cat)[0] for cat in cats_data]
                 p.categories.add(*cats)
+                hdo_categories = [category_map[category_name][0] for category_name in cats_data] if cats_data[0] != '' else []
+                p.hdo_categories.add(*hdo_categories)
 
             if parties_data:
                 # Note: inefficient
@@ -83,7 +104,7 @@ class Command(BaseCommand):
     def merge_api_and_check_data(self, checked_promises, api_data):
         promises = checked_promises
         for p_data in api_data:
-            _id = p_data['_links']['self']['href'].split('/')[-1]
+            _id = get_promise_id(p_data)
             new_data = {
                 'body': p_data['body'],
                 'parliament_period_name': p_data['parliament_period_name'],
@@ -99,18 +120,25 @@ class Command(BaseCommand):
         if not ids:
             return []
 
-        ids = ','.join(sorted(ids))
+        def chunks(l, n):
+            """Yield successive n-sized chunks from l."""
+            for i in range(0, len(l), n):
+                yield l[i:i + n]
 
+        max_ids = 400  # prevent too long GET param
+        ids = sorted(ids)
         promises_paged = []
-        total_pages = requests.get(self.HDO_API_URL, {'ids': ids}).json()['total_pages']
-        for page in range(total_pages):
-            self.stdout.write('Fetching promises from {} (page {})'.format(self.HDO_API_URL, page), ending='\n')
+        for id_range in chunks(ids, max_ids):
+            id_range = ','.join(id_range)
+            total_pages = requests.get(self.HDO_API_URL, {'ids': id_range}).json()['total_pages']
+            for page in range(total_pages):
+                self.stdout.write('Fetching promises from {} (page {})'.format(self.HDO_API_URL, page), ending='\n')
 
-            request_params = {'page': page, 'ids': ids}
-            res = requests.get(self.HDO_API_URL, request_params)
-            res_data = res.json()
+                request_params = {'page': page, 'ids': id_range}
+                res = requests.get(self.HDO_API_URL, request_params)
+                res_data = res.json()
 
-            promises_paged += res_data['_embedded']['promises']
+                promises_paged += res_data['_embedded']['promises']
 
         return promises_paged
 
@@ -125,6 +153,25 @@ class Command(BaseCommand):
 
         return self.format_for_db(_sheet_rows_to_dict(rows))
 
+    def get_promises_from_api(self, url, promises):
+        document = requests.get(url).json()
+        promises_data = document['_embedded']['promises']
+        for p_data in promises_data:
+            _id = get_promise_id(p_data)
+            promises[_id] = {
+                'external_id': int(_id),
+                'categories': p_data['category_names'],
+                'body': p_data['body'],
+                'promisor_name': p_data['promisor_name'],
+                'parliament_period_name': p_data['parliament_period_name'],
+                'source': p_data['source']
+            }
+        # Parsing next document, if available
+        links_next = document['_links']['next'] if 'next' in document['_links'] else None
+        # if links_next:
+        #     self.get_promises_from_api(links_next['href'], promises)
+        return promises, links_next
+
     def format_for_db(self, rows):
         promises = {}
         for row in rows:
@@ -134,11 +181,15 @@ class Command(BaseCommand):
             _id = self.parse_row_id(row['ID'])
 
             # Note: Mapping from spreadsheet column name to database column name
+            category_names = row['Kategori'].split(';')
+            # hdo_categories = [category_map[category_name][0] for category_name in category_names] if category_names[0] != '' else []
             promises[_id] = {
                 'external_id': int(_id),
                 'status': self.parse_status(row['Holdt?']),
-                'categories': row['Kategori'].split(';'),
-                'testable': self.parse_testable(row.get('Svada', ''))
+                'categories': category_names,
+                # 'hdo_categories': hdo_categories,
+                'testable': self.parse_testable(row.get('Svada', '')),
+                'description': row['Kommentar/Forklaring']
             }
         return promises
 
@@ -165,3 +216,17 @@ class Command(BaseCommand):
 
     def parse_row_id(self, _id):
         return _id.strip().split('-')[0]
+
+    def get_category_map(self, file_name):
+        mapper = {}
+        with open(file_name) as f:
+            csv_file = csv.DictReader(f)
+            for row in csv_file:
+                mapper[row['Storting']] = list(map(self.get_hdo_category_id, row['HDO'].split('; ')))
+        return mapper
+
+    def get_category_id(self, category_name):
+        return Category.objects.get_or_create(name=category_name)[0].pk
+
+    def get_hdo_category_id(self, hdo_category_name):
+        return HdoCategory.objects.get_or_create(name=hdo_category_name)[0].pk

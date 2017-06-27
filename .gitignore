@@ -4,10 +4,12 @@
 __pyvenv__
 
 /.cache/
-/.idea/
+.idea/
 /venv/
 
 .coverage
 db.sqlite3
 local_settings.py
 models.pdf
+
+temp

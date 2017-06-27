@@ -1,3 +1,4 @@
+from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
 from quiz.models import Manuscript, ManuscriptItem, Promise, Category, ManuscriptImage
@@ -23,7 +24,10 @@ class PromiseSerializer(serializers.ModelSerializer):
 class ManuscriptItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ManuscriptItem
-        fields = ('type', 'order', 'text', 'button_text')
+        fields = ('pk', 'type', 'order', 'text',
+                  # FIXME: Not very nice
+                  'reply_text_1', 'reply_text_2', 'reply_text_3',
+                  'reply_action_1', 'reply_action_2', 'reply_action_3')
 
 
 class ManuscriptImageSerializer(serializers.ModelSerializer):
@@ -37,9 +41,9 @@ class ManuscriptImageSerializer(serializers.ModelSerializer):
         fields = ('url', 'type',)
 
 
-class ManuscriptSerializer(serializers.ModelSerializer):
-    items = ManuscriptItemSerializer(many=True)
-    promises = PromiseSerializer(many=True)
+class BaseManuscriptSerializer(WritableNestedModelSerializer):
+    items = ManuscriptItemSerializer(many=True, required=False)
+    promises = PromiseSerializer(many=True, required=False)
     images = serializers.SerializerMethodField()
 
     def get_images(self, obj):
@@ -47,15 +51,25 @@ class ManuscriptSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'name', 'category', 'items', 'promises', 'images')
+        fields = ('pk', 'name', 'category', 'updated', 'items', 'promises', 'images',)
 
 
-class ManuscriptListSerializer(serializers.ModelSerializer):
-    category = serializers.SerializerMethodField()
-
-    def get_category(self, obj):
-        return obj.category.name
+class ManuscriptSerializer(BaseManuscriptSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='api:manuscript-detail')
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'name', 'category')
+        fields = ('pk', 'url', 'name', 'type', 'category', 'updated', 'items', 'promises', 'images',)
+
+
+class ManuscriptListSerializer(WritableNestedModelSerializer):
+    items = ManuscriptItemSerializer(many=True, required=False)
+    category = serializers.SerializerMethodField()
+    url = serializers.HyperlinkedIdentityField(view_name='api:manuscript-detail')
+
+    def get_category(self, obj):
+        return obj.category.name if obj.category else None
+
+    class Meta:
+        model = Manuscript
+        fields = ('pk', 'url', 'name', 'type', 'category', 'updated', 'items')

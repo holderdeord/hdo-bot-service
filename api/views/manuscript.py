@@ -1,10 +1,13 @@
 from django.shortcuts import redirect
+from rest_framework.pagination import PageNumberPagination
 
+from api.permissions import AllowAnyOrDjangoModelPermissionsOrAnonReadOnly
 from api.serializers.manuscript import ManuscriptSerializer, CategorySerializer, ManuscriptListSerializer
 from quiz.models import Manuscript, Category
-from rest_framework import exceptions, permissions, views, reverse
+from rest_framework import exceptions, permissions, views, reverse, authentication
 
-from rest_framework.generics import get_object_or_404, RetrieveAPIView, ListAPIView
+from rest_framework.generics import (
+    get_object_or_404, RetrieveAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView)
 
 
 class ManuscriptView(views.APIView):
@@ -34,22 +37,30 @@ class ManuscriptView(views.APIView):
             return self.redirect(request, category_id)
 
 
-class ManuscriptRetrieveView(RetrieveAPIView):
-    authentication_classes = []
-    permission_classes = [permissions.AllowAny]
+class ManuscriptDetailView(RetrieveUpdateDestroyAPIView):
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [AllowAnyOrDjangoModelPermissionsOrAnonReadOnly]
     queryset = Manuscript.objects.select_related('category')
     serializer_class = ManuscriptSerializer
 
 
-class ManuscriptListView(ListAPIView):
-    authentication_classes = []
-    permission_classes = [permissions.AllowAny]
+class ManuscriptListView(ListCreateAPIView):
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [AllowAnyOrDjangoModelPermissionsOrAnonReadOnly]
     queryset = Manuscript.objects.select_related('category')
     serializer_class = ManuscriptListSerializer
+    pagination_class = PageNumberPagination
 
 
 class CategoryRetrieveView(RetrieveAPIView):
     authentication_classes = []
     permission_classes = [permissions.AllowAny]
     queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class CategoryListView(ListCreateAPIView):
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.AllowAny]
+    queryset = Category.objects
     serializer_class = CategorySerializer

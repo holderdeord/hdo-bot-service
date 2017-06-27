@@ -6,6 +6,8 @@ from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 from oauth2client.contrib.django_util.models import CredentialsField
 
+from quiz.mixins import IsDefaultMixin
+
 
 class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -13,6 +15,13 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class PromiseReference(BaseModel):
+    url = models.URLField()
+    title = models.CharField(max_length=255)
+
+    promise = models.ForeignKey('quiz.Promise', on_delete=models.CASCADE, related_name='references')
 
 
 class Promise(BaseModel):
@@ -36,9 +45,12 @@ class Promise(BaseModel):
     source = models.CharField(max_length=255)
     status = models.CharField(max_length=255, choices=STATUS_CHOICES, blank=True, default='')
     testable = models.BooleanField(default=True)
+    description = models.TextField(default='')
 
     parties = models.ManyToManyField('quiz.Party', blank=True, related_name='promises')
+    # agreeing_parties = models.ManyToManyField('quiz.Party', blank=True, related_name='agreed_to_promises')
     categories = models.ManyToManyField('quiz.Category', blank=True, related_name='promises')
+    hdo_categories = models.ManyToManyField('quiz.HdoCategory', blank=True, related_name='promises')
 
     def party_names(self):
         return self.parties.values_list('name', flat=True)
@@ -78,17 +90,6 @@ class GoogleProfile(models.Model):
     credential = CredentialsField()
 
 
-class Manuscript(BaseModel):
-    name = models.CharField(max_length=255, blank=True, default='')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    promises = models.ManyToManyField(Promise, blank=True)
-    # TODO: Text for boolean choices
-    # TODO: type: generic, quiz or electoral_guide
-
-    def __str__(self):
-        return self.name if self.name else '#{}'.format(self.pk)
-
-
 class ManuscriptImage(BaseModel):
     url = models.URLField()
     image = models.ImageField(null=True, blank=True)
@@ -100,37 +101,101 @@ class ManuscriptImage(BaseModel):
         return url if url else None
 
 
-class ManuscriptItem(BaseModel):
-    # TODO: random (til valgomaten) 3 og 3 opp til antall partier
-    # TODO: electoral_guide (resultatet for valgomaten)
-    TYPE_BUTTON = 'button'
-    TYPE_PROMISES = 'promises'  # FIXME: replace with more generic question?
-    TYPE_QUIZ_RESULT = 'quiz_result'
-    TYPE_TEXT = 'text'
-    TYPE_URL = 'url'
+class Manuscript(IsDefaultMixin, BaseModel):
+    """ A group/collection of ManuscriptItems """
+    TYPE_QUIZ = 'quiz'
+    TYPE_VOTER_GUIDE = 'voter_guide'
+    TYPE_GENERIC = 'generic'
 
     TYPE_CHOICES = (
-        (TYPE_BUTTON, _('Button')),
-        (TYPE_PROMISES, _('Promises')),
-        (TYPE_QUIZ_RESULT, _('Quiz results')),
+        (TYPE_GENERIC, _('Generic')),
+        (TYPE_QUIZ, _('Quiz')),
+        (TYPE_VOTER_GUIDE, _('Voter guide')),
+    )
+
+    name = models.CharField(
+        max_length=255,
+        blank=True,
+        default='',
+        help_text=_('Used both for admin display and user display when tyoe=voting guide'))
+    type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_GENERIC)
+    category = models.ForeignKey('quiz.Category', on_delete=models.SET_NULL, blank=True, null=True)
+    promises = models.ManyToManyField('quiz.Promise', blank=True)
+
+    next = models.ForeignKey('self', related_name='prev', blank=True, null=True)
+
+    hdo_category = models.ForeignKey('quiz.HdoCategory', on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return self.name if self.name else '#{}'.format(self.pk)
+
+
+class VoterGuideAlternative(BaseModel):
+    """Tema, tekst, løfte-ider"""
+    text = models.CharField(max_length=255)
+    manuscript = models.ForeignKey('quiz.Manuscript')
+    promises = models.ManyToManyField('quiz.Promise', blank=True)
+
+    def __str__(self):
+        return self.text
+
+
+class ManuscriptItem(BaseModel):
+    """ A block, ordered
+
+        Note: Types are pretty specific for our task.
+        Could be made generic in the future with inspiration from chatfuel.com interface
+    """
+
+    # Generic blocks
+    TYPE_TEXT = 'text'
+    TYPE_QUICK_REPLY = 'quick_reply'
+    TYPE_URL = 'url'
+
+    # Quiz
+    TYPE_QUIZ_RESULT = 'quiz_result'
+    TYPE_Q_PROMISES_CHECKED = 'quiz_q_promises_checked'
+    TYPE_Q_PARTY_SELECT = 'quiz_q_party_select'
+    TYPE_Q_PARTY_BOOL = 'quiz_q_party_bool'
+
+    # Voter guide
+    TYPE_VOTER_GUIDE_RESULT = 'vg_result'
+    TYPE_VG_CATEGORY_SELECT = 'vg_categories'  # Show category select
+    TYPE_VG_QUESTIONS = 'vg_questions'  # list promises in tekst w/ quick reply per party
+    # TODO: Add continue voting guide or show results button
+
+    TYPE_CHOICES = (
         (TYPE_TEXT, _('Text')),
+        (TYPE_QUICK_REPLY, _('Quick reply')),
         (TYPE_URL, _('URL')),
+        (TYPE_QUIZ_RESULT, _('Quiz: Show result')),
+        (TYPE_Q_PROMISES_CHECKED, _('Quiz: Show checked promises quesions')),
+        (TYPE_Q_PARTY_SELECT, _('Quiz: Show which party promised questions')),
+        (TYPE_Q_PARTY_BOOL, _('Quiz: Show did party x promise y questions')),
+        (TYPE_VOTER_GUIDE_RESULT, _('Voter guide: Show result')),
+        (TYPE_VG_CATEGORY_SELECT, _('Voter guide: Show category select')),
+        (TYPE_VG_QUESTIONS, _('Voter guide: Show questions')),
     )
 
     type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_TEXT)
-    manuscript = models.ForeignKey(Manuscript, on_delete=models.CASCADE, related_name='items')
+    manuscript = models.ForeignKey('quiz.Manuscript', on_delete=models.CASCADE, related_name='items')
     order = models.IntegerField(blank=True, default=0)
     text = models.TextField(blank=True, default='')
-    button_text = models.TextField(blank=True, default='')
     url = models.URLField(blank=True, default='')
+
+    # FIXME: Classic "get's the job done"-code incoming
+    reply_text_1 = models.TextField(blank=True, default='')
+    reply_text_2 = models.TextField(blank=True, default='')
+    reply_text_3 = models.TextField(blank=True, default='')
+    reply_action_1 = models.ForeignKey('quiz.Manuscript', related_name='action_1_items', blank=True, null=True)
+    reply_action_2 = models.ForeignKey('quiz.Manuscript', related_name='action_2_items', blank=True, null=True)
+    reply_action_3 = models.ForeignKey('quiz.Manuscript', related_name='action_3_items', blank=True, null=True)
 
     class Meta:
         ordering = ('order',)
 
     def __str__(self):
         return 'ManuscriptItem<{}>'.format(self.pk)
-
-    # TODO-maybe: support multiple buttons per item
 
     def save(self, *args, **kwargs):
         self._update_order()
@@ -139,7 +204,7 @@ class ManuscriptItem(BaseModel):
 
     def _update_order(self):
         if not self.order:
-            _max = self.__class__.objects.filter().aggregate(models.Max('order'))
+            _max = self.__class__.objects.filter().aggregate(order=models.Max('order'))
             try:
                 self.order = _max['order'] + 1
             except TypeError:
@@ -169,10 +234,26 @@ class Answer(BaseModel):
     answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='answers')
 
 
+class VotingGuideAnswer(BaseModel):
+    """ Voting guide responses """
+    voting_guide_alternative = models.ForeignKey('quiz.VoterGuideAlternative', null=True, on_delete=models.SET_NULL)
+    answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='voting_guide_answers')
+
+
 class AnswerSet(BaseModel):
     session = models.OneToOneField(
-        'messenger_bot.ChatSession', null=True, blank=True, related_name='answers', on_delete=models.SET_NULL)
+        'messenger.ChatSession', null=True, blank=True, related_name='answers', on_delete=models.SET_NULL)
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
 
     objects = AnswerQuerySet.as_manager()
 
+
+class HdoCategory(BaseModel):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = _('HDO Categories')
