@@ -234,6 +234,12 @@ class Answer(BaseModel):
     answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='answers')
 
 
+class VotingGuideAnswer(BaseModel):
+    """ Voting guide responses """
+    voting_guide_alternative = models.ForeignKey('quiz.VoterGuideAlternative', null=True, on_delete=models.SET_NULL)
+    answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='voting_guide_answers')
+
+
 class AnswerSet(BaseModel):
     session = models.OneToOneField(
         'messenger.ChatSession', null=True, blank=True, related_name='answers', on_delete=models.SET_NULL)
