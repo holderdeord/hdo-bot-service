@@ -1,10 +1,11 @@
+import logging
 from django.contrib import admin
 from django.db.models import TextField
 from django.forms import Textarea
 from django.utils.translation import ugettext as _
 
 from quiz.models import Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage, Answer, \
-    AnswerSet
+    AnswerSet, VoterGuideAlternative
 
 
 class PromiseAdmin(admin.ModelAdmin):
@@ -22,7 +23,7 @@ class GoogleProfileAdmin(admin.ModelAdmin):
 
 class ManuscriptItemInline(admin.StackedInline):
     model = ManuscriptItem
-    ordering = ('order', )
+    ordering = ('order',)
     extra = 0
     fk_name = 'manuscript'
     formfield_overrides = {
@@ -36,9 +37,20 @@ class ManuscriptItemInline(admin.StackedInline):
         ]
 
 
+class VoterGuideAlternativeInline(admin.StackedInline):
+    model = VoterGuideAlternative
+
+
 class ManuscriptAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'is_default', 'type', 'category', 'hdo_category']
     filter_horizontal = ['promises']
-    inlines = [ManuscriptItemInline]
+    inlines = [ManuscriptItemInline, VoterGuideAlternativeInline]
+
+    # def alternatives_count(self, obj):
+    #     # logging.info(obj.voterguidealternative)
+    #     logging.info(obj._meta.get_fields())
+    #     # return obj.voter_guide_alternative.count()
+    #     return 'test'
 
 
 class ManuscriptItemAdmin(admin.ModelAdmin):
@@ -81,6 +93,13 @@ class AnswerSetAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
 
 
+class VoterGuideAlternativeAdmin(admin.ModelAdmin):
+    list_display = ['text', 'manuscript', 'promises_count']
+
+    def promises_count(self, obj):
+        return obj.promises.count()
+
+
 admin.site.register(AnswerSet, AnswerSetAdmin)
 admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Promise, PromiseAdmin)
@@ -90,3 +109,4 @@ admin.site.register(ManuscriptItem, ManuscriptItemAdmin)
 admin.site.register(Manuscript, ManuscriptAdmin)
 admin.site.register(ManuscriptImage, ManuscriptImageAdmin)
 admin.site.register(GoogleProfile, GoogleProfileAdmin)
+admin.site.register(VoterGuideAlternative, VoterGuideAlternativeAdmin)

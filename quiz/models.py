@@ -117,7 +117,8 @@ class Manuscript(IsDefaultMixin, BaseModel):
         max_length=255,
         blank=True,
         default='',
-        help_text=_('Used both for admin display and user display when tyoe=voting guide'))
+        help_text=_('Used both for admin display and user display when type=voting guide'),
+        unique=True)
     type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_GENERIC)
     category = models.ForeignKey('quiz.Category', on_delete=models.SET_NULL, blank=True, null=True)
     promises = models.ManyToManyField('quiz.Promise', blank=True)
@@ -135,6 +136,9 @@ class VoterGuideAlternative(BaseModel):
     text = models.CharField(max_length=255)
     manuscript = models.ForeignKey('quiz.Manuscript')
     promises = models.ManyToManyField('quiz.Promise', blank=True)
+
+    class Meta:
+        unique_together = ('text', 'manuscript')
 
     def __str__(self):
         return self.text
