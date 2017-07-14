@@ -103,7 +103,7 @@ def received_message(event):
 
 
 def init_session(sender_id):
-    m_initial = Manuscript.objects.first()
+    m_initial = Manuscript.objects.get_default()
     if not m_initial:
         msg = "No manuscripts, bailing..."
         send_message(format_text(sender_id, msg))

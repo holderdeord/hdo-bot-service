@@ -126,6 +126,10 @@ class Manuscript(IsDefaultMixin, BaseModel):
     next = models.ForeignKey('self', related_name='prev', blank=True, null=True)
 
     hdo_category = models.ForeignKey('quiz.HdoCategory', on_delete=models.SET_NULL, blank=True, null=True)
+    is_first_in_category = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text=_('Which manuscript in a category comes first (used with TYPE_VG_CATEGORY_SELECT)'))
 
     def __str__(self):
         return self.name if self.name else '#{}'.format(self.pk)
@@ -165,7 +169,7 @@ class ManuscriptItem(BaseModel):
     # Voter guide
     TYPE_VOTER_GUIDE_RESULT = 'vg_result'
     TYPE_VG_CATEGORY_SELECT = 'vg_categories'  # Show category select
-    TYPE_VG_QUESTIONS = 'vg_questions'  # list promises in tekst w/ quick reply per party
+    TYPE_VG_QUESTIONS = 'vg_questions'  # list promises in text w/ quick reply per party
     # TODO: Add continue voting guide or show results button
 
     TYPE_CHOICES = (
@@ -226,7 +230,7 @@ class Answer(BaseModel):
     DISAGREE = 'disagree'
     ANSWER_CHOICES = (
         (AGREE, _('Agrees')),
-        (DISAGREE, _('Diagrees')),
+        (DISAGREE, _('Disagrees')),
     )
     promise = models.ForeignKey('quiz.Promise')
     status = models.CharField(max_length=255, choices=Promise.STATUS_CHOICES, blank=True, default='',
