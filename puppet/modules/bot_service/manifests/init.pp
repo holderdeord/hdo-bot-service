@@ -130,7 +130,7 @@ class bot_service (
     cwd         => $app_path,
     user        => $app_user,
     environment => $_app_environment_array,
-    require     => Exec[$pip_install]
+    require     => [Exec[$pip_install], Postgresql::Server::Db[$db_name]]
   }
 
   # App: yarn install
