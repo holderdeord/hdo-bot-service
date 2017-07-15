@@ -138,7 +138,7 @@ class Manuscript(IsDefaultMixin, BaseModel):
 class VoterGuideAlternative(BaseModel):
     """Tema, tekst, løfte-ider"""
     text = models.CharField(max_length=255)
-    manuscript = models.ForeignKey('quiz.Manuscript')
+    manuscript = models.ForeignKey('quiz.Manuscript', related_name='voter_guide_alternatives')
     promises = models.ManyToManyField('quiz.Promise', blank=True)
 
     class Meta:

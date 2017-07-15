@@ -1,7 +1,7 @@
 from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
-from quiz.models import Manuscript, ManuscriptItem, Promise, Category, ManuscriptImage
+from quiz.models import Manuscript, ManuscriptItem, Promise, Category, ManuscriptImage, VoterGuideAlternative
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -19,6 +19,12 @@ class PromiseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Promise
         fields = ('pk', 'body', 'status', 'categories',)
+
+
+class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VoterGuideAlternative
+        fields = ('pk', 'text')
 
 
 class ManuscriptItemSerializer(serializers.ModelSerializer):
@@ -45,13 +51,15 @@ class BaseManuscriptSerializer(WritableNestedModelSerializer):
     items = ManuscriptItemSerializer(many=True, required=False)
     promises = PromiseSerializer(many=True, required=False)
     images = serializers.SerializerMethodField()
+    voter_guide_alternatives = VoterGuideAlternativeSerializer(many=True, required=False)
 
     def get_images(self, obj):
         return list(ManuscriptImageSerializer(ManuscriptImage.objects.all(), many=True).data)
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'name', 'category', 'updated', 'items', 'promises', 'images',)
+        fields = ('pk', 'name', 'category', 'updated', 'items', 'promises', 'images',
+                  'voter_guide_alternatives')
 
 
 class ManuscriptSerializer(BaseManuscriptSerializer):
@@ -59,7 +67,8 @@ class ManuscriptSerializer(BaseManuscriptSerializer):
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'url', 'name', 'type', 'category', 'updated', 'items', 'promises', 'images',)
+        fields = ('pk', 'url', 'name', 'type', 'category', 'updated', 'items', 'promises', 'images',
+                  'voter_guide_alternatives')
 
 
 class ManuscriptListSerializer(WritableNestedModelSerializer):
