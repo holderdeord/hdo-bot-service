@@ -177,8 +177,8 @@ class ManuscriptItem(BaseModel):
         (TYPE_QUICK_REPLY, _('Quick reply')),
         (TYPE_URL, _('URL')),
         (TYPE_QUIZ_RESULT, _('Quiz: Show result')),
-        (TYPE_Q_PROMISES_CHECKED, _('Quiz: Show checked promises quesions')),
-        (TYPE_Q_PARTY_SELECT, _('Quiz: Show which party promised questions')),
+        (TYPE_Q_PROMISES_CHECKED, _('Quiz: Show checked promises question')),
+        (TYPE_Q_PARTY_SELECT, _('Quiz: Show which party promised what questions')),
         (TYPE_Q_PARTY_BOOL, _('Quiz: Show did party x promise y questions')),
         (TYPE_VOTER_GUIDE_RESULT, _('Voter guide: Show result')),
         (TYPE_VG_CATEGORY_SELECT, _('Voter guide: Show category select')),
@@ -221,7 +221,8 @@ class ManuscriptItem(BaseModel):
 
 class AnswerQuerySet(models.QuerySet):
     def correct_answers(self):
-        return self.all().values('answers__correct_status').annotate(correct=Count('answers__correct_status')).order_by('correct')
+        qs = self.all().values('answers__correct_status').annotate(correct=Count('answers__correct_status'))
+        return qs.order_by('correct')
 
 
 class Answer(BaseModel):

@@ -7,8 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
 from messenger.bot_profile import format_profile
-from messenger.chat import received_message, received_postback
-from messenger.graph_api import update_profile
+from messenger.api import update_profile
+from messenger.handlers import received_message, received_postback
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 @csrf_exempt
 def webhook(request: HttpRequest):
     if request.method.lower() == 'get':
+        # Subscribe webhook and verify token
         if request.GET.get('hub.mode') == 'subscribe':
             if request.GET.get('hub.verify_token') == settings.FACEBOOK_APP_VERIFICATION_TOKEN:
                 return HttpResponse(request.GET.get('hub.challenge'))
@@ -30,6 +31,9 @@ def webhook(request: HttpRequest):
     elif request.method.lower() == 'post':
         post_data = json.loads(request.body.decode('utf-8'))
 
+        # Handle webhook request of type message and postback
+        # Note: Multiple entries can i batched in one requests and should be handled individually
+        # Ref: https://developers.facebook.com/docs/messenger-platform/webhook-reference#format
         for entry in post_data['entry']:
             for event in entry['messaging']:
                 if event.get('message'):

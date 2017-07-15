@@ -5,6 +5,7 @@ from jsonfield import JSONField
 
 
 class ChatSession(models.Model):
+    # FIXME: These states does not make sense, the session is never complete
     STATE_IN_PROGRESS = 'in_progress'
     STATE_COMPLETE = 'complete'
 
