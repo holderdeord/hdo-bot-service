@@ -39,6 +39,7 @@ class ManuscriptItemInline(admin.StackedInline):
 
 class VoterGuideAlternativeInline(admin.StackedInline):
     model = VoterGuideAlternative
+    extra = 0
 
 
 class ManuscriptAdmin(admin.ModelAdmin):

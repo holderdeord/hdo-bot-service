@@ -23,8 +23,8 @@ class PromiseSerializer(serializers.ModelSerializer):
 
 class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = VoterGuideAlternative,
-        fields = ('text')
+        model = VoterGuideAlternative
+        fields = ('pk', 'text')
 
 
 class ManuscriptItemSerializer(serializers.ModelSerializer):

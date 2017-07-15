@@ -40,14 +40,14 @@ class ManuscriptView(views.APIView):
 class ManuscriptDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [AllowAnyOrDjangoModelPermissionsOrAnonReadOnly]
-    queryset = Manuscript.objects.select_related('category')
+    queryset = Manuscript.objects.select_related('category', 'hdo_category')
     serializer_class = ManuscriptSerializer
 
 
 class ManuscriptListView(ListCreateAPIView):
     authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [AllowAnyOrDjangoModelPermissionsOrAnonReadOnly]
-    queryset = Manuscript.objects.select_related('category')
+    queryset = Manuscript.objects.select_related('category', 'hdo_category')
     serializer_class = ManuscriptListSerializer
     pagination_class = PageNumberPagination
 
