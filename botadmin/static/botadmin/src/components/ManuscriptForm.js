@@ -69,7 +69,16 @@ const ManuscriptForm = ({
               </Well>
             </Tab>
             <Tab eventKey={2} title="Voter guide" disabled={manuscript.type !== ManuscriptTypeEnum.ElectoralGuide.key}>
-              <p>Admin for valgomat</p>
+              <p>Alternativer for spørsmål</p>
+              <ul>
+                {manuscript.voter_guide_alternatives.map(alternative => (
+                  <li key={`voter-guide-alternative-${alternative.pk}`}>
+                    <strong>{alternative.text}</strong>
+                    &nbsp;
+                    ({alternative.parties.join(', ')})
+                  </li>
+                ))}
+              </ul>
             </Tab>
             <Tab eventKey={3} title="Quiz" disabled={manuscript.type !== ManuscriptTypeEnum.Quiz.key}>
               <p>Admin for quiz</p>

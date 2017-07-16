@@ -2,17 +2,17 @@ import { connect } from "react-redux";
 import ManuscriptForm from "../components/ManuscriptForm";
 import {
   addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem,
-  editManuscript, loadManuscript,
+  editManuscript,
   moveManuscriptItem
 } from "../actions/manuscripts";
 import { getManuscriptApiUrl } from "../utils/urls";
-import { getManuscriptFromState, loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
+import { loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
 import * as toastr from "toastr";
+import { loadManuscript } from "../actions/current_manuscript";
 
-const mapStateToProps = (state, { match }) => {
-  let manuscriptFromState = getManuscriptFromState(state, parseInt(match.params.manuscriptId, 10));
+const mapStateToProps = (state) => {
   return {
-    manuscript: manuscriptFromState,
+    manuscript: state.current_manuscript,
     manuscripts: state.manuscripts
   };
 };
@@ -22,8 +22,8 @@ const mapDispatchToProps = (dispatch, { history, match }) => {
   fetch(getManuscriptApiUrl(match.params.manuscriptId))
     .then(response => response.json())
     .then(manuscript => dispatch(loadManuscript(match.params.manuscriptId, manuscript)))
-    .catch(error => dispatch(loadManuscript(match.params.manuscriptId, error)))
-    .then(() => loadAndDispatchManuscripts(dispatch));
+    .catch(error => dispatch(loadManuscript(match.params.manuscriptId, error)));
+  loadAndDispatchManuscripts(dispatch);
   const manuscriptId = parseInt(match.params.manuscriptId, 10);
   return {
     addManuscriptItem: () => {
