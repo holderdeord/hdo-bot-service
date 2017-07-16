@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, {history}) => {
+const mapDispatchToProps = (dispatch, { history }) => {
   loadAndDispatchManuscripts(dispatch).then(() => {
     dispatch(addManuscript());
     dispatch(addManuscriptItem(-1));
@@ -56,6 +56,9 @@ const mapDispatchToProps = (dispatch, {history}) => {
           dispatch(postManuscript(manuscript, error));
           toastr.error('Failed to create manuscript');
         });
+    },
+    onTabSelect: (key) => {
+      history.push(`/create?tab=${key}`)
     }
   }
 };

@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import ManuscriptForm from "../components/ManuscriptForm";
 import {
   addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem,
-  editManuscript,
+  editManuscript, loadManuscript,
   moveManuscriptItem
 } from "../actions/manuscripts";
 import { getManuscriptApiUrl } from "../utils/urls";
@@ -17,13 +17,13 @@ const mapStateToProps = (state, { match }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, { match }) => {
-  // dispatch(loadManuscript(match.params.manuscriptId));
-  // fetch(getManuscriptApiUrl(match.params.manuscriptId))
-  //   .then(response => response.json())
-  //   .then(manuscript => dispatch(loadManuscript(match.params.manuscriptId, manuscript)))
-  //   .catch(error => dispatch(loadManuscript(match.params.manuscriptId, error)));
-  loadAndDispatchManuscripts(dispatch);
+const mapDispatchToProps = (dispatch, { history, match }) => {
+  dispatch(loadManuscript(match.params.manuscriptId));
+  fetch(getManuscriptApiUrl(match.params.manuscriptId))
+    .then(response => response.json())
+    .then(manuscript => dispatch(loadManuscript(match.params.manuscriptId, manuscript)))
+    .catch(error => dispatch(loadManuscript(match.params.manuscriptId, error)))
+    .then(() => loadAndDispatchManuscripts(dispatch));
   const manuscriptId = parseInt(match.params.manuscriptId, 10);
   return {
     addManuscriptItem: () => {
@@ -60,6 +60,9 @@ const mapDispatchToProps = (dispatch, { match }) => {
           dispatch(editManuscript(manuscript, error));
           toastr.error('Failed to save manuscript');
         });
+    },
+    onTabSelect: (key) => {
+      history.push(`/edit/${manuscriptId}/?tab=${key}`)
     }
   }
 };

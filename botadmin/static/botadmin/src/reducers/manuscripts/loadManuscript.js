@@ -6,10 +6,5 @@ export default function loadManuscript(state, action) {
   if (selectedManuscript) {
     return state;
   }
-  return [...state, {
-    pk: action.manuscriptId,
-    name: action.json.name,
-    type: action.json.type,
-    items: action.json.items
-  }];
+  return [...state, {...action.json}];
 }
