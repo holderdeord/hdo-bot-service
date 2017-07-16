@@ -7,7 +7,9 @@ from django.utils.translation import ugettext as _
 
 from messenger.api import get_user_profile
 from messenger.api.formatters import format_text, format_image_attachment
+
 from messenger.intent_formatters import format_question, format_quick_reply_next
+from messenger.intents import INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION
 from messenger.models import ChatSession
 
 from quiz.models import ManuscriptItem
@@ -16,8 +18,8 @@ from quiz.utils import save_answers
 logger = logging.getLogger(__name__)
 
 
-def get_replies(sender_id, session):
-    """ Look in session state and figure what to reply the user with"""
+def get_replies(sender_id, session, payload=None):
+    """ Look in session state and payload and format one or more replies to the user"""
     # TODO: move quiz_1 and quiz_2 specific handlers to it's own file
     # TODO: Add voter_guide handlers (own file)
     # TODO: maybe this needs another abstraction level?
@@ -27,6 +29,23 @@ def get_replies(sender_id, session):
         return []
 
     item = manus['items'][session.meta['current_item']]
+
+    if payload is not None:
+        # Quiz: Answer replies
+        if payload['intent'] == INTENT_ANSWER_QUIZ_QUESTION:
+            replies = get_quiz_question_replies(sender_id, session, payload)
+
+            # Update answer state
+            current_answers = session.meta.get('answers', {})
+            current_answers[payload['question']] = payload['answer']
+            session.meta['answers'] = current_answers
+
+        elif payload['intent'] == INTENT_GET_HELP:
+            return [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]
+
+        elif payload['intent'] == INTENT_RESET_SESSION:
+            # TODO: Pretend this is the first message to start a new session immediately
+            pass
 
     # Text items (add until no more)
     while item['type'] == ManuscriptItem.TYPE_TEXT and session.meta['current_item'] < len(manus['items']):

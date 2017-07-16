@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 
 from messenger.bot_profile import format_profile
 from messenger.api import update_profile
-from messenger.handlers import received_message, received_postback
+from messenger.handlers import received_event
 
 logger = logging.getLogger(__name__)
 
@@ -36,10 +36,8 @@ def webhook(request: HttpRequest):
         # Ref: https://developers.facebook.com/docs/messenger-platform/webhook-reference#format
         for entry in post_data['entry']:
             for event in entry['messaging']:
-                if event.get('message'):
-                    received_message(event)
-                elif event.get('postback'):
-                    received_postback(event)
+                if any(key in event for key in ['message', 'postback']):
+                    received_event(event)
                 else:
                     logger.warning("Webhook received unknown event: {event}".format(event=event))
 

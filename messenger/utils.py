@@ -2,6 +2,8 @@ import json
 
 from rest_framework.renderers import JSONRenderer
 
+from api.serializers.manuscript import BaseManuscriptSerializer
 
-def render_and_load_serializer_data(serializer):
-    return json.loads(JSONRenderer().render(serializer.data).decode())
+
+def render_and_load_manuscript(manuscript):
+    return json.loads(JSONRenderer().render(BaseManuscriptSerializer(manuscript).data).decode())
