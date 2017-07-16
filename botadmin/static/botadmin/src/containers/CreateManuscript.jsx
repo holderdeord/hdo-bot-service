@@ -1,13 +1,13 @@
 import ManuscriptForm from "../components/ManuscriptForm";
 import { connect } from "react-redux";
-import {
-  addManuscript, addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty,
-  deleteManuscriptItem, moveManuscriptItem, postManuscript
-} from "../actions/manuscripts";
+import { postManuscript } from "../actions/manuscripts";
 import { loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
 import { getManuscriptsApiUrl } from "../utils/urls";
 import * as toastr from "toastr";
-import { createManuscript } from "../actions/current_manuscript";
+import {
+  addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty,
+  createManuscript, deleteManuscriptItem, moveManuscriptItem
+} from "../actions/current_manuscript";
 
 const mapStateToProps = (state) => {
   return {
@@ -18,30 +18,28 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, { history }) => {
   dispatch(createManuscript());
-  loadAndDispatchManuscripts(dispatch).then(() => {
-    dispatch(addManuscript());
-    dispatch(addManuscriptItem(-1));
-  });
+  dispatch(addManuscriptItem());
+  loadAndDispatchManuscripts(dispatch);
   return {
     addManuscriptItem: () => {
-      dispatch(addManuscriptItem(-1));
+      dispatch(addManuscriptItem());
     },
     changeManuscriptProperty: (event, propertyName) => {
-      dispatch(changeManuscriptProperty(-1, propertyName, event.target.value));
+      dispatch(changeManuscriptProperty(propertyName, event.target.value));
     },
     changeManuscriptItemProperty: (event, order, propertyName) => {
-      dispatch(changeManuscriptItemProperty(-1, order, propertyName, event.target.value));
+      dispatch(changeManuscriptItemProperty(order, propertyName, event.target.value));
     },
     deleteManuscriptItem: (order) => {
       if (window.confirm('Are you sure?')) {
-        dispatch(deleteManuscriptItem(-1, order));
+        dispatch(deleteManuscriptItem(order));
       }
     },
     moveManuscriptItemDown: (order) => {
-      dispatch(moveManuscriptItem(-1, order, 1));
+      dispatch(moveManuscriptItem(order, 1));
     },
     moveManuscriptItemUp: (order) => {
-      dispatch(moveManuscriptItem(-1, order, -1));
+      dispatch(moveManuscriptItem(order, -1));
     },
     onSubmit: (event, manuscript) => {
       event.preventDefault();
@@ -60,7 +58,6 @@ const mapDispatchToProps = (dispatch, { history }) => {
         });
     },
     onTabSelect: (key) => {
-      history.push(`/create?tab=${key}`)
     }
   }
 };

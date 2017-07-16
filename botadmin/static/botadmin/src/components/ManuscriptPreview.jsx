@@ -5,9 +5,9 @@ import './ManuscriptPreview.css';
 import { Button, ButtonToolbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const ManuscriptPreview = ({ manuscript }) => (
+const ManuscriptPreview = ({ manuscript, manuscripts }) => (
   <div className="manuscript-preview">
-    {getChatEntries(manuscript).map(({ isBot, hasContainer, items }, index) => (
+    {getChatEntries(manuscript, manuscripts).map(({ isBot, hasContainer, items }, index) => (
       <ChatEntry key={`manuscript-preview-item-${index}`} isBot={isBot} hasContainer={hasContainer}>
         {items.map(({ hasContainer, component }, index) => hasContainer ? (
           <li key={`preview-item-${index}`} className="list-group-item">{component}</li>
@@ -21,14 +21,14 @@ const ManuscriptPreview = ({ manuscript }) => (
 
 export default ManuscriptPreview;
 
-function getChatEntries(manuscript) {
+function getChatEntries(manuscript, manuscripts) {
   return manuscript.items
-    .reduce((memo, item) => [ ...memo, ...getChatEntryFromManuscriptItem(item) ], [])
+    .reduce((memo, item) => [ ...memo, ...getChatEntryFromManuscriptItem(item, manuscript, manuscripts) ], [])
     .reduce((memo, item) => groupChatEntries(memo, item), [])
     .reverse();
 }
 
-function getChatEntryFromManuscriptItem(item) {
+function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
   const { order, type, text } = item;
   switch (type) {
     case ManuscriptItemTypeEnum.QuickReply.key:
@@ -45,10 +45,13 @@ function getChatEntryFromManuscriptItem(item) {
           hasContainer: false,
           component: (
             <ButtonToolbar className="chat-quick-replies">
-              {[ 1, 2, 3 ].map((number) => createReplyButton(item[ `reply_text_${number}` ],
-                item[ `reply_action_${number}` ],
-                order,
-                number)
+              {[ 1, 2, 3 ].map((number) =>
+                createReplyButton(
+                  item[ `reply_text_${number}` ],
+                  item[ `reply_action_${number}` ],
+                  order,
+                  number
+                )
               )}
             </ButtonToolbar>
           )
@@ -63,6 +66,93 @@ function getChatEntryFromManuscriptItem(item) {
           component: text
         }
       ];
+    case ManuscriptItemTypeEnum.VG_Categories.key:
+      const category_manuscripts = manuscripts.filter(manuscript => manuscript.is_first_in_category);
+      return [
+        {
+          type: ChatEntryTypeEnum.Text,
+          isBot: true,
+          hasContainer: true,
+          component: (
+            <div>
+              <p>{text}</p>
+              <ol>
+                {category_manuscripts.map((manuscript, index) => (
+                  <li key={`category-manuscript-text-${index}`}>{manuscript.hdo_category}</li>
+                ))}
+              </ol>
+            </div>
+          )
+        },
+        ...groupCategoryManuscripts(category_manuscripts).map((group, group_index) => {
+          return {
+            type: ChatEntryTypeEnum.Button,
+            isBot: false,
+            hasContainer: false,
+            component: (
+              <ButtonToolbar className="chat-quick-replies">
+                {group.manuscripts.map((manuscript, index) =>
+                createReplyButton(`#${group_index * 9 + index + 1}`, manuscript.pk, order, manuscript.pk))}
+                {group.more ?
+                  createReplyButton('Last inn flere', null, order, group_index) :
+                  createReplyButton('Last inn de første alternative', null, order, group_index)
+                }
+              </ButtonToolbar>
+            )
+          }
+        })
+      ];
+    case ManuscriptItemTypeEnum.VG_Result.key:
+      return [
+        {
+          type: ChatEntryTypeEnum.Text,
+          isBot: true,
+          hasContainer: true,
+          component: text
+        },
+        {
+          type: ChatEntryTypeEnum.Text,
+          isBot: true,
+          hasContainer: false,
+          component: '[Her vil resultatene vises]'
+        }
+      ];
+    case ManuscriptItemTypeEnum.VG_Questions.key:
+      return [
+        {
+          type: ChatEntryTypeEnum.Text,
+          isBot: true,
+          hasContainer: true,
+          component: (
+            <div>
+              <p>{text}</p>
+              <ol>
+                {manuscript.voter_guide_alternatives.map((alternative, index) => (
+                  <li key={`voter-guide-alternative-text-${index}`}>{alternative.text}</li>
+                ))}
+              </ol>
+            </div>
+          )
+        },
+        {
+          type: ChatEntryTypeEnum.Button,
+          isBot: false,
+          hasContainer: false,
+          component: (
+            <ButtonToolbar className="chat-quick-replies">
+              {manuscript.voter_guide_alternatives.map((alternative, index) =>
+                createReplyButton(
+                  `#${index + 1}`,
+                  null,
+                  order,
+                  alternative.pk
+                )
+              )}
+              {createReplyButton('Ingen er interessante', null, order, -1)}
+            </ButtonToolbar>
+          )
+        }
+      ];
     default:
       return [
         {
@@ -73,6 +163,22 @@ function getChatEntryFromManuscriptItem(item) {
         }
       ];
   }
+}
+
+function groupCategoryManuscripts(category_manuscripts) {
+  return category_manuscripts
+    .reduce((memo, manuscript, index) => {
+      if (index % 9 === 0) {
+        memo.unshift({
+          more: !!category_manuscripts[index + 9],
+          manuscripts: [ manuscript ]
+        });
+      } else {
+        memo[ 0 ].manuscripts.push(manuscript);
+      }
+      return memo;
+    }, [])
+    .reverse();
 }
 
 function groupChatEntries(memo, item) {

@@ -12,6 +12,8 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'toastr/build/toastr.css';
 import 'jquery';
 
+import './index.css';
+
 toastr.options = {
   closeButton: true,
   newestOnTop: true

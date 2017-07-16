@@ -1,14 +1,13 @@
 import { connect } from "react-redux";
 import ManuscriptForm from "../components/ManuscriptForm";
-import {
-  addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem,
-  editManuscript,
-  moveManuscriptItem
-} from "../actions/manuscripts";
+import { editManuscript } from "../actions/manuscripts";
 import { getManuscriptApiUrl } from "../utils/urls";
 import { loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
 import * as toastr from "toastr";
-import { loadManuscript } from "../actions/current_manuscript";
+import {
+  addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem,
+  loadManuscript, moveManuscriptItem
+} from "../actions/current_manuscript";
 
 const mapStateToProps = (state) => {
   return {
@@ -18,33 +17,33 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch, { history, match }) => {
-  dispatch(loadManuscript(match.params.manuscriptId));
+  dispatch(loadManuscript());
   fetch(getManuscriptApiUrl(match.params.manuscriptId))
     .then(response => response.json())
-    .then(manuscript => dispatch(loadManuscript(match.params.manuscriptId, manuscript)))
-    .catch(error => dispatch(loadManuscript(match.params.manuscriptId, error)));
+    .then(manuscript => dispatch(loadManuscript(manuscript)))
+    .catch(error => dispatch(loadManuscript(error)));
   loadAndDispatchManuscripts(dispatch);
   const manuscriptId = parseInt(match.params.manuscriptId, 10);
   return {
     addManuscriptItem: () => {
-      dispatch(addManuscriptItem(manuscriptId));
+      dispatch(addManuscriptItem());
     },
     changeManuscriptProperty: (event, propertyName) => {
-      dispatch(changeManuscriptProperty(manuscriptId, propertyName, event.target.value));
+      dispatch(changeManuscriptProperty(propertyName, event.target.value));
     },
     changeManuscriptItemProperty: (event, order, propertyName) => {
-      dispatch(changeManuscriptItemProperty(manuscriptId, order, propertyName, event.target.value));
+      dispatch(changeManuscriptItemProperty(order, propertyName, event.target.value));
     },
     deleteManuscriptItem: (order) => {
       if (window.confirm('Are you sure?')) {
-        dispatch(deleteManuscriptItem(manuscriptId, order));
+        dispatch(deleteManuscriptItem(order));
       }
     },
     moveManuscriptItemDown: (order) => {
-      dispatch(moveManuscriptItem(manuscriptId, order, 1));
+      dispatch(moveManuscriptItem(order, 1));
     },
     moveManuscriptItemUp: (order) => {
-      dispatch(moveManuscriptItem(manuscriptId, order, -1));
+      dispatch(moveManuscriptItem(order, -1));
     },
     onSubmit: (event, manuscript) => {
       event.preventDefault();
