@@ -1,6 +1,6 @@
 from django.core.management import call_command
 
-from messenger.chat import received_message
+from messenger.handlers import received_event
 
 
 def test_on_receive_messages(db):
@@ -10,4 +10,4 @@ def test_on_receive_messages(db):
             'id': '1234'
         }
     }
-    received_message(incoming)
+    received_event(incoming)

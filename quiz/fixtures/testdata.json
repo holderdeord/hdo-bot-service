@@ -6072,6 +6072,7 @@
         "created": "2017-02-07T17:51:42.354Z",
         "updated": "2017-03-14T00:23:02.343Z",
         "name": "Nikolai tester",
+        "is_default": true,
         "category": 20,
         "promises": [
             2,

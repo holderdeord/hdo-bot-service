@@ -6,10 +6,10 @@ class IsDefaultQuerySet(models.QuerySet):
     def get_default(self):
         try:
             return self.get(is_default=True)
-        except IsDefaultMixin.DoesNotExist:
-            raise ImproperlyConfigured('At least one {} must have is_default set'.format(IsDefaultMixin.__name__))
-        except IsDefaultMixin.MultipleObjectsReturned:
-            raise ImproperlyConfigured('Only one {} can have is_default set'.format(IsDefaultMixin.__name__))
+        except self.model.DoesNotExist:
+            raise ImproperlyConfigured('At least one {} must have is_default set'.format(self.model.__name__))
+        except self.model.MultipleObjectsReturned:
+            raise ImproperlyConfigured('Only one {} can have is_default set'.format(self.model.__name__))
 
 
 class IsDefaultMixin(models.Model):
