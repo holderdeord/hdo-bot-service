@@ -76,11 +76,11 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
           component: (
             <div>
               <p>{text}</p>
-              <ul>
+              <ol>
                 {category_manuscripts.map((manuscript, index) => (
-                  <li key={`category-manuscript-text-${index}`}>#{index + 1}: {manuscript.hdo_category}</li>
+                  <li key={`category-manuscript-text-${index}`}>{manuscript.hdo_category}</li>
                 ))}
-              </ul>
+              </ol>
             </div>
           )
         },
@@ -126,11 +126,11 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
           component: (
             <div>
               <p>{text}</p>
-              <ul>
+              <ol>
                 {manuscript.voter_guide_alternatives.map((alternative, index) => (
-                  <li key={`voter-guide-alternative-text-${index}`}>#{index + 1}: {alternative.text}</li>
+                  <li key={`voter-guide-alternative-text-${index}`}>{alternative.text}</li>
                 ))}
-              </ul>
+              </ol>
             </div>
           )
         },
