@@ -132,7 +132,7 @@ class Manuscript(IsDefaultMixin, BaseModel):
         help_text=_('Which manuscript in a category comes first (used with TYPE_VG_CATEGORY_SELECT)'))
 
     def __str__(self):
-        return self.name if self.name else '#{}'.format(self.pk)
+        return '{} ({})'.format(self.name, self.type) if self.name else '#{}'.format(self.pk)
 
 
 class VoterGuideAlternative(BaseModel):
@@ -167,7 +167,7 @@ class ManuscriptItem(BaseModel):
     TYPE_Q_PARTY_BOOL = 'quiz_q_party_bool'
 
     # Voter guide
-    TYPE_VOTER_GUIDE_RESULT = 'vg_result'
+    TYPE_VOTER_GUIDE_RESULT = 'vg_result' # Show preliminary results
     TYPE_VG_CATEGORY_SELECT = 'vg_categories'  # Show category select
     TYPE_VG_QUESTIONS = 'vg_questions'  # list promises in text w/ quick reply per party
     # TODO: Add continue voting guide or show results button

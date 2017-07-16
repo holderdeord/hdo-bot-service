@@ -43,7 +43,7 @@ class VoterGuideAlternativeInline(admin.StackedInline):
 
 
 class ManuscriptAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'is_default', 'type', 'category', 'hdo_category']
+    list_display = ['id', 'name', 'is_default', 'is_first_in_category', 'type', 'category', 'hdo_category']
     filter_horizontal = ['promises']
     inlines = [ManuscriptItemInline, VoterGuideAlternativeInline]
 
