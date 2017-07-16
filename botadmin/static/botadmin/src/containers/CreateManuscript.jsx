@@ -1,8 +1,6 @@
 import ManuscriptForm from "../components/ManuscriptForm";
 import { connect } from "react-redux";
-import {
-  postManuscript
-} from "../actions/manuscripts";
+import { postManuscript } from "../actions/manuscripts";
 import { loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
 import { getManuscriptsApiUrl } from "../utils/urls";
 import * as toastr from "toastr";
@@ -60,7 +58,6 @@ const mapDispatchToProps = (dispatch, { history }) => {
         });
     },
     onTabSelect: (key) => {
-      history.push(`/create?tab=${key}`)
     }
   }
 };

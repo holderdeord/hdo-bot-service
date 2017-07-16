@@ -67,7 +67,8 @@ class BaseManuscriptSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'name', 'category', 'updated', 'items', 'promises', 'next', 'images',
+        fields = ('pk', 'name', 'category', 'updated', 'is_default',
+                  'is_first_in_category', 'items', 'promises', 'next', 'images',
                   'voter_guide_alternatives')
 
 
@@ -76,18 +77,24 @@ class ManuscriptSerializer(BaseManuscriptSerializer):
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'url', 'name', 'type', 'category', 'updated', 'items', 'promises', 'next', 'images',
+        fields = ('pk', 'url', 'name', 'type', 'category', 'updated', 'is_default',
+                  'is_first_in_category', 'items', 'promises', 'next', 'images',
                   'voter_guide_alternatives')
 
 
 class ManuscriptListSerializer(WritableNestedModelSerializer):
     items = ManuscriptItemSerializer(many=True, required=False)
     category = serializers.SerializerMethodField()
+    hdo_category = serializers.SerializerMethodField()
     url = serializers.HyperlinkedIdentityField(view_name='api:manuscript-detail')
 
     def get_category(self, obj):
         return obj.category.name if obj.category else None
 
+    def get_hdo_category(self, obj):
+        return obj.hdo_category.name if obj.hdo_category else None
+
     class Meta:
         model = Manuscript
-        fields = ('pk', 'url', 'name', 'type', 'category', 'hdo_category', 'next', 'updated', 'items')
+        fields = ('pk', 'url', 'name', 'type', 'category', 'hdo_category', 'next', 'updated', 'is_default',
+                  'is_first_in_category', 'items')

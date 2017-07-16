@@ -88,7 +88,7 @@ const ManuscriptForm = ({
         <div className="col-md-6">
           <label>Preview</label>
           <div className="well">
-            <ManuscriptPreview manuscript={manuscript}/>
+            <ManuscriptPreview manuscript={manuscript} manuscripts={manuscripts}/>
           </div>
         </div>
       </div>
