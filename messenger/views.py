@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from messenger.bot_profile import format_profile
+from messenger.bot_profile import format_bot_profile
 from messenger.api import update_profile
 from messenger.handlers import received_event
 
@@ -60,6 +60,6 @@ class AdminActionsView(TemplateView):
 
 def bot_profile_update(request):
     if request.method == 'POST':
-        update_profile(format_profile())
+        update_profile(format_bot_profile())
 
     return redirect('messenger:admin-actions')
