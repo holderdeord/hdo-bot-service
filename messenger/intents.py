@@ -4,3 +4,5 @@ INTENT_GET_HELP = 'general.get_help'
 INTENT_GET_STARTED = 'general.get_started'
 
 INTENT_ANSWER_QUIZ_QUESTION = 'quiz.answer_quiz_question'
+
+INTENT_ANSWER_VG_QUESTION = 'quiz.answer_vg_question'

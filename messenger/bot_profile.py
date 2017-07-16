@@ -13,7 +13,7 @@ def format_profile():
     """ Ref: https://developers.facebook.com/docs/messenger-platform/messenger-profile/persistent-menu """
     return {
         "get_started": {
-            "payload": json.dumps({'TYPE': INTENT_GET_STARTED})
+            "payload": json.dumps({'intent': INTENT_GET_STARTED})
         },
         "greeting": [
             {

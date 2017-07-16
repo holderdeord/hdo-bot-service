@@ -5,13 +5,10 @@ from jsonfield import JSONField
 
 
 class ChatSession(models.Model):
-    # FIXME: These states does not make sense, the session is never complete
     STATE_IN_PROGRESS = 'in_progress'
-    STATE_COMPLETE = 'complete'
 
     STATES = (
         (STATE_IN_PROGRESS, _('In progress')),
-        (STATE_COMPLETE, _('Complete')),
     )
 
     state = models.CharField(max_length=100, choices=STATES, default=STATE_IN_PROGRESS)

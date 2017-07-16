@@ -5,21 +5,22 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
-from messenger.api import get_user_profile
+from messenger.api import get_user_profile, send_message
 from messenger.api.formatters import format_text, format_image_attachment
 
 from messenger.intent_formatters import format_question, format_quick_reply_next
-from messenger.intents import INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION
+from messenger.intents import INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED
 from messenger.models import ChatSession
+from messenger.utils import save_answers
 
 from quiz.models import ManuscriptItem
-from quiz.utils import save_answers
 
 logger = logging.getLogger(__name__)
 
 
 def get_replies(sender_id, session, payload=None):
     """ Look in session state and payload and format one or more replies to the user"""
+    # TODO: Use intent namespace (ie. quiz. and general. vg. to route intents)
     # TODO: move quiz_1 and quiz_2 specific handlers to it's own file
     # TODO: Add voter_guide handlers (own file)
     # TODO: maybe this needs another abstraction level?
@@ -31,27 +32,33 @@ def get_replies(sender_id, session, payload=None):
     item = manus['items'][session.meta['current_item']]
 
     if payload is not None:
-        # Quiz: Answer replies
-        if payload['intent'] == INTENT_ANSWER_QUIZ_QUESTION:
-            replies = get_quiz_question_replies(sender_id, session, payload)
+        # User pressed a button or similiar
+        intent = payload['intent']
+
+        if intent in [INTENT_RESET_SESSION, INTENT_GET_STARTED]:
+            # Just keep going
+            pass
+        elif intent == INTENT_GET_HELP:
+            # FIXME: User is stuck
+            return [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]
+        elif intent == INTENT_ANSWER_QUIZ_QUESTION:
+            # Quiz: Answer replies
+            replies += get_quiz_question_replies(sender_id, session, payload)
 
             # Update answer state
             current_answers = session.meta.get('answers', {})
             current_answers[payload['question']] = payload['answer']
             session.meta['answers'] = current_answers
-
-        elif payload['intent'] == INTENT_GET_HELP:
-            return [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]
-
-        elif payload['intent'] == INTENT_RESET_SESSION:
-            # TODO: Pretend this is the first message to start a new session immediately
-            pass
+        else:
+            msg = "Error: Unknown intent '{}'".format(intent)
+            send_message(format_text(sender_id, msg))
+            raise Exception(msg)
 
     # Text items (add until no more)
     while item['type'] == ManuscriptItem.TYPE_TEXT and session.meta['current_item'] < len(manus['items']):
-        logger.debug("Adding text reply: {}".format(session.meta['current_item'] + 1))
+        logger.debug("Adding text reply: [{}]".format(session.meta['current_item'] + 1))
 
-        replies.append(format_text(sender_id, item['text']))
+        replies += [format_text(sender_id, item['text'])]
         session.meta['current_item'] += 1
         if session.meta['current_item'] < len(manus['items']):
             # Last item!
@@ -60,41 +67,44 @@ def get_replies(sender_id, session, payload=None):
     # Quiz: Show checked promises question
     if item['type'] == ManuscriptItem.TYPE_Q_PROMISES_CHECKED:
         if session.meta['current_promise'] < len(manus['promises']):
-            logger.debug("Adding promise reply: {}".format(session.meta['current_promise'] + 1))
+            logger.debug("Adding promise reply: [{}]".format(session.meta['current_promise'] + 1))
 
             question = manus['promises'][session.meta['current_promise']]
             question_text = 'Løfte #{} {}'.format(session.meta['current_promise'] + 1, question['body'])
-            replies.append(format_question(sender_id, question, question_text, session.uuid))
+            replies += [format_question(sender_id, question, question_text)]
             session.meta['current_promise'] += 1
         else:
-            logger.debug("Last promise: {}".format(session.meta['current_item'] + 1))
+            logger.debug("Last promise: [{}]".format(session.meta['current_item'] + 1))
 
             session.meta['current_item'] += 1
 
     # Quick replies
     elif item['type'] == ManuscriptItem.TYPE_QUICK_REPLY:
-        logger.debug("Adding quick reply: {}".format(session.meta['current_item'] + 1))
+        logger.debug("Adding quick reply: [{}]".format(session.meta['current_item'] + 1))
 
-        replies.append(format_quick_reply_next(sender_id, item['text'], item['reply_text_1'], session.uuid))
+        replies += [format_quick_reply_next(sender_id, item['text'], item['reply_text_1'])]
         session.meta['current_item'] += 1
 
     # Quiz: Show results
     elif item['type'] == ManuscriptItem.TYPE_QUIZ_RESULT:
-        logger.debug("Adding quiz result: {}".format(session.meta['current_item'] + 1))
+        logger.debug("Adding quiz result [{}]".format(session.meta['current_item'] + 1))
 
-        replies.append(get_quiz_result(sender_id, session))
+        replies += [format_text(sender_id, get_quiz_result_url(session))]
         session.meta['current_item'] += 1
+
+    else:
+        logger.warning("Unhandled manuscript item type: {} [{}]".format(item['type'], session.meta['current_item'] + 1))
 
     return replies
 
 
-def get_quiz_result(sender_id, session: ChatSession):
+def get_quiz_result_url(session: ChatSession):
     url = reverse('quiz:answer-set-detail', args=[session.answers.uuid])
-    return [format_text(sender_id, '{}{}'.format(settings.BASE_URL, url))]
+    return '{}{}'.format(settings.BASE_URL, url)
 
 
 def get_quiz_question_replies(sender_id, session, payload):
-    """ Get replies to postback.type=TYPE_ANSWER """
+    """ Get replies to quix answers INTENT_ANSWER_QUIZ_QUESTION """
     first_name = session.meta['first_name']
     if not first_name:
         first_name = session.meta['first_name'] = get_user_profile(sender_id)['first_name']
@@ -117,7 +127,7 @@ def get_quiz_question_replies(sender_id, session, payload):
     images = list(filter(lambda x: x['type'] == promise['status'], session.meta['manuscript']['images']))
     if images and session.meta['current_promise'] % 3 == 0:
         image = random.choice(images)
-        replies.append(format_image_attachment(sender_id, image['url']))
+        replies += [format_image_attachment(sender_id, image['url'])]
 
     # Is last promise?
     if session.meta['current_promise'] == len(session.meta['manuscript']['promises']):

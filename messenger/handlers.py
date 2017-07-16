@@ -12,11 +12,6 @@ from quiz.models import Manuscript
 logger = logging.getLogger(__name__)
 
 
-# TODO: Simplify this
-# - move json loads to helper functions
-# - webhook message quick replies 's can have payloads with intents
-
-
 def _has_quick_reply_payload(event):
     return 'message' in event and 'quick_reply' in event['message'] and 'payload' in event['message']['quick_reply']
 
@@ -27,7 +22,7 @@ def received_event(event):
     logger.debug('in received_message: {}'.format(event))
 
     # Is new session?
-    session = ChatSession.objects.filter(user_id=sender_id, state=ChatSession.STATE_IN_PROGRESS).first()
+    session = ChatSession.objects.filter(user_id=sender_id).first()
     if not session:
         # NEW
         session = init_or_reset_session(sender_id)
@@ -53,18 +48,6 @@ def received_event(event):
     for reply in replies:
         logger.debug("reply: {}".format(reply))
         send_message(reply)
-
-    # check for script completion
-    if is_manuscript_complete(session):
-        session.state = ChatSession.STATE_COMPLETE
-        session.save()
-
-
-def is_manuscript_complete(session):
-    _is_last_item = session.meta['current_item'] >= len(session.meta['manuscript']['items']) - 1
-    _is_last_promise = session.meta['current_promise'] >= len(session.meta['manuscript']['promises']) - 1
-
-    return _is_last_item and _is_last_promise
 
 
 def init_or_reset_session(sender_id, session=None):
