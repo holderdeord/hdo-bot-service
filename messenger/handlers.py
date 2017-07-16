@@ -2,12 +2,10 @@ import json
 import logging
 
 from messenger.api import send_message
-from messenger.api.formatters import format_text
-from messenger.chat import get_replies
-from messenger.intents import INTENT_RESET_SESSION
+from messenger.intents import INTENT_RESET_SESSION, INTENT_GOTO_MANUSCRIPT
 from messenger.models import ChatSession
-from messenger.utils import render_and_load_manuscript
-from quiz.models import Manuscript
+from messenger.replies.general import get_replies
+from messenger.utils import init_or_reset_session
 
 logger = logging.getLogger(__name__)
 
@@ -34,10 +32,10 @@ def received_event(event):
     elif _has_quick_reply_payload(event):
         payload = json.loads(event['message']['quick_reply']['payload'])
 
-    if payload and payload['intent'] == INTENT_RESET_SESSION:
-        # Reset session
+    if payload and payload['intent'] in [INTENT_RESET_SESSION, INTENT_GOTO_MANUSCRIPT]:
+        # Reset session with given manuscript (or default)
         logger.debug("Reseting session.user_id={}".format(sender_id))
-        session = init_or_reset_session(sender_id, session)
+        session = init_or_reset_session(sender_id, session, payload.get('manuscript'))
 
     # Get one or more replies
     replies = get_replies(sender_id, session, payload)
@@ -50,26 +48,3 @@ def received_event(event):
         logger.debug("send_message({})".format(reply))
         send_message(reply)
 
-
-def init_or_reset_session(sender_id, session=None):
-    m_initial = Manuscript.objects.get_default()
-    if not m_initial:
-        msg = "No manuscripts, bailing..."
-        send_message(format_text(sender_id, msg))
-        raise Exception(msg)
-
-    # Serialize what we need and put in the session state
-    meta = {
-        'manuscript': render_and_load_manuscript(m_initial),
-        'item': 0,
-        'promise': 0,
-        'first_name': ''
-    }
-
-    # Existing?
-    if session is not None:
-        session.meta = meta
-        session.save()
-        return session
-
-    return ChatSession.objects.create(user_id=sender_id, meta=meta)

@@ -167,10 +167,14 @@ class ManuscriptItem(BaseModel):
     TYPE_Q_PARTY_BOOL = 'quiz_q_party_bool'
 
     # Voter guide
-    TYPE_VOTER_GUIDE_RESULT = 'vg_result' # Show preliminary results
+    TYPE_VG_RESULT = 'vg_result'  # Show preliminary results
     TYPE_VG_CATEGORY_SELECT = 'vg_categories'  # Show category select
-    TYPE_VG_QUESTIONS = 'vg_questions'  # list promises in text w/ quick reply per party
+    TYPE_VG_QUESTIONS = 'vg_questions'  # List promises in text w/ quick reply per party
     # TODO: Add continue voting guide or show results button
+
+    QUICK_REPLY_TEXT_FIELDS = ['reply_text_1', 'reply_text_2', 'reply_text_3']
+    QUICK_REPLY_ACTION_FIELDS = ['reply_action_1', 'reply_action_2', 'reply_action_3']
+    QUICK_REPLY_FIELDS = dict(zip(QUICK_REPLY_TEXT_FIELDS, QUICK_REPLY_ACTION_FIELDS))
 
     TYPE_CHOICES = (
         (TYPE_TEXT, _('Text')),
@@ -180,7 +184,7 @@ class ManuscriptItem(BaseModel):
         (TYPE_Q_PROMISES_CHECKED, _('Quiz: Show checked promise questions')),
         (TYPE_Q_PARTY_SELECT, _('Quiz: Show which party promised what questions')),
         (TYPE_Q_PARTY_BOOL, _('Quiz: Show did party x promise y questions')),
-        (TYPE_VOTER_GUIDE_RESULT, _('Voter guide: Show result')),
+        (TYPE_VG_RESULT, _('Voter guide: Show result')),
         (TYPE_VG_CATEGORY_SELECT, _('Voter guide: Show category select')),
         (TYPE_VG_QUESTIONS, _('Voter guide: Show questions')),
     )
@@ -243,10 +247,10 @@ class Answer(BaseModel):
     answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='answers')
 
 
-class VotingGuideAnswer(BaseModel):
+class VoterGuideAnswer(BaseModel):
     """ Voting guide responses """
-    voting_guide_alternative = models.ForeignKey('quiz.VoterGuideAlternative', null=True, on_delete=models.SET_NULL)
-    answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='voting_guide_answers')
+    voter_guide_alternative = models.ForeignKey('quiz.VoterGuideAlternative', null=True, on_delete=models.SET_NULL)
+    answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='voter_guide_answers')
 
 
 class AnswerSet(BaseModel):
@@ -259,6 +263,7 @@ class AnswerSet(BaseModel):
 
 class HdoCategory(BaseModel):
     name = models.CharField(max_length=255)
+    label = models.CharField(max_length=255, blank=True, default='', help_text=_('Quick reply labels'))
 
     def __str__(self):
         return self.name

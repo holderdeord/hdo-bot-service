@@ -110,6 +110,7 @@ class Command(BaseCommand):
         linked_manuscripts, unlinked_manuscripts = self.find_linked_manuscripts(hdo_category)
         number_of_linked_manuscripts = len(linked_manuscripts)
         number_of_unlinked_manuscripts = len(unlinked_manuscripts)
+
         # link unlinked manuscripts
         for index, manuscript in enumerate(unlinked_manuscripts):
             if index + 1 < number_of_unlinked_manuscripts:
@@ -120,6 +121,7 @@ class Command(BaseCommand):
                 manuscript.next = root_manuscript
                 self.create_manuscript_item_that_links_to_root_manuscript(manuscript, root_manuscript)
             manuscript.save()
+
         # link newly linked manuscripts to previously linked manuscripts
         if number_of_linked_manuscripts > 0 and number_of_unlinked_manuscripts > 0:
             last_manuscript = next(x for x in linked_manuscripts if x.next == root_manuscript)
@@ -132,6 +134,7 @@ class Command(BaseCommand):
             # update next
             last_manuscript.next = first_manuscript
             last_manuscript.save()
+
         # set is_first_in_category on first manuscript, if necessary
         if number_of_linked_manuscripts == 0:
             unlinked_manuscripts[0].is_first_in_category = True
@@ -155,7 +158,7 @@ class Command(BaseCommand):
             type='quick_reply',
             manuscript=current_manuscript,
             text='Om du vil kan du velge en annen kategori og besvare spørsmålene for å gjøre vår gjetting bedre.',
-            reply_text_1='Vis meg de andre kategoriene',
+            reply_text_1='De andre kategoriene',
             reply_action_1=root_manuscript
         )
 
@@ -177,7 +180,7 @@ class Command(BaseCommand):
             type='quick_reply',
             manuscript=current_manuscript,
             text='Når du er klar kan du gå videre til å se neste spørsmål.',
-            reply_text_1='Vis meg neste spørsmål',
+            reply_text_1='Neste spørsmål',
             reply_action_1=next_manuscript
         )
 
