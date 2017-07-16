@@ -177,7 +177,7 @@ class ManuscriptItem(BaseModel):
         (TYPE_QUICK_REPLY, _('Quick reply')),
         (TYPE_URL, _('URL')),
         (TYPE_QUIZ_RESULT, _('Quiz: Show result')),
-        (TYPE_Q_PROMISES_CHECKED, _('Quiz: Show checked promises question')),
+        (TYPE_Q_PROMISES_CHECKED, _('Quiz: Show checked promise questions')),
         (TYPE_Q_PARTY_SELECT, _('Quiz: Show which party promised what questions')),
         (TYPE_Q_PARTY_BOOL, _('Quiz: Show did party x promise y questions')),
         (TYPE_VOTER_GUIDE_RESULT, _('Voter guide: Show result')),

@@ -34,8 +34,9 @@ def received_event(event):
     elif _has_quick_reply_payload(event):
         payload = json.loads(event['message']['quick_reply']['payload'])
 
-    if payload['intent'] == INTENT_RESET_SESSION:
+    if payload and payload['intent'] == INTENT_RESET_SESSION:
         # Reset session
+        logger.debug("Reseting session.user_id={}".format(sender_id))
         session = init_or_reset_session(sender_id, session)
 
     # Get one or more replies
@@ -46,7 +47,7 @@ def received_event(event):
 
     # Send replies
     for reply in replies:
-        logger.debug("reply: {}".format(reply))
+        logger.debug("send_message({})".format(reply))
         send_message(reply)
 
 
@@ -60,8 +61,8 @@ def init_or_reset_session(sender_id, session=None):
     # Serialize what we need and put in the session state
     meta = {
         'manuscript': render_and_load_manuscript(m_initial),
-        'manuscript_item': 0,
-        'current_promise': 0,
+        'item': 0,
+        'promise': 0,
         'first_name': ''
     }
 

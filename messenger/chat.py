@@ -26,10 +26,10 @@ def get_replies(sender_id, session, payload=None):
     # TODO: maybe this needs another abstraction level?
     replies = []
     manus = session.meta['manuscript']
-    if session.meta['current_item'] >= len(manus['items']):
+    if session.meta['item'] >= len(manus['items']):
         return []
 
-    item = manus['items'][session.meta['current_item']]
+    item = manus['items'][session.meta['item']]
 
     if payload is not None:
         # User pressed a button or similiar
@@ -55,45 +55,47 @@ def get_replies(sender_id, session, payload=None):
             raise Exception(msg)
 
     # Text items (add until no more)
-    while item['type'] == ManuscriptItem.TYPE_TEXT and session.meta['current_item'] < len(manus['items']):
-        logger.debug("Adding text reply: [{}]".format(session.meta['current_item'] + 1))
+    while item['type'] == ManuscriptItem.TYPE_TEXT and session.meta['item'] < len(manus['items']):
+        logger.debug("Adding text reply: [{}]".format(session.meta['item'] + 1))
 
         replies += [format_text(sender_id, item['text'])]
-        session.meta['current_item'] += 1
-        if session.meta['current_item'] < len(manus['items']):
-            # Last item!
-            item = manus['items'][session.meta['current_item']]
+        session.meta['item'] += 1
+        if session.meta['item'] < len(manus['items']):
+            # Last item in manuscript!
+            item = manus['items'][session.meta['item']]
 
     # Quiz: Show checked promises question
     if item['type'] == ManuscriptItem.TYPE_Q_PROMISES_CHECKED:
-        if session.meta['current_promise'] < len(manus['promises']):
-            logger.debug("Adding promise reply: [{}]".format(session.meta['current_promise'] + 1))
+        if session.meta['promise'] == len(manus['promises']):
+            # Last promise in checked promises quiz
+            logger.debug("Last promise: [{}]".format(session.meta['item'] + 1))
 
-            question = manus['promises'][session.meta['current_promise']]
-            question_text = 'Løfte #{} {}'.format(session.meta['current_promise'] + 1, question['body'])
-            replies += [format_question(sender_id, question, question_text)]
-            session.meta['current_promise'] += 1
+            session.meta['item'] += 1
+            replies += get_replies(sender_id, session)  # Add next item reply
         else:
-            logger.debug("Last promise: [{}]".format(session.meta['current_item'] + 1))
+            logger.debug("Adding promise reply: [{}]".format(session.meta['promise'] + 1))
 
-            session.meta['current_item'] += 1
+            question = manus['promises'][session.meta['promise']]
+            question_text = 'Løfte #{} {}'.format(session.meta['promise'] + 1, question['body'])
+            replies += [format_question(sender_id, question, question_text)]
+            session.meta['promise'] += 1
 
     # Quick replies
     elif item['type'] == ManuscriptItem.TYPE_QUICK_REPLY:
-        logger.debug("Adding quick reply: [{}]".format(session.meta['current_item'] + 1))
+        logger.debug("Adding quick reply: [{}]".format(session.meta['item'] + 1))
 
         replies += [format_quick_reply_next(sender_id, item['text'], item['reply_text_1'])]
-        session.meta['current_item'] += 1
+        session.meta['item'] += 1
 
     # Quiz: Show results
     elif item['type'] == ManuscriptItem.TYPE_QUIZ_RESULT:
-        logger.debug("Adding quiz result [{}]".format(session.meta['current_item'] + 1))
+        logger.debug("Adding quiz result [{}]".format(session.meta['item'] + 1))
 
         replies += [format_text(sender_id, get_quiz_result_url(session))]
-        session.meta['current_item'] += 1
+        session.meta['item'] += 1
 
     else:
-        logger.warning("Unhandled manuscript item type: {} [{}]".format(item['type'], session.meta['current_item'] + 1))
+        logger.warning("Unhandled manuscript item type: {} [{}]".format(item['type'], session.meta['item'] + 1))
 
     return replies
 
@@ -110,7 +112,7 @@ def get_quiz_question_replies(sender_id, session, payload):
         first_name = session.meta['first_name'] = get_user_profile(sender_id)['first_name']
 
     # Get last asked promise
-    p_i = session.meta['current_promise']
+    p_i = session.meta['promise']
     if p_i > 0:
         p_i -= 1
     promise = session.meta['manuscript']['promises'][p_i]
@@ -125,13 +127,12 @@ def get_quiz_question_replies(sender_id, session, payload):
 
     # Try to get a random image of correct type and display 1 out of 3 times
     images = list(filter(lambda x: x['type'] == promise['status'], session.meta['manuscript']['images']))
-    if images and session.meta['current_promise'] % 3 == 0:
+    if images and session.meta['promise'] % 3 == 0:
         image = random.choice(images)
         replies += [format_image_attachment(sender_id, image['url'])]
 
     # Is last promise?
-    if session.meta['current_promise'] == len(session.meta['manuscript']['promises']):
+    if session.meta['promise'] == len(session.meta['manuscript']['promises']):
         save_answers(session)
-        replies += get_replies(sender_id, session)
 
     return replies
