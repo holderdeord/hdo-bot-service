@@ -1,3 +1,4 @@
+import logging
 from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
@@ -22,9 +23,17 @@ class PromiseSerializer(serializers.ModelSerializer):
 
 
 class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
+    parties = serializers.SerializerMethodField()
+
+    def get_parties(self, obj):
+        def get_party(promise):
+            return promise.promisor_name
+
+        return list(map(get_party, obj.promises.all()))
+
     class Meta:
         model = VoterGuideAlternative
-        fields = ('pk', 'text')
+        fields = ('pk', 'text', 'parties')
 
 
 class ManuscriptItemSerializer(serializers.ModelSerializer):
