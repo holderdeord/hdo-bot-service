@@ -4,18 +4,20 @@ import {
   addManuscript, addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty,
   deleteManuscriptItem, moveManuscriptItem, postManuscript
 } from "../actions/manuscripts";
-import { getManuscriptFromState, loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
+import { loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
 import { getManuscriptsApiUrl } from "../utils/urls";
 import * as toastr from "toastr";
+import { createManuscript } from "../actions/current_manuscript";
 
 const mapStateToProps = (state) => {
   return {
-    manuscript: getManuscriptFromState(state, -1),
+    manuscript: state.current_manuscript,
     manuscripts: state.manuscripts
   };
 };
 
-const mapDispatchToProps = (dispatch, {history}) => {
+const mapDispatchToProps = (dispatch, { history }) => {
+  dispatch(createManuscript());
   loadAndDispatchManuscripts(dispatch).then(() => {
     dispatch(addManuscript());
     dispatch(addManuscriptItem(-1));
@@ -56,6 +58,9 @@ const mapDispatchToProps = (dispatch, {history}) => {
           dispatch(postManuscript(manuscript, error));
           toastr.error('Failed to create manuscript');
         });
+    },
+    onTabSelect: (key) => {
+      history.push(`/create?tab=${key}`)
     }
   }
 };

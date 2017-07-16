@@ -112,8 +112,8 @@ function getTypeExtraControlsComponent(item, manuscripts, changeManuscriptItemPr
                       defaultValue={item[ `reply_action_${number}` ]}
                       onChange={event => changeManuscriptItemProperty(event, order, `reply_action_${number}`)}>
                 <option></option>
-                {manuscripts.map(manuscript => (
-                  <option key={`quick-reply-button-url-option-${order}-${manuscript.pk}`}
+                {manuscripts.map((manuscript, index) => (
+                  <option key={`quick-reply-button-url-option-${index}-${order}-${manuscript.pk}`}
                           value={manuscript.pk}>{manuscript.name}</option>
                 ))}
               </select>

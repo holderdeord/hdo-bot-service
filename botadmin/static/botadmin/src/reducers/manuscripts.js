@@ -5,7 +5,7 @@ import changeManuscriptProperty from "./manuscripts/changeManuscriptProperty";
 import postManuscript from "./manuscripts/postManuscript";
 import changeManuscriptItemProperty from "./manuscripts/changeManuscriptItemProperty";
 import editManuscript from "./manuscripts/editManuscript";
-import loadManuscript from "./manuscripts/loadManuscript";
+import loadManuscript from "./current_manuscript/loadManuscript";
 import loadManuscripts from "./manuscripts/loadManuscripts";
 import deleteManuscript from "./manuscripts/deleteManuscript";
 import moveManuscriptItem from "./manuscripts/moveManuscriptItem";
@@ -17,7 +17,6 @@ export const CHANGE_MANUSCRIPT_PROPERTY = 'CHANGE_MANUSCRIPT_PROPERTY';
 export const DELETE_MANUSCRIPT_ITEM = 'DELETE_MANUSCRIPT_ITEM';
 export const DELETE_MANUSCRIPT = 'DELETE_MANUSCRIPT';
 export const EDIT_MANUSCRIPT = 'EDIT_MANUSCRIPT';
-export const LOAD_MANUSCRIPT = 'LOAD_MANUSCRIPT';
 export const LOAD_MANUSCRIPTS = 'LOAD_MANUSCRIPTS';
 export const MOVE_MANUSCRIPT_ITEM = 'MOVE_MANUSCRIPT_ITEM';
 export const POST_MANUSCRIPT = 'POST_MANUSCRIPT';
@@ -38,8 +37,6 @@ const manuscripts = (state = [], action) => {
       return deleteManuscriptItem(state, action);
     case EDIT_MANUSCRIPT:
       return editManuscript(state, action);
-    case LOAD_MANUSCRIPT:
-      return loadManuscript(state, action);
     case LOAD_MANUSCRIPTS:
       return loadManuscripts(state, action);
     case MOVE_MANUSCRIPT_ITEM:

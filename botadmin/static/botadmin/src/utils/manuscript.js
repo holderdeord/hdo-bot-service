@@ -21,15 +21,6 @@ export function createManuscriptPayload(manuscript) {
   });
 }
 
-export function getManuscriptFromState(state, manuscriptId) {
-  return state.manuscripts.find(manuscript => manuscript.pk === manuscriptId) || {
-      pk: manuscriptId,
-      name: '',
-      type: 'info',
-      items: []
-    };
-}
-
 export function loadAndDispatchManuscripts(dispatch) {
   dispatch(loadManuscripts());
   return fetch(getManuscriptsApiUrl())
