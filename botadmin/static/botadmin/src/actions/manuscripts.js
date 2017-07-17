@@ -2,7 +2,7 @@ import {
   DELETE_MANUSCRIPT,
   EDIT_MANUSCRIPT,
   LOAD_MANUSCRIPTS,
-  POST_MANUSCRIPT
+  POST_MANUSCRIPT, SORT_MANUSCRIPTS
 } from "../reducers/manuscripts";
 
 export const deleteManuscript = (manuscriptId, json) => {
@@ -33,5 +33,12 @@ export const postManuscript = (manuscript, json) => {
     type: POST_MANUSCRIPT,
     manuscript,
     json
+  }
+};
+
+export const sortManuscripts = (fieldName) => {
+  return {
+    type: SORT_MANUSCRIPTS,
+    fieldName
   }
 };

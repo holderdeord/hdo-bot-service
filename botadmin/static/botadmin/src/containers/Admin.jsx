@@ -1,6 +1,6 @@
 import ManuscriptTable from "../components/ManuscriptTable";
 import { connect } from "react-redux";
-import { deleteManuscript } from "../actions/manuscripts";
+import { deleteManuscript, sortManuscripts } from "../actions/manuscripts";
 import { getManuscriptApiUrl } from "../utils/urls";
 import * as toastr from "toastr";
 import { loadAndDispatchManuscripts } from "../utils/manuscript";
@@ -31,6 +31,9 @@ const mapDispatchToProps = (dispatch) => {
             toastr.error('Failed to delete manuscript');
           });
       }
+    },
+    sortManuscripts: (fieldName) => {
+      dispatch(sortManuscripts(fieldName));
     }
   }
 };

@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import * as moment from 'moment';
 
-const ManuscriptTable = ({ manuscripts, deleteManuscript }) => (
+const ManuscriptTable = ({
+                           manuscripts,
+                           deleteManuscript,
+                           sortManuscripts
+                         }) => (
   <div>
     <ul className="nav nav-pills">
       <li role="presentation">
@@ -13,11 +17,21 @@ const ManuscriptTable = ({ manuscripts, deleteManuscript }) => (
     <table className="table table-striped">
       <thead>
       <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Category</th>
-        <th>HDO Category</th>
+        <th>
+          <a onClick={() => sortManuscripts('pk')}>#</a>
+        </th>
+        <th>
+          <a onClick={() => sortManuscripts('name')}>Name</a>
+        </th>
+        <th>
+          <a onClick={() => sortManuscripts('type')}>Type</a>
+        </th>
+        <th>
+          <a onClick={() => sortManuscripts('category')}>Category</a>
+        </th>
+        <th>
+          <a onClick={() => sortManuscripts('hdo_category')}>HDO Category</a>
+        </th>
         <th># Items</th>
         <th>Last Updated</th>
         <th>Actions</th>
@@ -38,7 +52,7 @@ const ManuscriptTable = ({ manuscripts, deleteManuscript }) => (
           <td>
             <div className="btn-group btn-group-xs" role="group">
               <button className="btn btn-danger" type="button" onClick={() => deleteManuscript(pk)}>
-                <span className="glyphicon glyphicon-trash" /> Delete
+                <span className="glyphicon glyphicon-trash"/> Delete
               </button>
             </div>
           </td>
