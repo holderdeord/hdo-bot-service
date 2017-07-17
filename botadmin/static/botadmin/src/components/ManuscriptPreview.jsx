@@ -113,7 +113,7 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
         {
           type: ChatEntryTypeEnum.Text,
           isBot: true,
-          hasContainer: false,
+          hasContainer: true,
           component: '[Her vil resultatene vises]'
         }
       ];

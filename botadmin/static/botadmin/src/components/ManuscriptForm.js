@@ -9,6 +9,7 @@ import ManuscriptItemForm from "./ManuscriptItemForm";
 import * as queryString from 'query-string';
 
 const ManuscriptForm = ({
+                          hdo_categories,
                           manuscript,
                           manuscripts,
                           addManuscriptItem,
@@ -69,16 +70,38 @@ const ManuscriptForm = ({
               </Well>
             </Tab>
             <Tab eventKey={2} title="Voter guide" disabled={manuscript.type !== ManuscriptTypeEnum.ElectoralGuide.key}>
-              <p>Alternativer for spørsmål</p>
-              <ul>
-                {manuscript.voter_guide_alternatives.map(alternative => (
-                  <li key={`voter-guide-alternative-${alternative.pk}`}>
-                    <strong>{alternative.text}</strong>
-                    &nbsp;
-                    ({alternative.parties.join(', ')})
-                  </li>
-                ))}
-              </ul>
+              <div className="form-group">
+                <label>HDO kategori</label>
+                <select className="form-control"
+                        onSelect={(event) => changeManuscriptProperty(event, 'hdo_category')}
+                        defaultValue={manuscript.hdo_category}>
+                  {hdo_categories.map(category => (
+                    <option key={`hdo-category-${category.pk}`} value={category.pk}>{category.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="checkbox">
+                <label>
+                  <input type="checkbox"
+                         name="is_first_in_category"
+                         onChange={(event) => changeManuscriptProperty(event, 'is_first_in_category')}
+                         checked={manuscript.is_first_in_category}/>
+                  &nbsp;
+                  Er først i kategorien
+                </label>
+              </div>
+              <div>
+                <p>Alternativer for spørsmål</p>
+                <ul>
+                  {manuscript.voter_guide_alternatives.map(alternative => (
+                    <li key={`voter-guide-alternative-${alternative.pk}`}>
+                      <strong>{alternative.text}</strong>
+                      &nbsp;
+                      ({alternative.parties.join(', ')})
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </Tab>
             <Tab eventKey={3} title="Quiz" disabled={manuscript.type !== ManuscriptTypeEnum.Quiz.key}>
               <p>Admin for quiz</p>
@@ -99,7 +122,7 @@ const ManuscriptForm = ({
       </Navbar>
     </form>
   );
-}
+};
 
 ManuscriptForm.propTypes = {
   manuscript: PropTypes.shape({

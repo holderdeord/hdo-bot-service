@@ -5,24 +5,23 @@ import { getManuscriptApiUrl } from "../utils/urls";
 import { loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
 import * as toastr from "toastr";
 import {
-  addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem,
-  loadManuscript, moveManuscriptItem
+  addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem, moveManuscriptItem
 } from "../actions/current_manuscript";
+import { loadAndDispatchHdoCategories } from "../utils/hdo_categories";
+import { loadAndDispatchManuscript } from "../utils/current_manuscript";
 
 const mapStateToProps = (state) => {
   return {
+    hdo_categories: state.hdo_categories,
     manuscript: state.current_manuscript,
     manuscripts: state.manuscripts
   };
 };
 
 const mapDispatchToProps = (dispatch, { history, match }) => {
-  dispatch(loadManuscript());
-  fetch(getManuscriptApiUrl(match.params.manuscriptId))
-    .then(response => response.json())
-    .then(manuscript => dispatch(loadManuscript(manuscript)))
-    .catch(error => dispatch(loadManuscript(error)));
+  loadAndDispatchManuscript(dispatch, match.params.manuscriptId);
   loadAndDispatchManuscripts(dispatch);
+  loadAndDispatchHdoCategories(dispatch);
   const manuscriptId = parseInt(match.params.manuscriptId, 10);
   return {
     addManuscriptItem: () => {

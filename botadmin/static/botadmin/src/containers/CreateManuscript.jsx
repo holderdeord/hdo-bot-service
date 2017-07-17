@@ -5,21 +5,23 @@ import { loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manusc
 import { getManuscriptsApiUrl } from "../utils/urls";
 import * as toastr from "toastr";
 import {
-  addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty,
-  createManuscript, deleteManuscriptItem, moveManuscriptItem
+  addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem, moveManuscriptItem
 } from "../actions/current_manuscript";
+import { loadAndDispatchHdoCategories } from "../utils/hdo_categories";
+import { createAndDispatchManuscript } from "../utils/current_manuscript";
 
 const mapStateToProps = (state) => {
   return {
+    hdo_categories: state.hdo_categories,
     manuscript: state.current_manuscript,
     manuscripts: state.manuscripts
   };
 };
 
 const mapDispatchToProps = (dispatch, { history }) => {
-  dispatch(createManuscript());
-  dispatch(addManuscriptItem());
+  createAndDispatchManuscript(dispatch);
   loadAndDispatchManuscripts(dispatch);
+  loadAndDispatchHdoCategories(dispatch);
   return {
     addManuscriptItem: () => {
       dispatch(addManuscriptItem());
@@ -57,8 +59,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
           toastr.error('Failed to create manuscript');
         });
     },
-    onTabSelect: (key) => {
-    }
+    onTabSelect: (key) => {}
   }
 };
 

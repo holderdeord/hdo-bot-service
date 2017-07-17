@@ -1,14 +1,20 @@
-import logging
 from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
-from quiz.models import Manuscript, ManuscriptItem, Promise, Category, ManuscriptImage, VoterGuideAlternative
+from quiz.models import Manuscript, ManuscriptItem, Promise, Category, ManuscriptImage, VoterGuideAlternative, \
+    HdoCategory
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('pk', 'name',)
+        fields = ('pk', 'name')
+
+
+class HdoCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HdoCategory
+        fields = ('pk', 'name')
 
 
 class PromiseSerializer(serializers.ModelSerializer):
@@ -33,7 +39,7 @@ class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = VoterGuideAlternative
-        fields = ('pk', 'text', 'parties')
+        fields = ('pk', 'text', 'promises', 'parties')
 
 
 class ManuscriptItemSerializer(serializers.ModelSerializer):
@@ -77,7 +83,7 @@ class ManuscriptSerializer(BaseManuscriptSerializer):
 
     class Meta:
         model = Manuscript
-        fields = ('pk', 'url', 'name', 'type', 'category', 'updated', 'is_default',
+        fields = ('pk', 'url', 'name', 'type', 'category', 'hdo_category', 'updated', 'is_default',
                   'is_first_in_category', 'items', 'promises', 'next', 'images',
                   'voter_guide_alternatives')
 

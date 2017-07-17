@@ -2,8 +2,9 @@ from django.shortcuts import redirect
 from rest_framework.pagination import PageNumberPagination
 
 from api.permissions import AllowAnyOrDjangoModelPermissionsOrAnonReadOnly
-from api.serializers.manuscript import ManuscriptSerializer, CategorySerializer, ManuscriptListSerializer
-from quiz.models import Manuscript, Category
+from api.serializers.manuscript import ManuscriptSerializer, CategorySerializer, ManuscriptListSerializer, \
+    HdoCategorySerializer
+from quiz.models import Manuscript, Category, HdoCategory
 from rest_framework import exceptions, permissions, views, reverse, authentication
 
 from rest_framework.generics import (
@@ -64,3 +65,10 @@ class CategoryListView(ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Category.objects
     serializer_class = CategorySerializer
+
+
+class HdoCategoryListView(ListCreateAPIView):
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.AllowAny]
+    queryset = HdoCategory.objects
+    serializer_class = HdoCategorySerializer
