@@ -16,19 +16,23 @@ const ManuscriptTable = ({ manuscripts, deleteManuscript }) => (
         <th>#</th>
         <th>Name</th>
         <th>Type</th>
+        <th>Category</th>
+        <th>HDO Category</th>
         <th># Items</th>
         <th>Last Updated</th>
         <th>Actions</th>
       </tr>
       </thead>
       <tbody>
-      { manuscripts.map(({ pk, name, type, items, updated }, index) => (
+      { manuscripts.map(({ pk, name, type, category, hdo_category, items, updated }, index) => (
         <tr key={ `manuscript-${index}` }>
           <td>{ pk }</td>
           <td>
             <Link to={`/edit/${ pk }`}>{ name }</Link>
           </td>
           <td>{type}</td>
+          <td>{category}</td>
+          <td>{hdo_category}</td>
           <td>{items.length}</td>
           <td>{moment().from(updated)}</td>
           <td>
