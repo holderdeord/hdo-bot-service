@@ -4,12 +4,14 @@ from django.conf import settings
 
 from messenger.api import send_message
 from messenger.api.formatters import format_text
-from messenger.intent_formatters import format_question, format_quick_reply_with_intents
+from messenger.intent_formatters import format_question, format_quick_reply_with_intents, format_reset_answer
 from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
-                               INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM)
+                               INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
+                               INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM)
 from messenger.replies.quiz import get_quiz_result_url, get_quiz_question_replies
 from messenger.replies.voter_guide import (get_voter_guide_category_replies, get_voter_guide_questions,
                                            get_vg_question_replies, get_voter_guide_result)
+from messenger.utils import delete_answers
 from quiz.models import ManuscriptItem
 
 logger = logging.getLogger(__name__)
@@ -32,6 +34,13 @@ def get_replies(sender_id, session, payload=None):
         if intent in [INTENT_RESET_SESSION, INTENT_GET_STARTED, INTENT_GOTO_MANUSCRIPT, INTENT_NEXT_ITEM]:
             # Do nothing and just keep going
             pass
+
+        elif intent == INTENT_RESET_ANSWERS:
+            return [format_reset_answer(sender_id)]
+
+        elif intent == INTENT_RESET_ANSWERS_CONFIRM:
+            delete_answers(session)
+            return [format_text(sender_id, 'Nå har vi slettet alt :-) 💥')]
 
         elif intent == INTENT_GET_HELP:
             # FIXME: User is stuck

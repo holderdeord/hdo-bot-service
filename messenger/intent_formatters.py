@@ -8,7 +8,8 @@ from django.utils.translation import ugettext as _
 
 from messenger.api.formatters import format_quick_replies
 from messenger.intents import (INTENT_NEXT_ITEM, INTENT_ANSWER_QUIZ_QUESTION, INTENT_GOTO_MANUSCRIPT,
-                               INTENT_ANSWER_VG_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED)
+                               INTENT_ANSWER_VG_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
+                               INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM)
 from quiz.models import Promise, Manuscript, ManuscriptItem
 
 logger = logging.getLogger(__name__)
@@ -28,12 +29,23 @@ def format_bot_profile():
         ],
         "persistent_menu": [{
             "locale": "default",
-            "composer_input_disabled": False,  # Disable/Enable user input
+            "composer_input_disabled": True,  # Disable/Enable user input
             "call_to_actions": [
                 {
-                    "type": "postback",
+                    "type": "nested",
                     "title": _("Get help"),
-                    "payload": json.dumps({'intent': INTENT_GET_HELP})
+                    "call_to_actions": [
+                        {
+                            "type": "postback",
+                            "title": _("Get help"),
+                            "payload": json.dumps({'intent': INTENT_GET_HELP})
+                        },
+                        {
+                            "type": "web_url",
+                            "title": _("About"),
+                            "url": settings.BASE_URL
+                        }
+                    ]
                 },
                 {
                     "type": "postback",
@@ -41,10 +53,10 @@ def format_bot_profile():
                     "payload": json.dumps({'intent': INTENT_RESET_SESSION})
                 },
                 {
-                    "type": "web_url",
-                    "title": _("About"),
-                    "url": settings.BASE_URL
-                }
+                    "type": "postback",
+                    "title": _("Reset my answers"),
+                    "payload": json.dumps({'intent': INTENT_RESET_ANSWERS})
+                },
             ]
         }]
     }
@@ -137,3 +149,22 @@ def format_vg_alternatives(recipient_id, name, alternatives, text):
 
     text = 'Temaet er {}\n\n{}{}'.format(name, text, alt_text)
     return format_quick_replies(recipient_id, buttons, text)
+
+
+def format_reset_answer(recipient_id):
+    quick_replies = [{
+            "content_type": "text",
+            "title": "Nei, bare fortsett",
+            "payload": json.dumps({
+                "intent": INTENT_NEXT_ITEM,
+            })
+        },
+        {
+            "content_type": "text",
+            "title": 'Slett alt!',
+            "payload": json.dumps({
+                "intent": INTENT_RESET_ANSWERS_CONFIRM,
+            })
+        }
+    ]
+    return format_quick_replies(recipient_id, quick_replies, "Skal vi slette alle svarene dine?")

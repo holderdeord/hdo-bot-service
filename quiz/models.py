@@ -242,7 +242,8 @@ class Answer(BaseModel):
                               help_text=_('Used with voting guide'))
     correct_status = models.BooleanField(default=False, blank=True)
 
-    answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='answers')
+    answer_set = models.ForeignKey(
+        'quiz.AnswerSet', null=True, blank=True, related_name='answers', on_delete=models.CASCADE)
 
     def __str__(self):
         return '{}: {}'.format(self.__class__.__name__, self.pk)
@@ -252,7 +253,8 @@ class VoterGuideAnswer(BaseModel):
     """ Voting guide responses """
     voter_guide_alternative = models.ForeignKey(
         'quiz.VoterGuideAlternative', null=True, on_delete=models.SET_NULL, related_name='voter_guide_answers')
-    answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='voter_guide_answers')
+    answer_set = models.ForeignKey(
+        'quiz.AnswerSet', null=True, blank=True, related_name='voter_guide_answers', on_delete=models.CASCADE)
 
     def __str__(self):
         return '{}: {}'.format(self.__class__.__name__, self.pk)
