@@ -107,21 +107,21 @@ def format_question(recipient_id, question, question_text):
 def format_vg_categories(recipient_id, manuscripts: Iterable[Manuscript], text):
     buttons = []
     alt_text = ''
-    for i, m in enumerate(manuscripts):
+    for idx, m in enumerate(manuscripts, start=1):
         buttons.append({
             "content_type": "text",
-            "title": m.hdo_category.label + ' [' + m.hdo_category.name + ']',  # FIXME: Only show label
+            "title": '{} {}'.format(idx, m.hdo_category.label),
             "payload": json.dumps({
                 'manuscript': m.pk,
                 'intent': INTENT_GOTO_MANUSCRIPT
             }),
         })
-        alt_text += '\n{}: {}'.format(m.hdo_category.label, m.hdo_category.name)
-    return format_quick_replies(recipient_id, buttons, text + alt_text)
+        alt_text += '\n{} {}: {}'.format(idx, m.hdo_category.name, m.hdo_category.label)
+    return format_quick_replies(recipient_id, buttons, text + alt_text + '\n')
 
 
 def format_vg_alternatives(recipient_id, alternatives, text):
-    labels = ['1', '2', '3', '4', '5', '6']  # FIXME: use emojis instead
+    labels = ['1 💜', '2 💙', '3 💚', '4 💛', '5 ❤', '6 ♦']  # FIXME: use emojis instead
     buttons = []
     alt_text = ''
     for i, alt in enumerate(alternatives):
@@ -133,5 +133,5 @@ def format_vg_alternatives(recipient_id, alternatives, text):
                 'intent': INTENT_ANSWER_VG_QUESTION
             }),
         })
-        alt_text += '\n{}: {}'.format(labels[i], alt['text'])
+        alt_text += '\n{} {}'.format(labels[i], alt['text'])
     return format_quick_replies(recipient_id, buttons, text + alt_text)

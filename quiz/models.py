@@ -48,7 +48,6 @@ class Promise(BaseModel):
     description = models.TextField(default='')
 
     parties = models.ManyToManyField('quiz.Party', blank=True, related_name='promises')
-    # agreeing_parties = models.ManyToManyField('quiz.Party', blank=True, related_name='agreed_to_promises')
     categories = models.ManyToManyField('quiz.Category', blank=True, related_name='promises')
     hdo_categories = models.ManyToManyField('quiz.HdoCategory', blank=True, related_name='promises')
 
@@ -170,7 +169,6 @@ class ManuscriptItem(BaseModel):
     TYPE_VG_RESULT = 'vg_result'  # Show preliminary results
     TYPE_VG_CATEGORY_SELECT = 'vg_categories'  # Show category select
     TYPE_VG_QUESTIONS = 'vg_questions'  # List promises in text w/ quick reply per party
-    # TODO: Add continue voting guide or show results button
 
     QUICK_REPLY_TEXT_FIELDS = ['reply_text_1', 'reply_text_2', 'reply_text_3']
     QUICK_REPLY_ACTION_FIELDS = ['reply_action_1', 'reply_action_2', 'reply_action_3']

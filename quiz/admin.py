@@ -1,11 +1,9 @@
-import logging
 from django.contrib import admin
 from django.db.models import TextField
 from django.forms import Textarea
-from django.utils.translation import ugettext as _
 
-from quiz.models import Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage, Answer, \
-    AnswerSet, VoterGuideAlternative, HdoCategory
+from quiz.models import (Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage, Answer,
+                         AnswerSet, VoterGuideAlternative, HdoCategory)
 
 
 class PromiseAdmin(admin.ModelAdmin):
@@ -101,10 +99,14 @@ class VoterGuideAlternativeAdmin(admin.ModelAdmin):
         return obj.promises.count()
 
 
+class HdoCategoryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'label']
+
+
 admin.site.register(AnswerSet, AnswerSetAdmin)
 admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Category)
-admin.site.register(HdoCategory)
+admin.site.register(HdoCategory, HdoCategoryAdmin)
 admin.site.register(Promise, PromiseAdmin)
 admin.site.register(Party, PartyAdmin)
 admin.site.register(ManuscriptItem, ManuscriptItemAdmin)
