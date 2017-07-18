@@ -34,7 +34,7 @@ class Command(BaseCommand):
             hdo_category = self.get_hdo_category(manuscript_data['hdo_category'])
             manuscript, created = Manuscript.objects.get_or_create(
                 name=manuscript_data['name'],
-                type='voter_guide',
+                type=Manuscript.TYPE_VOTER_GUIDE,
                 hdo_category=hdo_category
             )
             manuscripts[manuscript.pk] = manuscript
@@ -142,20 +142,20 @@ class Command(BaseCommand):
 
     def create_starting_manuscript_item(self, manuscript):
         ManuscriptItem.objects.get_or_create(
-            type='vg_questions',
+            type=ManuscriptItem.TYPE_VG_QUESTIONS,
             manuscript=manuscript,
             text='Hvilken tekst er du mest enig i?'
         )
 
     def create_manuscript_item_that_links_to_root_manuscript(self, current_manuscript, root_manuscript):
         ManuscriptItem.objects.get_or_create(
-            type='vg_result',
+            type=ManuscriptItem.TYPE_VG_RESULT,
             manuscript=current_manuscript,
             text='Du har nå gått gjennom alle spørsmålene vi har for denne kategorien, og her partiene vi tror du er '
                  'mest enig i.'
         )
         ManuscriptItem.objects.get_or_create(
-            type='quick_reply',
+            type=ManuscriptItem.TYPE_QUICK_REPLY,
             manuscript=current_manuscript,
             text='Om du vil kan du velge en annen kategori og besvare spørsmålene for å gjøre vår gjetting bedre.',
             reply_text_1='De andre kategoriene',
@@ -164,7 +164,7 @@ class Command(BaseCommand):
 
     def create_manuscript_item_that_links_to_next_manuscript(self, current_manuscript, next_manuscript):
         ManuscriptItem.objects.get_or_create(
-            type='quick_reply',
+            type=ManuscriptItem.TYPE_QUICK_REPLY,
             manuscript=current_manuscript,
             text='Vil du se foreløpig resultat, eller vil du gå videre til neste spørsmål?',
             reply_text_1='Foreløpig resultat',
@@ -172,12 +172,12 @@ class Command(BaseCommand):
             reply_action_2=next_manuscript
         )
         ManuscriptItem.objects.get_or_create(
-            type='vg_result',
+            type=ManuscriptItem.TYPE_VG_RESULT,
             manuscript=current_manuscript,
             text='Her er foreløpige resultat for partiene vi tror du er mest enig i'
         )
         ManuscriptItem.objects.get_or_create(
-            type='quick_reply',
+            type=ManuscriptItem.TYPE_QUICK_REPLY,
             manuscript=current_manuscript,
             text='Når du er klar kan du gå videre til å se neste spørsmål.',
             reply_text_1='Neste spørsmål',
