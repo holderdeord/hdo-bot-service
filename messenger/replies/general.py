@@ -40,11 +40,10 @@ def get_replies(sender_id, session, payload=None):
 
         elif intent == INTENT_RESET_ANSWERS_CONFIRM:
             delete_answers(session)
-            return [format_text(sender_id, 'Nå har vi slettet alt :-) 💥')]
+            replies += [format_text(sender_id, 'Nå har vi slettet alt :-) 💥')]
 
         elif intent == INTENT_GET_HELP:
-            # FIXME: User is stuck
-            return [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]
+            replies += [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]
 
         elif intent == INTENT_ANSWER_QUIZ_QUESTION:
             # Quiz: Answer replies
