@@ -120,8 +120,8 @@ def format_vg_categories(recipient_id, manuscripts: Iterable[Manuscript], text):
     return format_quick_replies(recipient_id, buttons, text + alt_text + '\n')
 
 
-def format_vg_alternatives(recipient_id, alternatives, text):
-    labels = ['1 💜', '2 💙', '3 💚', '4 💛', '5 ❤', '6 ♦']  # FIXME: use emojis instead
+def format_vg_alternatives(recipient_id, name, alternatives, text):
+    labels = ['1 💜', '2 💙', '3 💚', '4 💛', '5 ❤', '6 ♦']
     buttons = []
     alt_text = ''
     for i, alt in enumerate(alternatives):
@@ -134,4 +134,6 @@ def format_vg_alternatives(recipient_id, alternatives, text):
             }),
         })
         alt_text += '\n{} {}'.format(labels[i], alt['text'])
-    return format_quick_replies(recipient_id, buttons, text + alt_text)
+
+    text = 'Temaet er {}\n\n{}{}'.format(name, text, alt_text)
+    return format_quick_replies(recipient_id, buttons, text)

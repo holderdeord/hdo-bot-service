@@ -244,11 +244,18 @@ class Answer(BaseModel):
 
     answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='answers')
 
+    def __str__(self):
+        return '{}: {}'.format(self.__class__.__name__, self.pk)
+
 
 class VoterGuideAnswer(BaseModel):
     """ Voting guide responses """
-    voter_guide_alternative = models.ForeignKey('quiz.VoterGuideAlternative', null=True, on_delete=models.SET_NULL)
+    voter_guide_alternative = models.ForeignKey(
+        'quiz.VoterGuideAlternative', null=True, on_delete=models.SET_NULL, related_name='voter_guide_answers')
     answer_set = models.ForeignKey('quiz.AnswerSet', null=True, blank=True, related_name='voter_guide_answers')
+
+    def __str__(self):
+        return '{}: {}'.format(self.__class__.__name__, self.pk)
 
 
 class AnswerSet(BaseModel):
@@ -257,6 +264,9 @@ class AnswerSet(BaseModel):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
 
     objects = AnswerQuerySet.as_manager()
+
+    def __str__(self):
+        return '{}: {}'.format(self.__class__.__name__, self.pk)
 
 
 class HdoCategory(BaseModel):
