@@ -54,8 +54,9 @@ function create_manuscript() {
     name: '',
     type: 'info',
     items: [],
-    voter_guide_alternatives: [],
     is_first_in_category: false,
-    is_defualt: false
+    is_defualt: false,
+    voter_guide_alternatives: [],
+    voter_guide_parties: [],
   };
 }

@@ -17,9 +17,14 @@ const ManuscriptAlternativeForm = ({
                  onSelect={(event) => changeManuscriptAlternativeProperty(event, index, 'text')}
                  defaultValue={alternative.text}/>
         </div>
+        <ul>
+          {alternative.promises.map(promise => (
+            <li key={`alternative-promise-${index}-${promise.pk}`}>{promise.body} ({promise.promisor_name})</li>
+          ))}
+        </ul>
         <div className="form-group">
           <label>Partier</label>
-          <p>{alternative.parties.join(', ')}</p>
+          <p>{[...new Set(alternative.parties)].join(', ')}</p>
         </div>
       </div>
     </div>

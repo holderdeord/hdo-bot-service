@@ -30,6 +30,17 @@ class PromiseSerializer(serializers.ModelSerializer):
 
 class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
     parties = serializers.SerializerMethodField()
+    promises = serializers.SerializerMethodField()
+
+    def get_promises(self, obj):
+        def get_promise(promise):
+            return {
+                'pk': promise.pk,
+                'body': promise.body,
+                'promisor_name': promise.promisor_name
+            }
+
+        return list(map(get_promise, obj.promises.all()))
 
     def get_parties(self, obj):
         def get_party(promise):

@@ -7,7 +7,7 @@ import './ManuscriptForm.css';
 import { Navbar, Tab, Tabs, Well } from "react-bootstrap";
 import ManuscriptItemForm from "./ManuscriptItemForm";
 import * as queryString from 'query-string';
-import ManuscriptAlternativeForm from "./ManuscriptAlternativeForm.jsx";
+import ManuscriptAlternativeForm from "./ManuscriptAlternativeForm";
 
 const ManuscriptForm = ({
                           hdo_categories,
@@ -92,17 +92,18 @@ const ManuscriptForm = ({
                   Er først i kategorien
                 </label>
               </div>
-              <div>
-                <p>Alternativer for spørsmål</p>
-                <Well>
-                  {manuscript.voter_guide_alternatives.map((alternative, index) => (
-                    <ManuscriptAlternativeForm alternative={alternative}
-                                               changeManuscriptAlternativeProperty={changeManuscriptAlternativeProperty}
-                                               key={`voter-guide-alternative-${alternative.pk}`}
-                                               index={index}/>
-                  ))}
-                </Well>
+              <div className="form-group">
+                <label>Partier involert ({manuscript.voter_guide_parties.length})</label>
+                <p>{manuscript.voter_guide_parties.join(', ')}</p>
               </div>
+              <Well>
+                {manuscript.voter_guide_alternatives.map((alternative, index) => (
+                  <ManuscriptAlternativeForm alternative={alternative}
+                                             changeManuscriptAlternativeProperty={changeManuscriptAlternativeProperty}
+                                             key={`voter-guide-alternative-${alternative.pk}`}
+                                             index={index}/>
+                ))}
+              </Well>
             </Tab>
             <Tab eventKey={3} title="Quiz" disabled={manuscript.type !== ManuscriptTypeEnum.Quiz.key}>
               <p>Admin for quiz</p>
