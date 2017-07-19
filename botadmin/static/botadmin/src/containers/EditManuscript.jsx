@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
 import ManuscriptForm from "../components/ManuscriptForm";
-import { editManuscript } from "../actions/manuscripts";
 import { getManuscriptApiUrl } from "../utils/urls";
 import { loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
 import * as toastr from "toastr";
 import {
-  addManuscriptItem, changeManuscriptItemProperty, changeManuscriptProperty, deleteManuscriptItem, moveManuscriptItem
+  addManuscriptItem, changeManuscriptAlternativeProperty, changeManuscriptItemProperty, changeManuscriptProperty,
+  deleteManuscriptItem, editManuscript, moveManuscriptItem
 } from "../actions/current_manuscript";
 import { loadAndDispatchHdoCategories } from "../utils/hdo_categories";
 import { loadAndDispatchManuscript } from "../utils/current_manuscript";
@@ -29,6 +29,9 @@ const mapDispatchToProps = (dispatch, { history, match }) => {
     },
     changeManuscriptProperty: (event, propertyName) => {
       dispatch(changeManuscriptProperty(propertyName, event.target.value));
+    },
+    changeManuscriptAlternativeProperty: (event, index, propertyName) => {
+      dispatch(changeManuscriptAlternativeProperty(index, propertyName, event.target.value))
     },
     changeManuscriptItemProperty: (event, order, propertyName) => {
       dispatch(changeManuscriptItemProperty(order, propertyName, event.target.value));

@@ -7,12 +7,14 @@ import './ManuscriptForm.css';
 import { Navbar, Tab, Tabs, Well } from "react-bootstrap";
 import ManuscriptItemForm from "./ManuscriptItemForm";
 import * as queryString from 'query-string';
+import ManuscriptAlternativeForm from "./ManuscriptAlternativeForm.jsx";
 
 const ManuscriptForm = ({
                           hdo_categories,
                           manuscript,
                           manuscripts,
                           addManuscriptItem,
+                          changeManuscriptAlternativeProperty,
                           changeManuscriptItemProperty,
                           changeManuscriptProperty,
                           deleteManuscriptItem,
@@ -92,15 +94,14 @@ const ManuscriptForm = ({
               </div>
               <div>
                 <p>Alternativer for spørsmål</p>
-                <ul>
-                  {manuscript.voter_guide_alternatives.map(alternative => (
-                    <li key={`voter-guide-alternative-${alternative.pk}`}>
-                      <strong>{alternative.text}</strong>
-                      &nbsp;
-                      ({alternative.parties.join(', ')})
-                    </li>
+                <Well>
+                  {manuscript.voter_guide_alternatives.map((alternative, index) => (
+                    <ManuscriptAlternativeForm alternative={alternative}
+                                               changeManuscriptAlternativeProperty={changeManuscriptAlternativeProperty}
+                                               key={`voter-guide-alternative-${alternative.pk}`}
+                                               index={index}/>
                   ))}
-                </ul>
+                </Well>
               </div>
             </Tab>
             <Tab eventKey={3} title="Quiz" disabled={manuscript.type !== ManuscriptTypeEnum.Quiz.key}>
@@ -135,6 +136,7 @@ ManuscriptForm.propTypes = {
     }))
   }),
   addManuscriptItem: PropTypes.func.isRequired,
+  changeManuscriptAlternativeProperty: PropTypes.func.isRequired,
   changeManuscriptItemProperty: PropTypes.func.isRequired,
   changeManuscriptProperty: PropTypes.func.isRequired,
   deleteManuscriptItem: PropTypes.func.isRequired,

@@ -1,7 +1,8 @@
 import {
-  ADD_MANUSCRIPT_ITEM,
+  ADD_MANUSCRIPT_ITEM, CHANGE_MANUSCRIPT_ALTERNATIVE_PROPERTY,
   CHANGE_MANUSCRIPT_ITEM_PROPERTY, CHANGE_MANUSCRIPT_PROPERTY, CREATE_MANUSCRIPT, DELETE_MANUSCRIPT_ITEM,
-  LOAD_MANUSCRIPT, MOVE_MANUSCRIPT_ITEM
+  EDIT_MANUSCRIPT,
+  LOAD_MANUSCRIPT, MOVE_MANUSCRIPT_ITEM, POST_MANUSCRIPT
 } from "../reducers/current_manuscript";
 
 export const addManuscriptItem = (itemText = 'Ny tekst', itemType = 'text') => {
@@ -10,6 +11,15 @@ export const addManuscriptItem = (itemText = 'Ny tekst', itemType = 'text') => {
     itemText,
     itemType
   };
+};
+
+export const changeManuscriptAlternativeProperty = (index, propertyName, value) => {
+  return {
+    type: CHANGE_MANUSCRIPT_ALTERNATIVE_PROPERTY,
+    index,
+    propertyName,
+    value
+  }
 };
 
 export const changeManuscriptItemProperty = (order, propertyName, value) => {
@@ -42,6 +52,14 @@ export const deleteManuscriptItem = (order) => {
   }
 };
 
+export const editManuscript = (manuscript, json) => {
+  return {
+    type: EDIT_MANUSCRIPT,
+    manuscript,
+    json
+  }
+};
+
 export const loadManuscript = (json) => {
   return {
     type: LOAD_MANUSCRIPT,
@@ -54,5 +72,13 @@ export const moveManuscriptItem = (order, move) => {
     type: MOVE_MANUSCRIPT_ITEM,
     order,
     move
+  }
+};
+
+export const postManuscript = (manuscript, json) => {
+  return {
+    type: POST_MANUSCRIPT,
+    manuscript,
+    json
   }
 };

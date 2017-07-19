@@ -1,8 +1,7 @@
 import {
   DELETE_MANUSCRIPT,
-  EDIT_MANUSCRIPT,
   LOAD_MANUSCRIPTS,
-  POST_MANUSCRIPT, SORT_MANUSCRIPTS
+  SORT_MANUSCRIPTS
 } from "../reducers/manuscripts";
 
 export const deleteManuscript = (manuscriptId, json) => {
@@ -13,26 +12,10 @@ export const deleteManuscript = (manuscriptId, json) => {
   }
 };
 
-export const editManuscript = (manuscript, json) => {
-  return {
-    type: EDIT_MANUSCRIPT,
-    manuscript,
-    json
-  }
-};
-
 export const loadManuscripts = (manuscripts) => {
   return {
     type: LOAD_MANUSCRIPTS,
     manuscripts
-  }
-};
-
-export const postManuscript = (manuscript, json) => {
-  return {
-    type: POST_MANUSCRIPT,
-    manuscript,
-    json
   }
 };
 
