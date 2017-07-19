@@ -1,11 +1,9 @@
-import logging
 from django.contrib import admin
 from django.db.models import TextField
 from django.forms import Textarea
-from django.utils.translation import ugettext as _
 
-from quiz.models import Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage, Answer, \
-    AnswerSet, VoterGuideAlternative, HdoCategory
+from quiz.models import (Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage, Answer,
+                         AnswerSet, VoterGuideAlternative, HdoCategory, VoterGuideAnswer)
 
 
 class PromiseAdmin(admin.ModelAdmin):
@@ -78,6 +76,12 @@ class ManuscriptImageAdmin(admin.ModelAdmin):
 
 class AnswerInline(admin.TabularInline):
     model = Answer
+    readonly_fields = ['promise']
+    extra = 0
+
+
+class VoterGuideAnswerInline(admin.TabularInline):
+    model = VoterGuideAnswer
     extra = 0
 
 
@@ -85,13 +89,13 @@ class AnswerAdmin(admin.ModelAdmin):
     list_display = ['get_promise', 'status']
 
     def get_promise(self, obj):
-        return '[{}] {}'.format(dict(Promise.STATUS_CHOICES)[obj.status], obj.promise.body[:100])
+        return '[{}] {}'.format(dict(Promise.STATUS_CHOICES).get(obj.status), obj.promise.body[:100])
 
 
 class AnswerSetAdmin(admin.ModelAdmin):
-    list_display = ['session']
+    list_display = ['pk', 'session', 'updated']
     readonly_fields = ['uuid', 'session']
-    inlines = [AnswerInline]
+    inlines = [VoterGuideAnswerInline, AnswerInline]
 
 
 class VoterGuideAlternativeAdmin(admin.ModelAdmin):
@@ -101,10 +105,19 @@ class VoterGuideAlternativeAdmin(admin.ModelAdmin):
         return obj.promises.count()
 
 
+class HdoCategoryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'label']
+
+
+class VoterGuideAnswerAdmin(admin.ModelAdmin):
+    pass
+
+
+
 admin.site.register(AnswerSet, AnswerSetAdmin)
 admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Category)
-admin.site.register(HdoCategory)
+admin.site.register(HdoCategory, HdoCategoryAdmin)
 admin.site.register(Promise, PromiseAdmin)
 admin.site.register(Party, PartyAdmin)
 admin.site.register(ManuscriptItem, ManuscriptItemAdmin)
@@ -112,3 +125,4 @@ admin.site.register(Manuscript, ManuscriptAdmin)
 admin.site.register(ManuscriptImage, ManuscriptImageAdmin)
 admin.site.register(GoogleProfile, GoogleProfileAdmin)
 admin.site.register(VoterGuideAlternative, VoterGuideAlternativeAdmin)
+admin.site.register(VoterGuideAnswer, VoterGuideAnswerAdmin)

@@ -61,7 +61,6 @@ class Command(BaseCommand):
 
         return self.merge_api_and_check_data(checked_promises, api_data)
 
-
     def create_or_update_promise_objects(self, promises, category_map):
         new_promises = []
         updated_promises = []
@@ -164,7 +163,8 @@ class Command(BaseCommand):
                 'body': p_data['body'],
                 'promisor_name': p_data['promisor_name'],
                 'parliament_period_name': p_data['parliament_period_name'],
-                'source': p_data['source']
+                'source': p_data['source'],
+                'parties': [{'title': party['title'], 'slug': party['slug']} for party in p_data['_links']['parties']]
             }
         # Parsing next document, if available
         links_next = document['_links']['next'] if 'next' in document['_links'] else None

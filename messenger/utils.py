@@ -63,3 +63,7 @@ def save_answers(chat_session: ChatSession):
             status=status,
             answer_set=answer_set,
             correct_status=promises[str(promise_id)] == status)
+
+
+def delete_answers(session: ChatSession):
+    AnswerSet.objects.filter(session=session).delete()

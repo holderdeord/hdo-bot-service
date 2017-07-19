@@ -8,7 +8,8 @@ from django.utils.translation import ugettext as _
 
 from messenger.api.formatters import format_quick_replies
 from messenger.intents import (INTENT_NEXT_ITEM, INTENT_ANSWER_QUIZ_QUESTION, INTENT_GOTO_MANUSCRIPT,
-                               INTENT_ANSWER_VG_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED)
+                               INTENT_ANSWER_VG_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
+                               INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM)
 from quiz.models import Promise, Manuscript, ManuscriptItem
 
 logger = logging.getLogger(__name__)
@@ -28,12 +29,23 @@ def format_bot_profile():
         ],
         "persistent_menu": [{
             "locale": "default",
-            "composer_input_disabled": False,  # Disable/Enable user input
+            "composer_input_disabled": True,  # Disable/Enable user input
             "call_to_actions": [
                 {
-                    "type": "postback",
+                    "type": "nested",
                     "title": _("Get help"),
-                    "payload": json.dumps({'intent': INTENT_GET_HELP})
+                    "call_to_actions": [
+                        {
+                            "type": "postback",
+                            "title": _("Get help"),
+                            "payload": json.dumps({'intent': INTENT_GET_HELP})
+                        },
+                        {
+                            "type": "web_url",
+                            "title": _("About"),
+                            "url": settings.BASE_URL
+                        }
+                    ]
                 },
                 {
                     "type": "postback",
@@ -41,10 +53,10 @@ def format_bot_profile():
                     "payload": json.dumps({'intent': INTENT_RESET_SESSION})
                 },
                 {
-                    "type": "web_url",
-                    "title": _("About"),
-                    "url": settings.BASE_URL
-                }
+                    "type": "postback",
+                    "title": _("Reset my answers"),
+                    "payload": json.dumps({'intent': INTENT_RESET_ANSWERS})
+                },
             ]
         }]
     }
@@ -107,21 +119,21 @@ def format_question(recipient_id, question, question_text):
 def format_vg_categories(recipient_id, manuscripts: Iterable[Manuscript], text):
     buttons = []
     alt_text = ''
-    for i, m in enumerate(manuscripts):
+    for idx, m in enumerate(manuscripts, start=1):
         buttons.append({
             "content_type": "text",
-            "title": m.hdo_category.label + ' [' + m.hdo_category.name + ']',  # FIXME: Only show label
+            "title": '{} {}'.format(idx, m.hdo_category.label),
             "payload": json.dumps({
                 'manuscript': m.pk,
                 'intent': INTENT_GOTO_MANUSCRIPT
             }),
         })
-        alt_text += '\n{}: {}'.format(m.hdo_category.label, m.hdo_category.name)
-    return format_quick_replies(recipient_id, buttons, text + alt_text)
+        alt_text += '\n{} {}: {}'.format(idx, m.hdo_category.name, m.hdo_category.label)
+    return format_quick_replies(recipient_id, buttons, text + alt_text + '\n')
 
 
-def format_vg_alternatives(recipient_id, alternatives, text):
-    labels = ['1', '2', '3', '4', '5', '6']  # FIXME: use emojis instead
+def format_vg_alternatives(recipient_id, name, alternatives, text):
+    labels = ['1 💜', '2 💙', '3 💚', '4 💛', '5 ❤', '6 ♦']
     buttons = []
     alt_text = ''
     for i, alt in enumerate(alternatives):
@@ -133,5 +145,26 @@ def format_vg_alternatives(recipient_id, alternatives, text):
                 'intent': INTENT_ANSWER_VG_QUESTION
             }),
         })
-        alt_text += '\n{}: {}'.format(labels[i], alt['text'])
-    return format_quick_replies(recipient_id, buttons, text + alt_text)
+        alt_text += '\n{} {}'.format(labels[i], alt['text'])
+
+    text = 'Temaet er {}\n\n{}{}'.format(name, text, alt_text)
+    return format_quick_replies(recipient_id, buttons, text)
+
+
+def format_reset_answer(recipient_id):
+    quick_replies = [{
+            "content_type": "text",
+            "title": "Nei, bare fortsett",
+            "payload": json.dumps({
+                "intent": INTENT_NEXT_ITEM,
+            })
+        },
+        {
+            "content_type": "text",
+            "title": 'Slett alt!',
+            "payload": json.dumps({
+                "intent": INTENT_RESET_ANSWERS_CONFIRM,
+            })
+        }
+    ]
+    return format_quick_replies(recipient_id, quick_replies, "Skal vi slette alle svarene dine?")
