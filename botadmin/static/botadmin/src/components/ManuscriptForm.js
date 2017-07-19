@@ -4,25 +4,28 @@ import { ManuscriptTypeEnum } from "../utils/enums";
 import { Link } from "react-router-dom";
 import ManuscriptPreview from "./ManuscriptPreview";
 import './ManuscriptForm.css';
-import { Navbar, Tab, Tabs, Well } from "react-bootstrap";
+import { Button, Modal, Navbar, Tab, Tabs, Well } from "react-bootstrap";
 import ManuscriptItemForm from "./ManuscriptItemForm";
 import * as queryString from 'query-string';
 import ManuscriptAlternativeForm from "./ManuscriptAlternativeForm";
 
 const ManuscriptForm = ({
-                          hdo_categories,
-                          manuscript,
-                          manuscripts,
                           addManuscriptItem,
                           changeManuscriptAlternativeProperty,
                           changeManuscriptItemProperty,
                           changeManuscriptProperty,
+                          closePromisesModal,
                           deleteManuscriptItem,
+                          hdo_categories,
+                          location,
+                          manuscript,
+                          manuscripts,
                           moveManuscriptItemDown,
                           moveManuscriptItemUp,
                           onSubmit,
                           onTabSelect,
-                          location
+                          openPromisesModal,
+                          promises_modal
                         }) => {
   const parsed = queryString.parse(location.search);
   const defaultActiveTab = parsed.tab ? parseInt(parsed.tab, 10) : 1;
@@ -101,9 +104,23 @@ const ManuscriptForm = ({
                   <ManuscriptAlternativeForm alternative={alternative}
                                              changeManuscriptAlternativeProperty={changeManuscriptAlternativeProperty}
                                              key={`voter-guide-alternative-${alternative.pk}`}
-                                             index={index}/>
+                                             index={index}
+                                             openPromisesModal={openPromisesModal}/>
                 ))}
               </Well>
+              <Modal bsSize="large"
+                     show={promises_modal.open}
+                     onHide={closePromisesModal}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Løfter</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <p>Her kommer det mer</p>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={closePromisesModal}>Close</Button>
+                </Modal.Footer>
+              </Modal>
             </Tab>
             <Tab eventKey={3} title="Quiz" disabled={manuscript.type !== ManuscriptTypeEnum.Quiz.key}>
               <p>Admin for quiz</p>

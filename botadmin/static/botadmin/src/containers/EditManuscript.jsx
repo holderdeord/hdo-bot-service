@@ -9,12 +9,14 @@ import {
 } from "../actions/current_manuscript";
 import { loadAndDispatchHdoCategories } from "../utils/hdo_categories";
 import { loadAndDispatchManuscript } from "../utils/current_manuscript";
+import { closePromisesModal, openPromisesModal } from "../actions/promises_modal";
 
 const mapStateToProps = (state) => {
   return {
     hdo_categories: state.hdo_categories,
     manuscript: state.current_manuscript,
-    manuscripts: state.manuscripts
+    manuscripts: state.manuscripts,
+    promises_modal: state.promises_modal
   };
 };
 
@@ -36,6 +38,7 @@ const mapDispatchToProps = (dispatch, { history, match }) => {
     changeManuscriptItemProperty: (event, order, propertyName) => {
       dispatch(changeManuscriptItemProperty(order, propertyName, event.target.value));
     },
+    closePromisesModal: () => dispatch(closePromisesModal()),
     deleteManuscriptItem: (order) => {
       if (window.confirm('Are you sure?')) {
         dispatch(deleteManuscriptItem(order));
@@ -64,7 +67,8 @@ const mapDispatchToProps = (dispatch, { history, match }) => {
     },
     onTabSelect: (key) => {
       history.push(`/edit/${manuscriptId}/?tab=${key}`)
-    }
+    },
+    openPromisesModal: (index) => dispatch(openPromisesModal(index)),
   }
 };
 

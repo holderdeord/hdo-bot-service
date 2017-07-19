@@ -1,9 +1,11 @@
 import React from 'react';
+import { Button } from "react-bootstrap";
 
 const ManuscriptAlternativeForm = ({
                                      alternative,
                                      changeManuscriptAlternativeProperty,
-                                     index
+                                     index,
+                                     openPromisesModal
                                    }) => {
   return (
     <div className="panel panel-default">
@@ -17,14 +19,18 @@ const ManuscriptAlternativeForm = ({
                  onSelect={(event) => changeManuscriptAlternativeProperty(event, index, 'text')}
                  defaultValue={alternative.text}/>
         </div>
-        <ul>
-          {alternative.promises.map(promise => (
-            <li key={`alternative-promise-${index}-${promise.pk}`}>{promise.body} ({promise.promisor_name})</li>
-          ))}
-        </ul>
+        <div className="form-group">
+          <label>Løfter</label>
+          <ul>
+            {alternative.promises.map(promise => (
+              <li key={`alternative-promise-${index}-${promise.pk}`}>{promise.body} ({promise.promisor_name})</li>
+            ))}
+          </ul>
+          <Button onClick={() => openPromisesModal(index)}>Legg til løfte</Button>
+        </div>
         <div className="form-group">
           <label>Partier</label>
-          <p>{[...new Set(alternative.parties)].join(', ')}</p>
+          <p>{[ ...new Set(alternative.parties) ].join(', ')}</p>
         </div>
       </div>
     </div>

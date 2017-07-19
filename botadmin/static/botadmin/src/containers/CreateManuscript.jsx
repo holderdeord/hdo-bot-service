@@ -9,12 +9,14 @@ import {
 } from "../actions/current_manuscript";
 import { loadAndDispatchHdoCategories } from "../utils/hdo_categories";
 import { createAndDispatchManuscript } from "../utils/current_manuscript";
+import { closePromisesModal, openPromisesModal } from "../actions/promises_modal";
 
 const mapStateToProps = (state) => {
   return {
     hdo_categories: state.hdo_categories,
     manuscript: state.current_manuscript,
-    manuscripts: state.manuscripts
+    manuscripts: state.manuscripts,
+    promises_modal: state.promises_modal
   };
 };
 
@@ -35,6 +37,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
     changeManuscriptItemProperty: (event, order, propertyName) => {
       dispatch(changeManuscriptItemProperty(order, propertyName, event.target.value));
     },
+    closePromisesModal: () => dispatch(closePromisesModal()),
     deleteManuscriptItem: (order) => {
       if (window.confirm('Are you sure?')) {
         dispatch(deleteManuscriptItem(order));
@@ -62,7 +65,8 @@ const mapDispatchToProps = (dispatch, { history }) => {
           toastr.error('Failed to create manuscript');
         });
     },
-    onTabSelect: (key) => {}
+    onTabSelect: (key) => {},
+    openPromisesModal: (index) => dispatch(openPromisesModal(index)),
   }
 };
 
