@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
@@ -15,6 +16,7 @@
     "react-router-dom": "^4.1.1",
     "react-textarea-autosize": "^5.0.6",
     "redux": "^3.6.0",
+    "searchkit": "^2.1.1",
     "toastr": "^2.1.2"
   },
   "devDependencies": {

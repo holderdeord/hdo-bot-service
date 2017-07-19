@@ -5,6 +5,7 @@ export default function postManuscript(state, { json }) {
   return {
     ...json,
     items: [...json.items],
-    voter_guide_alternatives: [...json.voter_guide_alternatives]
+    voter_guide_alternatives: [...json.voter_guide_alternatives],
+    voter_guide_parties: []
   };
 }

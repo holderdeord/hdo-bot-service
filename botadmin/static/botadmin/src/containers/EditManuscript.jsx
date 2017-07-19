@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, { history, match }) => {
+const mapDispatchToProps = (dispatch, { match }) => {
   loadAndDispatchManuscript(dispatch, match.params.manuscriptId);
   loadAndDispatchManuscripts(dispatch);
   loadAndDispatchHdoCategories(dispatch);
@@ -61,12 +61,13 @@ const mapDispatchToProps = (dispatch, { history, match }) => {
           toastr.success('Successfully saved manuscript')
         })
         .catch(error => {
+          console.error(error);
           dispatch(editManuscript(manuscript, error));
           toastr.error('Failed to save manuscript');
         });
     },
-    onTabSelect: (key) => {
-      history.push(`/edit/${manuscriptId}/?tab=${key}`)
+    onTabSelect: (key, history) => {
+      history.push(`/edit/${manuscriptId}/${key}/`)
     },
     openPromisesModal: (index) => dispatch(openPromisesModal(index)),
   }

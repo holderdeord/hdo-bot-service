@@ -1,36 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { ManuscriptTypeEnum } from "../utils/enums";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import ManuscriptPreview from "./ManuscriptPreview";
 import './ManuscriptForm.css';
-import { Button, Modal, Navbar, Tab, Tabs, Well } from "react-bootstrap";
-import ManuscriptItemForm from "./ManuscriptItemForm";
-import * as queryString from 'query-string';
-import ManuscriptAlternativeForm from "./ManuscriptAlternativeForm";
+import { Navbar } from "react-bootstrap";
+import ManuscriptFormTabs from "./ManuscriptFormTabs";
 
-const ManuscriptForm = ({
-                          addManuscriptItem,
-                          changeManuscriptAlternativeProperty,
-                          changeManuscriptItemProperty,
-                          changeManuscriptProperty,
-                          closePromisesModal,
-                          deleteManuscriptItem,
-                          hdo_categories,
-                          location,
-                          manuscript,
-                          manuscripts,
-                          moveManuscriptItemDown,
-                          moveManuscriptItemUp,
-                          onSubmit,
-                          onTabSelect,
-                          openPromisesModal,
-                          promises_modal
-                        }) => {
-  const parsed = queryString.parse(location.search);
-  const defaultActiveTab = parsed.tab ? parseInt(parsed.tab, 10) : 1;
+const ManuscriptForm = withRouter((props) => {
+  const {
+    changeManuscriptProperty,
+    history,
+    manuscript,
+    manuscripts,
+    onSubmit,
+  } = props;
   return (
-    <form className="manuscript-form" onSubmit={event => onSubmit(event, manuscript)}>
+    <form className="manuscript-form" onSubmit={event => onSubmit(event, manuscript, history)}>
       <ol className="breadcrumb">
         <li>
           <Link to="/">Admin</Link>
@@ -55,77 +40,7 @@ const ManuscriptForm = ({
               ))}
             </select>
           </div>
-          <Tabs id="ManuscriptTypeOptions" onSelect={onTabSelect} defaultActiveKey={defaultActiveTab}>
-            <Tab eventKey={1} title="Items">
-              <Well>
-                {manuscript.items.map((item, index) => (
-                  <ManuscriptItemForm key={item.order}
-                                      item={item}
-                                      manuscript={manuscript}
-                                      manuscripts={manuscripts}
-                                      changeManuscriptItemProperty={changeManuscriptItemProperty}
-                                      deleteManuscriptItem={deleteManuscriptItem}
-                                      moveManuscriptItemDown={moveManuscriptItemDown}
-                                      moveManuscriptItemUp={moveManuscriptItemUp}/>
-                ))}
-                <button className="btn btn-default" type="button"
-                        onClick={() => addManuscriptItem()}>
-                  Add item
-                </button>
-              </Well>
-            </Tab>
-            <Tab eventKey={2} title="Voter guide" disabled={manuscript.type !== ManuscriptTypeEnum.ElectoralGuide.key}>
-              <div className="form-group">
-                <label>HDO kategori</label>
-                <select className="form-control"
-                        onSelect={(event) => changeManuscriptProperty(event, 'hdo_category')}
-                        defaultValue={manuscript.hdo_category}>
-                  {hdo_categories.map(category => (
-                    <option key={`hdo-category-${category.pk}`} value={category.pk}>{category.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox"
-                         name="is_first_in_category"
-                         onChange={(event) => changeManuscriptProperty(event, 'is_first_in_category')}
-                         checked={manuscript.is_first_in_category}/>
-                  &nbsp;
-                  Er først i kategorien
-                </label>
-              </div>
-              <div className="form-group">
-                <label>Partier involert ({manuscript.voter_guide_parties.length})</label>
-                <p>{manuscript.voter_guide_parties.join(', ')}</p>
-              </div>
-              <Well>
-                {manuscript.voter_guide_alternatives.map((alternative, index) => (
-                  <ManuscriptAlternativeForm alternative={alternative}
-                                             changeManuscriptAlternativeProperty={changeManuscriptAlternativeProperty}
-                                             key={`voter-guide-alternative-${alternative.pk}`}
-                                             index={index}
-                                             openPromisesModal={openPromisesModal}/>
-                ))}
-              </Well>
-              <Modal bsSize="large"
-                     show={promises_modal.open}
-                     onHide={closePromisesModal}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Løfter</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <p>Her kommer det mer</p>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button onClick={closePromisesModal}>Close</Button>
-                </Modal.Footer>
-              </Modal>
-            </Tab>
-            <Tab eventKey={3} title="Quiz" disabled={manuscript.type !== ManuscriptTypeEnum.Quiz.key}>
-              <p>Admin for quiz</p>
-            </Tab>
-          </Tabs>
+          <ManuscriptFormTabs {...props}/>
         </div>
         <div className="col-md-6">
           <label>Preview</label>
@@ -141,26 +56,6 @@ const ManuscriptForm = ({
       </Navbar>
     </form>
   );
-};
-
-ManuscriptForm.propTypes = {
-  manuscript: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      order: PropTypes.number.isRequired,
-      text: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired
-    }))
-  }),
-  addManuscriptItem: PropTypes.func.isRequired,
-  changeManuscriptAlternativeProperty: PropTypes.func.isRequired,
-  changeManuscriptItemProperty: PropTypes.func.isRequired,
-  changeManuscriptProperty: PropTypes.func.isRequired,
-  deleteManuscriptItem: PropTypes.func.isRequired,
-  moveManuscriptItemDown: PropTypes.func.isRequired,
-  moveManuscriptItemUp: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
-};
+});
 
 export default ManuscriptForm;

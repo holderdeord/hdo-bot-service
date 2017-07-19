@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, { history }) => {
+const mapDispatchToProps = (dispatch) => {
   createAndDispatchManuscript(dispatch);
   loadAndDispatchManuscripts(dispatch);
   loadAndDispatchHdoCategories(dispatch);
@@ -49,7 +49,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
     moveManuscriptItemUp: (order) => {
       dispatch(moveManuscriptItem(order, -1));
     },
-    onSubmit: (event, manuscript) => {
+    onSubmit: (event, manuscript, history) => {
       event.preventDefault();
       dispatch(postManuscript(manuscript));
       const timeoutHandleId = setTimeout(() => toastr.info('Trying to save manuscript, please wait'), 300);
@@ -61,11 +61,14 @@ const mapDispatchToProps = (dispatch, { history }) => {
           toastr.success('Successfully created manuscript, navigated you to edit-mode');
         })
         .catch(error => {
+          console.error(error);
           dispatch(postManuscript(manuscript, error));
           toastr.error('Failed to create manuscript');
         });
     },
-    onTabSelect: (key) => {},
+    onTabSelect: (key, history) => {
+      history.push(`/create/${key}/`)
+    },
     openPromisesModal: (index) => dispatch(openPromisesModal(index)),
   }
 };
