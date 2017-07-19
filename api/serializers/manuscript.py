@@ -114,4 +114,4 @@ class ManuscriptListSerializer(WritableNestedModelSerializer):
     class Meta:
         model = Manuscript
         fields = ('pk', 'url', 'name', 'type', 'category', 'hdo_category', 'next', 'updated', 'is_default',
-                  'is_first_in_category', 'items')
+                  'is_first_in_category', 'items', 'voter_guide_alternatives')
