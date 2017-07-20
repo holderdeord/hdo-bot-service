@@ -6,6 +6,7 @@ export default function addPromiseToAlternative(state, alternativeIndex, promise
     body: promise.body,
     promisor_name: promise.promisor_name
   });
+  alternative.promises.push(promiseId);
   alternative.parties.push(promise.promisor_name);
   return {
     ...state,

@@ -8,6 +8,7 @@ import changeManuscriptAlternativeProperty from "./current_manuscript/changeManu
 import postManuscript from "./current_manuscript/postManuscript";
 import editManuscript from "./current_manuscript/editManuscript";
 import addPromiseToAlternative from "./current_manuscript/addPromiseToAlternative";
+import removePromiseFromAlternative from './current_manuscript/removePromiseFromAlternative';
 
 export const ADD_MANUSCRIPT_ITEM = 'ADD_MANUSCRIPT_ITEM';
 export const ADD_PROMISE_TO_ALTERNATIVE = 'ADD_PROMISE_TO_ALTERNATIVE';
@@ -20,6 +21,7 @@ export const EDIT_MANUSCRIPT = 'EDIT_MANUSCRIPT';
 export const LOAD_MANUSCRIPT = 'LOAD_MANUSCRIPT';
 export const MOVE_MANUSCRIPT_ITEM = 'MOVE_MANUSCRIPT_ITEM';
 export const POST_MANUSCRIPT = 'POST_MANUSCRIPT';
+export const REMOVE_PROMISE_FROM_ALTERNATIVE = 'REMOVE_PROMISE_FROM_ALTERNATIVE';
 
 const current_manuscript = (state = create_manuscript(), action) => {
   switch (action.type) {
@@ -45,6 +47,8 @@ const current_manuscript = (state = create_manuscript(), action) => {
       return moveManuscriptItem(state, action);
     case POST_MANUSCRIPT:
       return postManuscript(state, action);
+    case REMOVE_PROMISE_FROM_ALTERNATIVE:
+      return removePromiseFromAlternative(state, action.alternativeIndex, action.promise);
     default:
       return state;
   }
@@ -57,9 +61,10 @@ function create_manuscript() {
     pk: null,
     name: '',
     type: 'info',
+    has_changes: false,
     items: [],
     is_first_in_category: false,
-    is_defualt: false,
+    is_default: false,
     voter_guide_alternatives: [],
     voter_guide_parties: [],
   };

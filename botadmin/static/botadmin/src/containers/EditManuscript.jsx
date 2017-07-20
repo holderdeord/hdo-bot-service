@@ -6,7 +6,7 @@ import * as toastr from "toastr";
 import {
   addManuscriptItem, addPromiseToAlternative, changeManuscriptAlternativeProperty, changeManuscriptItemProperty,
   changeManuscriptProperty,
-  deleteManuscriptItem, editManuscript, moveManuscriptItem
+  deleteManuscriptItem, editManuscript, moveManuscriptItem, removePromiseFromAlternative
 } from "../actions/current_manuscript";
 import { loadAndDispatchHdoCategories } from "../utils/hdo_categories";
 import { loadAndDispatchManuscript } from "../utils/current_manuscript";
@@ -84,6 +84,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     openPromisesModal: (index) => {
       history.push(`/edit/${manuscriptId}/${getTabId(match)}/${index}/`);
+    },
+    removePromiseFromAlternative: (alternativeIndex, promise) => {
+      if (window.confirm('Are you sure?')) {
+        dispatch(removePromiseFromAlternative(alternativeIndex, promise));
+      }
     }
   }
 };

@@ -5,7 +5,8 @@ const ManuscriptAlternativeForm = ({
                                      alternative,
                                      changeManuscriptAlternativeProperty,
                                      index,
-                                     openPromisesModal
+                                     openPromisesModal,
+                                     removePromiseFromAlternative
                                    }) => {
   return (
     <div className="panel panel-default">
@@ -27,8 +28,8 @@ const ManuscriptAlternativeForm = ({
                 {promise.body}
                 {' '}
                 ({promise.promisor_name})
-                {/*{' '}*/}
-                {/*<Button bsSize="xsmall">Fjern løfte</Button>*/}
+                {' '}
+                <Button bsSize="xsmall" onClick={() => removePromiseFromAlternative(index, promise)}>Fjern løfte</Button>
               </li>
             ))}
           </ul>

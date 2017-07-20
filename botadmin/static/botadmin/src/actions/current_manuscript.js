@@ -2,7 +2,7 @@ import {
   ADD_MANUSCRIPT_ITEM, ADD_PROMISE_TO_ALTERNATIVE, CHANGE_MANUSCRIPT_ALTERNATIVE_PROPERTY,
   CHANGE_MANUSCRIPT_ITEM_PROPERTY, CHANGE_MANUSCRIPT_PROPERTY, CREATE_MANUSCRIPT, DELETE_MANUSCRIPT_ITEM,
   EDIT_MANUSCRIPT,
-  LOAD_MANUSCRIPT, MOVE_MANUSCRIPT_ITEM, POST_MANUSCRIPT
+  LOAD_MANUSCRIPT, MOVE_MANUSCRIPT_ITEM, POST_MANUSCRIPT, REMOVE_PROMISE_FROM_ALTERNATIVE
 } from "../reducers/current_manuscript";
 
 export const addManuscriptItem = (itemText = 'Ny tekst', itemType = 'text') => {
@@ -28,7 +28,7 @@ export const changeManuscriptAlternativeProperty = (index, propertyName, value) 
     index,
     propertyName,
     value
-  }
+  };
 };
 
 export const changeManuscriptItemProperty = (order, propertyName, value) => {
@@ -45,7 +45,7 @@ export const changeManuscriptProperty = (propertyName, value) => {
     type: CHANGE_MANUSCRIPT_PROPERTY,
     propertyName,
     value
-  }
+  };
 };
 
 export const createManuscript = () => {
@@ -58,7 +58,7 @@ export const deleteManuscriptItem = (order) => {
   return {
     type: DELETE_MANUSCRIPT_ITEM,
     order
-  }
+  };
 };
 
 export const editManuscript = (manuscript, json) => {
@@ -66,7 +66,7 @@ export const editManuscript = (manuscript, json) => {
     type: EDIT_MANUSCRIPT,
     manuscript,
     json
-  }
+  };
 };
 
 export const loadManuscript = (json) => {
@@ -81,7 +81,7 @@ export const moveManuscriptItem = (order, move) => {
     type: MOVE_MANUSCRIPT_ITEM,
     order,
     move
-  }
+  };
 };
 
 export const postManuscript = (manuscript, json) => {
@@ -89,5 +89,13 @@ export const postManuscript = (manuscript, json) => {
     type: POST_MANUSCRIPT,
     manuscript,
     json
-  }
+  };
+};
+
+export const removePromiseFromAlternative = (alternativeIndex, promise) => {
+  return {
+    type: REMOVE_PROMISE_FROM_ALTERNATIVE,
+    alternativeIndex,
+    promise
+  };
 };
