@@ -9,7 +9,6 @@ import {
 } from "../actions/current_manuscript";
 import { loadAndDispatchHdoCategories } from "../utils/hdo_categories";
 import { createAndDispatchManuscript } from "../utils/current_manuscript";
-import { closePromisesModal, openPromisesModal } from "../actions/promises_modal";
 import { handleAndDispatchPromisesModal } from "../utils/handleAndDispatchPromisesModal";
 import { getTabId } from "../utils/getTabId";
 
