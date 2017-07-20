@@ -48,7 +48,7 @@ const PromisesModal = ({
             />
           </TopBar>
           <LayoutBody className="row">
-            <SideBar className="col-md-4">
+            <SideBar className="col-md-3">
               <RefinementListFilter
                 id="period"
                 title="Stortingsperiode"
@@ -74,7 +74,7 @@ const PromisesModal = ({
               />
             </SideBar>
 
-            <LayoutResults className="col-md-8">
+            <LayoutResults className="col-md-9">
               <ActionBar>
                 <ActionBarRow>
                   <HitsStats />
@@ -82,12 +82,14 @@ const PromisesModal = ({
                 </ActionBarRow>
               </ActionBar>
 
-              <Hits
-                hitsPerPage={30}
-                highlightFields={[ 'body' ]}
-                customHighlight={customHighlight}
-                itemComponent={PromiseItem}
-              />
+              <ul className="list-group">
+                <Hits
+                  hitsPerPage={30}
+                  highlightFields={[ 'body' ]}
+                  customHighlight={customHighlight}
+                  itemComponent={PromiseItem}
+                />
+              </ul>
 
               <NoHits suggestionsField="body"/>
 
