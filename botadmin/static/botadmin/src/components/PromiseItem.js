@@ -2,20 +2,25 @@ import React from 'react';
 import _ from 'lodash';
 import { Button } from "react-bootstrap";
 
-export default props =>
+export default ({
+                  addPromise,
+                  promises_modal
+                }) => ({
+                         result
+                       }) =>
   <li className="list-group-item">
     <span className="badge">
-      {props.result._source.promisor_name},{' '}
-      {props.result._source.parliament_period_name}
+      {result._source.promisor_name},{' '}
+      {result._source.parliament_period_name}
     </span>
 
     <span dangerouslySetInnerHTML={{
       __html: _.get(
-        props.result,
+        result,
         'highlight.body',
-        props.result._source.body
+        result._source.body
       )
     }}
     />&nbsp;
-    <Button bsSize="xsmall" onClick={() => alert('test')}>Legg til</Button>
+    <Button bsSize="xsmall" onClick={() => addPromise(promises_modal.alternative_index, result._source, result._id)}>Legg til</Button>
   </li>;

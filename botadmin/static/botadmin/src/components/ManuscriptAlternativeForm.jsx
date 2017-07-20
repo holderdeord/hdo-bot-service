@@ -22,8 +22,14 @@ const ManuscriptAlternativeForm = ({
         <div className="form-group">
           <label>Løfter</label>
           <ul>
-            {alternative.promises.map(promise => (
-              <li key={`alternative-promise-${index}-${promise.pk}`}>{promise.body} ({promise.promisor_name})</li>
+            {alternative.full_promises.map(promise => (
+              <li key={`alternative-promise-${index}-${promise.pk}`}>
+                {promise.body}
+                {' '}
+                ({promise.promisor_name})
+                {/*{' '}*/}
+                {/*<Button bsSize="xsmall">Fjern løfte</Button>*/}
+              </li>
             ))}
           </ul>
           <Button onClick={() => openPromisesModal(index)}>Legg til løfte</Button>

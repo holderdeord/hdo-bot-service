@@ -1,7 +1,6 @@
 import { getManuscriptsApiUrl } from "./urls";
 import { loadManuscripts } from "../actions/manuscripts";
 export function createManuscriptPayload(manuscript) {
-  console.log(manuscript.voter_guide_alternatives);
   return JSON.stringify({
     pk: manuscript.pk,
     type: manuscript.type,
@@ -19,8 +18,18 @@ export function createManuscriptPayload(manuscript) {
         reply_text_3: item.reply_text_3
       };
     }),
-    voter_guide_alternatives: manuscript.voter_guide_alternatives
+    voter_guide_alternatives: manuscript.voter_guide_alternatives.map(alternative => {
+      return {
+        pk: alternative.pk,
+        text: alternative.text,
+        promises: alternative.full_promises.map(promise => promise.pk)
+      };
+    })
   });
+}
+
+export function getPartiesFromAlternatives(voter_guide_alternatives) {
+  return voter_guide_alternatives.reduce((memo, alternative) => memo.concat(alternative.parties), []);
 }
 
 export function loadAndDispatchManuscripts(dispatch) {

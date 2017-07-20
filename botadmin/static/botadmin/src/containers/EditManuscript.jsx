@@ -4,7 +4,8 @@ import { getManuscriptApiUrl } from "../utils/urls";
 import { loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
 import * as toastr from "toastr";
 import {
-  addManuscriptItem, changeManuscriptAlternativeProperty, changeManuscriptItemProperty, changeManuscriptProperty,
+  addManuscriptItem, addPromiseToAlternative, changeManuscriptAlternativeProperty, changeManuscriptItemProperty,
+  changeManuscriptProperty,
   deleteManuscriptItem, editManuscript, moveManuscriptItem
 } from "../actions/current_manuscript";
 import { loadAndDispatchHdoCategories } from "../utils/hdo_categories";
@@ -21,10 +22,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, {
-  history,
-  match
-}) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const {
+    history,
+    match
+  } = ownProps;
   loadAndDispatchManuscript(dispatch, match.params.manuscriptId);
   loadAndDispatchManuscripts(dispatch);
   loadAndDispatchHdoCategories(dispatch);
@@ -33,6 +35,10 @@ const mapDispatchToProps = (dispatch, {
   return {
     addManuscriptItem: () => {
       dispatch(addManuscriptItem());
+    },
+    addPromise: (alternativeIndex, promise, promiseId) => {
+      dispatch(addPromiseToAlternative(alternativeIndex, promise, parseInt(promiseId, 10)));
+      history.push(`/edit/${manuscriptId}/${getTabId(match)}/`);
     },
     changeManuscriptProperty: (event, propertyName) => {
       dispatch(changeManuscriptProperty(propertyName, event.target.value));

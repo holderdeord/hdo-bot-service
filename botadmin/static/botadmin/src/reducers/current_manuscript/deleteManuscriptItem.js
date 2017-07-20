@@ -10,6 +10,7 @@ export default function deleteManuscriptItem (state, action) {
   });
   return {
     ...state,
+    has_changes: true,
     items: [...state.items]
   };
 }

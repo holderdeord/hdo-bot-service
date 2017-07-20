@@ -6,6 +6,7 @@ export default function changeManuscriptItemProperty(state, action) {
   selectedItem[action.propertyName] = action.value;
   return {
     ...state,
+    has_changes: true,
     items: [...state.items]
   };
 }

@@ -1,16 +1,20 @@
+import { getPartiesFromAlternatives } from "../../utils/manuscript";
 export default function loadManuscript(state, { json }) {
   if (!json || json.message) {
     return state;
   }
-  return {
-    ...json,
-    voter_guide_parties: [...new Set(json.voter_guide_alternatives.reduce((memo, alternative) => memo.concat(alternative.parties), []))]
-  };
-  // const selectedManuscript = state.find(manuscript => manuscript.pk === action.manuscriptId);
-  // if (selectedManuscript) {
-  //   const selectedIndex = state.indexOf(selectedManuscript);
-  //   return [...state.splice(selectedIndex, 1, selectedManuscript)];
-  // }
-  // return [...state, {...action.json}];
+  // let numberOfPromisesFromUser = getNumberOfPromises(state.voter_guide_alternatives);
+  // let numberOfPromisesFromApi = getNumberOfPromises(json.voter_guide_alternatives);
+  // let has_changes = numberOfPromisesFromUser > numberOfPromisesFromApi;
+  return state.has_changes ?
+    state :
+    {
+      ...json,
+      has_changes: false,
+      voter_guide_parties: getPartiesFromAlternatives(json.voter_guide_alternatives)
+    };
 }
 
+// function getNumberOfPromises(voter_guide_alternatives) {
+//   return voter_guide_alternatives.reduce((memo, alternative) => memo + alternative.promises.length, 0);
+// }

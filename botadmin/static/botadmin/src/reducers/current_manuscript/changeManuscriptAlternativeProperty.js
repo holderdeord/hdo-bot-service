@@ -11,6 +11,7 @@ export default function changeManuscriptAlternativeProperty(state, { index, prop
   voter_guide_alternatives.splice(index, 1, alternative);
   return {
     ...state,
+    has_changes: true,
     voter_guide_alternatives
   };
 }

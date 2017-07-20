@@ -17,6 +17,7 @@ export default function addManuscriptItem(state, action) {
   const order = state.items.length + 1;
   return {
     ...state,
+    has_changes: true,
     items: [
       ...state.items,
       manuscriptItem({}, {

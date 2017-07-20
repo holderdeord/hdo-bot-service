@@ -7,8 +7,10 @@ import moveManuscriptItem from "./current_manuscript/moveManuscriptItem";
 import changeManuscriptAlternativeProperty from "./current_manuscript/changeManuscriptAlternativeProperty";
 import postManuscript from "./current_manuscript/postManuscript";
 import editManuscript from "./current_manuscript/editManuscript";
+import addPromiseToAlternative from "./current_manuscript/addPromiseToAlternative";
 
 export const ADD_MANUSCRIPT_ITEM = 'ADD_MANUSCRIPT_ITEM';
+export const ADD_PROMISE_TO_ALTERNATIVE = 'ADD_PROMISE_TO_ALTERNATIVE';
 export const CHANGE_MANUSCRIPT_ALTERNATIVE_PROPERTY = 'CHANGE_MANUSCRIPT_ALTERNATIVE_PROPERTY';
 export const CHANGE_MANUSCRIPT_ITEM_PROPERTY = 'CHANGE_MANUSCRIPT_ITEM_PROPERTY';
 export const CHANGE_MANUSCRIPT_PROPERTY = 'CHANGE_MANUSCRIPT_PROPERTY';
@@ -23,6 +25,8 @@ const current_manuscript = (state = create_manuscript(), action) => {
   switch (action.type) {
     case ADD_MANUSCRIPT_ITEM:
       return addManuscriptItem(state, action);
+    case ADD_PROMISE_TO_ALTERNATIVE:
+      return addPromiseToAlternative(state, action.alternativeIndex, action.promise, action.promiseId);
     case CHANGE_MANUSCRIPT_ALTERNATIVE_PROPERTY:
       return changeManuscriptAlternativeProperty(state, action);
     case CHANGE_MANUSCRIPT_ITEM_PROPERTY:

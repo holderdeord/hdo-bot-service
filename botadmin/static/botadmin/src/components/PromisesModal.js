@@ -27,85 +27,88 @@ searchkit.setQueryProcessor(query => {
   return query;
 });
 
-const PromisesModal = ({
-                         closePromisesModal,
-                         promises_modal
-                       }) => (
-  <Modal bsSize="large"
-         show={promises_modal.open}
-         onHide={closePromisesModal}>
-    <Modal.Header closeButton>
-      <Modal.Title>Løfter</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      <SearchkitProvider searchkit={searchkit}>
-        <Layout>
-          <TopBar>
-            <SearchBox
-              autofocus
-              searchOnChange
-              prefixQueryFields={[ 'body' ]}
-            />
-          </TopBar>
-          <LayoutBody className="row">
-            <SideBar className="col-md-3">
-              <RefinementListFilter
-                id="period"
-                title="Stortingsperiode"
-                field="parliament_period_name"
-                size={10}
-                orderKey="_term"
+const PromisesModal = (props) => {
+  const {
+    closePromisesModal,
+    promises_modal
+  } = props;
+  return (
+    <Modal bsSize="large"
+           show={promises_modal.open}
+           onHide={closePromisesModal}>
+      <Modal.Header closeButton>
+        <Modal.Title>Løfter</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <SearchkitProvider searchkit={searchkit}>
+          <Layout>
+            <TopBar>
+              <SearchBox
+                autofocus
+                searchOnChange
+                prefixQueryFields={[ 'body' ]}
               />
-
-              <RefinementListFilter
-                id="parties"
-                title="Partier og regjeringer"
-                field="promisor_name"
-                size={10}
-                operator="OR"
-                orderKey="_term"
-              />
-
-              <RefinementListFilter
-                id="categories"
-                title="Kategorier"
-                field="category_names"
-                size={10}
-              />
-            </SideBar>
-
-            <LayoutResults className="col-md-9">
-              <ActionBar>
-                <ActionBarRow>
-                  <HitsStats />
-                  <SelectedFilters />
-                </ActionBarRow>
-              </ActionBar>
-
-              <ul className="list-group">
-                <Hits
-                  hitsPerPage={30}
-                  highlightFields={[ 'body' ]}
-                  customHighlight={customHighlight}
-                  itemComponent={PromiseItem}
+            </TopBar>
+            <LayoutBody className="row">
+              <SideBar className="col-md-3">
+                <RefinementListFilter
+                  id="period"
+                  title="Stortingsperiode"
+                  field="parliament_period_name"
+                  size={10}
+                  orderKey="_term"
                 />
-              </ul>
 
-              <NoHits suggestionsField="body"/>
+                <RefinementListFilter
+                  id="parties"
+                  title="Partier og regjeringer"
+                  field="promisor_name"
+                  size={10}
+                  operator="OR"
+                  orderKey="_term"
+                />
 
-              <Pagination/>
+                <RefinementListFilter
+                  id="categories"
+                  title="Kategorier"
+                  field="category_names"
+                  size={10}
+                />
+              </SideBar>
 
-              <PaginationSelect />
+              <LayoutResults className="col-md-9">
+                <ActionBar>
+                  <ActionBarRow>
+                    <HitsStats />
+                    <SelectedFilters />
+                  </ActionBarRow>
+                </ActionBar>
 
-            </LayoutResults>
-          </LayoutBody>
-        </Layout>
-      </SearchkitProvider>
-    </Modal.Body>
-    <Modal.Footer>
-      <Button onClick={closePromisesModal}>Close</Button>
-    </Modal.Footer>
-  </Modal>
-);
+                <ul className="list-group">
+                  <Hits
+                    hitsPerPage={30}
+                    highlightFields={[ 'body' ]}
+                    customHighlight={customHighlight}
+                    itemComponent={PromiseItem(props)}
+                  />
+                </ul>
+
+                <NoHits suggestionsField="body"/>
+
+                <Pagination/>
+
+                <PaginationSelect />
+
+              </LayoutResults>
+            </LayoutBody>
+          </Layout>
+        </SearchkitProvider>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={closePromisesModal}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
 
 export default PromisesModal;

@@ -1,5 +1,5 @@
 import {
-  ADD_MANUSCRIPT_ITEM, CHANGE_MANUSCRIPT_ALTERNATIVE_PROPERTY,
+  ADD_MANUSCRIPT_ITEM, ADD_PROMISE_TO_ALTERNATIVE, CHANGE_MANUSCRIPT_ALTERNATIVE_PROPERTY,
   CHANGE_MANUSCRIPT_ITEM_PROPERTY, CHANGE_MANUSCRIPT_PROPERTY, CREATE_MANUSCRIPT, DELETE_MANUSCRIPT_ITEM,
   EDIT_MANUSCRIPT,
   LOAD_MANUSCRIPT, MOVE_MANUSCRIPT_ITEM, POST_MANUSCRIPT
@@ -10,6 +10,15 @@ export const addManuscriptItem = (itemText = 'Ny tekst', itemType = 'text') => {
     type: ADD_MANUSCRIPT_ITEM,
     itemText,
     itemType
+  };
+};
+
+export const addPromiseToAlternative = (alternativeIndex, promise, promiseId) => {
+  return {
+    type: ADD_PROMISE_TO_ALTERNATIVE,
+    alternativeIndex,
+    promise,
+    promiseId
   };
 };
 

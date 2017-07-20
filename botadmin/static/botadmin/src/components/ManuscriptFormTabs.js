@@ -9,12 +9,10 @@ const ManuscriptFormTabs = (props) => {
   const {
     addManuscriptItem,
     changeManuscriptProperty,
-    closePromisesModal,
     hdo_categories,
     manuscript,
     match,
     onTabSelect,
-    promises_modal,
   } = props;
   const defaultActiveTab = match.params.tabId ? parseInt(match.params.tabId, 10) : 1;
   return (
@@ -65,8 +63,7 @@ const ManuscriptFormTabs = (props) => {
                                        {...props}/>
           ))}
         </Well>
-        <PromisesModal promises_modal={promises_modal}
-                       closePromisesModal={closePromisesModal}/>
+        <PromisesModal {...props}/>
       </Tab>
       <Tab eventKey={3} title="Quiz" disabled={manuscript.type !== ManuscriptTypeEnum.Quiz.key}>
         <p>Admin for quiz</p>

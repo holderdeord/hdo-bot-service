@@ -7,6 +7,7 @@ export default function moveManuscriptItem(state, action) {
   state.items.splice(selectedItemBIndex, 1);
   return {
     ...state,
+    has_changes: true,
     items: [
       ...state.items,
       {

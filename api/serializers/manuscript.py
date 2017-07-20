@@ -30,9 +30,9 @@ class PromiseSerializer(serializers.ModelSerializer):
 
 class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
     parties = serializers.SerializerMethodField()
-    promises = serializers.SerializerMethodField()
+    full_promises = serializers.SerializerMethodField()
 
-    def get_promises(self, obj):
+    def get_full_promises(self, obj):
         def get_promise(promise):
             return {
                 'pk': promise.pk,
@@ -50,7 +50,7 @@ class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = VoterGuideAlternative
-        fields = ('pk', 'text', 'promises', 'parties')
+        fields = ('pk', 'text', 'promises', 'full_promises', 'parties')
 
 
 class ManuscriptItemSerializer(serializers.ModelSerializer):
