@@ -21,8 +21,10 @@ const Routes = () => (
           <Route exact path="/" component={Admin}/>
           <Route exact path="/create" component={CreateManuscript}/>
           <Route exact path="/create/:tabId" component={CreateManuscript}/>
+          <Route exact path="/create/:tabId/:alternativeIndex" component={CreateManuscript}/>
           <Route exact path="/edit/:manuscriptId" component={EditManuscript}/>
           <Route exact path="/edit/:manuscriptId/:tabId" component={EditManuscript}/>
+          <Route exact path="/edit/:manuscriptId/:tabId/:alternativeIndex" component={EditManuscript}/>
           <Route component={NoMatch}/>
         </Switch>
       </div>

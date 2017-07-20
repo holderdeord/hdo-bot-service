@@ -1,21 +1,20 @@
 import React from 'react';
 import { ManuscriptTypeEnum } from "../utils/enums";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ManuscriptPreview from "./ManuscriptPreview";
 import './ManuscriptForm.css';
 import { Navbar } from "react-bootstrap";
 import ManuscriptFormTabs from "./ManuscriptFormTabs";
 
-const ManuscriptForm = withRouter((props) => {
+const ManuscriptForm = (props) => {
   const {
     changeManuscriptProperty,
-    history,
     manuscript,
     manuscripts,
     onSubmit,
   } = props;
   return (
-    <form className="manuscript-form" onSubmit={event => onSubmit(event, manuscript, history)}>
+    <form className="manuscript-form" onSubmit={event => onSubmit(event, manuscript)}>
       <ol className="breadcrumb">
         <li>
           <Link to="/">Admin</Link>
@@ -56,6 +55,6 @@ const ManuscriptForm = withRouter((props) => {
       </Navbar>
     </form>
   );
-});
+};
 
 export default ManuscriptForm;

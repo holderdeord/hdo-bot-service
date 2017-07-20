@@ -10,6 +10,8 @@ import {
 import { loadAndDispatchHdoCategories } from "../utils/hdo_categories";
 import { createAndDispatchManuscript } from "../utils/current_manuscript";
 import { closePromisesModal, openPromisesModal } from "../actions/promises_modal";
+import { handleAndDispatchPromisesModal } from "../utils/handleAndDispatchPromisesModal";
+import { getTabId } from "../utils/getTabId";
 
 const mapStateToProps = (state) => {
   return {
@@ -20,10 +22,14 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, {
+  history,
+  match
+}) => {
   createAndDispatchManuscript(dispatch);
   loadAndDispatchManuscripts(dispatch);
   loadAndDispatchHdoCategories(dispatch);
+  handleAndDispatchPromisesModal(dispatch, match);
   return {
     addManuscriptItem: () => {
       dispatch(addManuscriptItem());
@@ -37,7 +43,7 @@ const mapDispatchToProps = (dispatch) => {
     changeManuscriptItemProperty: (event, order, propertyName) => {
       dispatch(changeManuscriptItemProperty(order, propertyName, event.target.value));
     },
-    closePromisesModal: () => dispatch(closePromisesModal()),
+    closePromisesModal: () => history.push(`/create/${getTabId(match)}`),
     deleteManuscriptItem: (order) => {
       if (window.confirm('Are you sure?')) {
         dispatch(deleteManuscriptItem(order));
@@ -49,7 +55,7 @@ const mapDispatchToProps = (dispatch) => {
     moveManuscriptItemUp: (order) => {
       dispatch(moveManuscriptItem(order, -1));
     },
-    onSubmit: (event, manuscript, history) => {
+    onSubmit: (event, manuscript) => {
       event.preventDefault();
       dispatch(postManuscript(manuscript));
       const timeoutHandleId = setTimeout(() => toastr.info('Trying to save manuscript, please wait'), 300);
@@ -66,10 +72,8 @@ const mapDispatchToProps = (dispatch) => {
           toastr.error('Failed to create manuscript');
         });
     },
-    onTabSelect: (key, history) => {
-      history.push(`/create/${key}/`)
-    },
-    openPromisesModal: (index) => dispatch(openPromisesModal(index)),
+    onTabSelect: (key) => history.push(`/create/${key}/`),
+    openPromisesModal: (index) => history.push(`/create/${getTabId(match)}/${index}`),
   }
 };
 

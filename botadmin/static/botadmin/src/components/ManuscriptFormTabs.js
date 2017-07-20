@@ -4,15 +4,13 @@ import { ManuscriptTypeEnum } from "../utils/enums";
 import { Tab, Tabs, Well } from "react-bootstrap";
 import ManuscriptAlternativeForm from "./ManuscriptAlternativeForm";
 import PromisesModal from "./PromisesModal";
-import { withRouter } from "react-router-dom";
 
-const ManuscriptFormTabs = withRouter((props) => {
+const ManuscriptFormTabs = (props) => {
   const {
     addManuscriptItem,
     changeManuscriptProperty,
     closePromisesModal,
     hdo_categories,
-    history,
     manuscript,
     match,
     onTabSelect,
@@ -20,7 +18,7 @@ const ManuscriptFormTabs = withRouter((props) => {
   } = props;
   const defaultActiveTab = match.params.tabId ? parseInt(match.params.tabId, 10) : 1;
   return (
-    <Tabs id="ManuscriptTypeOptions" onSelect={(key) => onTabSelect(key, history)} defaultActiveKey={defaultActiveTab}>
+    <Tabs id="ManuscriptTypeOptions" onSelect={onTabSelect} defaultActiveKey={defaultActiveTab}>
       <Tab eventKey={1} title="Items">
         <Well>
           {manuscript.items.map((item, index) => (
@@ -75,6 +73,6 @@ const ManuscriptFormTabs = withRouter((props) => {
       </Tab>
     </Tabs>
   );
-});
+};
 
 export default ManuscriptFormTabs;

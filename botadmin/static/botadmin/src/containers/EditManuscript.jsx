@@ -10,6 +10,8 @@ import {
 import { loadAndDispatchHdoCategories } from "../utils/hdo_categories";
 import { loadAndDispatchManuscript } from "../utils/current_manuscript";
 import { closePromisesModal, openPromisesModal } from "../actions/promises_modal";
+import { getTabId } from "../utils/getTabId";
+import { handleAndDispatchPromisesModal } from "../utils/handleAndDispatchPromisesModal";
 
 const mapStateToProps = (state) => {
   return {
@@ -20,11 +22,15 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, { match }) => {
+const mapDispatchToProps = (dispatch, {
+  history,
+  match
+}) => {
   loadAndDispatchManuscript(dispatch, match.params.manuscriptId);
   loadAndDispatchManuscripts(dispatch);
   loadAndDispatchHdoCategories(dispatch);
   const manuscriptId = parseInt(match.params.manuscriptId, 10);
+  handleAndDispatchPromisesModal(dispatch, match);
   return {
     addManuscriptItem: () => {
       dispatch(addManuscriptItem());
@@ -38,7 +44,9 @@ const mapDispatchToProps = (dispatch, { match }) => {
     changeManuscriptItemProperty: (event, order, propertyName) => {
       dispatch(changeManuscriptItemProperty(order, propertyName, event.target.value));
     },
-    closePromisesModal: () => dispatch(closePromisesModal()),
+    closePromisesModal: () => {
+      history.push(`/edit/${manuscriptId}/${getTabId(match)}/`);
+    },
     deleteManuscriptItem: (order) => {
       if (window.confirm('Are you sure?')) {
         dispatch(deleteManuscriptItem(order));
@@ -66,10 +74,12 @@ const mapDispatchToProps = (dispatch, { match }) => {
           toastr.error('Failed to save manuscript');
         });
     },
-    onTabSelect: (key, history) => {
+    onTabSelect: (key) => {
       history.push(`/edit/${manuscriptId}/${key}/`)
     },
-    openPromisesModal: (index) => dispatch(openPromisesModal(index)),
+    openPromisesModal: (index) => {
+      history.push(`/edit/${manuscriptId}/${getTabId(match)}/${index}/`);
+    }
   }
 };
 
