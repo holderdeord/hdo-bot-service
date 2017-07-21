@@ -6,7 +6,7 @@ export default function loadManuscript(state, { json }) {
   // let numberOfPromisesFromUser = getNumberOfPromises(state.voter_guide_alternatives);
   // let numberOfPromisesFromApi = getNumberOfPromises(json.voter_guide_alternatives);
   // let has_changes = numberOfPromisesFromUser > numberOfPromisesFromApi;
-  return state.has_changes ?
+  return state.pk === json.pk && state.has_changes ?
     state :
     {
       ...json,
