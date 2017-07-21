@@ -26,13 +26,13 @@ const ManuscriptForm = (props) => {
           <div className="form-group">
             <label htmlFor="name">Name</label>
             <input className="form-control" type="text" id="name" name="name"
-                   value={manuscript.name}
+                   defaultValue={manuscript.name}
                    onChange={(event) => changeManuscriptProperty(event, 'name')}/>
           </div>
           <div className="form-group">
             <label htmlFor="type">Category</label>
             <select className="form-control" id="type" name="type"
-                    value={manuscript.type}
+                    defaultValue={manuscript.type}
                     onChange={(event) => changeManuscriptProperty(event, 'type')}>
               {Object.keys(ManuscriptTypeEnum).map(key => (
                 <option key={key} value={ManuscriptTypeEnum[ key ].key}>{ManuscriptTypeEnum[ key ].text}</option>
@@ -55,7 +55,7 @@ const ManuscriptForm = (props) => {
         <Navbar.Form>
           <Button type="submit"
                   disabled={!manuscript.has_changes}
-                  bsStyle={manuscript.has_changes ? 'primary' : ''}
+                  bsStyle={manuscript.has_changes ? 'primary' : 'default'}
                   block={true}>
             {manuscript.has_changes ? 'Submit changes' : 'No changes done'}
           </Button>

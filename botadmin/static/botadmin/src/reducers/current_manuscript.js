@@ -9,6 +9,7 @@ import postManuscript from "./current_manuscript/postManuscript";
 import editManuscript from "./current_manuscript/editManuscript";
 import addPromiseToAlternative from "./current_manuscript/addPromiseToAlternative";
 import removePromiseFromAlternative from './current_manuscript/removePromiseFromAlternative';
+import { ManuscriptTypeEnum } from '../utils/enums';
 
 export const ADD_MANUSCRIPT_ITEM = 'ADD_MANUSCRIPT_ITEM';
 export const ADD_PROMISE_TO_ALTERNATIVE = 'ADD_PROMISE_TO_ALTERNATIVE';
@@ -60,7 +61,7 @@ function create_manuscript() {
   return {
     pk: null,
     name: '',
-    type: 'info',
+    type: ManuscriptTypeEnum.Info.key,
     has_changes: false,
     items: [],
     is_first_in_category: false,
