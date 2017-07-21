@@ -3,7 +3,7 @@ import { ManuscriptTypeEnum } from "../utils/enums";
 import { Link } from "react-router-dom";
 import ManuscriptPreview from "./ManuscriptPreview";
 import './ManuscriptForm.css';
-import { Navbar } from "react-bootstrap";
+import { Button, Navbar } from "react-bootstrap";
 import ManuscriptFormTabs from "./ManuscriptFormTabs";
 
 const ManuscriptForm = (props) => {
@@ -49,8 +49,16 @@ const ManuscriptForm = (props) => {
         </div>
       </div>
       <Navbar fixedBottom={true}>
+        {manuscript.has_changes ? (
+          <div>test</div>
+        ) : null}
         <Navbar.Form>
-          <button type="submit" className="btn btn-primary btn-block">Submit</button>
+          <Button type="submit"
+                  disabled={!manuscript.has_changes}
+                  bsStyle={manuscript.has_changes ? 'primary' : ''}
+                  block={true}>
+            {manuscript.has_changes ? 'Submit changes' : 'No changes done'}
+          </Button>
         </Navbar.Form>
       </Navbar>
     </form>

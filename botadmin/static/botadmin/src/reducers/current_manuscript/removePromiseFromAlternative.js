@@ -13,6 +13,7 @@ export default function removePromiseFromAlternative(state, alternativeIndex, pr
   voter_guide_parties.splice(partyIndex, 1);
   return {
     ...state,
+    has_changes: true,
     voter_guide_alternatives,
     voter_guide_parties
   };
