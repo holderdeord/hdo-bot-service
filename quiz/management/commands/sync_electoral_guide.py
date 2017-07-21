@@ -144,6 +144,7 @@ class Command(BaseCommand):
         ManuscriptItem.objects.get_or_create(
             type=ManuscriptItem.TYPE_VG_QUESTIONS,
             manuscript=manuscript,
+            order=1,
             text='Hvilken tekst er du mest enig i?'
         )
 
@@ -151,12 +152,14 @@ class Command(BaseCommand):
         ManuscriptItem.objects.get_or_create(
             type=ManuscriptItem.TYPE_VG_RESULT,
             manuscript=current_manuscript,
+            order=2,
             text='Du har nå gått gjennom alle spørsmålene vi har for denne kategorien, og her partiene vi tror du er '
                  'mest enig i.'
         )
         ManuscriptItem.objects.get_or_create(
             type=ManuscriptItem.TYPE_QUICK_REPLY,
             manuscript=current_manuscript,
+            order=3,
             text='Om du vil kan du velge en annen kategori og besvare spørsmålene for å gjøre vår gjetting bedre.',
             reply_text_1='De andre kategoriene',
             reply_action_1=root_manuscript
@@ -166,6 +169,7 @@ class Command(BaseCommand):
         ManuscriptItem.objects.get_or_create(
             type=ManuscriptItem.TYPE_QUICK_REPLY,
             manuscript=current_manuscript,
+            order=2,
             text='Vil du se foreløpig resultat, eller vil du gå videre til neste spørsmål?',
             reply_text_1='Foreløpig resultat',
             reply_text_2='Neste spørsmål',
@@ -174,11 +178,13 @@ class Command(BaseCommand):
         ManuscriptItem.objects.get_or_create(
             type=ManuscriptItem.TYPE_VG_RESULT,
             manuscript=current_manuscript,
+            order=3,
             text='Her er foreløpige resultat for partiene vi tror du er mest enig i'
         )
         ManuscriptItem.objects.get_or_create(
             type=ManuscriptItem.TYPE_QUICK_REPLY,
             manuscript=current_manuscript,
+            order=4,
             text='Når du er klar kan du gå videre til å se neste spørsmål.',
             reply_text_1='Neste spørsmål',
             reply_action_1=next_manuscript
