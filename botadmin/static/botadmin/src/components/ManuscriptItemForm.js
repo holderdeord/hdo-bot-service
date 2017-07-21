@@ -3,6 +3,7 @@ import { ManuscriptItemTypeEnum, ManuscriptTypeEnum } from "../utils/enums";
 import Textarea from 'react-textarea-autosize';
 
 const ManuscriptItemForm = ({
+                              index,
                               item,
                               manuscript,
                               manuscripts,
@@ -13,7 +14,7 @@ const ManuscriptItemForm = ({
                             }) => {
   const { order, text, type } = item;
   return (
-    <div className="panel panel-default">
+    <div className="panel panel-default" id={`ManuscriptItem${index}`}>
       <div className="panel-heading">
         Item #{order}
       </div>

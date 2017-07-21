@@ -9,12 +9,11 @@ const ManuscriptFormTabs = (props) => {
   const {
     addManuscriptItem,
     changeManuscriptProperty,
+    defaultActiveTab,
     hdo_categories,
     manuscript,
-    match,
     onTabSelect,
   } = props;
-  const defaultActiveTab = match.params.tabId ? parseInt(match.params.tabId, 10) : 1;
   return (
     <Tabs id="ManuscriptTypeOptions" onSelect={onTabSelect} defaultActiveKey={defaultActiveTab}>
       <Tab eventKey={1} title="Items">
@@ -22,6 +21,7 @@ const ManuscriptFormTabs = (props) => {
           {manuscript.items.map((item, index) => (
             <ManuscriptItemForm key={item.order}
                                 item={item}
+                                index={index}
                                 {...props}/>
           ))}
           <button className="btn btn-default" type="button"

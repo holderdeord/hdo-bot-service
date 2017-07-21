@@ -5,30 +5,45 @@ import './ManuscriptPreview.css';
 import { Button, ButtonToolbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const ManuscriptPreview = ({ manuscript, manuscripts }) => (
-  <div className="manuscript-preview">
-    {getChatEntries(manuscript, manuscripts).map(({ isBot, hasContainer, items }, index) => (
-      <ChatEntry key={`manuscript-preview-item-${index}`} isBot={isBot} hasContainer={hasContainer}>
-        {items.map(({ hasContainer, component }, index) => hasContainer ? (
-          <li key={`preview-item-${index}`} className="list-group-item">{component}</li>
-        ) : (
-          <div key={`preview-item-${index}`}>{component}</div>
-        ))}
-      </ChatEntry>
-    ))}
-  </div>
-);
+const ManuscriptPreview = ({
+                             manuscript,
+                             manuscripts,
+                             style
+                           }) => {
+  return (
+    <div className="manuscript-preview" style={style}>
+      {getChatEntries(manuscript, manuscripts).map(({ isBot, hasContainer, items, itemIndex }, index) => (
+        <ChatEntry key={`manuscript-preview-item-${index}`}
+                   isBot={isBot}
+                   hasContainer={hasContainer}
+                   itemIndex={itemIndex}>
+          {items.map(({ hasContainer, itemIndex, component }, index) => hasContainer ? (
+            <li key={`preview-item-${index}`}
+                className="list-group-item">
+              {component}
+            </li>
+          ) : (
+            <div key={`preview-item-${index}`}>{component}</div>
+          ))}
+        </ChatEntry>
+      ))}
+    </div>
+  );
+};
 
 export default ManuscriptPreview;
 
 function getChatEntries(manuscript, manuscripts) {
   return manuscript.items
-    .reduce((memo, item) => [ ...memo, ...getChatEntryFromManuscriptItem(item, manuscript, manuscripts) ], [])
+    .reduce((memo, item, index) => [
+      ...memo,
+      ...getChatEntryFromManuscriptItem(item, manuscript, manuscripts, index)
+    ], [])
     .reduce((memo, item) => groupChatEntries(memo, item), [])
     .reverse();
 }
 
-function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
+function getChatEntryFromManuscriptItem(item, manuscript, manuscripts, itemIndex) {
   const { order, type, text } = item;
   switch (type) {
     case ManuscriptItemTypeEnum.QuickReply.key:
@@ -37,12 +52,14 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
           type: ChatEntryTypeEnum.Text,
           isBot: true,
           hasContainer: true,
+          itemIndex,
           component: text
         },
         {
           type: ChatEntryTypeEnum.Button,
           isBot: false,
           hasContainer: false,
+          itemIndex,
           component: (
             <ButtonToolbar className="chat-quick-replies">
               {[ 1, 2, 3 ].map((number) =>
@@ -63,6 +80,7 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
           type: ChatEntryTypeEnum.Text,
           isBot: true,
           hasContainer: true,
+          itemIndex,
           component: text
         }
       ];
@@ -73,6 +91,7 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
           type: ChatEntryTypeEnum.Text,
           isBot: true,
           hasContainer: true,
+          itemIndex,
           component: (
             <div>
               <p>{text}</p>
@@ -89,10 +108,11 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
             type: ChatEntryTypeEnum.Button,
             isBot: false,
             hasContainer: false,
+            itemIndex,
             component: (
               <ButtonToolbar className="chat-quick-replies">
                 {group.manuscripts.map((manuscript, index) =>
-                createReplyButton(`#${group_index * 9 + index + 1}`, manuscript.pk, order, manuscript.pk))}
+                  createReplyButton(`#${group_index * 9 + index + 1}`, manuscript.pk, order, manuscript.pk))}
                 {group.more ?
                   createReplyButton('Last inn flere', null, order, group_index) :
                   createReplyButton('Last inn de første alternative', null, order, group_index)
@@ -108,12 +128,14 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
           type: ChatEntryTypeEnum.Text,
           isBot: true,
           hasContainer: true,
+          itemIndex,
           component: text
         },
         {
           type: ChatEntryTypeEnum.Text,
           isBot: true,
           hasContainer: true,
+          itemIndex,
           component: '[Her vil resultatene vises]'
         }
       ];
@@ -123,6 +145,7 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
           type: ChatEntryTypeEnum.Text,
           isBot: true,
           hasContainer: true,
+          itemIndex,
           component: (
             <div>
               <p>{text}</p>
@@ -138,6 +161,7 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
           type: ChatEntryTypeEnum.Button,
           isBot: false,
           hasContainer: false,
+          itemIndex,
           component: (
             <ButtonToolbar className="chat-quick-replies">
               {manuscript.voter_guide_alternatives.map((alternative, index) =>
@@ -159,6 +183,7 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts) {
           type: ChatEntryTypeEnum.Text,
           isBot: true,
           hasContainer: false,
+          itemIndex,
           component: `Not supported yet [${type}]`
         }
       ];
@@ -170,7 +195,7 @@ function groupCategoryManuscripts(category_manuscripts) {
     .reduce((memo, manuscript, index) => {
       if (index % 9 === 0) {
         memo.unshift({
-          more: !!category_manuscripts[index + 9],
+          more: !!category_manuscripts[ index + 9 ],
           manuscripts: [ manuscript ]
         });
       } else {

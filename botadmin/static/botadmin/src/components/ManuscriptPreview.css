@@ -1,3 +1,7 @@
+.manuscript-preview {
+    overflow: auto;
+}
+
 .manuscript-preview .list-group {
     margin-bottom: 0;
 }

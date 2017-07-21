@@ -3,16 +3,18 @@ import { ManuscriptTypeEnum } from "../utils/enums";
 import { Link } from "react-router-dom";
 import ManuscriptPreview from "./ManuscriptPreview";
 import './ManuscriptForm.css';
-import { Button, Navbar } from "react-bootstrap";
+import { Button, Navbar, Well } from "react-bootstrap";
 import ManuscriptFormTabs from "./ManuscriptFormTabs";
+import { Sticky, StickyContainer } from 'react-sticky';
 
 const ManuscriptForm = (props) => {
   const {
     changeManuscriptProperty,
     manuscript,
-    manuscripts,
+    match,
     onSubmit,
   } = props;
+  const defaultActiveTab = match.params.tabId ? parseInt(match.params.tabId, 10) : 1;
   return (
     <form className="manuscript-form" onSubmit={event => onSubmit(event, manuscript)}>
       <ol className="breadcrumb">
@@ -21,33 +23,49 @@ const ManuscriptForm = (props) => {
         </li>
         <li className="active">{manuscript.name}</li>
       </ol>
-      <div className="row">
+      <StickyContainer className="row">
         <div className="col-md-6">
           <div className="form-group">
             <label htmlFor="name">Name</label>
             <input className="form-control" type="text" id="name" name="name"
-                   defaultValue={manuscript.name}
+                   value={manuscript.name}
                    onChange={(event) => changeManuscriptProperty(event, 'name')}/>
           </div>
           <div className="form-group">
             <label htmlFor="type">Category</label>
             <select className="form-control" id="type" name="type"
-                    defaultValue={manuscript.type}
+                    value={manuscript.type}
                     onChange={(event) => changeManuscriptProperty(event, 'type')}>
               {Object.keys(ManuscriptTypeEnum).map(key => (
                 <option key={key} value={ManuscriptTypeEnum[ key ].key}>{ManuscriptTypeEnum[ key ].text}</option>
               ))}
             </select>
           </div>
-          <ManuscriptFormTabs {...props}/>
+          <ManuscriptFormTabs {...props} defaultActiveTab={defaultActiveTab}/>
         </div>
         <div className="col-md-6">
-          <label>Preview</label>
-          <div className="well">
-            <ManuscriptPreview manuscript={manuscript} manuscripts={manuscripts}/>
-          </div>
+          <Sticky>
+            {
+              ({
+                 style,
+                 isSticky,
+               }) => {
+                const preview_style = {
+                  height: isSticky ? document.documentElement.clientHeight - 150 : 'auto'
+                };
+                return (
+                  <div style={style}>
+                    <label>Preview</label>
+                    <Well>
+                      <ManuscriptPreview {...props} style={preview_style}/>
+                    </Well>
+                  </div>
+                )
+              }
+            }
+          </Sticky>
         </div>
-      </div>
+      </StickyContainer>
       <Navbar fixedBottom={true}>
         <Navbar.Form>
           <Button type="submit"
