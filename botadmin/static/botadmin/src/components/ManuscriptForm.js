@@ -49,9 +49,6 @@ const ManuscriptForm = (props) => {
         </div>
       </div>
       <Navbar fixedBottom={true}>
-        {manuscript.has_changes ? (
-          <div>test</div>
-        ) : null}
         <Navbar.Form>
           <Button type="submit"
                   disabled={!manuscript.has_changes}
