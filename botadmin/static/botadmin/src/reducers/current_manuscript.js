@@ -11,6 +11,7 @@ import addPromiseToAlternative from "./current_manuscript/addPromiseToAlternativ
 import removePromiseFromAlternative from './current_manuscript/removePromiseFromAlternative';
 import { ManuscriptTypeEnum } from '../utils/enums';
 import addManuscriptAlternative from './current_manuscript/addManuscriptAlternative';
+import deleteManuscriptAlternative from './current_manuscript/deleteManuscriptAlternative';
 
 export const ADD_MANUSCRIPT_ALTERNATIVE = 'ADD_MANUSCRIPT_ALTERNATIVE';
 export const ADD_MANUSCRIPT_ITEM = 'ADD_MANUSCRIPT_ITEM';
@@ -19,6 +20,7 @@ export const CHANGE_MANUSCRIPT_ALTERNATIVE_PROPERTY = 'CHANGE_MANUSCRIPT_ALTERNA
 export const CHANGE_MANUSCRIPT_ITEM_PROPERTY = 'CHANGE_MANUSCRIPT_ITEM_PROPERTY';
 export const CHANGE_MANUSCRIPT_PROPERTY = 'CHANGE_MANUSCRIPT_PROPERTY';
 export const CREATE_MANUSCRIPT = 'CREATE_MANUSCRIPT';
+export const DELETE_MANUSCRIPT_ALTERNATIVE = 'DELETE_MANUSCRIPT_ALTERNATIVE';
 export const DELETE_MANUSCRIPT_ITEM = 'DELETE_MANUSCRIPT_ITEM';
 export const EDIT_MANUSCRIPT = 'EDIT_MANUSCRIPT';
 export const LOAD_MANUSCRIPT = 'LOAD_MANUSCRIPT';
@@ -42,6 +44,8 @@ const current_manuscript = (state = create_manuscript(), action) => {
       return changeManuscriptProperty(state, action);
     case CREATE_MANUSCRIPT:
       return create_manuscript();
+    case DELETE_MANUSCRIPT_ALTERNATIVE:
+      return deleteManuscriptAlternative(state, action.alternativeIndex);
     case DELETE_MANUSCRIPT_ITEM:
       return deleteManuscriptItem(state, action);
     case EDIT_MANUSCRIPT:

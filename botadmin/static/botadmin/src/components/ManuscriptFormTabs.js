@@ -25,15 +25,15 @@ const ManuscriptFormTabs = (props) => {
                                 index={index}
                                 {...props}/>
           ))}
-          <button className="btn btn-default" type="button"
+          <Button bsSize="small"
                   onClick={() => addManuscriptItem()}>
             Add item
-          </button>
+          </Button>
         </Well>
       </Tab>
       <Tab eventKey={2} title="Voter guide" disabled={manuscript.type !== ManuscriptTypeEnum.ElectoralGuide.key}>
         <div className="form-group">
-          <label>HDO kategori</label>
+          <label>HDO category</label>
           <select className="form-control"
                   onSelect={(event) => changeManuscriptProperty(event, 'hdo_category')}
                   defaultValue={manuscript.hdo_category}>
@@ -48,12 +48,12 @@ const ManuscriptFormTabs = (props) => {
                    name="is_first_in_category"
                    onChange={(event) => changeManuscriptProperty(event, 'is_first_in_category')}
                    checked={manuscript.is_first_in_category}/>
-            &nbsp;
-            Er først i kategorien
+            {' '}
+            First in category
           </label>
         </div>
         <div className="form-group">
-          <label>Partier involert ({manuscript.voter_guide_parties.length})</label>
+          <label>Parties involved ({manuscript.voter_guide_parties.length})</label>
           <p>{manuscript.voter_guide_parties.join(', ')}</p>
         </div>
         <Well>
@@ -63,7 +63,10 @@ const ManuscriptFormTabs = (props) => {
                                        index={index}
                                        {...props}/>
           ))}
-          <Button onClick={() => addManuscriptAlternative()}>Legg til alternativ</Button>
+          <Button bsSize="small"
+                  onClick={() => addManuscriptAlternative()}>
+            Add alternative
+          </Button>
         </Well>
         <PromisesModal {...props}/>
       </Tab>
