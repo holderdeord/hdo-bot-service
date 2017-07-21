@@ -10,7 +10,9 @@ import editManuscript from "./current_manuscript/editManuscript";
 import addPromiseToAlternative from "./current_manuscript/addPromiseToAlternative";
 import removePromiseFromAlternative from './current_manuscript/removePromiseFromAlternative';
 import { ManuscriptTypeEnum } from '../utils/enums';
+import addManuscriptAlternative from './current_manuscript/addManuscriptAlternative';
 
+export const ADD_MANUSCRIPT_ALTERNATIVE = 'ADD_MANUSCRIPT_ALTERNATIVE';
 export const ADD_MANUSCRIPT_ITEM = 'ADD_MANUSCRIPT_ITEM';
 export const ADD_PROMISE_TO_ALTERNATIVE = 'ADD_PROMISE_TO_ALTERNATIVE';
 export const CHANGE_MANUSCRIPT_ALTERNATIVE_PROPERTY = 'CHANGE_MANUSCRIPT_ALTERNATIVE_PROPERTY';
@@ -26,6 +28,8 @@ export const REMOVE_PROMISE_FROM_ALTERNATIVE = 'REMOVE_PROMISE_FROM_ALTERNATIVE'
 
 const current_manuscript = (state = create_manuscript(), action) => {
   switch (action.type) {
+    case ADD_MANUSCRIPT_ALTERNATIVE:
+      return addManuscriptAlternative(state);
     case ADD_MANUSCRIPT_ITEM:
       return addManuscriptItem(state, action);
     case ADD_PROMISE_TO_ALTERNATIVE:

@@ -1,12 +1,13 @@
 import React from 'react';
 import ManuscriptItemForm from "./ManuscriptItemForm";
 import { ManuscriptTypeEnum } from "../utils/enums";
-import { Tab, Tabs, Well } from "react-bootstrap";
+import { Button, Tab, Tabs, Well } from "react-bootstrap";
 import ManuscriptAlternativeForm from "./ManuscriptAlternativeForm";
 import PromisesModal from "./PromisesModal";
 
 const ManuscriptFormTabs = (props) => {
   const {
+    addManuscriptAlternative,
     addManuscriptItem,
     changeManuscriptProperty,
     defaultActiveTab,
@@ -62,6 +63,7 @@ const ManuscriptFormTabs = (props) => {
                                        index={index}
                                        {...props}/>
           ))}
+          <Button onClick={() => addManuscriptAlternative()}>Legg til alternativ</Button>
         </Well>
         <PromisesModal {...props}/>
       </Tab>

@@ -4,6 +4,7 @@ import { getManuscriptApiUrl } from "../utils/urls";
 import { loadAndDispatchManuscripts, sendManuscriptToApi } from "../utils/manuscript";
 import * as toastr from "toastr";
 import {
+  addManuscriptAlternative,
   addManuscriptItem, addPromiseToAlternative, changeManuscriptAlternativeProperty, changeManuscriptItemProperty,
   changeManuscriptProperty,
   deleteManuscriptItem, editManuscript, moveManuscriptItem, removePromiseFromAlternative
@@ -33,6 +34,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const manuscriptId = parseInt(match.params.manuscriptId, 10);
   handleAndDispatchPromisesModal(dispatch, match);
   return {
+    addManuscriptAlternative: () => {
+      dispatch(addManuscriptAlternative())
+    },
     addManuscriptItem: () => {
       dispatch(addManuscriptItem());
     },
