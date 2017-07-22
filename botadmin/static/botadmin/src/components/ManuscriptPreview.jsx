@@ -172,7 +172,7 @@ function getChatEntryFromManuscriptItem(item, manuscript, manuscripts, itemIndex
                   alternative.pk
                 )
               )}
-              {createReplyButton('Ingen er interessante', null, order, -1)}
+              {createReplyButton('Ingen', null, order, -1)}
             </ButtonToolbar>
           )
         }
@@ -223,11 +223,11 @@ function createReplyButton(replyText, replyAction, order, number) {
   switch (true) {
     case !!replyText && !!replyAction:
       return (
-        <Link key={key} className="btn btn-default" to={`/edit/${replyAction}`}>{replyText}</Link>
+        <Link key={key} className="btn btn-default" to={`/edit/${replyAction}`}>{replyText.substr(0, 20)}</Link>
       );
     case !!replyText:
       return (
-        <Button key={key}>{replyText}</Button>
+        <Button key={key}>{replyText.substr(0, 20)}</Button>
       );
     default:
       return [];

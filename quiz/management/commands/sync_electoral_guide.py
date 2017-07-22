@@ -145,7 +145,7 @@ class Command(BaseCommand):
             type=ManuscriptItem.TYPE_VG_QUESTIONS,
             manuscript=manuscript,
             order=1,
-            text='Hvilken tekst er du mest enig i?'
+            text='Temaet er {}, hvilken påstand er du mest enig i?'.format(manuscript.name)
         )
 
     def create_manuscript_item_that_links_to_root_manuscript(self, current_manuscript, root_manuscript):
