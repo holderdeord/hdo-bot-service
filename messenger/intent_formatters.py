@@ -10,7 +10,7 @@ from messenger.api.formatters import format_quick_replies
 from messenger.intents import (INTENT_NEXT_ITEM, INTENT_ANSWER_QUIZ_QUESTION, INTENT_GOTO_MANUSCRIPT,
                                INTENT_ANSWER_VG_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM)
-from quiz.models import Promise, Manuscript, ManuscriptItem
+from quiz.models import Promise, Manuscript, ManuscriptItem, HdoCategory
 
 logger = logging.getLogger(__name__)
 
@@ -62,30 +62,42 @@ def format_bot_profile():
     }
 
 
-def format_quick_reply_next(recipient_id, button_text, text):
+def format_quick_reply_with_intent(recipient_id, button_text, text, intent, extra_payload=None):
+    payload = {"intent": intent}
+
+    if extra_payload:
+        payload.update(extra_payload)
+
     quick_reply = {
         "content_type": "text",
         "title": button_text,
-        "payload": json.dumps({
-            "intent": INTENT_NEXT_ITEM,
-        })
+        "payload": json.dumps(payload)
     }
+
     return format_quick_replies(recipient_id, [quick_reply], text)
 
 
-def format_quick_reply_with_intents(recipient_id, item):
+def format_quick_reply_next(recipient_id, button_text, text):
+    return format_quick_reply_with_intent(recipient_id, button_text, text, INTENT_NEXT_ITEM)
+
+
+def format_quick_replies_with_intent(recipient_id, item):
+    """ Look in each QUICK_REPLY_FIELDS and link to manuscripts or next item """
     quick_replies = []
     for text, action in ManuscriptItem.QUICK_REPLY_FIELDS.items():
-        if item.get(text):
-            manuscript_id = item.get(action)
-            quick_replies += [{
-                "content_type": "text",
-                "title": item.get(text),
-                "payload": json.dumps({
-                    "intent": INTENT_GOTO_MANUSCRIPT if manuscript_id else INTENT_NEXT_ITEM,
-                    "manuscript": manuscript_id
-                })
-            }]
+        if not item.get(text):
+            continue
+
+        manuscript_id = item.get(action)
+        quick_replies += [{
+            "content_type": "text",
+            "title": item.get(text),
+            "payload": json.dumps({
+                "intent": INTENT_GOTO_MANUSCRIPT if manuscript_id else INTENT_NEXT_ITEM,
+                "manuscript": manuscript_id
+            })
+        }]
+
     return format_quick_replies(recipient_id, quick_replies, item['text'])
 
 
@@ -132,11 +144,11 @@ def format_vg_categories(recipient_id, manuscripts: Iterable[Manuscript], text):
     return format_quick_replies(recipient_id, buttons, text + alt_text + '\n')
 
 
-def format_vg_alternatives(recipient_id, name, alternatives, text):
-    labels = ['1 💜', '2 💙', '3 💚', '4 💛', '5 ❤', '6 ♦']
+def format_vg_alternatives(recipient_id, manus, text):
+    labels = ['1 💜', '2 💙', '3 💚', '4 💛', '5 ❤', '6 ♦', '7 ♠']
     buttons = []
     alt_text = ''
-    for i, alt in enumerate(alternatives):
+    for i, alt in enumerate(manus['voter_guide_alternatives']):
         buttons.append({
             "content_type": "text",
             "title": labels[i],
@@ -147,7 +159,8 @@ def format_vg_alternatives(recipient_id, name, alternatives, text):
         })
         alt_text += '\n{} {}'.format(labels[i], alt['text'])
 
-    text = 'Temaet er {}\n\n{}{}'.format(name, text, alt_text)
+    cat = HdoCategory.objects.get(pk=manus['hdo_category'])  # FIXME: Serialize
+    text = 'Kategorien er {} og temaet er {}\n\n{}{}'.format(cat.name, manus['name'], text, alt_text)
     return format_quick_replies(recipient_id, buttons, text)
 
 

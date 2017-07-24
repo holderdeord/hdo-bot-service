@@ -181,14 +181,15 @@ class Command(BaseCommand):
             order=3,
             text='Her er foreløpige resultat for partiene vi tror du er mest enig i'
         )
-        ManuscriptItem.objects.get_or_create(
-            type=ManuscriptItem.TYPE_QUICK_REPLY,
-            manuscript=current_manuscript,
-            order=4,
-            text='Når du er klar kan du gå videre til å se neste spørsmål.',
-            reply_text_1='Neste spørsmål',
-            reply_action_1=next_manuscript
-        )
+        # Note: Not needed, TYPE_VG_RESULT generates this response
+        # ManuscriptItem.objects.get_or_create(
+        #     type=ManuscriptItem.TYPE_QUICK_REPLY,
+        #     manuscript=current_manuscript,
+        #     order=4,
+        #     text='Når du er klar kan du gå videre til å se neste spørsmål.',
+        #     reply_text_1='Neste spørsmål',
+        #     reply_action_1=next_manuscript
+        # )
 
     def create_alternative(self, row):
         def strip_promise(promise):

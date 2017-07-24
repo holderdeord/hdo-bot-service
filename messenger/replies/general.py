@@ -4,10 +4,10 @@ from django.conf import settings
 
 from messenger.api import send_message
 from messenger.api.formatters import format_text
-from messenger.intent_formatters import format_question, format_quick_reply_with_intents, format_reset_answer
+from messenger.intent_formatters import format_question, format_quick_replies_with_intent, format_reset_answer
 from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
                                INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
-                               INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM)
+                               INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION)
 from messenger.replies.quiz import get_quiz_result_url, get_quiz_question_replies
 from messenger.replies.voter_guide import (get_voter_guide_category_replies, get_voter_guide_questions,
                                            get_vg_question_replies, get_voter_guide_result)
@@ -31,7 +31,8 @@ def get_replies(sender_id, session, payload=None):
         # User pressed a button or similiar
         intent = payload['intent']
 
-        if intent in [INTENT_RESET_SESSION, INTENT_GET_STARTED, INTENT_GOTO_MANUSCRIPT, INTENT_NEXT_ITEM]:
+        if intent in [INTENT_RESET_SESSION, INTENT_GET_STARTED, INTENT_GOTO_MANUSCRIPT, INTENT_NEXT_ITEM,
+                      INTENT_NEXT_QUESTION]:
             # Do nothing and just keep going
             pass
 
@@ -52,8 +53,6 @@ def get_replies(sender_id, session, payload=None):
         elif intent == INTENT_ANSWER_VG_QUESTION:
             # Voting guide: Answer replies
             save_vg_answer(session, payload)
-            # Put an unanswered and not skipped manuscript in the same category
-            session['next_manuscript'] = get_next_vg_manuscript(session, payload)
             replies += get_vg_question_replies(sender_id, session, payload)
 
         else:
@@ -76,7 +75,7 @@ def get_replies(sender_id, session, payload=None):
     if item['type'] == ManuscriptItem.TYPE_QUICK_REPLY:
         logger.debug("Adding quick reply: [{}]".format(session.meta['item'] + 1))
 
-        replies += [format_quick_reply_with_intents(sender_id, item)]
+        replies += [format_quick_replies_with_intent(sender_id, item)]
         session.meta['item'] += 1
 
     # Quiz: Show checked promises question

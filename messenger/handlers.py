@@ -2,7 +2,7 @@ import json
 import logging
 
 from messenger.api import send_message
-from messenger.intents import INTENT_RESET_SESSION, INTENT_GOTO_MANUSCRIPT
+from messenger.intents import INTENT_RESET_SESSION, INTENT_GOTO_MANUSCRIPT, INTENT_NEXT_QUESTION
 from messenger.models import ChatSession
 from messenger.replies.general import get_replies
 from messenger.utils import init_or_reset_session
@@ -32,9 +32,9 @@ def received_event(event):
     elif _has_quick_reply_payload(event):
         payload = json.loads(event['message']['quick_reply']['payload'])
 
-    if payload and payload['intent'] in [INTENT_RESET_SESSION, INTENT_GOTO_MANUSCRIPT]:
+    if payload and payload['intent'] in [INTENT_RESET_SESSION, INTENT_GOTO_MANUSCRIPT, INTENT_NEXT_QUESTION]:
         # Reset session with given manuscript (or default)
-        logger.debug("Reseting session.user_id={}".format(sender_id))
+        logger.debug("Resetting session.user_id={}".format(sender_id))
         session = init_or_reset_session(sender_id, session, payload.get('manuscript'))
 
     # Get one or more replies
