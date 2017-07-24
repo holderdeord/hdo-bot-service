@@ -11,7 +11,7 @@ from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INT
 from messenger.replies.quiz import get_quiz_result_url, get_quiz_question_replies
 from messenger.replies.voter_guide import (get_voter_guide_category_replies, get_voter_guide_questions,
                                            get_vg_question_replies, get_voter_guide_result)
-from messenger.utils import delete_answers
+from messenger.utils import delete_answers, save_vg_answer, get_next_vg_manuscript
 from quiz.models import ManuscriptItem
 
 logger = logging.getLogger(__name__)
@@ -51,6 +51,9 @@ def get_replies(sender_id, session, payload=None):
 
         elif intent == INTENT_ANSWER_VG_QUESTION:
             # Voting guide: Answer replies
+            save_vg_answer(session, payload)
+            # Put an unanswered and not skipped manuscript in the same category
+            session['next_manuscript'] = get_next_vg_manuscript(session, payload)
             replies += get_vg_question_replies(sender_id, session, payload)
 
         else:

@@ -7,18 +7,18 @@ from .views.manuscript import (ManuscriptView, ManuscriptDetailView, CategoryRet
 router = SimpleRouter()
 
 urlpatterns = [
-                  # Manuscripts
-                  url(r'^manuscripts/(?P<pk>\d+)/$', ManuscriptDetailView.as_view(), name='manuscript-detail'),
-                  url(r'^manuscripts/$', ManuscriptListView.as_view(), name='manuscript-list'),
+    # Manuscripts
+    url(r'^manuscripts/(?P<pk>\d+)/$', ManuscriptDetailView.as_view(), name='manuscript-detail'),
+    url(r'^manuscripts/$', ManuscriptListView.as_view(), name='manuscript-list'),
 
-                  # Categories
-                  url(r'^categories/(?P<pk>\d+)/$', CategoryRetrieveView.as_view(), name='category-detail'),
-                  url(r'^categories/(?P<category_id>\d+)/manuscript/(?P<manuscript_id>\d+)?$',
-                      ManuscriptView.as_view(),
-                      name='manuscript-random-in-category'),
-                  url(r'^categories/$', CategoryListView.as_view(), name='categories-list'),
+    # Categories
+    url(r'^categories/(?P<pk>\d+)/$', CategoryRetrieveView.as_view(), name='category-detail'),
+    url(r'^categories/(?P<category_id>\d+)/manuscript/(?P<manuscript_id>\d+)?$',
+      ManuscriptView.as_view(),
+      name='manuscript-random-in-category'),
+    url(r'^categories/$', CategoryListView.as_view(), name='categories-list'),
 
-                  # HDO categories
-                  url(r'^hdo-categories/$', HdoCategoryListView.as_view(), name='hdo-categories-list')
+    # HDO categories
+    url(r'^hdo-categories/$', HdoCategoryListView.as_view(), name='hdo-categories-list')
 
-              ] + router.urls
+] + router.urls

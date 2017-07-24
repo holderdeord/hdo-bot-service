@@ -6,7 +6,9 @@ from api.serializers.manuscript import BaseManuscriptSerializer
 from messenger.api import send_message
 from messenger.api.formatters import format_text
 from messenger.models import ChatSession
-from quiz.models import AnswerSet, Answer, Manuscript
+from quiz.models import AnswerSet, Answer, Manuscript, VoterGuideAlternative, VoterGuideAnswer, HdoCategory
+
+MAX_QUICK_REPLIES = 7
 
 
 def render_and_load_manuscript(manuscript):
@@ -67,3 +69,50 @@ def save_answers(chat_session: ChatSession):
 
 def delete_answers(session: ChatSession):
     AnswerSet.objects.filter(session=session).delete()
+
+
+def save_vg_answer(session: ChatSession, payload):
+    alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
+    answer_set, _ = AnswerSet.objects.get_or_create(session=session)  # reuse answerset
+    answer, _ = VoterGuideAnswer.objects.get_or_create(answer_set=answer_set, voter_guide_alternative=alt)
+
+
+def get_unanswered_manuscripts(session: ChatSession):
+    ms = Manuscript.objects.filter(type=Manuscript.TYPE_VOTER_GUIDE)
+    answers = VoterGuideAnswer.objects.filter(answer_set__session=session)
+    return ms.exclude(voter_guide_alternatives__answers__in=answers)
+
+
+def get_next_vg_manuscript(session: ChatSession, payload):
+    ms = get_unanswered_manuscripts(session)
+    skipped = session.meta.get('skipped_manuscripts')
+
+    current_category = session.meta['manuscript']['hdo_category']
+    ms = ms.filter(hdo_category=current_category)
+    if skipped:
+        ms = ms.exclude(pk__in=skipped)
+
+    return ms.first()
+
+
+def get_voter_guide_manuscripts(session: ChatSession):
+    """ Get voter guide manuscripts that are not already answered, max 1 per HDO category """
+    # TODO: test this
+
+    # Remove manuscripts already answered
+    manuscripts = get_unanswered_manuscripts(session)
+
+    # Make manuscripts unique per HDO category
+    exclude_manuscripts = []
+    seen_cats = []
+    for m in manuscripts:
+        if m.hdo_category.pk in seen_cats:
+            exclude_manuscripts.append(m.pk)
+            continue
+
+        seen_cats.append(m.hdo_category.pk)
+    manuscripts = manuscripts.filter(pk__in=exclude_manuscripts)
+
+    # Random order and limit to number of quick replies
+    manuscripts = manuscripts.order_by('?').select_related('hdo_category')[:MAX_QUICK_REPLIES]
+    return manuscripts
