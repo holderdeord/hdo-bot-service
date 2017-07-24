@@ -31,6 +31,7 @@ class PromiseSerializer(serializers.ModelSerializer):
 class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
     parties = serializers.SerializerMethodField()
     full_promises = serializers.SerializerMethodField()
+    # FIXME: Use list of parties instead of promisor_name?
 
     def get_full_promises(self, obj):
         def get_promise(promise):
@@ -43,10 +44,7 @@ class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
         return list(map(get_promise, obj.promises.all()))
 
     def get_parties(self, obj):
-        def get_party(promise):
-            return promise.promisor_name
-
-        return list(map(get_party, obj.promises.all()))
+        return list(map(lambda p: p.promisor_name, obj.promises.all()))
 
     class Meta:
         model = VoterGuideAlternative

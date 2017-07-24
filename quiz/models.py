@@ -124,7 +124,8 @@ class Manuscript(IsDefaultMixin, BaseModel):
 
     next = models.ForeignKey('self', related_name='prev', blank=True, null=True)
 
-    hdo_category = models.ForeignKey('quiz.HdoCategory', on_delete=models.SET_NULL, blank=True, null=True)
+    hdo_category = models.ForeignKey(
+        'quiz.HdoCategory', on_delete=models.SET_NULL, blank=True, null=True, related_name='manuscripts')
     is_first_in_category = models.BooleanField(
         default=False,
         blank=True,
@@ -252,7 +253,7 @@ class Answer(BaseModel):
 class VoterGuideAnswer(BaseModel):
     """ Voting guide responses """
     voter_guide_alternative = models.ForeignKey(
-        'quiz.VoterGuideAlternative', null=True, on_delete=models.SET_NULL, related_name='voter_guide_answers')
+        'quiz.VoterGuideAlternative', null=True, on_delete=models.SET_NULL, related_name='answers')
     answer_set = models.ForeignKey(
         'quiz.AnswerSet', null=True, blank=True, related_name='voter_guide_answers', on_delete=models.CASCADE)
 

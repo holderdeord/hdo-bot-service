@@ -40,7 +40,7 @@ def get_replies(sender_id, session, payload=None):
 
         elif intent == INTENT_RESET_ANSWERS_CONFIRM:
             delete_answers(session)
-            replies += [format_text(sender_id, 'Nå har vi slettet alt :-) 💥')]
+            replies += [format_text(sender_id, '💥 Nå har vi slettet alt :-)')]
 
         elif intent == INTENT_GET_HELP:
             replies += [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]

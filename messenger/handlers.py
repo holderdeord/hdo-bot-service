@@ -15,7 +15,7 @@ def _has_quick_reply_payload(event):
 
 
 def received_event(event):
-    # TODO: Add Sender Action "..." to let the user know we are processing the request
+    # TODO: Maybe add Sender Action "..." to let the user know we are processing the request
     sender_id = event['sender']['id']
     logger.debug('in received_message: {}'.format(event))
 
