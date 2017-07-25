@@ -156,5 +156,9 @@ class bot_service (
     require     => Exec[$botadmin_build_cmd]
   }
 
+  # App: Restart app srv
+  exec { "supervisorctl restart ${name}":
+    require     => Exec[$botadmin_build_cmd]
+  }
 
 }
