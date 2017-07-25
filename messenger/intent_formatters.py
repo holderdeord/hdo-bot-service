@@ -145,7 +145,7 @@ def format_vg_categories(recipient_id, manuscripts: Iterable[Manuscript], text):
 
 
 def format_vg_alternatives(recipient_id, manus, text):
-    labels = ['1 💜', '2 💙', '3 💚', '4 💛', '5 ❤', '6 ♦', '7 ♠']
+    labels = ['1 👍', '2 👍', '3 👍', '4 👍', '5 👍', '6 👍', '7 👍']
     buttons = []
     alt_text = ''
     for i, alt in enumerate(manus['voter_guide_alternatives']):
