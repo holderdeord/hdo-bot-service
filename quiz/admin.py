@@ -38,11 +38,12 @@ class ManuscriptItemInline(admin.StackedInline):
 class VoterGuideAlternativeInline(admin.StackedInline):
     model = VoterGuideAlternative
     extra = 0
+    readonly_fields = ['promises']
 
 
 class ManuscriptAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'is_default', 'is_first_in_category', 'type', 'category', 'hdo_category']
-    filter_horizontal = ['promises']
+    readonly_fields = ['promises']
     inlines = [ManuscriptItemInline, VoterGuideAlternativeInline]
 
     # def alternatives_count(self, obj):

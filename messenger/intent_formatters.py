@@ -159,7 +159,7 @@ def format_vg_alternatives(recipient_id, manus, text):
         })
         alt_text += '\n{} {}'.format(labels[i], alt['text'])
 
-    cat = HdoCategory.objects.get(pk=manus['hdo_category'])  # FIXME: Serialize
+    cat = HdoCategory.objects.get(pk=manus['hdo_category'])  # FIXME: Put name in serializer
     text = 'Kategorien er {} og temaet er {}\n\n{}{}'.format(cat.name, manus['name'], text, alt_text)
     return format_quick_replies(recipient_id, buttons, text)
 
@@ -181,3 +181,23 @@ def format_reset_answer(recipient_id):
         }
     ]
     return format_quick_replies(recipient_id, quick_replies, "Skal vi slette alle svarene dine?")
+
+
+def format_vg_show_results_or_next(recipient_id, next_manuscript, text):
+    quick_replies = [{
+            "content_type": "text",
+            "title": "Foreløbig resultat",
+            "payload": json.dumps({
+                "intent": INTENT_NEXT_ITEM,
+            })
+        },
+        {
+            "content_type": "text",
+            "title": 'Neste spørsmål',
+            "payload": json.dumps({
+                "intent": INTENT_GOTO_MANUSCRIPT,
+                "manuscript": next_manuscript
+            })
+        }
+    ]
+    return format_quick_replies(recipient_id, quick_replies, text)

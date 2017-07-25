@@ -145,35 +145,28 @@ class Command(BaseCommand):
             type=ManuscriptItem.TYPE_VG_QUESTIONS,
             manuscript=manuscript,
             order=1,
-            text='Temaet er {}, hvilken påstand er du mest enig i?'.format(manuscript.name)
         )
 
     def create_manuscript_item_that_links_to_root_manuscript(self, current_manuscript, root_manuscript):
         ManuscriptItem.objects.get_or_create(
-            type=ManuscriptItem.TYPE_VG_RESULT,
+            type=ManuscriptItem.TYPE_VG_SHOW_RES_OR_CONTINUE,
             manuscript=current_manuscript,
             order=2,
-            text='Du har nå gått gjennom alle spørsmålene vi har for denne kategorien, og her partiene vi tror du er '
-                 'mest enig i.'
+            text='Se resultat, neste spørsmål eller tilbake til root',
         )
         ManuscriptItem.objects.get_or_create(
-            type=ManuscriptItem.TYPE_QUICK_REPLY,
+            type=ManuscriptItem.TYPE_VG_RESULT,
             manuscript=current_manuscript,
             order=3,
-            text='Om du vil kan du velge en annen kategori og besvare spørsmålene for å gjøre vår gjetting bedre.',
-            reply_text_1='De andre kategoriene',
-            reply_action_1=root_manuscript
+            text='Her partiene vi tror du er mest enig i.'
         )
 
     def create_manuscript_item_that_links_to_next_manuscript(self, current_manuscript, next_manuscript):
         ManuscriptItem.objects.get_or_create(
-            type=ManuscriptItem.TYPE_QUICK_REPLY,
+            type=ManuscriptItem.TYPE_VG_SHOW_RES_OR_CONTINUE,
             manuscript=current_manuscript,
             order=2,
-            text='Vil du se foreløpig resultat, eller vil du gå videre til neste spørsmål?',
-            reply_text_1='Foreløpig resultat',
-            reply_text_2='Neste spørsmål',
-            reply_action_2=next_manuscript
+            text='Se resultat, neste spørsmål eller tilbake til root',
         )
         ManuscriptItem.objects.get_or_create(
             type=ManuscriptItem.TYPE_VG_RESULT,
@@ -181,15 +174,6 @@ class Command(BaseCommand):
             order=3,
             text='Her er foreløpige resultat for partiene vi tror du er mest enig i'
         )
-        # Note: Not needed, TYPE_VG_RESULT generates this response
-        # ManuscriptItem.objects.get_or_create(
-        #     type=ManuscriptItem.TYPE_QUICK_REPLY,
-        #     manuscript=current_manuscript,
-        #     order=4,
-        #     text='Når du er klar kan du gå videre til å se neste spørsmål.',
-        #     reply_text_1='Neste spørsmål',
-        #     reply_action_1=next_manuscript
-        # )
 
     def create_alternative(self, row):
         def strip_promise(promise):

@@ -10,8 +10,8 @@ from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INT
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION)
 from messenger.replies.quiz import get_quiz_result_url, get_quiz_question_replies
 from messenger.replies.voter_guide import (get_voter_guide_category_replies, get_voter_guide_questions,
-                                           get_vg_question_replies, get_voter_guide_result)
-from messenger.utils import delete_answers, save_vg_answer, get_next_vg_manuscript
+                                           get_vg_question_replies, get_voter_guide_result, get_show_res_or_next)
+from messenger.utils import delete_answers, save_vg_answer
 from quiz.models import ManuscriptItem
 
 logger = logging.getLogger(__name__)
@@ -21,11 +21,6 @@ def get_replies(sender_id, session, payload=None):
     """ Look in session state and payload and format one or more replies to the user"""
     # FIXME: maybe this needs another abstraction level. Map from intent to get_replies function?
     replies = []
-    manus = session.meta['manuscript']
-    if session.meta['item'] >= len(manus['items']):
-        return []
-
-    item = manus['items'][session.meta['item']]
 
     if payload is not None:
         # User pressed a button or similiar
@@ -60,6 +55,12 @@ def get_replies(sender_id, session, payload=None):
             logger.error(msg)
             if settings.DEBUG:
                 send_message(format_text(sender_id, msg))
+
+    manus = session.meta['manuscript']
+    if session.meta['item'] >= len(manus['items']):
+        return replies
+
+    item = manus['items'][session.meta['item']]
 
     # Text items (add until no more)
     while item['type'] == ManuscriptItem.TYPE_TEXT and session.meta['item'] < len(manus['items']):
@@ -115,6 +116,12 @@ def get_replies(sender_id, session, payload=None):
         logger.debug("Adding voter guide questions [{}]".format(session.meta['item'] + 1))
 
         replies += get_voter_guide_questions(sender_id, session, payload, item['text'])
+        session.meta['item'] += 1
+
+    elif item['type'] == ManuscriptItem.TYPE_VG_SHOW_RES_OR_CONTINUE:
+        logger.debug("Adding show results or continue [{}]".format(session.meta['item'] + 1))
+
+        replies += get_show_res_or_next(sender_id, session, payload)
         session.meta['item'] += 1
 
     # Voter guide

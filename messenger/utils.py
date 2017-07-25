@@ -1,5 +1,8 @@
 import json
 
+import logging
+
+from django.conf import settings
 from rest_framework.renderers import JSONRenderer
 
 from api.serializers.manuscript import BaseManuscriptSerializer
@@ -10,21 +13,27 @@ from quiz.models import AnswerSet, Answer, Manuscript, VoterGuideAlternative, Vo
 
 MAX_QUICK_REPLIES = 7
 
+logger = logging.getLogger(__name__)
+
 
 def render_and_load_manuscript(manuscript):
     return json.loads(JSONRenderer().render(BaseManuscriptSerializer(manuscript).data).decode())
 
 
 def init_or_reset_session(sender_id, session=None, manuscript_pk=None):
+    default_manuscript = Manuscript.objects.get_default()
     if manuscript_pk is None:
-        manuscript = Manuscript.objects.get_default()
+        manuscript = default_manuscript
     else:
-        manuscript = Manuscript.objects.get(pk=manuscript_pk)
+        try:
+            manuscript = Manuscript.objects.get(pk=manuscript_pk)
+        except Manuscript.DoesNotExist:
+            logger.warning("Session referenced non-existing manuscript={}".format(manuscript_pk))
+            manuscript = default_manuscript
 
-    if not manuscript:
-        msg = "No manuscripts, bailing..."
-        send_message(format_text(sender_id, msg))
-        raise Exception(msg)
+    if not default_manuscript:
+        if settings.DEBUG:
+            send_message(format_text(sender_id, "No manuscripts, bailing..."))
 
     # Serialize what we need and put in the session state
     meta = {
