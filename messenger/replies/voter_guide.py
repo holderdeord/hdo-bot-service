@@ -85,7 +85,7 @@ def get_show_res_or_next(sender_id, session, payload):
     # Emptied out the category, link to root
     extra_payload = {'manuscript': Manuscript.objects.get_default().pk}
     finished_msg = 'Du har nå gått gjennom alle spørsmålene vi har for denne kategorien.'
-    more_cats_msg = 'Velg en ny kategori og besvare spørsmålene for å resultatene dine mer nøyaktig.'
+    more_cats_msg = 'Velg en ny kategori og besvare spørsmålene for å gjøre resultatene dine mer presis.'
 
     return [
         format_text(sender_id, finished_msg),

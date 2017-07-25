@@ -7,53 +7,166 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-13 23:56+0000\n"
-"PO-Revision-Date: 2017-03-14 00:57+0100\n"
+"POT-Creation-Date: 2017-07-25 01:05+0000\n"
+"PO-Revision-Date: 2017-07-25 03:07+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.0.1\n"
 
-#: models.py:24
+#: models.py:35
 msgid "Fulfilled"
 msgstr "Holdt"
 
-#: models.py:25
+#: models.py:36
 msgid "Broken"
 msgstr "Brutt"
 
-#: models.py:26
+#: models.py:37
 msgid "Not Yet"
 msgstr "Ikke enda"
 
-#: models.py:27
+#: models.py:38
 msgid "Partial"
 msgstr "Delvis"
 
-#: models.py:59
+#: models.py:72
 msgid "Parties"
 msgstr "Partier"
 
-#: models.py:70
+#: models.py:83
 msgid "Categories"
 msgstr "Kategorier"
 
-#: models.py:105
-msgid "Button"
-msgstr "Knapp"
+#: models.py:110
+msgid "Generic"
+msgstr "Generell"
 
-#: models.py:106
-msgid "Promises"
-msgstr "Løfter"
+#: models.py:111
+msgid "Quiz"
+msgstr "Quiz"
 
-#: models.py:107
+#: models.py:112
+msgid "Voter guide"
+msgstr "Valgomat"
+
+#: models.py:119
+msgid "Used both for admin display and user display when type=voting guide"
+msgstr ""
+
+#: models.py:132
+msgid ""
+"Which manuscript in a category comes first (used with "
+"TYPE_VG_CATEGORY_SELECT)"
+msgstr ""
+
+#: models.py:180
 msgid "Text"
 msgstr "Tekst"
 
-#: models.py:108
+#: models.py:181
+msgid "Quick reply"
+msgstr ""
+
+#: models.py:182
 msgid "URL"
 msgstr "URL"
+
+#: models.py:183
+msgid "Quiz: Show result"
+msgstr ""
+
+#: models.py:184
+msgid "Quiz: Show checked promise questions"
+msgstr ""
+
+#: models.py:185
+msgid "Quiz: Show which party promised what questions"
+msgstr ""
+
+#: models.py:186
+msgid "Quiz: Show did party x promise y questions"
+msgstr ""
+
+#: models.py:187
+msgid "Voter guide: Show result"
+msgstr ""
+
+#: models.py:188
+msgid "Voter guide: Show category select"
+msgstr ""
+
+#: models.py:189
+msgid "Voter guide: Show questions"
+msgstr ""
+
+#: models.py:190
+msgid "Voter guide: Show results or continue"
+msgstr ""
+
+#: models.py:238
+msgid "Agrees"
+msgstr "Er enig"
+
+#: models.py:239
+msgid "Disagrees"
+msgstr "Er uenig"
+
+#: models.py:243
+msgid "Used with kept/broken quiz"
+msgstr ""
+
+#: models.py:245
+msgid "Used with voting guide"
+msgstr ""
+
+#: models.py:279
+msgid "Quick reply labels"
+msgstr ""
+
+#: models.py:286
+msgid "HDO Categories"
+msgstr "HDO-kategorier"
+
+#: templates/quiz/answerset_detail.html:10
+msgid "Results for "
+msgstr ""
+
+#: templates/quiz/answerset_detail.html:13
+msgid "Your answers"
+msgstr "Dine svar"
+
+#: templates/quiz/answerset_detail.html:16
+msgid "Promise"
+msgstr "Løfte"
+
+#: templates/quiz/answerset_detail.html:17
+msgid "Your answer"
+msgstr "Ditt svar"
+
+#: templates/quiz/answerset_detail.html:28
+msgid "Your result"
+msgstr "Ditt resultat"
+
+#: templates/quiz/answerset_detail.html:32
+msgid "Totals"
+msgstr "Totalt"
+
+#: templates/quiz/answerset_detail.html:33
+msgid "This is how well everybody else is doing, and you are doing better than"
+msgstr ""
+
+#: templates/quiz/answerset_detail.html:36
+msgid "Correct"
+msgstr ""
+
+#: templates/quiz/answerset_detail.html:38
+msgid "Not correct"
+msgstr "Ikke riktig"
+
+#~ msgid "Button"
+#~ msgstr "Knapp"
