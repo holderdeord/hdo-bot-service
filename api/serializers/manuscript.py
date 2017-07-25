@@ -101,6 +101,7 @@ class ManuscriptListSerializer(WritableNestedModelSerializer):
     items = ManuscriptItemSerializer(many=True, required=False)
     category = serializers.SerializerMethodField()
     hdo_category = serializers.SerializerMethodField()
+    voter_guide_alternatives = VoterGuideAlternativeSerializer(many=True, required=False)
     url = serializers.HyperlinkedIdentityField(view_name='api:manuscript-detail')
 
     def get_category(self, obj):
