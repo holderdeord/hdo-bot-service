@@ -48,7 +48,7 @@ def get_replies(sender_id, session, payload=None):
         elif intent == INTENT_ANSWER_VG_QUESTION:
             # Voting guide: Answer replies
             save_vg_answer(session, payload)
-            replies += get_vg_question_replies(sender_id, session, payload)
+            return [get_vg_question_replies(sender_id, session, payload)]
 
         else:
             msg = "Error: Unknown intent '{}'".format(intent)
