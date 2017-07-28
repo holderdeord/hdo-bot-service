@@ -145,7 +145,7 @@ def format_vg_categories(recipient_id, manuscripts: Iterable[Manuscript], text):
 
 
 def format_vg_alternatives(recipient_id, manus, text):
-    labels = ['1 👍', '2 👍', '3 👍', '4 👍', '5 👍', '6 👍', '7 👍']
+    labels = ['1 👍', '2 😃', '3 👌', '4 ❤', '5 👏', '6 😍', '7 💪']
     buttons = []
     alt_text = ''
     for i, alt in enumerate(manus['voter_guide_alternatives']):
@@ -160,7 +160,7 @@ def format_vg_alternatives(recipient_id, manus, text):
         alt_text += '\n{} {}'.format(labels[i], alt['text'])
 
     cat = HdoCategory.objects.get(pk=manus['hdo_category'])  # FIXME: Put name in serializer
-    text = 'Kategorien er {} og temaet er {}\n{}{}'.format(cat.name, manus['name'], text, alt_text)
+    text = '{} - {}\n{}{}'.format(cat.name, manus['name'], text, alt_text)
     return format_quick_replies(recipient_id, buttons, text)
 
 

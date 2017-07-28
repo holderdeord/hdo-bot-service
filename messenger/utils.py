@@ -92,9 +92,9 @@ def get_unanswered_vg_manuscripts(session: ChatSession):
     return ms.exclude(voter_guide_alternatives__answers__in=answers)
 
 
-def get_next_vg_manuscript(session: ChatSession, payload):
+def get_next_vg_manuscript(session: ChatSession):
     ms = get_unanswered_vg_manuscripts(session)
-    # TODO: Add skipped to prevent looping on the same question
+    # TODO: Add skipped questions
     skipped = session.meta.get('skipped_manuscripts')
 
     current_category = session.meta['manuscript']['hdo_category']
