@@ -1,16 +1,17 @@
 import json
 import logging
+from collections import defaultdict, OrderedDict
 
 from typing import Iterable
 from django.conf import settings
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.translation import ugettext as _
 
-from messenger.api.formatters import format_quick_replies
+from messenger.api.formatters import format_quick_replies, format_text
 from messenger.intents import (INTENT_NEXT_ITEM, INTENT_ANSWER_QUIZ_QUESTION, INTENT_GOTO_MANUSCRIPT,
                                INTENT_ANSWER_VG_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM)
-from quiz.models import Promise, Manuscript, ManuscriptItem, HdoCategory
+from quiz.models import Promise, Manuscript, ManuscriptItem, HdoCategory, VoterGuideAlternative
 
 logger = logging.getLogger(__name__)
 
@@ -201,3 +202,34 @@ def format_vg_show_results_or_next(recipient_id, next_manuscript, text):
         }
     ]
     return format_quick_replies(recipient_id, quick_replies, text)
+
+
+def format_vg_result_reply(sender_id, session):
+    alts = VoterGuideAlternative.objects.filter(answers__answer_set__session=session)
+
+    # FIXME: Use parties instead of promisor_name (after re-import), promisor can be a government (ie multiple parties)
+    # Note: Each alternative can have more than 1 promise tied to the same party
+    parties_by_alternative = defaultdict(set)
+    for alt in alts.all():
+        for p in alt.promises.all():
+            parties_by_alternative[alt.pk].add(p.promisor_name)
+
+    # Count and sort number of answers by party
+    total_count = alts.count()
+    counts = defaultdict(lambda: 0)
+    for alt, parties in parties_by_alternative.items():
+        for p in parties:
+            counts[p] += 1
+    ordered_counts = OrderedDict(sorted(counts.items(), key=lambda c: c[1], reverse=True))
+
+    text = 'Disse partiene er du mest enig i:\n\n'
+    place = 1
+    medals = {1: '🥇', 2: '🥈', 3: '🥉'}
+    for party, count in ordered_counts.items():
+        medal = medals.get(place, '')
+        if medal:
+            medal += ' '
+        text += '{}{}: {:.1f}%\n'.format(medal, party, (count/total_count)*100)
+        place += 1
+
+    return format_text(sender_id, text)
