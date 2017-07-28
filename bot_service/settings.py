@@ -121,6 +121,11 @@ LOGGING = {
             'handlers': ['console'],
             'level': os.getenv('DJANGO_DB_LOG_LEVEL', 'WARNING'),
             'propagate': False,
+        },
+        'requests': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': False,
         }
     },
     'root': {
