@@ -1,40 +1,51 @@
 {% extends "base.html" %}
 {% block head %}
 <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId: "{{ app_id }}",
-        xfbml: true,
-        version: "v2.6"
-      });
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: "{{ app_id }}",
+            xfbml: true,
+            version: "v2.6"
+        });
 
     };
 
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) { return; }
-       js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
 </script>
 {% endblock %}
 {% block body %}
-  <div style="margin: 0 auto;text-align: center; padding-top: 4em;">
-    <h1>Holder de ord quiz</h1>
-    <h3>Meld oss</h3>
-    <div class="fb-messengermessageus"
-        messenger_app_id="{{ app_id }}"
-        page_id="{{ page_id }}"
-        color="blue"
-        size="xlarge" >
+<nav class="navbar navbar-light">
+    <header>
+        <div class="hdo-logo">Holder de ord</div>
+        <h1>Holder de ord valgomat</h1>
+        <p>Start valgomaten med å trykke på knappen under!</p>
+    </header>
+    <div>
+        <div class="fb-messengermessageus"
+             messenger_app_id="{{ app_id }}"
+             page_id="{{ page_id }}"
+             color="blue"
+             size="xlarge">
+        </div>
+        {% if user.is_superuser %}
+        <h3>Botprofil</h3>
+        <form action="{% url " messenger:bot-profile-update
+        " %}" method="post">{% csrf_token %}
+        <button type="submit" class="btn btn-secondary">Oppdatér botens profil</button>
+        </form>
+        <h3>Developer links</h3>
+        <a href="https://developers.facebook.com/apps/{{ app_id }}">App developer dashboard</a>
+        {% endif %}
     </div>
-  {% if user.is_superuser %}
-      <h3>Botprofil</h3>
-      <form action="{% url "messenger:bot-profile-update" %}" method="post">{% csrf_token %}<button type="submit" class="btn btn-secondary">Oppdatér botens profil</button></form>
-      <h3>Developer links</h3>
-      <a href="https://developers.facebook.com/apps/{{ app_id }}">App developer dashboard</a>
-  {% endif %}
-</div>
+</nav>
 {% endblock %}

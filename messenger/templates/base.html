@@ -5,9 +5,20 @@
     <title>HDO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://files.holderdeord.no/dev/hdo-bootstrap/hdo-bootstrap.css">
+    <style>
+        nav header .hdo-logo {
+            margin-top: .5rem;
+            padding-top: 3rem;
+            text-align: center;
+            background-position: 50% 0;
+            background-repeat: no-repeat;
+            background-size: auto 2.5rem;
+            font-weight: 600;
+        }
+    </style>
     {% block head %}{% endblock %}
 </head>
 <body>
-    {% block body %}{% endblock %}
+{% block body %}{% endblock %}
 </body>
 </html>
