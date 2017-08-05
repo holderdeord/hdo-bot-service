@@ -48,7 +48,21 @@ class Command(BaseCommand):
                     promises = list(map(self.get_promise, alternative_data['promises']))
                     alternative.promises.add(*promises)
                     alternative.save()
+                VoterGuideAlternative.objects.get_or_create(
+                    text='Vet ikke eller syns ingen av alternativene er gode',
+                    manuscript=manuscript
+                )
                 self.create_starting_manuscript_item(manuscript)
+            else:
+                alternatives = VoterGuideAlternative.objects.filter(
+                    manuscript=manuscript,
+                    text='Vet ikke eller syns ingen av alternativene er gode'
+                )
+                if alternatives.count() == 0:
+                    VoterGuideAlternative.objects.get_or_create(
+                        text='Vet ikke eller syns ingen av alternativene er gode',
+                        manuscript=manuscript
+                    )
         return [v for v in manuscripts.values()]
 
     def create_root_manuscript(self):
