@@ -49,18 +49,18 @@ class Command(BaseCommand):
                     alternative.promises.add(*promises)
                     alternative.save()
                 VoterGuideAlternative.objects.get_or_create(
-                    text='Noe annet',
+                    text='Vet ikke',
                     manuscript=manuscript
                 )
                 self.create_starting_manuscript_item(manuscript)
             else:
                 alternatives = VoterGuideAlternative.objects.filter(
                     manuscript=manuscript,
-                    text='Noe annet'
+                    text='Vet ikke'
                 )
                 if alternatives.count() == 0:
                     VoterGuideAlternative.objects.get_or_create(
-                        text='Noe annet',
+                        text='Vet ikke',
                         manuscript=manuscript
                     )
         return [v for v in manuscripts.values()]
