@@ -68,7 +68,7 @@ class Command(BaseCommand):
     def create_root_manuscript(self):
         manuscript, created = Manuscript.objects.get_or_create(
             name='Valgomat start',
-            is_default=True
+            default=Manuscript.DEFAULT_VOTER_GUIDE
         )
         if created:
             ManuscriptItem.objects.get_or_create(

@@ -6,7 +6,7 @@ from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 from oauth2client.contrib.django_util.models import CredentialsField
 
-from quiz.mixins import IsDefaultMixin
+from quiz.mixins import DefaultMixin
 
 
 class BaseModel(models.Model):
@@ -100,7 +100,7 @@ class ManuscriptImage(BaseModel):
         return url if url else None
 
 
-class Manuscript(IsDefaultMixin, BaseModel):
+class Manuscript(DefaultMixin, BaseModel):
     """ A group/collection of ManuscriptItems """
     TYPE_QUIZ = 'quiz'
     TYPE_VOTER_GUIDE = 'voter_guide'
