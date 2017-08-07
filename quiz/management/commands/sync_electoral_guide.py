@@ -85,6 +85,13 @@ class Command(BaseCommand):
             default=Manuscript.DEFAULT,
             next=vg_start_manuscript
         )
+        if created:
+            ManuscriptItem.objects.get_or_create(
+                type=ManuscriptItem.TYPE_TEXT,
+                manuscript=manuscript,
+                order=1,
+                text="Finn din politiske match! Svar på minst åtte spørsmål, og finn ut hvem du burde heie på ved valget."
+            )
         return manuscript
 
     def get_manuscripts_data(self, file_path):
