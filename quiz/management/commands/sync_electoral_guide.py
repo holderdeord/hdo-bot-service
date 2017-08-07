@@ -23,10 +23,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         manuscripts_data = self.get_manuscripts_data(options['file'])
         manuscripts = self.add_manuscripts_to_db(manuscripts_data)
-        root_manuscript = self.create_root_manuscript()
+        vg_start_manuscript = self.create_vg_start_manuscript()
+        self.create_root_manuscript(vg_start_manuscript)
         hdo_categories = self.group_into_hdo_categories(manuscripts)
         for hdo_category in hdo_categories:
-            self.link_manuscripts(hdo_category, root_manuscript)
+            self.link_manuscripts(hdo_category, vg_start_manuscript)
 
     def add_manuscripts_to_db(self, manuscripts_data):
         manuscripts = {}
@@ -65,7 +66,7 @@ class Command(BaseCommand):
                     )
         return [v for v in manuscripts.values()]
 
-    def create_root_manuscript(self):
+    def create_vg_start_manuscript(self):
         manuscript, created = Manuscript.objects.get_or_create(
             name='Valgomat start',
             default=Manuscript.DEFAULT_VOTER_GUIDE
@@ -76,6 +77,14 @@ class Command(BaseCommand):
                 manuscript=manuscript,
                 text='Velg den kategorien du syns er mest interessant.'
             )
+        return manuscript
+
+    def create_root_manuscript(self, vg_start_manuscript):
+        manuscript, created = Manuscript.objects.get_or_create(
+            name='Chatbort start',
+            default=Manuscript.DEFAULT,
+            next=vg_start_manuscript
+        )
         return manuscript
 
     def get_manuscripts_data(self, file_path):
