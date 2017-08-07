@@ -31,9 +31,10 @@ def get_vg_question_replies(sender_id, session, payload):
 
     next_manuscript = get_next_vg_manuscript(session)
     if next_manuscript:
-        extra_payload = {'manuscript': next_manuscript.pk if next_manuscript else None}
-        return [format_quick_reply_with_intent(
-            sender_id, "Neste spørsmål", next_text, INTENT_NEXT_QUESTION, extra_payload)]
+        # TODO: Reply with "Du mente det samme som ..."
+        # TODO: If don't know, then reply: "
+        session.meta['next_manuscript'] = next_manuscript.pk if next_manuscript else None
+        return [format_text(sender_id, 'TODO: du mente det samme som...')]
 
     # Emptied out the category, link to root
     extra_payload = {'manuscript': Manuscript.objects.get_default().pk}

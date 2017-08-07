@@ -111,20 +111,20 @@ def get_replies(sender_id, session, payload=None):
         replies += get_voter_guide_category_replies(sender_id, session, payload, item['text'])
         session.meta['item'] += 1
 
-    # Voter guide
+    # Voter guide: Show questions
     elif item['type'] == ManuscriptItem.TYPE_VG_QUESTIONS:
         logger.debug("Adding voter guide questions [{}]".format(session.meta['item'] + 1))
 
         replies += get_voter_guide_questions(sender_id, session, payload, item['text'])
         session.meta['item'] += 1
-
+    # Voter guide: Show res or continue
     elif item['type'] == ManuscriptItem.TYPE_VG_SHOW_RES_OR_CONTINUE:
         logger.debug("Adding show results or continue [{}]".format(session.meta['item'] + 1))
 
         replies += get_show_res_or_next(sender_id, session, payload)
         session.meta['item'] += 1
 
-    # Voter guide
+    # Voter guide: result
     elif item['type'] == ManuscriptItem.TYPE_VG_RESULT:
         logger.debug("Adding voter guide result [{}]".format(session.meta['item'] + 1))
 
