@@ -30,6 +30,7 @@ class PromiseSerializer(serializers.ModelSerializer):
 
 class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
     parties = serializers.SerializerMethodField()
+    parties_short = serializers.SerializerMethodField()
     full_promises = serializers.SerializerMethodField()
     # FIXME: Use list of parties instead of promisor_name?
 
@@ -38,17 +39,22 @@ class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
             return {
                 'pk': promise.pk,
                 'body': promise.body,
-                'promisor_name': promise.promisor_name
+                'promisor_name': promise.promisor_name,
+                'parties': list(set(promise.parties.values_list('title', flat=True))),
+                'parties_short': list(set(promise.parties.values_list('short_title', flat=True)))
             }
 
         return list(map(get_promise, obj.promises.all()))
 
     def get_parties(self, obj):
-        return list(map(lambda p: p.promisor_name, obj.promises.all()))
+        return list(set(obj.promises.values_list('parties__title', flat=True)))
 
+    def get_parties_short(self, obj):
+        return list(set(obj.promises.values_list('parties__short_title', flat=True)))
+    
     class Meta:
         model = VoterGuideAlternative
-        fields = ('pk', 'text', 'promises', 'full_promises', 'parties')
+        fields = ('pk', 'text', 'promises', 'full_promises', 'parties', 'parties_short')
 
 
 class ManuscriptItemSerializer(serializers.ModelSerializer):

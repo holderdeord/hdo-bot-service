@@ -36,7 +36,7 @@ def get_voter_guide_questions(sender_id, session, payload, text):
 
 
 def _get_alternative_affiliations(alt: VoterGuideAlternative):
-    affils = list(set(alt.promises.values_list('promisor_name', flat=True)))
+    affils = list(set(alt.promises.values_list('parties__short_title', flat=True)))
 
     # Format
     if len(affils) == 1:

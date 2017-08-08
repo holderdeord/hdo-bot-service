@@ -48,7 +48,8 @@ class ManuscriptDetailView(RetrieveUpdateDestroyAPIView):
 class ManuscriptListView(ListCreateAPIView):
     authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [AllowAnyOrDjangoModelPermissionsOrAnonReadOnly]
-    queryset = Manuscript.objects.select_related('category', 'hdo_category')
+    queryset = Manuscript.objects.select_related('category', 'hdo_category').prefetch_related(
+        'voter_guide_alternatives', 'voter_guide_alternatives__promises', 'voter_guide_alternatives__promises__parties')
     serializer_class = ManuscriptListSerializer
     pagination_class = PageNumberPagination
 
