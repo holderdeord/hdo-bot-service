@@ -62,4 +62,4 @@ def bot_profile_update(request):
     if request.method == 'POST':
         update_profile(format_bot_profile())
 
-    return redirect('messenger:admin-actions')
+    return redirect('index')
