@@ -84,10 +84,12 @@ class Command(BaseCommand):
         )
         if created:
             ManuscriptItem.objects.get_or_create(
-                type=ManuscriptItem.TYPE_TEXT,
+                type=ManuscriptItem.TYPE_QUICK_REPLY,
                 manuscript=manuscript,
                 order=1,
                 text="Finn din politiske match! Svar på minst åtte spørsmål, og finn ut hvem du burde heie på ved valget.",
+                reply_text_1="Jeg er klar!",
+                reply_action_1=vg_start_manuscript
             )
         return manuscript
 
