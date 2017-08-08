@@ -3,15 +3,15 @@ import json
 import logging
 
 from django.conf import settings
+from django.db.models import Case, When
 from rest_framework.renderers import JSONRenderer
 
 from api.serializers.manuscript import BaseManuscriptSerializer
 from messenger.api import send_message
 from messenger.api.formatters import format_text
 from messenger.models import ChatSession
-from quiz.models import AnswerSet, Answer, Manuscript, VoterGuideAlternative, VoterGuideAnswer, HdoCategory
+from quiz.models import AnswerSet, Answer, Manuscript, VoterGuideAlternative, VoterGuideAnswer
 
-MAX_QUICK_REPLIES = 7
 
 logger = logging.getLogger(__name__)
 
@@ -86,8 +86,12 @@ def save_vg_answer(session: ChatSession, payload):
     answer, _ = VoterGuideAnswer.objects.get_or_create(answer_set=answer_set, voter_guide_alternative=alt)
 
 
-def get_unanswered_vg_manuscripts(session: ChatSession):
+def get_unanswered_vg_manuscripts(session: ChatSession, selection=None):
     ms = Manuscript.objects.filter(type=Manuscript.TYPE_VOTER_GUIDE)
+
+    if selection:
+        ms = ms.filter(pk__in=selection)
+
     answers = VoterGuideAnswer.objects.filter(answer_set__session=session)
     return ms.exclude(voter_guide_alternatives__answers__in=answers)
 
@@ -105,11 +109,11 @@ def get_next_vg_manuscript(session: ChatSession):
     return ms.first()
 
 
-def get_voter_guide_manuscripts(session: ChatSession):
+def get_voter_guide_manuscripts(session: ChatSession, selection=None):
     """ Get voter guide manuscripts that are not already answered, max 1 per HDO category """
 
     # Remove manuscripts already answered
-    manuscripts = get_unanswered_vg_manuscripts(session)
+    manuscripts = get_unanswered_vg_manuscripts(session, selection)
 
     # Make manuscripts unique per HDO category
     exclude_manuscripts = []
@@ -122,6 +126,11 @@ def get_voter_guide_manuscripts(session: ChatSession):
 
     manuscripts = manuscripts.exclude(pk__in=exclude_manuscripts)
 
-    # Random order and limit to number of quick replies
-    manuscripts = manuscripts.order_by('?').select_related('hdo_category')[:MAX_QUICK_REPLIES]
+    # Random order
+    order_by = '?'
+    if selection:
+        # Keep manuscript selection order
+        order_by = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(selection)])
+
+    manuscripts = manuscripts.order_by(order_by).select_related('hdo_category')
     return manuscripts

@@ -7,7 +7,8 @@ from messenger.api.formatters import format_text
 from messenger.intent_formatters import format_question, format_quick_replies_with_intent, format_reset_answer
 from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
                                INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
-                               INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION)
+                               INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION,
+                               INTENT_VG_CATEGORY_SELECT)
 from messenger.replies.quiz import get_quiz_result_url, get_quiz_question_replies
 from messenger.replies.voter_guide import (get_voter_guide_category_replies, get_voter_guide_questions,
                                            get_vg_question_replies, get_voter_guide_result, get_show_res_or_next)
@@ -46,9 +47,14 @@ def get_replies(sender_id, session, payload=None):
             replies += get_quiz_question_replies(sender_id, session, payload)
 
         elif intent == INTENT_ANSWER_VG_QUESTION:
-            # Voting guide: Answer replies
+            # Voter guide: Answer replies
             save_vg_answer(session, payload)
             return get_vg_question_replies(sender_id, session, payload)
+
+        elif intent == INTENT_VG_CATEGORY_SELECT:
+            # Voter guide: Paged categories
+            last_item = session.meta['manuscript']['items'][session.meta['item'] - 1]
+            return get_voter_guide_category_replies(sender_id, session, payload, last_item['text'])
 
         else:
             msg = "Error: Unknown intent '{}'".format(intent)

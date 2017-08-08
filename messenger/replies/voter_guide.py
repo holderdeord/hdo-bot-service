@@ -1,5 +1,7 @@
 import logging
 
+import math
+
 from messenger.api.formatters import format_text
 from messenger.intent_formatters import (format_vg_categories, format_vg_alternatives, format_quick_reply_with_intent,
                                          format_vg_show_results_or_next, format_vg_result_reply)
@@ -9,16 +11,24 @@ from quiz.models import VoterGuideAlternative, Manuscript
 
 logger = logging.getLogger(__name__)
 
+MAX_QUICK_REPLIES = 7
+
 
 def get_voter_guide_category_replies(sender_id, session, payload, text):
     """ Show manuscripts of type voter guide as quick replies """
-    manuscripts = get_voter_guide_manuscripts(session)
+    selection = None
+    if payload:
+        selection = payload.get('manuscript_selection')
+    manuscripts = get_voter_guide_manuscripts(session, selection)
 
     if not manuscripts:
         return [format_text(sender_id, 'Wow! 😮 Du har gått gjennom alle temaene 🤓🤓 Imponerende 😎'),
                 format_text(sender_id, 'TODO: lenke til resultatsiden, call to action eller deling her?')]
 
-    return [format_vg_categories(sender_id, manuscripts, text)]
+    num_pages = int(math.ceil(len(manuscripts) / MAX_QUICK_REPLIES))
+    page = payload.get('category_page', 1) if payload else 1
+
+    return [format_vg_categories(sender_id, manuscripts, text, num_pages, page, MAX_QUICK_REPLIES)]
 
 
 def get_voter_guide_questions(sender_id, session, payload, text):
@@ -45,7 +55,7 @@ def get_vg_question_replies(sender_id, session, payload):
 
     next_manuscript = get_next_vg_manuscript(session)
     if next_manuscript:
-        # TODO: If don't know, then reply: x
+        # TODO: If "vet ikke", then reply x
         session.meta['next_manuscript'] = next_manuscript.pk if next_manuscript else None
         return [format_text(sender_id, next_text)]
 
