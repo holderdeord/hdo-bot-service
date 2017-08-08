@@ -20,10 +20,10 @@ class Command(BaseCommand):
     )
 
     def add_arguments(self, parser):
-        parser.add_argument('--category-map', type=str,
+        parser.add_argument('--category-map', type=str, default='./file/category_map.csv',
                             help='Path to file with mapping between categories and HDO categories')
-        parser.add_argument('--file', type=str,
-                            help='Import manuscripts from file')
+        parser.add_argument('file', type=str,
+                            help='Import manuscripts from file',)
 
     def handle(self, *args, **options):
         manuscripts_data = self.get_manuscripts_data(options['file'])

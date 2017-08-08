@@ -22,7 +22,8 @@ class Command(BaseCommand):
     HDO_API_URL = 'https://data.holderdeord.no/api/promises/'
 
     def add_arguments(self, parser):
-        parser.add_argument('--category-map', type=str, help='Path to file with mapping between categories and HDO categories')
+        parser.add_argument('--category-map', type=str, default='./file/category_map.csv',
+                            help='Path to file with mapping between categories and HDO categories')
         # Figured it is easier/better to just use the existing APIs to handle promises
         parser.add_argument('--all', action='store_true', help='Import _all_ promises from Holder de ord API')
         parser.add_argument('--check-file', type=str, help='Path to check file in CSV format')
