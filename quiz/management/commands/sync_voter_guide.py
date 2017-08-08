@@ -1,4 +1,5 @@
 import csv
+
 from django.core.management import BaseCommand
 from django.utils.translation import ugettext_lazy as _
 
@@ -23,43 +24,62 @@ class Command(BaseCommand):
         parser.add_argument('--category-map', type=str, default='./file/category_map.csv',
                             help='Path to file with mapping between categories and HDO categories')
         parser.add_argument('file', type=str,
-                            help='Import manuscripts from file',)
+                            help='Import manuscripts from file', )
 
     def handle(self, *args, **options):
-        manuscripts_data = self.get_manuscripts_data(options['file'])
-        self.create_question_manuscripts(manuscripts_data)
+        manuscripts_data_list = self.get_manuscripts_data(options['file'])
+        self.create_question_manuscripts(manuscripts_data_list)
         vg_start_manuscript = self.create_vg_start_manuscript()
         self.create_root_manuscript(vg_start_manuscript)
 
-    def create_question_manuscripts(self, manuscripts_data):
+    def get_manuscripts_data(self, file_path):
         manuscripts = {}
-        for manuscript_data in manuscripts_data:
+        with open(file_path) as f:
+            csv_file = csv.DictReader(f)
+            for row in csv_file:
+                if row['Løfte-ID'] == '':
+                    continue
+                manuscript_name = row['Spørsmål']
+                hdo_category = row['Tema (HDO-kategori)']
+                question_text = row['Spørsmålstekst']
+                if manuscript_name in manuscripts:
+                    manuscripts[manuscript_name]['alternatives'].append(self.create_alternative(row))
+                else:
+                    manuscripts[manuscript_name] = {
+                        'name': manuscript_name,
+                        'hdo_category': hdo_category,
+                        'question_text': question_text,
+                        'alternatives': [self.create_alternative(row)]
+                    }
+        return [v for v in manuscripts.values()]
+
+    def create_question_manuscripts(self, manuscripts_data_list):
+        manuscripts = {}
+        for manuscript_data in manuscripts_data_list:
             hdo_category = self.get_hdo_category(manuscript_data['hdo_category'])
             vg_manuscript, created = Manuscript.objects.get_or_create(
                 name=manuscript_data['name'],
                 type=Manuscript.TYPE_VOTER_GUIDE,
                 hdo_category=hdo_category
             )
+            ManuscriptItem.objects.get_or_create(
+                type=ManuscriptItem.TYPE_TEXT,
+                manuscript=vg_manuscript,
+                order=1,
+                text=manuscript_data['question_text']
+            )
             manuscripts[vg_manuscript.pk] = vg_manuscript
-            if created:
-                for alternative_data in manuscript_data['alternatives']:
-                    alternative, created = VoterGuideAlternative.objects.get_or_create(
-                        text=alternative_data['text'],
-                        manuscript=vg_manuscript
-                    )
-                    alternative.save()
-                    promises = list(map(self.get_promise, alternative_data['promises']))
-                    alternative.promises.add(*promises)
-                    alternative.save()
-                self.create_do_not_know_alternative(vg_manuscript)
-                self.create_starting_manuscript_item(vg_manuscript)
-            else:
-                alternatives = VoterGuideAlternative.objects.filter(
-                    manuscript=vg_manuscript,
-                    text=self.TEXTS.DO_NOT_KNOW
+            for alternative_data in manuscript_data['alternatives']:
+                alternative, created = VoterGuideAlternative.objects.get_or_create(
+                    text=alternative_data['text'],
+                    manuscript=vg_manuscript
                 )
-                if alternatives.count() == 0:
-                    self.create_do_not_know_alternative(vg_manuscript)
+                alternative.save()
+                promises = list(map(self.get_promise, alternative_data['promises']))
+                alternative.promises.add(*promises)
+                alternative.save()
+            self.create_do_not_know_alternative(vg_manuscript)
+            self.create_starting_manuscript_item(vg_manuscript)
         return [v for v in manuscripts.values()]
 
     def create_vg_start_manuscript(self):
@@ -98,25 +118,6 @@ class Command(BaseCommand):
             text='Vet ikke',
             manuscript=manuscript
         )
-
-    def get_manuscripts_data(self, file_path):
-        manuscripts = {}
-        with open(file_path) as f:
-            csv_file = csv.DictReader(f)
-            for row in csv_file:
-                if row['Løfte-ID'] == '':
-                    continue
-                manuscript_name = row['Tema']
-                if manuscript_name in manuscripts:
-                    manuscripts[manuscript_name]['alternatives'].append(self.create_alternative(row))
-                else:
-                    manuscripts[manuscript_name] = {
-                        'name': manuscript_name,
-                        'hdo_category': row['HDO-kategori'],
-                        'manuscript_name': row['Tema'],
-                        'alternatives': [self.create_alternative(row)]
-                    }
-        return [v for v in manuscripts.values()]
 
     def find_linked_manuscripts(self, hdo_category):
         linked_manuscripts = []
