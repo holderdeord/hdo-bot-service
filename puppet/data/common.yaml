@@ -4,7 +4,7 @@ bot_service_environment:
   DEBUG: 'true'
   TIME_ZONE: 'Europe/Oslo'
   LANGUAGE_CODE: 'nb'
-  STATIC_ROOT: '/var/www/hdo-bot-service.nkweb.no/'
+  STATIC_ROOT: '/var/www/snakk.holderdeord.no/'
   ALLOWED_HOSTS: 'snakk.holderdeord.no'
   STATIC_URL: 'https://snakk.holderdeord.no/static/'
   PUBLIC_URL: '/botadmin'
