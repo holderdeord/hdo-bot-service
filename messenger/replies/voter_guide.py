@@ -25,19 +25,32 @@ def get_voter_guide_questions(sender_id, session, payload, text):
     return [format_vg_alternatives(sender_id, session.meta['manuscript'], text)]
 
 
+def _get_alternative_affiliations(alt: VoterGuideAlternative):
+    affils = list(set(alt.promises.values_list('promisor_name', flat=True)))
+
+    # Format
+    if len(affils) == 1:
+        return affils[0]
+
+    if len(affils) > 1:
+        start = ', '.join(affils[:-1])
+        return '{} og {}'.format(start, affils[-1])
+
+    return ''
+
+
 def get_vg_question_replies(sender_id, session, payload):
     alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
-    next_text = "Du svarte \'{}\'".format(alt.text)
+    next_text = 'Du mente det samme som {}'.format(_get_alternative_affiliations(alt))
 
     next_manuscript = get_next_vg_manuscript(session)
     if next_manuscript:
-        # TODO: Reply with "Du mente det samme som ..."
-        # TODO: If don't know, then reply: "
+        # TODO: If don't know, then reply: x
         session.meta['next_manuscript'] = next_manuscript.pk if next_manuscript else None
-        return [format_text(sender_id, 'TODO: du mente det samme som...')]
+        return [format_text(sender_id, next_text)]
 
     # Emptied out the category, link to root
-    extra_payload = {'manuscript': Manuscript.objects.get_default().pk}
+    extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
     finished_msg = 'Du har nå gått gjennom alle spørsmålene vi har for denne kategorien.'
     more_cats_msg = 'Velg en ny kategori og besvare spørsmålene for å gjøre resultatene dine mer presis.'
 
@@ -69,7 +82,7 @@ def get_show_res_or_next(sender_id, session, payload):
         return [format_vg_show_results_or_next(sender_id, next_manuscript.pk, text)]
 
     # Emptied out the category, link to root
-    extra_payload = {'manuscript': Manuscript.objects.get_default().pk}
+    extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
     finished_msg = 'Du har nå gått gjennom alle spørsmålene vi har for denne kategorien.'
     more_cats_msg = 'Velg en ny kategori og besvare spørsmålene for å gjøre resultatene dine mer presis.'
 
