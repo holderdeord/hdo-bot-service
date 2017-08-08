@@ -72,7 +72,7 @@ class Command(BaseCommand):
                 type=ManuscriptItem.TYPE_VG_CATEGORY_SELECT,
                 manuscript=manuscript,
                 order=1,
-                text='Velg den kategorien du syns er mest interessant.',
+                text='Velg et tema som du bryr deg om',
             )
         return manuscript
 

@@ -15,7 +15,7 @@ def get_voter_guide_category_replies(sender_id, session, payload, text):
     manuscripts = get_voter_guide_manuscripts(session)
 
     if not manuscripts:
-        return [format_text(sender_id, 'Wow! 😮 Du har fullført alle kategoriene 🤓🤓 Imponerende 😎'),
+        return [format_text(sender_id, 'Wow! 😮 Du har gått gjennom alle temaene 🤓🤓 Imponerende 😎'),
                 format_text(sender_id, 'TODO: lenke til resultatsiden, call to action eller deling her?')]
 
     return [format_vg_categories(sender_id, manuscripts, text)]
@@ -51,15 +51,15 @@ def get_vg_question_replies(sender_id, session, payload):
 
     # Emptied out the category, link to root
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
-    finished_msg = 'Du har nå gått gjennom alle spørsmålene vi har for denne kategorien.'
-    more_cats_msg = 'Velg en ny kategori og besvare spørsmålene for å gjøre resultatene dine mer presis.'
+    finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
+    more_cats_msg = 'Velg et nytt tema og besvare spørsmålene for å gjøre resultatet dintt mer presist.'
 
     return [
         format_text(sender_id, next_text),
         format_text(sender_id, finished_msg),
         format_vg_result_reply(sender_id, session),
         format_quick_reply_with_intent(
-            sender_id, 'Flere kategorier!', more_cats_msg, INTENT_NEXT_QUESTION, extra_payload)]
+            sender_id, 'Neste tema!', more_cats_msg, INTENT_NEXT_QUESTION, extra_payload)]
 
 
 def get_next_vg_question_reply(sender_id, session, payload):
@@ -83,11 +83,11 @@ def get_show_res_or_next(sender_id, session, payload):
 
     # Emptied out the category, link to root
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
-    finished_msg = 'Du har nå gått gjennom alle spørsmålene vi har for denne kategorien.'
-    more_cats_msg = 'Velg en ny kategori og besvare spørsmålene for å gjøre resultatene dine mer presis.'
+    finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
+    more_cats_msg = 'Velg et nytt tema og besvare spørsmålene for å gjøre resultatet dintt mer presist.'
 
     return [
         format_text(sender_id, finished_msg),
         format_vg_result_reply(sender_id, session),
         format_quick_reply_with_intent(
-            sender_id, 'Flere kategorier!', more_cats_msg, INTENT_NEXT_QUESTION, extra_payload)]
+            sender_id, 'Neste tema!', more_cats_msg, INTENT_NEXT_QUESTION, extra_payload)]

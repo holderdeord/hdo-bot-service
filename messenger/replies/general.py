@@ -61,6 +61,7 @@ def get_replies(sender_id, session, payload=None):
         return replies
 
     item = manus['items'][session.meta['item']]
+    last_item = False
 
     # Text items (add until no more)
     while item['type'] == ManuscriptItem.TYPE_TEXT and session.meta['item'] < len(manus['items']):
@@ -69,8 +70,9 @@ def get_replies(sender_id, session, payload=None):
         replies += [format_text(sender_id, item['text'])]
         session.meta['item'] += 1
         if session.meta['item'] < len(manus['items']):
-            # Last item in manuscript!
             item = manus['items'][session.meta['item']]
+        else:
+            last_item = True
 
     # Quick replies
     if item['type'] == ManuscriptItem.TYPE_QUICK_REPLY:
@@ -130,10 +132,20 @@ def get_replies(sender_id, session, payload=None):
 
         replies += get_voter_guide_result(sender_id, session, payload)
         session.meta['item'] += 1
+    # Do nothing for last items of type text
+    elif last_item:
+        pass
     else:
         msg = "Unhandled manuscript item type: {} [{}]".format(item['type'], session.meta['item'] + 1)
         logger.error(msg)
         if settings.DEBUG:
             send_message(format_text(sender_id, msg))
+
+    # Handle last item and next_manuscript
+    if not last_item and session.meta['item'] == len(manus['items']):
+        last_item = True
+
+    if last_item and manus['next']:
+        session.meta['next_manuscript'] = manus['next']
 
     return replies
