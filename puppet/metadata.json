@@ -14,6 +14,7 @@
     {"name":"puppetlabs/ntp"},
     {"name":"puppetlabs/postgresql"},
     {"name":"puppetlabs/vcsrepo"},
+    {"name":"puppet/archive"},
     {"name":"puppet/nginx"},
     {"name":"puppet/unattended_upgrades"},
     {"name":"saz/timezone"}

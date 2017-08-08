@@ -14,6 +14,6 @@ node "hdo-bot-service" {
   }
 
   class { 'bot_service':
-    domain => 'hdo-bot-service.nkweb.no'
+    domain => 'snakk.holderdeord.no'
   }
 }

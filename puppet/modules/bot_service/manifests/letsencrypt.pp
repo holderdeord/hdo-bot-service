@@ -1,19 +1,41 @@
 class bot_service::letsencrypt (
   String $account,
-  String $lego_binary_url = 'https://nikola.nkweb.no/pub/lego_linux_amd64'
+  String $lego_binary_url = 'https://github.com/xenolf/lego/releases/download/v0.4.0/lego_linux_amd64.tar.xz'
 ) {
-
   # Lego
-  $bin = '/usr/local/bin/lego'
+  $path = '/usr/local/lib/lego'
+  $bin_path = '/usr/local/bin'
+  $bin = "${bin_path}/lego"
   $config_path = '/var/lib/lego'
   $certificate_path = "${config_path}/certificates"
   $owner = 'root'
+  $webroot_path = '/tmp/letsencrypt'
 
-  file { $bin:
-    source => $lego_binary_url,
+  include ::archive
+
+  file { $path:
+    ensure => directory,
     owner  => $owner,
     group  => $owner,
     mode   => '0755'
+  }
+
+  archive { '/tmp/lego.tar.xz':
+    ensure       => present,
+    extract      => true,
+    extract_path => $path,
+    source       => $lego_binary_url,
+    group        => $owner,
+    cleanup      => true,
+    creates      => $bin,
+  }
+
+  file { $bin:
+    ensure => link,
+    target => "${path}/lego_linux_amd64",
+    owner  => $owner,
+    group  => $owner,
+    mode   => '0777'
   }
 
   file { $config_path:
@@ -22,5 +44,4 @@ class bot_service::letsencrypt (
     group  => $owner,
     mode   => '0755'
   }
-
 }
