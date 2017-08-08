@@ -63,6 +63,7 @@ class Promise(BaseModel):
 
 class Party(BaseModel):
     title = models.CharField(max_length=255)
+    short_tile = models.CharField(max_length=255, default='', blank=True)
     slug = models.SlugField()
 
     def __str__(self):
