@@ -51,7 +51,7 @@ def _get_alternative_affiliations(alt: VoterGuideAlternative):
 
 def get_vg_question_replies(sender_id, session, payload):
     alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
-    next_text = 'Du mente det samme som {}'.format(_get_alternative_affiliations(alt))
+    next_text = 'Du mener det samme som {}'.format(_get_alternative_affiliations(alt))
 
     next_manuscript = get_next_vg_manuscript(session)
     if next_manuscript:

@@ -200,8 +200,7 @@ def format_vg_alternatives(recipient_id, manus, text):
         })
         alt_text += '\n{} {}'.format(labels[i], alt['text'])
 
-    cat = HdoCategory.objects.get(pk=manus['hdo_category'])  # FIXME: Put name in serializer
-    text = '{} - {}\n{}{}'.format(cat.name, manus['name'], text, alt_text)
+    text = '{}\n{}{}'.format(manus['name'], text, alt_text)
     return format_quick_replies(recipient_id, buttons, text)
 
 
