@@ -1,5 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.flatpages.views import flatpage
 from oauth2client.contrib.django_util.site import urls as oauth2_urls
 
 from messenger.views import AdminActionsView
@@ -17,4 +18,9 @@ urlpatterns = [
     url(r'^oauth/', include('social_django.urls', namespace='social')),  # For social login
 
     url(r'^admin/', admin.site.urls),
+]
+
+# Flatpages
+urlpatterns += [
+    url(r'^(?P<url>.*/)$', flatpage),
 ]

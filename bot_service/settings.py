@@ -33,7 +33,9 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.flatpages',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
@@ -61,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'bot_service.urls'
@@ -208,6 +211,8 @@ REST_FRAMEWORK = {
 
 # API write access to everyone (default True)
 MANUSCRIPT_API_ALLOW_ANY = bool(os.getenv('MANUSCRIPT_API_ALLOW_ANY', True))
+
+SITE_ID = 1
 
 try:
     from .local_settings import *  # noqa

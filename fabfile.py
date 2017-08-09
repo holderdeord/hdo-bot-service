@@ -4,7 +4,7 @@ from fabric.state import env
 
 env.use_ssh_config = True
 env.forward_agent = True
-env.hosts = ['hdo-bot-service.nkweb.no']
+env.hosts = ['snakk.holderdeord.no']
 env.puppet_path = '/home/nikolark/hdo-quiz-service/puppet'
 env.docker = False
 
