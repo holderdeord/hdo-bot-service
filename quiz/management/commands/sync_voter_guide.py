@@ -1,4 +1,5 @@
 import csv
+import logging
 
 from django.core.management import BaseCommand
 from django.utils.translation import ugettext_lazy as _
@@ -75,8 +76,11 @@ class Command(BaseCommand):
                     manuscript=vg_manuscript
                 )
                 alternative.save()
-                promises = list(map(self.get_promise, alternative_data['promises']))
-                alternative.promises.add(*promises)
+                promise_ids = list(map(self.get_promise_id, alternative_data['promises']))
+                alternative.promises.add(*promise_ids)
+                alternative.save()
+                parties = ', '.join(self.get_parties_for_alternative(alternative))
+                alternative.set_text('{} ({})'.format(alternative_data['text'], parties))
                 alternative.save()
             self.create_do_not_know_alternative(vg_manuscript)
             self.create_starting_manuscript_item(vg_manuscript)
@@ -148,5 +152,12 @@ class Command(BaseCommand):
     def get_hdo_category(self, hdo_category_name):
         return HdoCategory.objects.get_or_create(name=hdo_category_name)[0]
 
-    def get_promise(self, external_id):
+    def get_promise_id(self, external_id):
         return Promise.objects.get(external_id=external_id)
+
+    def get_parties_for_alternative(self, alternative):
+        def get_party_name(promise):
+            return promise.promisor_name[:3]
+
+        promises = alternative.promises.all()
+        return set(list(map(get_party_name, promises)))
