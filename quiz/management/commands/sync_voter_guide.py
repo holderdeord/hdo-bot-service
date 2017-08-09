@@ -21,6 +21,17 @@ class Command(BaseCommand):
         (DO_NOT_KNOW, _('Vet ikke'))
     )
 
+    PARTY_SHORT_NAMES = {
+        'Arb': 'AP',
+        'Høy': 'H',
+        'Fre': 'FrP',
+        'Kri': 'KrF',
+        'Mil': 'MDG',
+        'Sen': 'SP',
+        'Sos': 'SV',
+        'Ven': 'V'
+    }
+
     def add_arguments(self, parser):
         parser.add_argument('--category-map', type=str, default='./file/category_map.csv',
                             help='Path to file with mapping between categories and HDO categories')
@@ -157,7 +168,7 @@ class Command(BaseCommand):
 
     def get_parties_for_alternative(self, alternative):
         def get_party_name(promise):
-            return promise.promisor_name[:3]
+            return self.PARTY_SHORT_NAMES[promise.promisor_name[:3]]
 
         promises = alternative.promises.all()
         return set(list(map(get_party_name, promises)))
