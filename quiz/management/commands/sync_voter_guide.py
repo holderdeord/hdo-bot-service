@@ -81,6 +81,7 @@ class Command(BaseCommand):
                 text=manuscript_data['question_text']
             )
             manuscripts[vg_manuscript.pk] = vg_manuscript
+            parties_known = []
             for alternative_data in manuscript_data['alternatives']:
                 alternative, created = VoterGuideAlternative.objects.get_or_create(
                     text=alternative_data['text'],
@@ -90,10 +91,11 @@ class Command(BaseCommand):
                 promise_ids = list(map(self.get_promise_id, alternative_data['promises']))
                 alternative.promises.add(*promise_ids)
                 alternative.save()
-                parties = ', '.join(self.get_parties_for_alternative(alternative))
-                alternative.set_text('{} ({})'.format(alternative_data['text'], parties))
+                parties_short_names, parties = self.get_parties_for_alternative(alternative)
+                parties_known = parties_known + parties
+                alternative.set_text('{} ({})'.format(alternative_data['text'], ', '.join(set(parties_short_names))))
                 alternative.save()
-            self.create_do_not_know_alternative(vg_manuscript)
+            self.create_do_not_know_alternative(vg_manuscript, parties_known)
             self.create_starting_manuscript_item(vg_manuscript)
         return [v for v in manuscripts.values()]
 
@@ -128,9 +130,10 @@ class Command(BaseCommand):
             )
         return manuscript
 
-    def create_do_not_know_alternative(self, manuscript):
+    def create_do_not_know_alternative(self, manuscript, parties_known):
+        parties_unknown = [self.PARTY_SHORT_NAMES[x] for x in self.PARTY_SHORT_NAMES.keys() if x not in set(parties_known)]
         VoterGuideAlternative.objects.get_or_create(
-            text='Vet ikke',
+            text='Vet ikke ({})'.format(', '.join(parties_unknown)),
             manuscript=manuscript
         )
 
@@ -167,8 +170,11 @@ class Command(BaseCommand):
         return Promise.objects.get(external_id=external_id)
 
     def get_parties_for_alternative(self, alternative):
-        def get_party_name(promise):
+        def get_party(promise):
+            return promise.promisor_name[:3]
+
+        def get_party_short_name(promise):
             return self.PARTY_SHORT_NAMES[promise.promisor_name[:3]]
 
         promises = alternative.promises.all()
-        return set(list(map(get_party_name, promises)))
+        return list(map(get_party_short_name, promises)), list(map(get_party, promises))
