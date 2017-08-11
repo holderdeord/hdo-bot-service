@@ -79,6 +79,8 @@ def save_answers(chat_session: ChatSession):
 
 def delete_answers(session: ChatSession):
     AnswerSet.objects.filter(session=session).delete()
+    # Also reset session
+    session.meta['next_manuscript'] = Manuscript.objects.get_default().pk
 
 
 def save_vg_answer(session: ChatSession, payload):

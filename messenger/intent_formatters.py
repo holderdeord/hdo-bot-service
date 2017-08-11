@@ -2,13 +2,12 @@ import json
 import logging
 from collections import defaultdict, OrderedDict
 
-from django.conf import settings
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.translation import ugettext as _
 
 from messenger.api.formatters import format_quick_replies, format_text
 from messenger.intents import (INTENT_NEXT_ITEM, INTENT_ANSWER_QUIZ_QUESTION, INTENT_GOTO_MANUSCRIPT,
-                               INTENT_ANSWER_VG_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
+                               INTENT_ANSWER_VG_QUESTION, INTENT_RESET_SESSION, INTENT_GET_STARTED,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_VG_CATEGORY_SELECT)
 from messenger.utils import get_result_url, get_messenger_bot_url
 from quiz.models import Promise, ManuscriptItem, VoterGuideAlternative
@@ -34,30 +33,14 @@ def format_bot_profile():
             "composer_input_disabled": True,  # Disable/Enable user input
             "call_to_actions": [
                 {
-                    "type": "nested",
-                    "title": _("Get help"),
-                    "call_to_actions": [
-                        {
-                            "type": "postback",
-                            "title": _("Get help"),
-                            "payload": json.dumps({'intent': INTENT_GET_HELP})
-                        },
-                        {
-                            "type": "web_url",
-                            "title": _("About"),
-                            "url": settings.BASE_URL
-                        }
-                    ]
+                    "type": "postback",
+                    "title": "Start på nytt",
+                    "payload": json.dumps({'intent': INTENT_RESET_ANSWERS_CONFIRM})
                 },
                 {
                     "type": "postback",
-                    "title": _("Start over"),
+                    "title": "Start på nytt (behold svar)",
                     "payload": json.dumps({'intent': INTENT_RESET_SESSION})
-                },
-                {
-                    "type": "postback",
-                    "title": _("Reset my answers"),
-                    "payload": json.dumps({'intent': INTENT_RESET_ANSWERS})
                 },
             ]
         }]
@@ -203,6 +186,7 @@ def format_vg_alternatives(recipient_id, manus, text):
 
 
 def format_reset_answer(recipient_id):
+    # FIXME: Not in use
     quick_replies = [{
             "content_type": "text",
             "title": "Nei, bare fortsett",
