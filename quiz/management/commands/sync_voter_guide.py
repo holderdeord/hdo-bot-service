@@ -67,6 +67,7 @@ class Command(BaseCommand):
 
     def create_question_manuscripts(self, manuscripts_data_list):
         manuscripts = {}
+        logging.info('Tema (HDO-kategori),Spørsmål,Spørsmålstekst,Partier')
         for manuscript_data in manuscripts_data_list:
             hdo_category = self.get_hdo_category(manuscript_data['hdo_category'])
             vg_manuscript, created = Manuscript.objects.get_or_create(
@@ -95,7 +96,15 @@ class Command(BaseCommand):
                 parties_known = parties_known + parties
                 alternative.set_text('{} ({})'.format(alternative_data['text'], ', '.join(set(parties_short_names))))
                 alternative.save()
-            self.create_do_not_know_alternative(vg_manuscript, parties_known)
+            parties_unknown = [self.PARTY_SHORT_NAMES[x] for x in self.PARTY_SHORT_NAMES.keys() if
+                               x not in set(parties_known)]
+            logging.info('"{}","{}","{}","{}"'.format(
+                hdo_category,
+                manuscript_data['name'],
+                manuscript_data['question_text'],
+                ', '.join(parties_unknown)
+            ))
+            self.create_do_not_know_alternative(vg_manuscript, parties_unknown)
             self.create_starting_manuscript_item(vg_manuscript)
         return [v for v in manuscripts.values()]
 
@@ -130,8 +139,7 @@ class Command(BaseCommand):
             )
         return manuscript
 
-    def create_do_not_know_alternative(self, manuscript, parties_known):
-        parties_unknown = [self.PARTY_SHORT_NAMES[x] for x in self.PARTY_SHORT_NAMES.keys() if x not in set(parties_known)]
+    def create_do_not_know_alternative(self, manuscript, parties_unknown):
         VoterGuideAlternative.objects.get_or_create(
             text='Vet ikke ({})'.format(', '.join(parties_unknown)),
             manuscript=manuscript
