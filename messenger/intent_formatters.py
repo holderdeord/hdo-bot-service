@@ -8,9 +8,10 @@ from django.utils.translation import ugettext as _
 from messenger.api.formatters import format_quick_replies, format_text
 from messenger.intents import (INTENT_NEXT_ITEM, INTENT_ANSWER_QUIZ_QUESTION, INTENT_GOTO_MANUSCRIPT,
                                INTENT_ANSWER_VG_QUESTION, INTENT_RESET_SESSION, INTENT_GET_STARTED,
-                               INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_VG_CATEGORY_SELECT)
+                               INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_VG_CATEGORY_SELECT,
+                               INTENT_SHOW_ANSWERS)
 from messenger.utils import get_result_url, get_messenger_bot_url
-from quiz.models import Promise, ManuscriptItem, VoterGuideAlternative
+from quiz.models import Promise, ManuscriptItem, VoterGuideAlternative, Manuscript
 from quiz.utils import PARTY_SHORT_NAMES
 
 logger = logging.getLogger(__name__)
@@ -34,13 +35,32 @@ def format_bot_profile():
             "call_to_actions": [
                 {
                     "type": "postback",
+                    "title": "Vis mine svar",
+                    "payload": json.dumps({'intent': INTENT_SHOW_ANSWERS})
+                },
+                {
+                    "type": "postback",
                     "title": "Start på nytt",
                     "payload": json.dumps({'intent': INTENT_RESET_ANSWERS_CONFIRM})
                 },
                 {
-                    "type": "postback",
-                    "title": "Start på nytt (behold svar)",
-                    "payload": json.dumps({'intent': INTENT_RESET_SESSION})
+                    "type": "nested",
+                    "title": "Mer",
+                    "call_to_actions": [
+                        {
+                            "type": "postback",
+                            "title": "Velg nytt tema",
+                            "payload": json.dumps({
+                                'intent': INTENT_GOTO_MANUSCRIPT,
+                                'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk
+                            })
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Start på nytt (behold svar)",
+                            "payload": json.dumps({'intent': INTENT_RESET_SESSION})
+                        },
+                    ]
                 },
             ]
         }]

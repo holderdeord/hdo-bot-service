@@ -6,7 +6,7 @@ from messenger.api.formatters import format_text, format_generic_simple
 from messenger.intent_formatters import (format_vg_categories, format_vg_alternatives, format_quick_reply_with_intent,
                                          format_vg_show_results_or_next, format_vg_result_reply,
                                          format_result_or_share_buttons)
-from messenger.intents import INTENT_NEXT_QUESTION
+from messenger.intents import INTENT_NEXT_QUESTION, INTENT_NEXT_ITEM, INTENT_RESET_SESSION
 from messenger.utils import get_voter_guide_manuscripts, get_next_vg_manuscript
 from quiz.models import VoterGuideAlternative, Manuscript
 from quiz.utils import PARTY_SHORT_NAMES
@@ -24,8 +24,11 @@ def get_voter_guide_category_replies(sender_id, session, payload, text):
     manuscripts = get_voter_guide_manuscripts(session, selection)
 
     if not manuscripts:
-        btns = format_result_or_share_buttons(session)
-        return [format_generic_simple(sender_id, 'Wow! 😮 Du har gått gjennom alle temaene 🤓🤓 Imponerende 😎', btns)]
+
+        return [format_generic_simple(
+            sender_id,
+            'Wow! 😮 Du har gått gjennom alle temaene 🤓🤓 Imponerende 😎',
+            format_result_or_share_buttons(session))]
 
     num_pages = int(math.ceil(len(manuscripts) / MAX_QUICK_REPLIES))
     page = payload.get('category_page', 1) if payload else 1
@@ -112,3 +115,15 @@ def get_show_res_or_next(sender_id, session, payload):
         format_vg_result_reply(sender_id, session),
         format_quick_reply_with_intent(
             sender_id, 'Neste tema!', more_cats_msg, INTENT_NEXT_QUESTION, extra_payload)]
+
+
+def get_answer_replies(sender_id, session, payload):
+    if not hasattr(session, 'answers') or session.answers is None:
+        return [format_quick_reply_with_intent(
+            sender_id, 'Videre', '🤔 Du har ikke svart på noe enda. Vil du gå videre?', INTENT_RESET_SESSION)]
+
+    msg = 'Du kan også se hvilke løfter svarene dine er basert på din egen resultatside'
+    return [
+        format_vg_result_reply(sender_id, session),
+        format_generic_simple(sender_id, msg, format_result_or_share_buttons(session)),
+        format_quick_reply_with_intent(sender_id, 'Videre', 'Klar for å gå videre?', INTENT_RESET_SESSION)]

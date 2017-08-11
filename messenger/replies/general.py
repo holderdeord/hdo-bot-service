@@ -8,10 +8,11 @@ from messenger.intent_formatters import format_question, format_quick_replies_wi
 from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
                                INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION,
-                               INTENT_VG_CATEGORY_SELECT)
+                               INTENT_VG_CATEGORY_SELECT, INTENT_SHOW_ANSWERS)
 from messenger.replies.quiz import get_quiz_question_replies
 from messenger.replies.voter_guide import (get_voter_guide_category_replies, get_voter_guide_questions,
-                                           get_vg_question_replies, get_voter_guide_result, get_show_res_or_next)
+                                           get_vg_question_replies, get_voter_guide_result, get_show_res_or_next,
+                                           get_answer_replies)
 from messenger.utils import delete_answers, save_vg_answer, get_result_url
 from quiz.models import ManuscriptItem
 
@@ -45,6 +46,10 @@ def get_replies(sender_id, session, payload=None):
         elif intent == INTENT_ANSWER_QUIZ_QUESTION:
             # Quiz: Answer replies
             replies += get_quiz_question_replies(sender_id, session, payload)
+
+        elif intent == INTENT_SHOW_ANSWERS:
+            # Show answers
+            return get_answer_replies(sender_id, session, payload)
 
         elif intent == INTENT_ANSWER_VG_QUESTION:
             # Voter guide: Answer replies
