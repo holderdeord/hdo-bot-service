@@ -122,7 +122,7 @@ class Command(BaseCommand):
         return manuscript
 
     def create_do_not_know_alternative(self, manuscript, parties_known):
-        parties_unknown = [PARTY_SHORT_NAMES[x] for x in PARTY_SHORT_NAMES.keys() if x not in set(parties_known)]
+        parties_unknown = [x for x in PARTY_SHORT_NAMES.values() if x not in set(parties_known)]
         formatted = ''
         if parties_unknown:
             formatted = ' ({})'.format(', '.join(parties_unknown))
