@@ -1,6 +1,7 @@
 import json
 
 import logging
+from collections import defaultdict, OrderedDict
 
 from django.conf import settings
 from django.db.models import Case, When
@@ -149,3 +150,28 @@ def get_result_url(session: ChatSession):
 
 def get_messenger_bot_url():
     return 'https://m.me/{}'.format(settings.FACEBOOK_PAGE_ID)
+
+
+def count_and_sort_answers(alts):
+    # Note: Each alternative can have more than 1 promise tied to the same party
+    parties_by_alternative = defaultdict(set)
+    for alt in alts.all():
+        for p in alt.promises.all():
+            parties_by_alternative[alt.pk].add(p.promisor_name)
+
+    # Count and sort number of answers by party
+    counts = defaultdict(lambda: 0)
+    for alt, parties in parties_by_alternative.items():
+        for p in parties:
+            counts[p] += 1
+    ordered_counts = OrderedDict(sorted(counts.items(), key=lambda c: c[1], reverse=True))
+
+    # Group by counts
+    grouped_by_counts = OrderedDict()
+    for party, count in ordered_counts.items():
+        if count in grouped_by_counts:
+            grouped_by_counts[count] += [party]
+        else:
+            grouped_by_counts[count] = [party]
+
+    return grouped_by_counts

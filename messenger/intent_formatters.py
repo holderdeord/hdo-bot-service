@@ -1,6 +1,5 @@
 import json
 import logging
-from collections import defaultdict, OrderedDict
 
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.translation import ugettext as _
@@ -10,7 +9,7 @@ from messenger.intents import (INTENT_NEXT_ITEM, INTENT_ANSWER_QUIZ_QUESTION, IN
                                INTENT_ANSWER_VG_QUESTION, INTENT_RESET_SESSION, INTENT_GET_STARTED,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_VG_CATEGORY_SELECT,
                                INTENT_SHOW_ANSWERS)
-from messenger.utils import get_result_url, get_messenger_bot_url
+from messenger.utils import get_result_url, get_messenger_bot_url, count_and_sort_answers
 from quiz.models import Promise, ManuscriptItem, VoterGuideAlternative, Manuscript
 from quiz.utils import PARTY_SHORT_NAMES
 
@@ -248,26 +247,7 @@ def format_vg_show_results_or_next(recipient_id, next_manuscript, text):
 def format_vg_result_reply(sender_id, session):
     alts = VoterGuideAlternative.objects.filter(answers__answer_set__session=session)
 
-    # Note: Each alternative can have more than 1 promise tied to the same party
-    parties_by_alternative = defaultdict(set)
-    for alt in alts.all():
-        for p in alt.promises.all():
-            parties_by_alternative[alt.pk].add(p.promisor_name)
-
-    # Count and sort number of answers by party
-    counts = defaultdict(lambda: 0)
-    for alt, parties in parties_by_alternative.items():
-        for p in parties:
-            counts[p] += 1
-    ordered_counts = OrderedDict(sorted(counts.items(), key=lambda c: c[1], reverse=True))
-
-    # Group by counts
-    grouped_by_counts = OrderedDict()
-    for party, count in ordered_counts.items():
-        if count in grouped_by_counts:
-            grouped_by_counts[count] += [party]
-        else:
-            grouped_by_counts[count] = [party]
+    grouped_by_counts = count_and_sort_answers(alts)
 
     text = 'Basert på alle dine svar er du mest enig med:\n'
     place = 1

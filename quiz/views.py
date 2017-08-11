@@ -3,7 +3,8 @@ from django.views.generic import DetailView
 
 from oauth2client.contrib.django_util.decorators import oauth_enabled
 
-from quiz.models import AnswerSet
+from messenger.utils import count_and_sort_answers
+from quiz.models import AnswerSet, VoterGuideAlternative
 
 
 @oauth_enabled
@@ -21,9 +22,17 @@ class AnswerSetView(DetailView):
     slug_field = 'uuid'
 
     def get_context_data(self, **kwargs):
+        medals = {0: '🥇', 1: '🥈', 2: '🥉'}
+        answers = VoterGuideAlternative.objects.filter(answers__answer_set=self.object)
+        answers = count_and_sort_answers(answers)
+        with_medals = []
+        for i, item in enumerate(answers.items()):
+            count, parties = item
+            medal = medals.get(i, '')
+            with_medals.append({'count': count, 'parties': parties, 'medal': medal + ' ' if medal else medal})
         return {
             'all_answers': AnswerSet.objects.all(),
             'totals': AnswerSet.objects.correct_answers(),
-            'better_percent': 'TODO',  # TODO: calc
+            'vg_answers': with_medals,
             **super().get_context_data(**kwargs)
         }
