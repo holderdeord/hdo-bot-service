@@ -125,7 +125,7 @@ class Command(BaseCommand):
         parties_unknown = [PARTY_SHORT_NAMES[x] for x in PARTY_SHORT_NAMES.keys() if x not in set(parties_known)]
         formatted = ''
         if parties_unknown:
-            formatted = ' ({})'.format(''.join(parties_unknown))
+            formatted = ' ({})'.format(', '.join(parties_unknown))
 
         VoterGuideAlternative.objects.get_or_create(
             text='Vet ikke{}'.format(formatted),
