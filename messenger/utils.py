@@ -4,6 +4,7 @@ import logging
 
 from django.conf import settings
 from django.db.models import Case, When
+from django.urls import reverse
 from rest_framework.renderers import JSONRenderer
 
 from api.serializers.manuscript import BaseManuscriptSerializer
@@ -137,3 +138,12 @@ def get_voter_guide_manuscripts(session: ChatSession, selection=None):
 
     manuscripts = manuscripts.order_by(order_by).select_related('hdo_category')
     return manuscripts
+
+
+def get_result_url(session: ChatSession):
+    url = reverse('quiz:answer-set-detail', args=[session.answers.uuid])
+    return '{}{}'.format(settings.BASE_URL, url)
+
+
+def get_messenger_bot_url():
+    return 'https://m.me/{}'.format(settings.FACEBOOK_PAGE_ID)

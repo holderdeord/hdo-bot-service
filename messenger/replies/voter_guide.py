@@ -2,9 +2,10 @@ import logging
 
 import math
 
-from messenger.api.formatters import format_text
+from messenger.api.formatters import format_text, format_generic_simple
 from messenger.intent_formatters import (format_vg_categories, format_vg_alternatives, format_quick_reply_with_intent,
-                                         format_vg_show_results_or_next, format_vg_result_reply)
+                                         format_vg_show_results_or_next, format_vg_result_reply,
+                                         format_result_or_share_buttons)
 from messenger.intents import INTENT_NEXT_QUESTION
 from messenger.utils import get_voter_guide_manuscripts, get_next_vg_manuscript
 from quiz.models import VoterGuideAlternative, Manuscript
@@ -23,8 +24,8 @@ def get_voter_guide_category_replies(sender_id, session, payload, text):
     manuscripts = get_voter_guide_manuscripts(session, selection)
 
     if not manuscripts:
-        return [format_text(sender_id, 'Wow! 😮 Du har gått gjennom alle temaene 🤓🤓 Imponerende 😎'),
-                format_text(sender_id, 'TODO: lenke til resultatsiden, call to action eller deling her?')]
+        btns = format_result_or_share_buttons(session)
+        return [format_generic_simple(sender_id, 'Wow! 😮 Du har gått gjennom alle temaene 🤓🤓 Imponerende 😎', btns)]
 
     num_pages = int(math.ceil(len(manuscripts) / MAX_QUICK_REPLIES))
     page = payload.get('category_page', 1) if payload else 1
@@ -52,7 +53,7 @@ def _get_alternative_affiliations(alt: VoterGuideAlternative):
         start = ', '.join(affils[:-1])
         return '{} og {}'.format(start, affils[-1])
 
-    return ''
+    return 'Alle partiene mente noe om dette'
 
 
 def get_vg_question_replies(sender_id, session, payload):

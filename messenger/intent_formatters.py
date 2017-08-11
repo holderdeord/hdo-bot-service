@@ -2,9 +2,6 @@ import json
 import logging
 from collections import defaultdict, OrderedDict
 
-from typing import Iterable
-
-import math
 from django.conf import settings
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.translation import ugettext as _
@@ -13,10 +10,11 @@ from messenger.api.formatters import format_quick_replies, format_text
 from messenger.intents import (INTENT_NEXT_ITEM, INTENT_ANSWER_QUIZ_QUESTION, INTENT_GOTO_MANUSCRIPT,
                                INTENT_ANSWER_VG_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_VG_CATEGORY_SELECT)
-from quiz.models import Promise, Manuscript, ManuscriptItem, HdoCategory, VoterGuideAlternative
+from messenger.utils import get_result_url, get_messenger_bot_url
+from quiz.models import Promise, ManuscriptItem, VoterGuideAlternative
+from quiz.utils import PARTY_SHORT_NAMES
 
 logger = logging.getLogger(__name__)
-
 
 
 def format_bot_profile():
@@ -246,7 +244,6 @@ def format_vg_show_results_or_next(recipient_id, next_manuscript, text):
 def format_vg_result_reply(sender_id, session):
     alts = VoterGuideAlternative.objects.filter(answers__answer_set__session=session)
 
-    # FIXME: Use parties instead of promisor_name (after re-import), promisor can be a government (ie multiple parties)
     # Note: Each alternative can have more than 1 promise tied to the same party
     parties_by_alternative = defaultdict(set)
     for alt in alts.all():
@@ -254,21 +251,71 @@ def format_vg_result_reply(sender_id, session):
             parties_by_alternative[alt.pk].add(p.promisor_name)
 
     # Count and sort number of answers by party
-    total_count = alts.count()
     counts = defaultdict(lambda: 0)
     for alt, parties in parties_by_alternative.items():
         for p in parties:
             counts[p] += 1
     ordered_counts = OrderedDict(sorted(counts.items(), key=lambda c: c[1], reverse=True))
 
+    # Group by counts
+    grouped_by_counts = OrderedDict()
+    for party, count in ordered_counts.items():
+        if count in grouped_by_counts:
+            grouped_by_counts[count] += [party]
+        else:
+            grouped_by_counts[count] = [party]
+
     text = 'Basert på alle dine svar er du mest enig med:\n'
     place = 1
     medals = {1: '🥇', 2: '🥈', 3: '🥉'}
-    for party, count in ordered_counts.items():
+    for count, parties in grouped_by_counts.items():
         medal = medals.get(place, '')
         if medal:
             medal += ' '
-        text += '{}{}: {:.1f}%\n'.format(medal, party, (count/total_count)*100)
+
+        text += '{}{}\n'.format(medal, ', '.join([PARTY_SHORT_NAMES[p] for p in parties]))
         place += 1
 
     return format_text(sender_id, text)
+
+
+def format_result_or_share_buttons(session):
+    res_url = get_result_url(session)
+    messenger_bot_url = get_messenger_bot_url()
+    hdo_share_image = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
+    return [
+        {
+            "type": "web_url",
+            "url": res_url,
+            "title": "Vis mine resultater",
+        },
+        {
+            "type": "element_share",
+            "share_contents": {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [
+                            {
+                                "title": "Jeg tok HDO sin valgomat, prøv du også!",
+                                "image_url": hdo_share_image,
+                                "default_action": {
+                                    "type": "web_url",
+                                    "url": messenger_bot_url
+                                },
+                                "buttons": [
+                                    {
+                                        "type": "web_url",
+                                        "url": messenger_bot_url,
+                                        "title": 'Ok, jeg prøver'
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+
