@@ -109,7 +109,7 @@ class Command(BaseCommand):
                 type=ManuscriptItem.TYPE_VG_CATEGORY_SELECT,
                 manuscript=manuscript,
                 order=1,
-                text='Velg et tema som du bryr deg om',
+                text='Velg tema',
             )
         return manuscript
 

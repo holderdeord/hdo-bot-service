@@ -62,7 +62,7 @@ def get_vg_question_replies(sender_id, session, payload):
     # Emptied out the category, link to root
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
     finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
-    more_cats_msg = 'Velg et nytt tema og besvare spørsmålene for å gjøre resultatet dintt mer presist.'
+    more_cats_msg = 'Velg nytt tema for å gjøre ditt resultat mer presist.'
 
     return [
         format_text(sender_id, next_text),
@@ -94,7 +94,7 @@ def get_show_res_or_next(sender_id, session, payload):
     # Emptied out the category, link to root
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
     finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
-    more_cats_msg = 'Velg et nytt tema og besvare spørsmålene for å gjøre resultatet dintt mer presist.'
+    more_cats_msg = 'Velg nytt tema for å gjøre ditt resultat mer presist.'
 
     return [
         format_text(sender_id, finished_msg),

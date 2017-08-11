@@ -261,7 +261,7 @@ def format_vg_result_reply(sender_id, session):
             counts[p] += 1
     ordered_counts = OrderedDict(sorted(counts.items(), key=lambda c: c[1], reverse=True))
 
-    text = 'Disse partiene er du mest enig i:\n\n'
+    text = 'Basert på alle dine svar er du mest enig med:\n'
     place = 1
     medals = {1: '🥇', 2: '🥈', 3: '🥉'}
     for party, count in ordered_counts.items():

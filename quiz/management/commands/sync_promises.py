@@ -47,7 +47,7 @@ class Command(BaseCommand):
                 promises, links_next = self.get_promises_from_api(links_next['href'], promises)
             self.stdout.write('Downloaded {} promises from API'.format(len(promises)), ending='\n')
         else:
-            self.stderr.write('Either --google or --check-file needs to provided', ending='\n')
+            self.stderr.write('Provide at least one of --all --google or --check-file', ending='\n')
             sys.exit(1)
 
         new_promises, updated_promises = self.create_or_update_promise_objects(promises, category_map)
