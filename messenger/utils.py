@@ -81,7 +81,10 @@ def delete_answers(session: ChatSession):
 
 
 def save_vg_answer(session: ChatSession, payload):
-    alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
+    try:
+        alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
+    except VoterGuideAlternative.DoesNotExist:
+        return
     answer_set, _ = AnswerSet.objects.get_or_create(session=session)  # reuse answerset
     answer, _ = VoterGuideAnswer.objects.get_or_create(answer_set=answer_set, voter_guide_alternative=alt)
 

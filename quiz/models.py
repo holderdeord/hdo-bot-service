@@ -140,6 +140,7 @@ class VoterGuideAlternative(BaseModel):
     text = models.CharField(max_length=255)
     manuscript = models.ForeignKey('quiz.Manuscript', related_name='voter_guide_alternatives')
     promises = models.ManyToManyField('quiz.Promise', blank=True)
+    no_answer = models.BooleanField(default=False, blank=True)
 
     class Meta:
         unique_together = ('text', 'manuscript')

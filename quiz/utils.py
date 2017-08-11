@@ -4,10 +4,21 @@ import requests
 from django.conf import settings
 from django.db.models import Count
 
-from quiz.models import GoogleProfile, Promise, Party
+
+PARTY_SHORT_NAMES = {
+    'Arbeiderpartiet': 'AP',
+    'Fremskrittspartiet': 'FrP',
+    'Høyre': 'H',
+    'Kristelig Folkeparti': 'KrF',
+    'Miljøpartiet De Grønne': 'MDG',
+    'Senterpartiet': 'SP',
+    'Sosialistisk Venstreparti': 'SV',
+    'Venstre': 'V'
+}
 
 
 def get_google_sheet_data():
+    from quiz.models import GoogleProfile
     """ Ref: https://github.com/google/oauth2client/blob/master/oauth2client/contrib/django_util/__init__.py#L188
         Ref: https://github.com/google/oauth2client/tree/master/samples/django/django_user
     """
@@ -31,6 +42,7 @@ def get_google_sheet_data():
 
 
 def get_google_access_token():
+    from quiz.models import GoogleProfile
     gp = GoogleProfile.objects.first()
     return gp.credential.access_token if gp else None
 
@@ -39,8 +51,10 @@ def get_promise_id(promise_document):
     return promise_document['_links']['self']['href'].split('/')[-1]
 
 
-def format_question(promise: Promise, question_type='checked'):
+def format_question(promise, question_type='checked'):
     # TODO: You are here
+    # TODO: Move this
+    from quiz.models import Party
     if question_type == 'checked':
         return {
             'possible': [promise.FULFILLED, promise.BROKEN],

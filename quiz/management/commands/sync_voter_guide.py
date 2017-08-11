@@ -5,6 +5,7 @@ from django.core.management import BaseCommand
 from django.utils.translation import ugettext_lazy as _
 
 from quiz.models import Manuscript, HdoCategory, VoterGuideAlternative, Promise, ManuscriptItem
+from quiz.utils import PARTY_SHORT_NAMES
 
 
 class Command(BaseCommand):
@@ -20,17 +21,6 @@ class Command(BaseCommand):
     TEXTS = (
         (DO_NOT_KNOW, _('Vet ikke'))
     )
-
-    PARTY_SHORT_NAMES = {
-        'Arb': 'AP',
-        'Høy': 'H',
-        'Fre': 'FrP',
-        'Kri': 'KrF',
-        'Mil': 'MDG',
-        'Sen': 'SP',
-        'Sos': 'SV',
-        'Ven': 'V'
-    }
 
     def add_arguments(self, parser):
         parser.add_argument('--category-map', type=str, default='./file/category_map.csv',
@@ -91,9 +81,10 @@ class Command(BaseCommand):
                 promise_ids = list(map(self.get_promise_id, alternative_data['promises']))
                 alternative.promises.add(*promise_ids)
                 alternative.save()
-                parties_short_names, parties = self.get_parties_for_alternative(alternative)
-                parties_known = parties_known + parties
-                alternative.set_text('{} ({})'.format(alternative_data['text'], ', '.join(set(parties_short_names))))
+
+                parties = self.get_parties_for_alternative(alternative)
+                parties_known += parties
+                alternative.set_text('{} ({})'.format(alternative_data['text'], ', '.join(set(parties))))
                 alternative.save()
             self.create_do_not_know_alternative(vg_manuscript, parties_known)
             self.create_starting_manuscript_item(vg_manuscript)
@@ -131,11 +122,15 @@ class Command(BaseCommand):
         return manuscript
 
     def create_do_not_know_alternative(self, manuscript, parties_known):
-        parties_unknown = [self.PARTY_SHORT_NAMES[x] for x in self.PARTY_SHORT_NAMES.keys() if x not in set(parties_known)]
+        parties_unknown = [PARTY_SHORT_NAMES[x] for x in PARTY_SHORT_NAMES.keys() if x not in set(parties_known)]
+        formatted = ''
+        if parties_unknown:
+            formatted = ' ({})'.format(''.join(parties_unknown))
+
         VoterGuideAlternative.objects.get_or_create(
-            text='Vet ikke ({})'.format(', '.join(parties_unknown)),
-            manuscript=manuscript
-        )
+            text='Vet ikke{}'.format(formatted),
+            manuscript=manuscript,
+            no_answer=True)
 
     def find_linked_manuscripts(self, hdo_category):
         linked_manuscripts = []
@@ -170,11 +165,5 @@ class Command(BaseCommand):
         return Promise.objects.get(external_id=external_id)
 
     def get_parties_for_alternative(self, alternative):
-        def get_party(promise):
-            return promise.promisor_name[:3]
-
-        def get_party_short_name(promise):
-            return self.PARTY_SHORT_NAMES[promise.promisor_name[:3]]
-
-        promises = alternative.promises.all()
-        return list(map(get_party_short_name, promises)), list(map(get_party, promises))
+        promisors = alternative.promises.values_list('promisor_name', flat=True)
+        return [PARTY_SHORT_NAMES[party] for party in promisors]

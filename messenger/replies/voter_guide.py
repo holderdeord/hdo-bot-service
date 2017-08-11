@@ -8,6 +8,7 @@ from messenger.intent_formatters import (format_vg_categories, format_vg_alterna
 from messenger.intents import INTENT_NEXT_QUESTION
 from messenger.utils import get_voter_guide_manuscripts, get_next_vg_manuscript
 from quiz.models import VoterGuideAlternative, Manuscript
+from quiz.utils import PARTY_SHORT_NAMES
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +37,12 @@ def get_voter_guide_questions(sender_id, session, payload, text):
 
 
 def _get_alternative_affiliations(alt: VoterGuideAlternative):
-    affils = list(set(alt.promises.values_list('promisor_name', flat=True)))
+    affils = [PARTY_SHORT_NAMES[party] for party in list(set(alt.promises.values_list('promisor_name', flat=True)))]
+
+    if alt.no_answer:
+        # Find parties
+        parties_known = list(set(alt.manuscript.voter_guide_alternatives.values_list('promises__promisor_name', flat=True)))
+        affils = [PARTY_SHORT_NAMES[x] for x in PARTY_SHORT_NAMES.keys() if x not in set(parties_known)]
 
     # Format
     if len(affils) == 1:
@@ -50,7 +56,11 @@ def _get_alternative_affiliations(alt: VoterGuideAlternative):
 
 
 def get_vg_question_replies(sender_id, session, payload):
-    alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
+    try:
+        alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
+    except VoterGuideAlternative.DoesNotExist:
+        return []
+
     next_text = 'Du mener det samme som {}'.format(_get_alternative_affiliations(alt))
 
     next_manuscript = get_next_vg_manuscript(session)

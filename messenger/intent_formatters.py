@@ -200,7 +200,7 @@ def format_vg_alternatives(recipient_id, manus, text):
         })
         alt_text += '\n{} {}'.format(labels[i], alt['text'])
 
-    text = '{}\n{}{}'.format(manus['name'], text, alt_text)
+    text = '{}{}'.format(text, alt_text)
     return format_quick_replies(recipient_id, buttons, text)
 
 
