@@ -9,10 +9,10 @@ from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INT
                                INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION,
                                INTENT_VG_CATEGORY_SELECT)
-from messenger.replies.quiz import get_quiz_result_url, get_quiz_question_replies
+from messenger.replies.quiz import get_quiz_question_replies
 from messenger.replies.voter_guide import (get_voter_guide_category_replies, get_voter_guide_questions,
                                            get_vg_question_replies, get_voter_guide_result, get_show_res_or_next)
-from messenger.utils import delete_answers, save_vg_answer
+from messenger.utils import delete_answers, save_vg_answer, get_result_url
 from quiz.models import ManuscriptItem
 
 logger = logging.getLogger(__name__)
@@ -32,12 +32,12 @@ def get_replies(sender_id, session, payload=None):
             # Do nothing and just keep going
             pass
 
-        elif intent == INTENT_RESET_ANSWERS:
-            return [format_reset_answer(sender_id)]
+        # elif intent == INTENT_RESET_ANSWERS:
+        #     return [format_reset_answer(sender_id)]
 
         elif intent == INTENT_RESET_ANSWERS_CONFIRM:
             delete_answers(session)
-            replies += [format_text(sender_id, '💥 Nå har vi slettet alt :-)')]
+            return [format_text(sender_id, '💥 Svarene dine er slettet')]
 
         elif intent == INTENT_GET_HELP:
             replies += [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]
@@ -109,7 +109,7 @@ def get_replies(sender_id, session, payload=None):
     elif item['type'] == ManuscriptItem.TYPE_QUIZ_RESULT:
         logger.debug("Adding quiz result [{}]".format(session.meta['item'] + 1))
 
-        replies += [format_text(sender_id, get_quiz_result_url(session))]
+        replies += [format_text(sender_id, get_result_url(session))]
         session.meta['item'] += 1
 
     # Voter guide: Show category select

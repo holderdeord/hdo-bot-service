@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^$', AdminActionsView.as_view(), name='index'),
 
     url(r'^messenger/', include('messenger.urls', namespace='messenger')),
-    url(r'^quiz/', include('quiz.urls', namespace='quiz')),
+    url(r'', include('quiz.urls', namespace='quiz')),
     url(r'^api/', include('api.urls', namespace='api')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^botadmin/', include('botadmin.urls', namespace='botadmin')),

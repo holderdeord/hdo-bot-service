@@ -2,12 +2,14 @@ import logging
 
 import math
 
-from messenger.api.formatters import format_text
+from messenger.api.formatters import format_text, format_generic_simple
 from messenger.intent_formatters import (format_vg_categories, format_vg_alternatives, format_quick_reply_with_intent,
-                                         format_vg_show_results_or_next, format_vg_result_reply)
+                                         format_vg_show_results_or_next, format_vg_result_reply,
+                                         format_result_or_share_buttons)
 from messenger.intents import INTENT_NEXT_QUESTION
 from messenger.utils import get_voter_guide_manuscripts, get_next_vg_manuscript
 from quiz.models import VoterGuideAlternative, Manuscript
+from quiz.utils import PARTY_SHORT_NAMES
 
 logger = logging.getLogger(__name__)
 
@@ -22,8 +24,8 @@ def get_voter_guide_category_replies(sender_id, session, payload, text):
     manuscripts = get_voter_guide_manuscripts(session, selection)
 
     if not manuscripts:
-        return [format_text(sender_id, 'Wow! 😮 Du har gått gjennom alle temaene 🤓🤓 Imponerende 😎'),
-                format_text(sender_id, 'TODO: lenke til resultatsiden, call to action eller deling her?')]
+        btns = format_result_or_share_buttons(session)
+        return [format_generic_simple(sender_id, 'Wow! 😮 Du har gått gjennom alle temaene 🤓🤓 Imponerende 😎', btns)]
 
     num_pages = int(math.ceil(len(manuscripts) / MAX_QUICK_REPLIES))
     page = payload.get('category_page', 1) if payload else 1
@@ -36,7 +38,12 @@ def get_voter_guide_questions(sender_id, session, payload, text):
 
 
 def _get_alternative_affiliations(alt: VoterGuideAlternative):
-    affils = list(set(alt.promises.values_list('promisor_name', flat=True)))
+    affils = [PARTY_SHORT_NAMES[party] for party in list(set(alt.promises.values_list('promisor_name', flat=True)))]
+
+    if alt.no_answer:
+        # Find parties
+        parties_known = list(set(alt.manuscript.voter_guide_alternatives.values_list('promises__promisor_name', flat=True)))
+        affils = [PARTY_SHORT_NAMES[x] for x in PARTY_SHORT_NAMES.keys() if x not in set(parties_known)]
 
     # Format
     if len(affils) == 1:
@@ -46,11 +53,15 @@ def _get_alternative_affiliations(alt: VoterGuideAlternative):
         start = ', '.join(affils[:-1])
         return '{} og {}'.format(start, affils[-1])
 
-    return ''
+    return 'Alle partiene mente noe om dette'
 
 
 def get_vg_question_replies(sender_id, session, payload):
-    alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
+    try:
+        alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
+    except VoterGuideAlternative.DoesNotExist:
+        return []
+
     next_text = 'Du mener det samme som {}'.format(_get_alternative_affiliations(alt))
 
     next_manuscript = get_next_vg_manuscript(session)
@@ -62,7 +73,7 @@ def get_vg_question_replies(sender_id, session, payload):
     # Emptied out the category, link to root
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
     finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
-    more_cats_msg = 'Velg et nytt tema og besvare spørsmålene for å gjøre resultatet dintt mer presist.'
+    more_cats_msg = 'Velg nytt tema for å gjøre ditt resultat mer presist.'
 
     return [
         format_text(sender_id, next_text),
@@ -94,7 +105,7 @@ def get_show_res_or_next(sender_id, session, payload):
     # Emptied out the category, link to root
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
     finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
-    more_cats_msg = 'Velg et nytt tema og besvare spørsmålene for å gjøre resultatet dintt mer presist.'
+    more_cats_msg = 'Velg nytt tema for å gjøre ditt resultat mer presist.'
 
     return [
         format_text(sender_id, finished_msg),

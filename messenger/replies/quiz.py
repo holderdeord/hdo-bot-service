@@ -1,20 +1,12 @@
 import random
 
-from django.conf import settings
-from django.urls import reverse
 from django.utils.translation import ugettext as _
 
 from messenger.api import get_user_profile
 from messenger.api.formatters import format_text, format_image_attachment
-from messenger.models import ChatSession
 from messenger.utils import save_answers
 
 # TODO: Add two other quiz types
-
-
-def get_quiz_result_url(session: ChatSession):
-    url = reverse('quiz:answer-set-detail', args=[session.answers.uuid])
-    return '{}{}'.format(settings.BASE_URL, url)
 
 
 def get_quiz_question_replies(sender_id, session, payload=None):

@@ -4,6 +4,7 @@ import logging
 
 from django.conf import settings
 from django.db.models import Case, When
+from django.urls import reverse
 from rest_framework.renderers import JSONRenderer
 
 from api.serializers.manuscript import BaseManuscriptSerializer
@@ -78,10 +79,15 @@ def save_answers(chat_session: ChatSession):
 
 def delete_answers(session: ChatSession):
     AnswerSet.objects.filter(session=session).delete()
+    # Also reset session
+    session.meta['next_manuscript'] = Manuscript.objects.get_default().pk
 
 
 def save_vg_answer(session: ChatSession, payload):
-    alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
+    try:
+        alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
+    except VoterGuideAlternative.DoesNotExist:
+        return
     answer_set, _ = AnswerSet.objects.get_or_create(session=session)  # reuse answerset
     answer, _ = VoterGuideAnswer.objects.get_or_create(answer_set=answer_set, voter_guide_alternative=alt)
 
@@ -134,3 +140,12 @@ def get_voter_guide_manuscripts(session: ChatSession, selection=None):
 
     manuscripts = manuscripts.order_by(order_by).select_related('hdo_category')
     return manuscripts
+
+
+def get_result_url(session: ChatSession):
+    url = reverse('quiz:answer-set-detail', args=[session.answers.uuid])
+    return '{}{}'.format(settings.BASE_URL, url)
+
+
+def get_messenger_bot_url():
+    return 'https://m.me/{}'.format(settings.FACEBOOK_PAGE_ID)
