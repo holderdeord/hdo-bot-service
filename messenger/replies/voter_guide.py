@@ -4,9 +4,9 @@ import math
 
 from messenger.api.formatters import format_text, format_generic_simple
 from messenger.intent_formatters import (format_vg_categories, format_vg_alternatives, format_quick_reply_with_intent,
-                                         format_vg_show_results_or_next, format_vg_result_reply,
+                                         format_vg_result_reply,
                                          format_result_or_share_buttons)
-from messenger.intents import INTENT_NEXT_QUESTION, INTENT_NEXT_ITEM, INTENT_RESET_SESSION
+from messenger.intents import INTENT_NEXT_QUESTION, INTENT_RESET_SESSION
 from messenger.utils import get_voter_guide_manuscripts, get_next_vg_manuscript
 from quiz.models import VoterGuideAlternative, Manuscript
 from quiz.utils import PARTY_SHORT_NAMES

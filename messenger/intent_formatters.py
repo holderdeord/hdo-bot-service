@@ -212,26 +212,6 @@ def format_reset_answer(recipient_id):
     return format_quick_replies(recipient_id, quick_replies, "Skal vi slette alle svarene dine?")
 
 
-def format_vg_show_results_or_next(recipient_id, next_manuscript, text):
-    quick_replies = [{
-            "content_type": "text",
-            "title": "Foreløbig resultat",
-            "payload": json.dumps({
-                "intent": INTENT_NEXT_ITEM,
-            })
-        },
-        {
-            "content_type": "text",
-            "title": 'Neste spørsmål',
-            "payload": json.dumps({
-                "intent": INTENT_GOTO_MANUSCRIPT,
-                "manuscript": next_manuscript
-            })
-        }
-    ]
-    return format_quick_replies(recipient_id, quick_replies, text)
-
-
 def format_vg_result_reply(sender_id, session):
     alts = VoterGuideAlternative.objects.filter(answers__answer_set__session=session)
 
