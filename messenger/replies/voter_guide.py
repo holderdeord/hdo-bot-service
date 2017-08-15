@@ -120,7 +120,7 @@ def get_show_res_or_next(sender_id, session, payload):
 def get_answer_replies(sender_id, session, payload):
     if not hasattr(session, 'answers') or session.answers is None:
         return [format_quick_reply_with_intent(
-            sender_id, 'Videre', '🤔 Du har ikke svart på noe enda. Vil du gå videre?', INTENT_RESET_SESSION)]
+            sender_id, 'Okey 👍', '🤔 Du har ikke svart på noe enda... Begynn med å velge et tema', INTENT_RESET_SESSION)]
 
     msg = 'Du kan også se hvilke løfter svarene dine er basert på din egen resultatside'
     return [

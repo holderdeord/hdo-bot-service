@@ -39,27 +39,16 @@ def format_bot_profile():
                 },
                 {
                     "type": "postback",
-                    "title": "Start på nytt",
-                    "payload": json.dumps({'intent': INTENT_RESET_ANSWERS_CONFIRM})
+                    "title": "Velg nytt tema",
+                    "payload": json.dumps({
+                        'intent': INTENT_GOTO_MANUSCRIPT,
+                        'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk
+                    })
                 },
                 {
-                    "type": "nested",
-                    "title": "Mer",
-                    "call_to_actions": [
-                        {
-                            "type": "postback",
-                            "title": "Velg nytt tema",
-                            "payload": json.dumps({
-                                'intent': INTENT_GOTO_MANUSCRIPT,
-                                'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk
-                            })
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Start på nytt (behold svar)",
-                            "payload": json.dumps({'intent': INTENT_RESET_SESSION})
-                        },
-                    ]
+                    "type": "postback",
+                    "title": "Start på nytt",
+                    "payload": json.dumps({'intent': INTENT_RESET_ANSWERS})
                 },
             ]
         }]
@@ -205,17 +194,16 @@ def format_vg_alternatives(recipient_id, manus, text):
 
 
 def format_reset_answer(recipient_id):
-    # FIXME: Not in use
     quick_replies = [{
             "content_type": "text",
-            "title": "Nei, bare fortsett",
+            "title": "Nei, jeg beholder de",
             "payload": json.dumps({
-                "intent": INTENT_NEXT_ITEM,
+                "intent": INTENT_RESET_SESSION,
             })
         },
         {
             "content_type": "text",
-            "title": 'Slett alt!',
+            "title": '💥 Slett alt!',
             "payload": json.dumps({
                 "intent": INTENT_RESET_ANSWERS_CONFIRM,
             })

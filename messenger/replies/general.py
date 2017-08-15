@@ -33,12 +33,12 @@ def get_replies(sender_id, session, payload=None):
             # Do nothing and just keep going
             pass
 
-        # elif intent == INTENT_RESET_ANSWERS:
-        #     return [format_reset_answer(sender_id)]
+        elif intent == INTENT_RESET_ANSWERS:
+            return [format_reset_answer(sender_id)]
 
         elif intent == INTENT_RESET_ANSWERS_CONFIRM:
             delete_answers(session)
-            return [format_text(sender_id, '💥 Svarene dine er slettet')]
+            return [format_text(sender_id, '💥💥💥 Svarene dine er slettet')]
 
         elif intent == INTENT_GET_HELP:
             replies += [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]
