@@ -105,15 +105,8 @@ def get_unanswered_vg_manuscripts(session: ChatSession, selection=None):
 
 def get_next_vg_manuscript(session: ChatSession):
     ms = get_unanswered_vg_manuscripts(session)
-    # TODO: Add skipped questions
-    skipped = session.meta.get('skipped_manuscripts')
-
     current_category = session.meta['manuscript']['hdo_category']
-    ms = ms.filter(hdo_category=current_category)
-    if skipped:
-        ms = ms.exclude(pk__in=skipped)
-
-    return ms.first()
+    return ms.filter(hdo_category=current_category).order_by('?').first()
 
 
 def get_voter_guide_manuscripts(session: ChatSession, selection=None):
