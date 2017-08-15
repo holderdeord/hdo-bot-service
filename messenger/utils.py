@@ -122,7 +122,11 @@ def get_voter_guide_manuscripts(session: ChatSession, selection=None):
     # Remove manuscripts already answered
     manuscripts = get_unanswered_vg_manuscripts(session, selection)
 
+    # Randomize
+    manuscripts = manuscripts.order_by('?')
+
     # Make manuscripts unique per HDO category
+    # Note: Iterating over the queryset evaluates it and lets us sort it by name again later
     exclude_manuscripts = []
     seen_cats = []
     for m in manuscripts:
@@ -133,13 +137,13 @@ def get_voter_guide_manuscripts(session: ChatSession, selection=None):
 
     manuscripts = manuscripts.exclude(pk__in=exclude_manuscripts)
 
-    # Random order
-    order_by = '?'
     if selection:
         # Keep manuscript selection order
-        order_by = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(selection)])
+        manuscripts = manuscripts.order_by(Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(selection)]))
+    else:
+        manuscripts = manuscripts.order_by('hdo_category__name')
 
-    manuscripts = manuscripts.order_by(order_by).select_related('hdo_category')
+    manuscripts = manuscripts.select_related('hdo_category')
     return manuscripts
 
 

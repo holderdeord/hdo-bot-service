@@ -24,7 +24,6 @@ def get_voter_guide_category_replies(sender_id, session, payload, text):
     manuscripts = get_voter_guide_manuscripts(session, selection)
 
     if not manuscripts:
-
         return [format_generic_simple(
             sender_id,
             'Wow! 😮 Du har gått gjennom alle temaene 🤓🤓 Imponerende 😎',

@@ -174,7 +174,7 @@ def format_vg_categories(recipient_id, manuscripts, text, num_pages, page, max_q
 
 
 def format_vg_alternatives(recipient_id, manus, text):
-    # TODO: Make "Vet ikke" alternative special
+    # FIXME: Make "Vet ikke" alternative special?
     labels = ['1 👍', '2 😃', '3 👌', '4 ❤', '5 👏', '6 😍', '7 💪', '8 👊']
     buttons = []
     alt_text = ''
