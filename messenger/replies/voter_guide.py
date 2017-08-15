@@ -97,25 +97,6 @@ def get_voter_guide_result(sender_id, session, payload):
     return [format_vg_result_reply(sender_id, session), get_next_vg_question_reply(sender_id, session, payload)]
 
 
-def get_show_res_or_next(sender_id, session, payload):
-    next_manuscript = get_next_vg_manuscript(session)
-    if next_manuscript:
-        text = "Vil du se foreløpig resultat, eller vil du gå videre til neste spørsmål?"
-        # More questions in category, yey!
-        return [format_vg_show_results_or_next(sender_id, next_manuscript.pk, text)]
-
-    # Emptied out the category, link to root
-    extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
-    finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
-    more_cats_msg = 'Velg nytt tema for å gjøre ditt resultat mer presist.'
-
-    return [
-        format_text(sender_id, finished_msg),
-        format_vg_result_reply(sender_id, session),
-        format_quick_reply_with_intent(
-            sender_id, 'Neste tema!', more_cats_msg, INTENT_NEXT_QUESTION, extra_payload)]
-
-
 def get_answer_replies(sender_id, session, payload):
     if not hasattr(session, 'answers') or session.answers is None:
         return [format_quick_reply_with_intent(

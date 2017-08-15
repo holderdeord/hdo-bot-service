@@ -11,8 +11,7 @@ from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INT
                                INTENT_VG_CATEGORY_SELECT, INTENT_SHOW_ANSWERS)
 from messenger.replies.quiz import get_quiz_question_replies
 from messenger.replies.voter_guide import (get_voter_guide_category_replies, get_voter_guide_questions,
-                                           get_vg_question_replies, get_voter_guide_result, get_show_res_or_next,
-                                           get_answer_replies)
+                                           get_vg_question_replies, get_voter_guide_result, get_answer_replies)
 from messenger.utils import delete_answers, save_vg_answer, get_result_url
 from quiz.models import ManuscriptItem
 
@@ -129,12 +128,6 @@ def get_replies(sender_id, session, payload=None):
         logger.debug("Adding voter guide questions [{}]".format(session.meta['item'] + 1))
 
         replies += get_voter_guide_questions(sender_id, session, payload, item['text'])
-        session.meta['item'] += 1
-    # Voter guide: Show res or continue
-    elif item['type'] == ManuscriptItem.TYPE_VG_SHOW_RES_OR_CONTINUE:
-        logger.debug("Adding show results or continue [{}]".format(session.meta['item'] + 1))
-
-        replies += get_show_res_or_next(sender_id, session, payload)
         session.meta['item'] += 1
 
     # Voter guide: result
