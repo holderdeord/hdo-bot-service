@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
-{% block head %}
-
-{% endblock %}
+{% block head %}{% endblock %}
 
 {% block body %}
 <style>
@@ -15,7 +13,7 @@
             Du er mest enig med følgende partier:
             <ul>
                 {% for ans in vg_answers %}
-                <li>{{ ans.medal }}{{ ans.parties|join:', ' }}</li>
+                    <li>{{ ans.medal }}{{ ans.parties|join:', ' }}</li>
                 {% endfor %}
             </ul>
         </div>

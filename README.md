@@ -28,6 +28,13 @@ Relevant settings:
     BASE_URL
     ALLOWED_HOSTS
     MANUSCRIPT_API_ALLOW_ANY
+
+## Development
+    # Quiz styles
+    cd quiz/static/quiz
+    yarn
+    npm run styles
+    npm run watch
     
 ## Import promises
     # From CSV-file

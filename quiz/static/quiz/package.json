@@ -1,0 +1,12 @@
+{
+  "name": "quiz",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "styles": "./node_modules/.bin/node-sass --include-path node_modules/bootstrap styles/main.scss > ../css/main.css",
+    "watch": "./node_modules/.bin/node-sass --include-path node_modules/bootstrap styles/main.scss --watch --recursive --output css --source-map true --source-map-contents sass"
+  },
+  "devDependencies": {
+    "hdo-bootstrap": "holderdeord/hdo-bootstrap"
+  }
+}

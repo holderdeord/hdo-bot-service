@@ -95,7 +95,7 @@ class AnswerAdmin(admin.ModelAdmin):
 
 
 class AnswerSetAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'session', 'updated']
+    list_display = ['pk', 'uuid', 'session', 'updated']
     readonly_fields = ['uuid', 'session']
     inlines = [VoterGuideAnswerInline, AnswerInline]
 
@@ -113,7 +113,6 @@ class HdoCategoryAdmin(admin.ModelAdmin):
 
 class VoterGuideAnswerAdmin(admin.ModelAdmin):
     pass
-
 
 
 admin.site.register(AnswerSet, AnswerSetAdmin)

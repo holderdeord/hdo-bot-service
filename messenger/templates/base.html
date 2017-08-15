@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,34 +6,7 @@
     <title>{% block title %}HDO{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://files.holderdeord.no/dev/hdo-bootstrap/hdo-bootstrap.css">
-    <style>
-        nav header .hdo-logo {
-            margin-top: .5rem;
-            padding-top: 3rem;
-            text-align: center;
-            background-position: 50% 0;
-            background-repeat: no-repeat;
-            background-size: auto 2.5rem;
-            font-weight: 600;
-        }
-        .flatpage p,
-        .flatpage h1,
-        .flatpage h2,
-        .flatpage h3,
-        .flatpage h4,
-        .flatpage h5,
-        .flatpage h6 {
-            max-width: 700px;
-            margin: 0 auto;
-            margin-bottom: 0.15em;
-        }
-        .flatpage p {
-            margin-bottom: 1em;
-        }
-        .flatpage  img {
-            max-width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static "quiz/css/main.css" %}">
     {% block head %}{% endblock %}
 </head>
 <body>
