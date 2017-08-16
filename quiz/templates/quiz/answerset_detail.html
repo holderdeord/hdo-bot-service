@@ -60,13 +60,14 @@
             <div class="screen-small">
                 {% for alt in vg_alts %}
                 <section>
-                    <h4>{{ alt.manuscript.name }} ({{ alt.manuscript.hdo_category }})</h4>
+                    <h4>{{ alt.manuscript.name }}</h4>
                     <p>{{ alt }}</p>
                     <ul>
                         {% for p in alt.promises.all %}
                         <li><strong>{{ p.promisor_name }}</strong>: {{ p.body }}</li>
                         {% endfor %}
                     </ul>
+                    <p class="hdo-category">(Tema: {{ alt.manuscript.hdo_category }})</p>
                 </section>
                 {% endfor %}
             </div>

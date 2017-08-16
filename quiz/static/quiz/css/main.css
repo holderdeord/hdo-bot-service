@@ -66,6 +66,16 @@ nav header .hdo-logo {
   .answers-overview li {
     list-style: none; }
 
+.answers-in-detail section {
+  border-top: 1px solid #ddd;
+  padding: 1rem 0; }
+  .answers-in-detail section:first-child {
+    border-top: 0;
+    padding-top: 0; }
+
+.answers-in-detail .hdo-category {
+  font-style: italic; }
+
 .hdo-category-title {
   font-style: italic; }
 

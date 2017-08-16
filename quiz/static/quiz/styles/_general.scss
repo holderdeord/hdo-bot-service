@@ -73,6 +73,20 @@ nav header .hdo-logo {
   }
 }
 
+.answers-in-detail {
+  section {
+    border-top: 1px solid #ddd;
+    padding: 1rem 0;
+    &:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+  }
+  .hdo-category {
+    font-style: italic;
+  }
+}
+
 .hdo-category-title {
   font-style: italic;
 }
@@ -101,6 +115,7 @@ nav header .hdo-logo {
 .screen-large {
   display: none;
 }
+
 .screen-small {
   padding: 1rem;
 }
