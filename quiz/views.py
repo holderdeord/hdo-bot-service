@@ -23,16 +23,18 @@ class AnswerSetView(DetailView):
 
     def get_context_data(self, **kwargs):
         medals = {0: '🥇', 1: '🥈', 2: '🥉'}
-        answers = VoterGuideAlternative.objects.filter(answers__answer_set=self.object)
-        answers = count_and_sort_answers(answers)
+        vg_alts = VoterGuideAlternative.objects.filter(answers__answer_set=self.object)
+        answers = count_and_sort_answers(vg_alts)
         with_medals = []
         for i, item in enumerate(answers.items()):
             count, parties = item
             medal = medals.get(i, '')
             with_medals.append({'count': count, 'parties': parties, 'medal': medal + ' ' if medal else medal})
+
         return {
             'all_answers': AnswerSet.objects.all(),
             'totals': AnswerSet.objects.correct_answers(),
-            'vg_answers': with_medals,
+            'vg_answers_sorted': with_medals,
+            'vg_alts': vg_alts,
             **super().get_context_data(**kwargs)
         }
