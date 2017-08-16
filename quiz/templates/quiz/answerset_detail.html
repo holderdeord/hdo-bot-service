@@ -12,7 +12,7 @@
             <h3>Dine svar</h3>
             Du er mest enig med følgende partier:
             <ul>
-                {% for ans in vg_answers %}
+                {% for ans in vg_answers_sorted %}
                     <li>{{ ans.medal }}{{ ans.parties|join:', ' }}</li>
                 {% endfor %}
             </ul>
@@ -22,26 +22,26 @@
         <div class="table-outer screen-large">
             <table class="table table-striped">
                 <tr>
-                    <th>Tema</th>
                     <th>Spørsmål</th>
                     <th>Ditt svar</th>
                     <th>Basert på løfter</th>
                 </tr>
-                {% for ans in answer_set.voter_guide_answers.all %}
-                {% with ans.voter_guide_alternative as alt %}
-                <tr>
-                    <td>{{ alt.manuscript.hdo_category }}</td>
-                    <td>{{ alt.manuscript.name }}</td>
-                    <td>{{ alt }}</td>
-                    <td>
-                        <ul>
-                            {% for p in alt.promises.all %}
-                            <li><strong>{{ p.promisor_name }}</strong>: {{ p.body }}</li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                </tr>
-                {% endwith %}
+                {% regroup vg_alts by manuscript.hdo_category as vg_alts_grouped %}
+                {% for cat, category_alts in vg_alts_grouped %}
+                    <tr><td colspan="3"><span class="hdo-category-title">{{ cat }}</span> {{ category_alts.0.manuscript.hdo_category.label }}</td></tr>
+                    {% for alt in category_alts %}
+                    <tr>
+                        <td>{{ alt.manuscript.name }}</td>
+                        <td>{{ alt }}</td>
+                        <td>
+                            <ul>
+                                {% for p in alt.promises.all %}
+                                <li><strong>{{ p.promisor_name }}</strong>: {{ p.body }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
                 {% endfor %}
             </table>
         </div>
