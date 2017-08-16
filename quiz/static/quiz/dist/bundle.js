@@ -23123,7 +23123,8 @@ var RelatedServices = function (_Component) {
         value: function componentDidMount() {
             var _this2 = this;
 
-            var service = window.location.host.includes('localhost') ? 'local' : 'sjekk';
+            var isLocalhost = window.location.host.includes('localhost') || window.location.host.includes('127.0.0.1');
+            var service = isLocalhost ? 'quiz-local' : 'quiz';
 
             __WEBPACK_IMPORTED_MODULE_6_isomorphic_fetch___default()('https://files.holderdeord.no/data/hdo/services.json?service=' + service).then(function (res) {
                 return res.ok ? res.json() : [];
