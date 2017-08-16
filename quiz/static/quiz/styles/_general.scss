@@ -72,12 +72,37 @@ nav header .hdo-logo {
     list-style: none;
   }
 }
+
 .hdo-category-title {
   font-style: italic;
 }
 
+.hdo-card {
+  background-color: #fff;
+  box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  .hdo-card-header {
+    background-color: #fcfcfc;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 1px rgba(0, 0, 0, 0.12);
+    &.top-border {
+      border-top: 1px solid #ddd;
+    }
+    &.bottom-border {
+      border-bottom: 1px solid #ddd;
+    }
+  }
+}
+
 .screen-large {
   display: none;
+}
+.screen-small {
+  padding: 1rem;
 }
 
 @include media-breakpoint-up(lg) {
