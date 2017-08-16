@@ -93,6 +93,10 @@ def save_vg_answer(session: ChatSession, payload):
     answer, _ = VoterGuideAnswer.objects.get_or_create(answer_set=answer_set, voter_guide_alternative=alt)
 
 
+def get_num_vg_answers(session: ChatSession):
+    return VoterGuideAnswer.objects.filter(answer_set__session=session).count()
+
+
 def get_unanswered_vg_manuscripts(session: ChatSession, selection=None):
     ms = Manuscript.objects.filter(type=Manuscript.TYPE_VOTER_GUIDE)
 

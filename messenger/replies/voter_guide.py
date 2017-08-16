@@ -7,7 +7,7 @@ from messenger.intent_formatters import (format_vg_categories, format_vg_alterna
                                          format_vg_result_reply,
                                          format_result_or_share_buttons)
 from messenger.intents import INTENT_NEXT_QUESTION, INTENT_RESET_SESSION
-from messenger.utils import get_voter_guide_manuscripts, get_next_vg_manuscript
+from messenger.utils import get_voter_guide_manuscripts, get_next_vg_manuscript, get_num_vg_answers
 from quiz.models import VoterGuideAlternative, Manuscript
 from quiz.utils import PARTY_SHORT_NAMES
 
@@ -26,7 +26,7 @@ def get_voter_guide_category_replies(sender_id, session, payload, text):
     if not manuscripts:
         return [format_generic_simple(
             sender_id,
-            'Wow! 😮 Du har gått gjennom alle temaene 🤓🤓 Imponerende 😎',
+            'Wow! 😮 Du har svart på samtlige spørsmål i hvert tema 🤓🤓 Imponerende 😎',
             format_result_or_share_buttons(session))]
 
     num_pages = int(math.ceil(len(manuscripts) / MAX_QUICK_REPLIES))
@@ -40,12 +40,12 @@ def get_voter_guide_questions(sender_id, session, payload, text):
 
 
 def _get_alternative_affiliations(alt: VoterGuideAlternative):
-    affils = [PARTY_SHORT_NAMES[party] for party in list(set(alt.promises.values_list('promisor_name', flat=True)))]
+    affils = sorted([PARTY_SHORT_NAMES[party] for party in list(set(alt.promises.values_list('promisor_name', flat=True)))])
 
     if alt.no_answer:
         # Find parties
         parties_known = list(set(alt.manuscript.voter_guide_alternatives.values_list('promises__promisor_name', flat=True)))
-        affils = [PARTY_SHORT_NAMES[x] for x in PARTY_SHORT_NAMES.keys() if x not in set(parties_known)]
+        affils = sorted([PARTY_SHORT_NAMES[x] for x in PARTY_SHORT_NAMES.keys() if x not in set(parties_known)])
 
     # Format
     if len(affils) == 1:
@@ -68,21 +68,39 @@ def get_vg_question_replies(sender_id, session, payload):
 
     next_manuscript = get_next_vg_manuscript(session)
     if next_manuscript:
-        # TODO: If "vet ikke", then reply x
         session.meta['next_manuscript'] = next_manuscript.pk if next_manuscript else None
         return [format_text(sender_id, next_text)]
 
-    # Emptied out the category, link to root
+    # Emptied out the category, link manuscript select
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
-    finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
-    more_cats_msg = 'Velg nytt tema for å gjøre ditt resultat mer presist.'
+    num_answers = get_num_vg_answers(session)
+    replies = []
 
-    return [
-        format_text(sender_id, next_text),
-        format_text(sender_id, finished_msg),
-        format_vg_result_reply(sender_id, session),
-        format_quick_reply_with_intent(
-            sender_id, 'Neste tema!', more_cats_msg, INTENT_NEXT_QUESTION, extra_payload)]
+    if 4 <= num_answers < 8:
+        # Intro to bot
+        finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
+        about_bot_text = 'Spørsmålene du får er hentet fra vår løftebase og er basert på løftene til partiene.'
+        replies += [
+            format_text(sender_id, next_text), format_text(sender_id, finished_msg),
+            format_quick_reply_with_intent(
+                sender_id, 'Neste tema!', about_bot_text, INTENT_NEXT_QUESTION, extra_payload)]
+
+    elif 8 <= num_answers < 12:
+        # We collect your answers, show results
+        result_page_msg = 'Se hvilke løfter som hører til svarene dine på din egen resultatside'
+        more_cats_msg = 'Velg nytt tema for å gjøre ditt resultat mer presist.'
+        replies += [
+            format_text(sender_id, next_text),
+            format_vg_result_reply(sender_id, session),
+            format_generic_simple(sender_id, result_page_msg, format_result_or_share_buttons(session)),
+            format_quick_reply_with_intent(
+                sender_id, 'Neste tema!', more_cats_msg, INTENT_NEXT_QUESTION, extra_payload)]
+    else:
+        # Next manuscript
+        replies += [format_quick_reply_with_intent(
+            sender_id, 'Neste tema!', next_text, INTENT_NEXT_QUESTION, extra_payload)]
+
+    return replies
 
 
 def get_next_vg_question_reply(sender_id, session, payload):
@@ -102,7 +120,7 @@ def get_answer_replies(sender_id, session, payload):
         return [format_quick_reply_with_intent(
             sender_id, 'Okey 👍', '🤔 Du har ikke svart på noe enda... Begynn med å velge et tema', INTENT_RESET_SESSION)]
 
-    msg = 'Du kan også se hvilke løfter svarene dine er basert på din egen resultatside'
+    msg = 'Se hvilke løfter som hører til svarene dine på din egen resultatside'
     return [
         format_vg_result_reply(sender_id, session),
         format_generic_simple(sender_id, msg, format_result_or_share_buttons(session)),

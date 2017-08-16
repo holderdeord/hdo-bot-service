@@ -217,7 +217,7 @@ def format_vg_result_reply(sender_id, session):
 
     grouped_by_counts = count_and_sort_answers(alts)
 
-    text = 'Basert på alle dine svar er du mest enig med:\n'
+    text = 'Du er mest enig med:\n'
     place = 1
     medals = {1: '🥇', 2: '🥈', 3: '🥉'}
     for count, parties in grouped_by_counts.items():
