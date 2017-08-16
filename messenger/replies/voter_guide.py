@@ -116,12 +116,15 @@ def get_voter_guide_result(sender_id, session, payload):
 
 
 def get_answer_replies(sender_id, session, payload):
+    extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
     if not hasattr(session, 'answers') or session.answers is None:
+        no_results_msg = '🤔 Du har ikke svart på noe enda... Begynn med å velge et tema'
         return [format_quick_reply_with_intent(
-            sender_id, 'Okey 👍', '🤔 Du har ikke svart på noe enda... Begynn med å velge et tema', INTENT_RESET_SESSION)]
+            sender_id, 'Okey 👍', no_results_msg, INTENT_RESET_SESSION, extra_payload)]
 
     msg = 'Se hvilke løfter som hører til svarene dine på din egen resultatside'
+    ready_msg = 'Klar for å gå videre?'
     return [
         format_vg_result_reply(sender_id, session),
         format_generic_simple(sender_id, msg, format_result_or_share_buttons(session)),
-        format_quick_reply_with_intent(sender_id, 'Videre', 'Klar for å gå videre?', INTENT_RESET_SESSION)]
+        format_quick_reply_with_intent(sender_id, 'Videre', ready_msg, INTENT_RESET_SESSION, extra_payload)]

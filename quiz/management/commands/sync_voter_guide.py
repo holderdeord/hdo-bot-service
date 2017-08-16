@@ -118,7 +118,6 @@ class Command(BaseCommand):
         manuscript, created = Manuscript.objects.get_or_create(
             name='Chatbort start',
             default=Manuscript.DEFAULT,
-            next=vg_start_manuscript
         )
         if created:
             ManuscriptItem.objects.get_or_create(
