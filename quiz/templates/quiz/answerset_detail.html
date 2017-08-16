@@ -12,12 +12,19 @@
             <div class="hdo-card-header text-xs-center">
                 <h3>Dine svar</h3>
             </div>
+            <div class="hdo-card-content">
             <p>Du er mest enig med følgende partier:</p>
             <ul>
                 {% for ans in vg_answers_sorted %}
-                <li>{{ ans.medal }}{{ ans.parties|join:', ' }}</li>
+                <li>
+                    {{ ans.medal }}
+                    {% for p in ans.parties %}
+                        <img src="{% get_party_image_url p %}" class="party-image"/> {{ p }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </li>
                 {% endfor %}
             </ul>
+            </div>
         </div>
 
         <div class="answers-in-detail hdo-card">
@@ -57,7 +64,7 @@
                     {% endfor %}
                 </table>
             </div>
-            <div class="screen-small">
+            <div class="screen-small hdo-card-content">
                 {% for alt in vg_alts %}
                 <section>
                     <h4>{{ alt.manuscript.name }}</h4>

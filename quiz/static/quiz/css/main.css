@@ -61,10 +61,8 @@ nav header .hdo-logo {
   font-weight: 600;
   font-family: Roboto, sans-serif; }
 
-.answers-overview {
-  text-align: center; }
-  .answers-overview li {
-    list-style: none; }
+.answers-overview li {
+  list-style: none; }
 
 .answers-in-detail section {
   border-top: 1px solid #ddd;
@@ -95,6 +93,10 @@ nav header .hdo-logo {
       border-top: 1px solid #ddd; }
     .hdo-card .hdo-card-header.bottom-border {
       border-bottom: 1px solid #ddd; }
+  .hdo-card .hdo-card-content {
+    padding: 1rem; }
+    .hdo-card .hdo-card-content ul {
+      padding: 0; }
 
 .party-image {
   width: 1.1em;
@@ -108,9 +110,6 @@ nav header .hdo-logo {
 
 .screen-large {
   display: none; }
-
-.screen-small {
-  padding: 1rem; }
 
 @media (min-width: 992px) {
   .screen-large {

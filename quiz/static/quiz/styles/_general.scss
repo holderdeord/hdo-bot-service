@@ -67,7 +67,6 @@ nav header .hdo-logo {
 }
 
 .answers-overview {
-  text-align: center;
   li {
     list-style: none;
   }
@@ -110,6 +109,10 @@ nav header .hdo-logo {
       border-bottom: 1px solid #ddd;
     }
   }
+  .hdo-card-content {
+    padding: 1rem;
+    ul { padding: 0;}
+  }
 }
 
 .party-image {
@@ -126,10 +129,6 @@ nav header .hdo-logo {
 
 .screen-large {
   display: none;
-}
-
-.screen-small {
-  padding: 1rem;
 }
 
 @include media-breakpoint-up(lg) {
