@@ -1,7 +1,6 @@
 import json
 
 from django.contrib.staticfiles.templatetags.staticfiles import static
-from django.conf import settings
 from django.template import Library
 from django.utils.safestring import mark_safe
 from quiz.models import AnswerSet
@@ -42,5 +41,4 @@ def get_party_image_url(party):
     if not slug:
         return ''
 
-    url = '{}{}'.format(settings.BASE_URL, static('quiz/images/{}.png'.format(slug)))
-    return url
+    return static('quiz/images/{}.png'.format(slug))
