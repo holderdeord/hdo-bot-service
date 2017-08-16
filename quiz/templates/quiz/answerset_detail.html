@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block head %}{% endblock %}
 
 {% block body %}
@@ -60,6 +60,7 @@
             {% endwith %}
             {% endfor %}
         </div>
+        <div id="react-root"></div>
         <footer>
             <div>
                 <div class="hdo-logo"></div>
@@ -76,5 +77,6 @@
         </footer>
     </div>
 </div>
+<script src="{% static "quiz/dist/bundle.js" %}"></script>
 
 {% endblock %}

@@ -3,10 +3,22 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "start": "webpack --config webpack.config.js",
     "styles": "./node_modules/.bin/node-sass --include-path node_modules/bootstrap styles/main.scss > ../css/main.css",
     "watch": "./node_modules/.bin/node-sass --include-path node_modules/bootstrap styles/main.scss --watch --recursive --output css --source-map true --source-map-contents sass"
   },
   "devDependencies": {
-    "hdo-bootstrap": "holderdeord/hdo-bootstrap"
+    "hdo-bootstrap": "holderdeord/hdo-bootstrap",
+    "webpack": "^3.5.5"
+  },
+  "dependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   }
 }
