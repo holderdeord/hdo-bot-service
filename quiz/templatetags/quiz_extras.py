@@ -1,9 +1,11 @@
 import json
 
+from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.conf import settings
 from django.template import Library
 from django.utils.safestring import mark_safe
-
 from quiz.models import AnswerSet
+from quiz.utils import PARTY_SHORT_NAME_SLUGS
 
 register = Library()
 
@@ -32,3 +34,13 @@ def correct_answers_js(answers, var_name):
         data['datasets'][0]['data'].append(c['correct'])
 
     return mark_safe('var {} = JSON.parse(\'{}\')'.format(var_name, json.dumps(data)))
+
+
+@register.simple_tag
+def get_party_image_url(party):
+    slug = PARTY_SHORT_NAME_SLUGS.get(party)
+    if not slug:
+        return ''
+
+    url = '{}{}'.format(settings.BASE_URL, static('quiz/images/{}.png'.format(slug)))
+    return url

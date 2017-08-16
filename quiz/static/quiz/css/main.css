@@ -96,6 +96,16 @@ nav header .hdo-logo {
     .hdo-card .hdo-card-header.bottom-border {
       border-bottom: 1px solid #ddd; }
 
+.party-image {
+  width: 1.1em;
+  height: 1.1em;
+  position: relative;
+  top: -2px; }
+
+.party-list {
+  list-style: none;
+  padding: 0; }
+
 .screen-large {
   display: none; }
 
@@ -125,4 +135,3 @@ nav header .hdo-logo {
   filter: none;
   background-color: #e5e7ec; }
 
-/*# sourceMappingURL=main.css.map */

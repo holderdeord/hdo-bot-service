@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static quiz_extras %}
 {% block head %}{% endblock %}
 
 {% block body %}
@@ -46,9 +46,9 @@
                         <td>{{ alt.manuscript.name }}</td>
                         <td>{{ alt }}</td>
                         <td>
-                            <ul>
+                            <ul class="party-list">
                                 {% for p in alt.promises.all %}
-                                <li><strong>{{ p.promisor_name }}</strong>: {{ p.body }}</li>
+                                <li><img src="{% get_party_image_url p.promisor_name %}" class="party-image"/> {{ p.body }}</li>
                                 {% endfor %}
                             </ul>
                         </td>
@@ -62,9 +62,9 @@
                 <section>
                     <h4>{{ alt.manuscript.name }}</h4>
                     <p>{{ alt }}</p>
-                    <ul>
+                    <ul class="party-list">
                         {% for p in alt.promises.all %}
-                        <li><strong>{{ p.promisor_name }}</strong>: {{ p.body }}</li>
+                        <li><img src="{% get_party_image_url p.promisor_name %}" class="party-image"/> {{ p.body }}</li>
                         {% endfor %}
                     </ul>
                     <p class="hdo-category">(Tema: {{ alt.manuscript.hdo_category }})</p>

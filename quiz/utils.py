@@ -16,6 +16,8 @@ PARTY_SHORT_NAMES = {
     'Venstre': 'V'
 }
 
+PARTY_SHORT_NAME_SLUGS = dict({k: v.lower() for k, v in PARTY_SHORT_NAMES.items()})
+
 
 def get_google_sheet_data():
     from quiz.models import GoogleProfile
