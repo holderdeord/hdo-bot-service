@@ -41,7 +41,6 @@ footer {
 nav header .hdo-logo {
   margin-top: .5rem;
   padding-top: 3rem;
-  text-align: center;
   font-weight: 600; }
 
 .hdo-logo {
@@ -62,9 +61,9 @@ nav header .hdo-logo {
   font-weight: 600;
   font-family: Roboto, sans-serif; }
 
-.answers-in-detail {
+.answers-overview {
   text-align: center; }
-  .answers-in-detail li {
+  .answers-overview li {
     list-style: none; }
 
 .screen-large {
@@ -75,5 +74,41 @@ nav header .hdo-logo {
     display: block; }
   .screen-small {
     display: none; } }
+
+.other-services a {
+  text-decoration: none; }
+
+.other-services .service {
+  filter: grayscale(0.4);
+  transition: all 0.3s ease; }
+
+.other-services .service .img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 200px;
+  background-position: 50% 50%; }
+
+.other-services .service:hover {
+  filter: none;
+  background-color: #e5e7ec; }
+
+.hdo-card {
+  background-color: #fff;
+  box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+  margin-top: 2rem; }
+
+.hdo-card .hdo-card-header {
+  background-color: #fcfcfc;
+  margin-left: 0;
+  margin-right: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  box-shadow: 0 1px rgba(0, 0, 0, 0.12); }
+
+.hdo-card .hdo-card-header.top-border {
+  border-top: 1px solid #ddd; }
+
+.hdo-card .hdo-card-header.bottom-border {
+  border-bottom: 1px solid #ddd; }
 
 /*# sourceMappingURL=main.css.map */

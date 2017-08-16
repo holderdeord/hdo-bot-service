@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "start": "webpack --config webpack.config.js",
-    "styles": "./node_modules/.bin/node-sass --include-path node_modules/bootstrap styles/main.scss > ../css/main.css",
+    "styles": "./node_modules/.bin/node-sass --include-path node_modules/bootstrap styles/main.scss > css/main.css",
     "watch": "./node_modules/.bin/node-sass --include-path node_modules/bootstrap styles/main.scss --watch --recursive --output css --source-map true --source-map-contents sass"
   },
   "devDependencies": {
     "hdo-bootstrap": "holderdeord/hdo-bootstrap",
+    "node-sass": "^4.5.3",
     "webpack": "^3.5.5"
   },
   "dependencies": {

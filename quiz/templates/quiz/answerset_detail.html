@@ -3,64 +3,72 @@
 {% block head %}{% endblock %}
 
 {% block body %}
-<style>
-</style>
 <div class="container">
-    <div class="col-sm-12" style="margin-top: 1.5rem;">
+    <header>
         <div class="hdo-logo hdo-logo-header">Holder de ord</div>
-        <div class="answers-in-detail">
-            <h3>Dine svar</h3>
-            Du er mest enig med følgende partier:
+    </header>
+    <div>
+        <div class="answers-overview hdo-card">
+            <div class="hdo-card-header text-xs-center">
+                <h3>Dine svar</h3>
+            </div>
+            <p>Du er mest enig med følgende partier:</p>
             <ul>
                 {% for ans in vg_answers %}
-                    <li>{{ ans.medal }}{{ ans.parties|join:', ' }}</li>
+                <li>{{ ans.medal }}{{ ans.parties|join:', ' }}</li>
                 {% endfor %}
             </ul>
         </div>
 
-        <h3>Dine svar i detalj</h3>
-        <div class="table-outer screen-large">
-            <table class="table table-striped">
-                <tr>
-                    <th>Tema</th>
-                    <th>Spørsmål</th>
-                    <th>Ditt svar</th>
-                    <th>Basert på løfter</th>
-                </tr>
+        <div class="answers-in-detail hdo-card">
+            <div class="hdo-card-header text-xs-center">
+                <h3>Dine svar i detalj</h3>
+            </div>
+            <div class="table-outer screen-large">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Tema</th>
+                        <th>Spørsmål</th>
+                        <th>Ditt svar</th>
+                        <th>Basert på løfter</th>
+                    </tr>
+                    {% for ans in answer_set.voter_guide_answers.all %}
+                    {% with ans.voter_guide_alternative as alt %}
+                    <tr>
+                        <td>{{ alt.manuscript.hdo_category }}</td>
+                        <td>{{ alt.manuscript.name }}</td>
+                        <td>{{ alt }}</td>
+                        <td>
+                            <ul>
+                                {% for p in alt.promises.all %}
+                                <li><strong>{{ p.promisor_name }}</strong>: {{ p.body }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endwith %}
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="screen-small">
                 {% for ans in answer_set.voter_guide_answers.all %}
                 {% with ans.voter_guide_alternative as alt %}
-                <tr>
-                    <td>{{ alt.manuscript.hdo_category }}</td>
-                    <td>{{ alt.manuscript.name }}</td>
-                    <td>{{ alt }}</td>
-                    <td>
-                        <ul>
-                            {% for p in alt.promises.all %}
-                            <li><strong>{{ p.promisor_name }}</strong>: {{ p.body }}</li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                </tr>
+                <section>
+                    <h4>{{ alt.manuscript.name }} ({{ alt.manuscript.hdo_category }})</h4>
+                    <p>{{ alt }}</p>
+                    <ul>
+                        {% for p in alt.promises.all %}
+                        <li><strong>{{ p.promisor_name }}</strong>: {{ p.body }}</li>
+                        {% endfor %}
+                    </ul>
+                </section>
                 {% endwith %}
                 {% endfor %}
-            </table>
+            </div>
         </div>
-        <div class="screen-small">
-            {% for ans in answer_set.voter_guide_answers.all %}
-            {% with ans.voter_guide_alternative as alt %}
-            <section>
-                <h4>{{ alt.manuscript.name }} ({{ alt.manuscript.hdo_category }})</h4>
-                <p>{{ alt }}</p>
-                <ul>
-                    {% for p in alt.promises.all %}
-                    <li><strong>{{ p.promisor_name }}</strong>: {{ p.body }}</li>
-                    {% endfor %}
-                </ul>
-            </section>
-            {% endwith %}
-            {% endfor %}
-        </div>
+
         <div id="react-root"></div>
+
         <footer>
             <div>
                 <div class="hdo-logo"></div>
@@ -77,6 +85,6 @@
         </footer>
     </div>
 </div>
-<script src="{% static "quiz/dist/bundle.js" %}"></script>
+<script src="{% static " quiz/dist/bundle.js" %}"></script>
 
 {% endblock %}
