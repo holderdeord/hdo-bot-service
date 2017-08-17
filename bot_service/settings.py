@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import dj_database_url
 import os
+import raven
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'social_django',
+    'raven.contrib.django.raven_compat',
 ]
 
 LOCAL_APPS = [
@@ -109,10 +111,20 @@ TEST_RUNNER = 'bot_service.runners.PytestTestRunner'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+    },
     'handlers': {
+        'sentry': {
+            'level': 'WARNING',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
         },
     },
     'loggers': {
@@ -129,15 +141,25 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'WARNING',
             'propagate': False,
-        }
+        },
+        'raven': {
+            'level': 'WARNING',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'WARNING',
+            'handlers': ['console'],
+            'propagate': False,
+        },
     },
     'root': {
-        'handlers': ['console'],
-        'level': os.getenv('LOG_LEVEL', 'DEBUG'),
+        'handlers': ['console', 'sentry'],
+        'level': os.getenv('LOG_LEVEL', 'WARNING'),
         'propagate': False,
     },
-
 }
+
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
@@ -209,10 +231,17 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
-# API write access to everyone (default True)
-MANUSCRIPT_API_ALLOW_ANY = bool(os.getenv('MANUSCRIPT_API_ALLOW_ANY', True))
+# API write access to everyone (default: False)
+MANUSCRIPT_API_ALLOW_ANY = bool(os.getenv('MANUSCRIPT_API_ALLOW_ANY', False))
 
 SITE_ID = 1
+
+# Sentry
+RAVEN_CONFIG = {
+    'dsn': os.getenv('SENTRY_DSN', ''),
+    'release': raven.fetch_git_sha(BASE_DIR),
+    'environment': os.getenv('SENTRY_ENVIRONMENT', 'development')
+}
 
 try:
     from .local_settings import *  # noqa

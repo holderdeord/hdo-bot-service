@@ -10,3 +10,4 @@ bot_service_environment:
   PUBLIC_URL: '/botadmin'
   REACT_APP_API_URL: 'https://snakk.holderdeord.no/api'
   BASE_URL: 'https://snakk.holderdeord.no'
+  SENTRY_ENVIRONMENT: 'production'

@@ -13,6 +13,7 @@ pillow
 pip-tools
 psycopg2
 pytest-django
+raven
 requests>=2.12,<3.0
 social-auth-app-django
 whitenoise
