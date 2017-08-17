@@ -87,7 +87,7 @@ class Command(BaseCommand):
                 parties_known += parties
                 alternative.set_text('{} ({})'.format(alternative_data['text'], ', '.join(set(parties))))
                 alternative.save()
-            parties_unknown = [self.PARTY_SHORT_NAMES[x] for x in self.PARTY_SHORT_NAMES.keys() if
+            parties_unknown = [PARTY_SHORT_NAMES[x] for x in PARTY_SHORT_NAMES.keys() if
                                x not in set(parties_known)]
             # parties_unknown = [x for x in PARTY_SHORT_NAMES.values() if x not in set(parties_known)]
             logging.info('"{}","{}","{}","{}"'.format(
