@@ -13,9 +13,6 @@ html,
 body {
   overflow-x: hidden; }
 
-.table-outer {
-  overflow-x: scroll; }
-
 td {
   vertical-align: top; }
 
