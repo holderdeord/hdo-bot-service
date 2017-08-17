@@ -1,4 +1,5 @@
 import pytest
+from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework.test import APIClient
 
@@ -15,7 +16,6 @@ def test_manuscript_list_get(client):
 
 @pytest.mark.django_db
 def test_manuscript_get(client):
-
     name = 'yolo'
     m = Manuscript.objects.create(name=name)
     ManuscriptItem.objects.create(type=ManuscriptItem.TYPE_TEXT, text='hi', manuscript=m)
@@ -34,6 +34,8 @@ def test_manuscript_get(client):
 @pytest.mark.django_db
 def test_manuscript_post():
     client = APIClient()
+    user, _ = User.objects.get_or_create(username='test', is_superuser=True)
+    client.force_authenticate(user=user)
     url = reverse('api:manuscript-list')
 
     data = {
@@ -50,6 +52,8 @@ def test_manuscript_post():
 @pytest.mark.django_db
 def test_manuscript_post_nested():
     client = APIClient()
+    user, _ = User.objects.get_or_create(username='test', is_superuser=True)
+    client.force_authenticate(user=user)
     url = reverse('api:manuscript-list')
 
     name = 'main menu'
