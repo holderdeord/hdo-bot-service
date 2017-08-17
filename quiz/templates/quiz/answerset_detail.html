@@ -67,8 +67,9 @@
             <div class="screen-small hdo-card-content">
                 {% for alt in vg_alts %}
                 <section>
-                    <h4>{{ alt.manuscript.name }}</h4>
-                    <p>{{ alt }}</p>
+                    <strong>{{ alt.manuscript.name }}</strong>
+                    <h5><span class="your-answer label">Ditt svar</span> {{ alt }}</h5>
+                    <strong>Basert på løftene:</strong>
                     <ul class="party-list">
                         {% for p in alt.promises.all %}
                         <li><img src="{% get_party_image_url p.promisor_name %}" class="party-image"/> {{ p.body }}</li>

@@ -108,6 +108,12 @@ nav header .hdo-logo {
   list-style: none;
   padding: 0; }
 
+.your-answer {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #000;
+  background-color: #fadd00; }
+
 .screen-large {
   display: none; }
 
