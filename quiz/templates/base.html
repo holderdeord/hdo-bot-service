@@ -1,4 +1,4 @@
-{% load static %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,5 +11,7 @@
 </head>
 <body>
 {% block body %}{% endblock %}
+{% include "footer.html" %}
+<script src="{% static "quiz/dist/bundle.js" %}"></script>
 </body>
 </html>

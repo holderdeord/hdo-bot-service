@@ -1,7 +1,7 @@
 ---
 timezone::timezone: 'Europe/Oslo'
 bot_service_environment:
-  DEBUG: 'true'
+  DEBUG: 'nope'
   TIME_ZONE: 'Europe/Oslo'
   LANGUAGE_CODE: 'nb'
   STATIC_ROOT: '/var/www/snakk.holderdeord.no/'
