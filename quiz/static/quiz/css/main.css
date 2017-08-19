@@ -68,7 +68,7 @@ nav header .hdo-logo {
     border-top: 0;
     padding-top: 0; }
 
-.answers-in-detail .hdo-category {
+.answers-in-detail .hdo-category .text {
   font-style: italic; }
 
 .hdo-category-title {
@@ -137,3 +137,4 @@ nav header .hdo-logo {
   filter: none;
   background-color: #e5e7ec; }
 
+/*# sourceMappingURL=main.css.map */

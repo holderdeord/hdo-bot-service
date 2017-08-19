@@ -75,7 +75,10 @@
                         <li><img src="{% get_party_image_url p.promisor_name %}" class="party-image"/> {{ p.body }}</li>
                         {% endfor %}
                     </ul>
-                    <p class="hdo-category">Tema: {{ alt.manuscript.hdo_category }} {{ alt.manuscript.hdo_category.label }}</p>
+                    <p class="hdo-category">
+                        <span class="text">Tema: {{ alt.manuscript.hdo_category }}</span>
+                        <span class="emojis">{{ alt.manuscript.hdo_category.label }}</span>
+                    </p>
                 </section>
                 {% endfor %}
             </div>
