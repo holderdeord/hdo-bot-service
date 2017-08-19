@@ -85,7 +85,7 @@ class Command(BaseCommand):
 
                 parties = self.get_parties_for_alternative(alternative)
                 parties_known += parties
-                alternative.set_text('{} ({})'.format(alternative_data['text'], ', '.join(set(parties))))
+                alternative.set_text('{} ({})'.format(alternative_data['text'], ', '.join(sorted(set(parties)))))
                 alternative.save()
 
             parties_unknown = [x for x in PARTY_SHORT_NAMES.values() if x not in set(parties_known)]
@@ -93,7 +93,7 @@ class Command(BaseCommand):
                 hdo_category,
                 manuscript_data['name'],
                 manuscript_data['question_text'],
-                ', '.join(parties_unknown)
+                ', '.join(sorted(parties_unknown))
             ))
             self.create_do_not_know_alternative(vg_manuscript, parties_unknown)
             self.create_starting_manuscript_item(vg_manuscript)
