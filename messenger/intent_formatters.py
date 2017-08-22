@@ -1,5 +1,6 @@
 import json
 import logging
+import random
 
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.translation import ugettext as _
@@ -173,12 +174,27 @@ def format_vg_categories(recipient_id, manuscripts, text, num_pages, page, max_q
     return format_quick_replies(recipient_id, buttons, text + alt_text + '\n')
 
 
+def _order_alternatives(alts):
+    """ Pop don't know alts, randomize and append "don't know" alt last """
+    new_alts = []
+    no_answer = []
+    for alt in alts:
+        if alt['no_answer']:
+            no_answer.append(alt)
+        else:
+            new_alts.append(alt)
+
+    random.shuffle(new_alts)
+    return new_alts + no_answer
+
+
 def format_vg_alternatives(recipient_id, manus, text):
-    # FIXME: Make "Vet ikke" alternative special?
     labels = ['1 👍', '2 😃', '3 👌', '4 ❤', '5 👏', '6 😍', '7 💪', '8 👊']
     buttons = []
     alt_text = ''
-    for i, alt in enumerate(manus['voter_guide_alternatives']):
+
+    alts = _order_alternatives(manus['voter_guide_alternatives'])
+    for i, alt in enumerate(alts):
         buttons.append({
             "content_type": "text",
             "title": labels[i],

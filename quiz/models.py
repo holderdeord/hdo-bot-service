@@ -145,9 +145,6 @@ class VoterGuideAlternative(BaseModel):
     class Meta:
         unique_together = ('text', 'manuscript')
 
-    def set_text(self, text):
-        self.text = text
-
     def __str__(self):
         return self.text
 

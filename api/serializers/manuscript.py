@@ -1,8 +1,8 @@
 from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
-from quiz.models import Manuscript, ManuscriptItem, Promise, Category, ManuscriptImage, VoterGuideAlternative, \
-    HdoCategory
+from quiz.models import (Manuscript, ManuscriptItem, Promise, Category, ManuscriptImage, VoterGuideAlternative,
+                         HdoCategory)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -31,7 +31,6 @@ class PromiseSerializer(serializers.ModelSerializer):
 class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
     parties = serializers.SerializerMethodField()
     full_promises = serializers.SerializerMethodField()
-    # FIXME: Use list of parties instead of promisor_name?
 
     def get_full_promises(self, obj):
         def get_promise(promise):
@@ -48,7 +47,7 @@ class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = VoterGuideAlternative
-        fields = ('pk', 'text', 'promises', 'full_promises', 'parties')
+        fields = ('pk', 'text', 'promises', 'full_promises', 'parties', 'no_answer')
 
 
 class ManuscriptItemSerializer(serializers.ModelSerializer):
