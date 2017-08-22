@@ -85,7 +85,7 @@ class Command(BaseCommand):
 
                 parties = self.get_parties_for_alternative(alternative)
                 parties_known += parties
-                alternative.set_text('{} ({})'.format(alternative_data['text'], ', '.join(sorted(set(parties)))))
+                alternative.text = self.get_alt_text(alternative_data, parties)
                 alternative.save()
 
             parties_unknown = [x for x in PARTY_SHORT_NAMES.values() if x not in set(parties_known)]
@@ -98,6 +98,13 @@ class Command(BaseCommand):
             self.create_do_not_know_alternative(vg_manuscript, parties_unknown)
             self.create_starting_manuscript_item(vg_manuscript)
         return [v for v in manuscripts.values()]
+
+    def get_alt_text(self, alternative_data, parties, with_parties=False):
+        parties_txt = ''
+        if with_parties:
+            parties_txt = ' ({})'.format(', '.join(sorted(set(parties))))
+
+        return '{}{}'.format(alternative_data['text'], parties_txt)
 
     def create_vg_start_manuscript(self):
         manuscript, created = Manuscript.objects.get_or_create(
@@ -129,9 +136,9 @@ class Command(BaseCommand):
             )
         return manuscript
 
-    def create_do_not_know_alternative(self, manuscript, parties_unknown):
+    def create_do_not_know_alternative(self, manuscript, parties_unknown, with_parties=False):
         formatted = ''
-        if parties_unknown:
+        if with_parties and parties_unknown:
             formatted = ' ({})'.format(', '.join(parties_unknown))
         VoterGuideAlternative.objects.get_or_create(
             text='Vet ikke{}'.format(formatted),
