@@ -10,11 +10,11 @@
     <div>
         <div class="answers-overview hdo-card">
             <div class="hdo-card-header text-xs-center">
-                <h3>Dine svar</h3>
+                <h3>Ditt resultat</h3>
             </div>
             <div class="hdo-card-content">
-            <p>Du er mest enig med følgende partier:</p>
-            <ul>
+            <p>Så enig er du med partiene:</p>
+            <ol>
                 {% for ans in vg_answers_sorted %}
                 <li>
                     {{ ans.medal }}
@@ -23,7 +23,7 @@
                     {% endfor %}
                 </li>
                 {% endfor %}
-            </ul>
+            </ol>
             </div>
         </div>
 
