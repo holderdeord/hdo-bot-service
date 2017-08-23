@@ -232,17 +232,16 @@ def format_vg_result_reply(sender_id, session):
     alts = VoterGuideAlternative.objects.filter(answers__answer_set__session=session)
 
     grouped_by_counts = count_and_sort_answers(alts)
+    total_count = alts.count()
 
     text = 'Du er mest enig med:\n'
-    place = 1
     medals = {1: '🥇', 2: '🥈', 3: '🥉'}
-    for count, parties in grouped_by_counts.items():
-        medal = medals.get(place, '')
-        if medal:
-            medal += ' '
+    for i, item in enumerate(grouped_by_counts.items(), start=1):
+        count, parties = item
+        rank = medals.get(i, i)
 
-        text += '{}{}\n'.format(medal, ', '.join([PARTY_SHORT_NAMES[p] for p in parties]))
-        place += 1
+        parties_formatted = ', '.join([PARTY_SHORT_NAMES[p] for p in parties])
+        text += '{} {} {}\n'.format(rank, parties_formatted, '{:.1f}%'.format((count / total_count) * 100))
 
     return format_text(sender_id, text)
 
@@ -255,7 +254,7 @@ def format_result_or_share_buttons(session):
         {
             "type": "web_url",
             "url": res_url,
-            "title": "Vis mine svar i detalj",
+            "title": "Vis mine svar",
         },
         {
             "type": "element_share",

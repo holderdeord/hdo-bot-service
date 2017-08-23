@@ -22,14 +22,14 @@ class AnswerSetView(DetailView):
     slug_field = 'uuid'
 
     def get_context_data(self, **kwargs):
-        medals = {0: '🥇', 1: '🥈', 2: '🥉'}
+        medals = {1: '🥇', 2: '🥈', 3: '🥉'}
         vg_alts = VoterGuideAlternative.objects.filter(answers__answer_set=self.object)
         vg_alts = vg_alts.order_by('manuscript__hdo_category__name')
         answers = count_and_sort_answers(vg_alts)
         total_count = vg_alts.count()
 
         vg_answers_sorted = []
-        for i, item in enumerate(answers.items()):
+        for i, item in enumerate(answers.items(), start=1):
             count, parties = item
             vg_answers_sorted.append({
                 'count': count,

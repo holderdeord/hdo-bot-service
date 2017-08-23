@@ -128,7 +128,7 @@ def get_answer_replies(sender_id, session, payload):
         return [format_quick_reply_with_intent(
             sender_id, 'Okey 👍', no_results_msg, INTENT_RESET_SESSION, extra_payload)]
 
-    msg = 'Se hvilke løfter som hører til svarene dine på din egen resultatside'
+    msg = 'Se svarene i detalj og hvilke løfter som hører til på din egen resultatside'
     ready_msg = 'Klar for å gå videre?'
     return [
         format_vg_result_reply(sender_id, session),
