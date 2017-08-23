@@ -1,4 +1,12 @@
-.flatpage p, .flatpage h1, .flatpage h2, .flatpage h3, .flatpage h4, .flatpage h5, .flatpage h6 {
+.flatpage p,
+.flatpage h1,
+.flatpage h2,
+.flatpage h3,
+.flatpage h4,
+.flatpage h5,
+.flatpage h6,
+.flatpage ol,
+.flatpage ul {
   max-width: 700px;
   margin: 0 auto;
   margin-bottom: 0.15em; }
