@@ -255,7 +255,7 @@ def format_result_or_share_buttons(session):
         {
             "type": "web_url",
             "url": res_url,
-            "title": "Vis mine resultater",
+            "title": "Vis mine svar i detalj",
         },
         {
             "type": "element_share",

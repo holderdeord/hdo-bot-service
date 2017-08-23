@@ -79,7 +79,7 @@ def get_vg_question_replies(sender_id, session, payload):
     if 4 <= num_answers < 8:
         # Intro to bot
         finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
-        about_bot_text = 'Spørsmålene du får er hentet fra vår løftebase og er basert på løftene til partiene.'
+        about_bot_text = 'Spørsmålene du får er hentet fra vår løftebase som inneholder alle partiprogrammene.'
         replies += [
             format_text(sender_id, next_text), format_text(sender_id, finished_msg),
             format_quick_reply_with_intent(
@@ -88,7 +88,7 @@ def get_vg_question_replies(sender_id, session, payload):
     elif 8 <= num_answers < 12:
         # We collect your answers, show results
         result_page_msg = 'Se hvilke løfter som hører til svarene dine på din egen resultatside'
-        more_cats_msg = 'Velg nytt tema for å gjøre ditt resultat mer presist.'
+        more_cats_msg = 'Du kan se svarene dine fra menyen når som helst. Velg nytt tema for å gjøre ditt resultat mer presist.'
         replies += [
             format_text(sender_id, next_text),
             format_vg_result_reply(sender_id, session),
