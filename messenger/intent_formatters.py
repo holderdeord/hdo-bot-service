@@ -23,12 +23,12 @@ def format_bot_profile():
         "get_started": {
             "payload": json.dumps({'intent': INTENT_GET_STARTED})
         },
-        "greeting": [
-            {
-                "locale": "default",
-                "text": _("Hi {{user_first_name}}!")
-            }
-        ],
+        # "greeting": [
+        #     {
+        #         "locale": "default",
+        #         "text": _("Hi {{user_first_name}}!")
+        #     }
+        # ],
         "persistent_menu": [{
             "locale": "default",
             "composer_input_disabled": True,  # Disable/Enable user input

@@ -39,7 +39,7 @@ def get_voter_guide_questions(sender_id, session, payload, text):
     return [format_vg_alternatives(sender_id, session.meta['manuscript'], text)]
 
 
-def _get_alternative_affiliations(alt: VoterGuideAlternative):
+def _get_alternative_affiliation_text(alt: VoterGuideAlternative):
     affils = sorted([PARTY_SHORT_NAMES[party] for party in list(set(alt.promises.values_list('promisor_name', flat=True)))])
 
     if alt.no_answer:
@@ -49,11 +49,17 @@ def _get_alternative_affiliations(alt: VoterGuideAlternative):
 
     # Format
     if len(affils) == 1:
-        return affils[0]
+        if alt.no_answer:
+            return '{} har heller ikke et standpunkt i saken'.format(affils[0])
+
+        return 'Du mener det samme som {}'.format(affils[0])
 
     if len(affils) > 1:
         start = ', '.join(affils[:-1])
-        return '{} og {}'.format(start, affils[-1])
+        if alt.no_answer:
+            return '{} og {} har heller ikke et standpunkt i saken'.format(start, affils[-1])
+
+        return 'Du mener det samme som {} og {}'.format(start, affils[-1])
 
     return 'Alle partiene mente noe om dette'
 
@@ -64,7 +70,7 @@ def get_vg_question_replies(sender_id, session, payload):
     except VoterGuideAlternative.DoesNotExist:
         return []
 
-    next_text = 'Du mener det samme som {}'.format(_get_alternative_affiliations(alt))
+    next_text = _get_alternative_affiliation_text(alt)
 
     next_manuscript = get_next_vg_manuscript(session)
     if next_manuscript:
