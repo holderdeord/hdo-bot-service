@@ -24,6 +24,7 @@ class AnswerSetView(DetailView):
     def get_context_data(self, **kwargs):
         medals = {0: '🥇', 1: '🥈', 2: '🥉'}
         vg_alts = VoterGuideAlternative.objects.filter(answers__answer_set=self.object)
+        vg_alts = vg_alts.order_by('manuscript__hdo_category__name')
         answers = count_and_sort_answers(vg_alts)
         with_medals = []
         for i, item in enumerate(answers.items()):
