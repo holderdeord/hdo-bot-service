@@ -15,15 +15,16 @@
             </div>
             <div class="hdo-card-content">
             <p>Så enig er du med partiene:</p>
-            <table>
+            <table class="answers-overview__table">
                 {% for ans in vg_answers_sorted %}
                 <tr>
-                    <td style="width: 1rem;">{{ ans.medal }}</td>
+                    <td class="answers-overview__table__rank">{{ ans.rank }}</td>
                     <td>
                     {% for p in ans.parties %}
                         <img src="{% get_party_image_url p %}" class="party-image"/> {{ p }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                     </td>
+                    <td>{{ ans.percent }}</td>
                 </tr>
                 {% endfor %}
             </table>

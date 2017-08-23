@@ -63,8 +63,16 @@ nav header .hdo-logo {
 }
 
 .answers-overview {
-  li {
-    list-style: none;
+  &__table {
+    td {
+      padding: 0.1rem 0.5rem;
+      &:first-of-type {
+        padding-left: 0;
+      }
+      &:last-of-type {
+        padding-right: 0;
+      }
+    }
   }
 }
 
