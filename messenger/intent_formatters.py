@@ -23,12 +23,12 @@ def format_bot_profile():
         "get_started": {
             "payload": json.dumps({'intent': INTENT_GET_STARTED})
         },
-        # "greeting": [
-        #     {
-        #         "locale": "default",
-        #         "text": _("Hi {{user_first_name}}!")
-        #     }
-        # ],
+        "greeting": [
+            {
+                "locale": "default",
+                "text": 'Snakk med vår partitester og finn din politiske match. Før du begynner bør du lese vår personvernpolicy på snakk.holderdeord.no/personvern'
+            }
+        ],
         "persistent_menu": [{
             "locale": "default",
             "composer_input_disabled": True,  # Disable/Enable user input
@@ -269,7 +269,7 @@ def format_result_or_share_buttons(session):
                                 "image_url": hdo_share_image,
                                 "default_action": {
                                     "type": "web_url",
-                                    "url": messenger_bot_url
+                                    "url": res_url
                                 },
                                 "buttons": [
                                     {

@@ -93,7 +93,7 @@ def get_vg_question_replies(sender_id, session, payload):
 
     elif 8 <= num_answers < 12:
         # We collect your answers, show results
-        result_page_msg = 'Se hvilke løfter som hører til svarene dine på din egen resultatside'
+        result_page_msg = 'Se svarene i detalj og hvilke løfter som hører til på din egen resultatside'
         more_cats_msg = 'Du kan se svarene dine fra menyen når som helst. Velg nytt tema for å gjøre ditt resultat mer presist.'
         replies += [
             format_text(sender_id, next_text),
