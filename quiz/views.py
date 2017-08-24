@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import HttpResponse
 from django.views.generic import DetailView
 
@@ -22,20 +23,30 @@ class AnswerSetView(DetailView):
     slug_field = 'uuid'
 
     def get_context_data(self, **kwargs):
-        medals = {0: '🥇', 1: '🥈', 2: '🥉'}
+        medals = {1: '🥇', 2: '🥈', 3: '🥉'}
         vg_alts = VoterGuideAlternative.objects.filter(answers__answer_set=self.object)
         vg_alts = vg_alts.order_by('manuscript__hdo_category__name')
         answers = count_and_sort_answers(vg_alts)
-        with_medals = []
-        for i, item in enumerate(answers.items()):
+        total_count = vg_alts.count()
+
+        vg_answers_sorted = []
+        for i, item in enumerate(answers.items(), start=1):
             count, parties = item
-            medal = medals.get(i, '')
-            with_medals.append({'count': count, 'parties': parties, 'medal': medal + ' ' if medal else medal})
+            vg_answers_sorted.append({
+                'count': count,
+                'parties': parties,
+                'rank': medals.get(i, '{}.'.format(i)),
+                'percent': '{:.1f}%'.format((count / total_count) * 100)
+
+            })
 
         return {
             'all_answers': AnswerSet.objects.all(),
             'totals': AnswerSet.objects.correct_answers(),
-            'vg_answers_sorted': with_medals,
+            'vg_answers_sorted': vg_answers_sorted,
             'vg_alts': vg_alts,
+            'is_shared': self.request.GET.get('shared') == '1',
+            'app_id': settings.FACEBOOK_APP_ID,
+            'page_id': settings.FACEBOOK_PAGE_ID,
             **super().get_context_data(**kwargs)
         }

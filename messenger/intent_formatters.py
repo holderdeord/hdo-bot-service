@@ -26,7 +26,7 @@ def format_bot_profile():
         "greeting": [
             {
                 "locale": "default",
-                "text": _("Hi {{user_first_name}}!")
+                "text": 'Snakk med vår partitester og finn din politiske match. Før du begynner bør du lese vår personvernpolicy på snakk.holderdeord.no/personvern'
             }
         ],
         "persistent_menu": [{
@@ -232,58 +232,27 @@ def format_vg_result_reply(sender_id, session):
     alts = VoterGuideAlternative.objects.filter(answers__answer_set__session=session)
 
     grouped_by_counts = count_and_sort_answers(alts)
+    total_count = alts.count()
 
     text = 'Du er mest enig med:\n'
-    place = 1
     medals = {1: '🥇', 2: '🥈', 3: '🥉'}
-    for count, parties in grouped_by_counts.items():
-        medal = medals.get(place, '')
-        if medal:
-            medal += ' '
+    for i, item in enumerate(grouped_by_counts.items(), start=1):
+        count, parties = item
+        rank = medals.get(i, '{}.'.format(i))
 
-        text += '{}{}\n'.format(medal, ', '.join([PARTY_SHORT_NAMES[p] for p in parties]))
-        place += 1
+        parties_formatted = ', '.join([PARTY_SHORT_NAMES[p] for p in parties])
+        text += '{} {} {}\n'.format(rank, parties_formatted, '{:.1f}%'.format((count / total_count) * 100))
 
     return format_text(sender_id, text)
 
 
 def format_result_or_share_buttons(session):
     res_url = get_result_url(session)
-    messenger_bot_url = get_messenger_bot_url()
-    hdo_share_image = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
     return [
         {
             "type": "web_url",
-            "url": res_url,
-            "title": "Vis mine svar i detalj",
+            "url": '{}?shared=1'.format(res_url),
+            "title": "Vis mine svar",
         },
-        {
-            "type": "element_share",
-            "share_contents": {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [
-                            {
-                                "title": "Jeg tok HDO sin valgomat, prøv du også!",
-                                "image_url": hdo_share_image,
-                                "default_action": {
-                                    "type": "web_url",
-                                    "url": messenger_bot_url
-                                },
-                                "buttons": [
-                                    {
-                                        "type": "web_url",
-                                        "url": messenger_bot_url,
-                                        "title": 'Ok, jeg prøver'
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                }
-            }
-        }
     ]
 

@@ -34,9 +34,9 @@ def format_button(recipient_id, button_text, buttons):
     }
 
 
-def format_generic_simple(recipient_id, title, buttons, subtitle=''):
+def format_generic_simple(recipient_id, title, buttons, subtitle='', image_url=None):
     """ Ref: https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template """
-    return {
+    data = {
         "recipient": {"id": recipient_id},
         "message": {
             "attachment": {
@@ -52,6 +52,11 @@ def format_generic_simple(recipient_id, title, buttons, subtitle=''):
             }
         }
     }
+
+    if image_url is not None:
+        data['message']['attachment']['payload']['elements'][0]['image_url'] = image_url
+
+    return data
 
 
 def format_image_attachment(recipient_id, url):

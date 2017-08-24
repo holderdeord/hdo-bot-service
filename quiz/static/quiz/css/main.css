@@ -77,8 +77,15 @@ nav header .hdo-logo {
   font-weight: 600;
   font-family: Roboto, sans-serif; }
 
-.answers-overview li {
-  list-style: none; }
+.answers-overview__table__rank {
+  text-align: center; }
+
+.answers-overview__table td {
+  padding: 0.3rem 0.5rem; }
+  .answers-overview__table td:first-of-type {
+    padding-left: 0; }
+  .answers-overview__table td:last-of-type {
+    padding-right: 0; }
 
 .answers-in-detail section {
   border-top: 1px solid #ddd;
@@ -156,4 +163,3 @@ nav header .hdo-logo {
   filter: none;
   background-color: #e5e7ec; }
 
-/*# sourceMappingURL=main.css.map */
