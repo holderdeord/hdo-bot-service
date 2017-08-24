@@ -238,7 +238,7 @@ def format_vg_result_reply(sender_id, session):
     medals = {1: '🥇', 2: '🥈', 3: '🥉'}
     for i, item in enumerate(grouped_by_counts.items(), start=1):
         count, parties = item
-        rank = medals.get(i, i)
+        rank = medals.get(i, '{}.'.format(i))
 
         parties_formatted = ', '.join([PARTY_SHORT_NAMES[p] for p in parties])
         text += '{} {} {}\n'.format(rank, parties_formatted, '{:.1f}%'.format((count / total_count) * 100))
@@ -248,41 +248,11 @@ def format_vg_result_reply(sender_id, session):
 
 def format_result_or_share_buttons(session):
     res_url = get_result_url(session)
-    messenger_bot_url = get_messenger_bot_url()
-    hdo_share_image = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
     return [
         {
             "type": "web_url",
-            "url": res_url,
+            "url": '{}?shared=1'.format(res_url),
             "title": "Vis mine svar",
         },
-        {
-            "type": "element_share",
-            "share_contents": {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [
-                            {
-                                "title": "Jeg tok HDO sin valgomat, prøv du også!",
-                                "image_url": hdo_share_image,
-                                "default_action": {
-                                    "type": "web_url",
-                                    "url": res_url
-                                },
-                                "buttons": [
-                                    {
-                                        "type": "web_url",
-                                        "url": messenger_bot_url,
-                                        "title": 'Ok, jeg prøver'
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                }
-            }
-        }
     ]
 

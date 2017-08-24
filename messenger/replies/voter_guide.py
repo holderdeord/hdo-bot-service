@@ -24,10 +24,11 @@ def get_voter_guide_category_replies(sender_id, session, payload, text):
     manuscripts = get_voter_guide_manuscripts(session, selection)
 
     if not manuscripts:
+        image_url = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
         return [format_generic_simple(
             sender_id,
             'Wow! 😮 Du har svart på samtlige spørsmål i hvert tema 🤓🤓 Imponerende 😎',
-            format_result_or_share_buttons(session))]
+            format_result_or_share_buttons(session), image_url=image_url)]
 
     num_pages = int(math.ceil(len(manuscripts) / MAX_QUICK_REPLIES))
     page = payload.get('category_page', 1) if payload else 1
@@ -95,10 +96,11 @@ def get_vg_question_replies(sender_id, session, payload):
         # We collect your answers, show results
         result_page_msg = 'Se svarene i detalj og hvilke løfter som hører til på din egen resultatside'
         more_cats_msg = 'Du kan se svarene dine fra menyen når som helst. Velg nytt tema for å gjøre ditt resultat mer presist.'
+        image_url = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
         replies += [
             format_text(sender_id, next_text),
             format_vg_result_reply(sender_id, session),
-            format_generic_simple(sender_id, result_page_msg, format_result_or_share_buttons(session)),
+            format_generic_simple(sender_id, result_page_msg, format_result_or_share_buttons(session), image_url=image_url),
             format_quick_reply_with_intent(
                 sender_id, 'Neste tema!', more_cats_msg, INTENT_NEXT_QUESTION, extra_payload)]
     else:
@@ -130,7 +132,9 @@ def get_answer_replies(sender_id, session, payload):
 
     msg = 'Se svarene i detalj og hvilke løfter som hører til på din egen resultatside'
     ready_msg = 'Klar for å gå videre?'
+    image_url = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
+
     return [
         format_vg_result_reply(sender_id, session),
-        format_generic_simple(sender_id, msg, format_result_or_share_buttons(session)),
+        format_generic_simple(sender_id, msg, format_result_or_share_buttons(session), image_url=image_url),
         format_quick_reply_with_intent(sender_id, 'Videre', ready_msg, INTENT_RESET_SESSION, extra_payload)]

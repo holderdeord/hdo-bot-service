@@ -74,8 +74,11 @@ nav header .hdo-logo {
   font-weight: 600;
   font-family: Roboto, sans-serif; }
 
+.answers-overview__table__rank {
+  text-align: center; }
+
 .answers-overview__table td {
-  padding: 0.1rem 0.5rem; }
+  padding: 0.3rem 0.5rem; }
   .answers-overview__table td:first-of-type {
     padding-left: 0; }
   .answers-overview__table td:last-of-type {

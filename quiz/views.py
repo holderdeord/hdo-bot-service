@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import HttpResponse
 from django.views.generic import DetailView
 
@@ -34,7 +35,7 @@ class AnswerSetView(DetailView):
             vg_answers_sorted.append({
                 'count': count,
                 'parties': parties,
-                'rank': medals.get(i, i),
+                'rank': medals.get(i, '{}.'.format(i)),
                 'percent': '{:.1f}%'.format((count / total_count) * 100)
 
             })
@@ -44,5 +45,8 @@ class AnswerSetView(DetailView):
             'totals': AnswerSet.objects.correct_answers(),
             'vg_answers_sorted': vg_answers_sorted,
             'vg_alts': vg_alts,
+            'is_shared': self.request.GET.get('shared') == '1',
+            'app_id': settings.FACEBOOK_APP_ID,
+            'page_id': settings.FACEBOOK_PAGE_ID,
             **super().get_context_data(**kwargs)
         }

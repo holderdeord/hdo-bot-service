@@ -1,6 +1,29 @@
 {% extends "base.html" %}
 {% load static quiz_extras %}
-{% block head %}{% endblock %}
+{% block head %}
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: "{{ app_id }}",
+            xfbml: true,
+            version: "v2.6"
+        });
+
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+</script>
+{% endblock %}
 
 {% block title %}Holder de ord{% endblock %}
 {% block body %}
@@ -9,6 +32,22 @@
         <div class="hdo-logo hdo-logo-header">Holder de ord</div>
     </header>
     <div>
+        {% if is_shared %}
+            <div class="hdo-card">
+                <div class="hdo-card-header" style="text-align: center;">
+                    <h3>Holder de ords partitester</h3>
+                </div>
+                <div class="hdo-card-content" style="text-align: center;">
+                    <p>Finn din politiske match! Start ved å trykke på knappen under</p>
+                    <div class="fb-messengermessageus"
+                         messenger_app_id="{{ app_id }}"
+                         page_id="{{ page_id }}"
+                         color="blue"
+                         size="xlarge">
+                    </div>
+                </div>
+            </div>
+        {% endif %}
         <div class="answers-overview hdo-card">
             <div class="hdo-card-header text-xs-center">
                 <h3>Ditt resultat</h3>
