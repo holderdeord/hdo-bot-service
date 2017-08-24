@@ -19,7 +19,10 @@
 .flatpage h6 {
   margin-top: 1rem; }
 
-.flatpage p {
+.flatpage p,
+.flatpage ol,
+.flatpage ul {
+  margin-top: 1em;
   margin-bottom: 1em; }
 
 .flatpage img {
