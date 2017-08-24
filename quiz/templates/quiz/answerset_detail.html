@@ -33,19 +33,13 @@
     </header>
     <div>
         {% if is_shared %}
-            <div class="hdo-card">
-                <div class="hdo-card-header" style="text-align: center;">
-                    <h3>Holder de ords partitester</h3>
-                </div>
-                <div class="hdo-card-content" style="text-align: center;">
-                    <p>Finn din politiske match! Start ved å trykke på knappen under</p>
-                    <div class="fb-messengermessageus"
-                         messenger_app_id="{{ app_id }}"
-                         page_id="{{ page_id }}"
-                         color="blue"
-                         size="xlarge">
-                    </div>
-                </div>
+            <div style="text-align: center;">
+                <p>Finn din politiske match! Start ved å trykke på knappen under</p>
+                <div class="fb-messengermessageus"
+                     messenger_app_id="{{ app_id }}"
+                     page_id="{{ page_id }}"
+                     color="blue"
+                     size="xlarge"></div>
             </div>
         {% endif %}
         <div class="answers-overview hdo-card">
