@@ -10,7 +10,7 @@ from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INT
                                INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION,
                                INTENT_VG_CATEGORY_SELECT, INTENT_SHOW_ANSWERS)
-from messenger.replies.quiz import get_quiz_question_replies
+from messenger.replies.quiz import get_quiz_question_replies, get_quiz_level_replies
 from messenger.replies.voter_guide import (get_vg_category_replies, get_vg_questions,
                                            get_vg_question_replies, get_vg_result, get_vg_answer_replies)
 from messenger.utils import delete_answers, save_vg_answer, get_result_url
@@ -117,6 +117,22 @@ def get_replies(sender_id, session, payload=None):
         replies += [format_text(sender_id, get_result_url(session))]
         session.meta['item'] += 1
 
+    # Quiz: Show level select
+    elif item['type'] == ManuscriptItem.TYPE_Q_LEVEL_SELECT:
+        logger.debug("Adding quiz level [{}]".format(session.meta['item'] + 1))
+
+        replies += get_quiz_level_replies(sender_id, session, payload, item['text'])
+        session.meta['item'] += 1
+
+    # Quiz: Show category select
+    elif item['type'] == ManuscriptItem.TYPE_Q_CATEGORY_SELECT:
+        logger.debug("Adding quiz category select [{}]".format(session.meta['item'] + 1))
+
+        # TODO: Link to quiz question instead of voter guide questions
+        # TODO: Filter by level (taken from payload['level'])
+        replies += get_vg_category_replies(sender_id, session, payload, item['text'])
+        session.meta['item'] += 1
+
     # Voter guide: Show category select
     elif item['type'] == ManuscriptItem.TYPE_VG_CATEGORY_SELECT:
         logger.debug("Adding voter guide categories [{}]".format(session.meta['item'] + 1))
@@ -137,9 +153,12 @@ def get_replies(sender_id, session, payload=None):
 
         replies += get_vg_result(sender_id, session, payload)
         session.meta['item'] += 1
+
     # Do nothing for last items of type text
     elif last_item:
         pass
+
+    # Unhandled
     else:
         msg = "Unhandled manuscript item type: {} [{}]".format(item['type'], session.meta['item'] + 1)
         logger.error(msg)

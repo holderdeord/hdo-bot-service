@@ -117,16 +117,16 @@ class Manuscript(DefaultMixin, BaseModel):
     LEVEL_HIGH = 'high'
 
     LEVEL_CHOICES = (
-        (LEVEL_LOW, _('Low')),
-        (LEVEL_MEDIUM, _('Medium')),
-        (LEVEL_HIGH, _('High')),
+        (LEVEL_LOW, _('Nybegynner')),
+        (LEVEL_MEDIUM, _('Middels')),
+        (LEVEL_HIGH, _('Politisk NØRD')),
     )
 
     name = models.CharField(
         max_length=255,
         blank=True,
         default='',
-        help_text=_('Used both for admin display and user display when type=voting guide'),
+        help_text=_('Used both for admin display and user display when type=voting guide or type=quiz'),
         unique=True)
     type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_GENERIC)
     level = models.CharField(max_length=100, choices=LEVEL_CHOICES, default=LEVEL_MEDIUM)
@@ -189,6 +189,7 @@ class ManuscriptItem(BaseModel):
     TYPE_Q_PARTY_BOOL = 'quiz_q_party_bool'
 
     TYPE_Q_QUESTION = 'quiz_question'
+    TYPE_Q_LEVEL_SELECT = 'quiz_level'
     TYPE_Q_CATEGORY_SELECT = 'quiz_categories'
 
     # Voter guide
@@ -208,6 +209,7 @@ class ManuscriptItem(BaseModel):
         (TYPE_Q_PROMISES_CHECKED, _('Quiz: Show checked promise questions')),
         (TYPE_Q_PARTY_SELECT, _('Quiz: Show which party promised what questions')),
         (TYPE_Q_PARTY_BOOL, _('Quiz: Show did party x promise y questions')),
+        (TYPE_Q_LEVEL_SELECT, _('Quiz: Show level select')),
         (TYPE_Q_CATEGORY_SELECT, _('Quiz: Show category select')),
         (TYPE_Q_QUESTION, _('Quiz: Show question')),
         (TYPE_VG_RESULT, _('Voter guide: Show result')),

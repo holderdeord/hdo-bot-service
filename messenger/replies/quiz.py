@@ -1,12 +1,15 @@
+import json
 import random
 
 from django.utils.translation import ugettext as _
 
+from messenger import intents
 from messenger.api import get_user_profile
-from messenger.api.formatters import format_text, format_image_attachment
+from messenger.api.formatters import format_text, format_image_attachment, format_quick_replies
 from messenger.utils import save_answers
 
 # TODO: Add two other quiz types
+from quiz.models import Manuscript
 
 
 def get_quiz_question_replies(sender_id, session, payload=None):
@@ -45,3 +48,20 @@ def get_quiz_question_replies(sender_id, session, payload=None):
     session.meta['answers'] = current_answers
 
     return replies
+
+
+def get_quiz_level_replies(sender_id, session, payload, text):
+    """ Show available levels as quick replies """
+    buttons = []
+    # TODO: Show levels
+    for val, level in Manuscript.LEVEL_CHOICES:
+        buttons.append({
+            "content_type": "text",
+            "title": str(level),
+            "payload": json.dumps({
+                'level': val,
+                'intent': intents.INTENT_NEXT_ITEM
+            }),
+        })
+
+    return [format_quick_replies(sender_id, buttons, text)]

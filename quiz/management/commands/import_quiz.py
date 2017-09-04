@@ -112,9 +112,14 @@ class Command(BaseCommand):
 
         if created:
             ManuscriptItem.objects.get_or_create(
-                type=ManuscriptItem.TYPE_Q_CATEGORY_SELECT,
+                type=ManuscriptItem.TYPE_Q_LEVEL_SELECT,
                 manuscript=manuscript,
                 order=1,
+                text='Velg nivå')
+            ManuscriptItem.objects.get_or_create(
+                type=ManuscriptItem.TYPE_Q_CATEGORY_SELECT,
+                manuscript=manuscript,
+                order=2,
                 text='Velg tema')
 
     def create_manuscripts(self, manuscripts_data):
