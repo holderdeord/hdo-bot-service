@@ -112,6 +112,16 @@ class Manuscript(DefaultMixin, BaseModel):
         (TYPE_VOTER_GUIDE, _('Voter guide')),
     )
 
+    LEVEL_LOW = 'low'
+    LEVEL_MEDIUM = 'medium'
+    LEVEL_HIGH = 'high'
+
+    LEVEL_CHOICES = (
+        (LEVEL_LOW, _('Low')),
+        (LEVEL_MEDIUM, _('Medium')),
+        (LEVEL_HIGH, _('High')),
+    )
+
     name = models.CharField(
         max_length=255,
         blank=True,
@@ -119,6 +129,7 @@ class Manuscript(DefaultMixin, BaseModel):
         help_text=_('Used both for admin display and user display when type=voting guide'),
         unique=True)
     type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_GENERIC)
+    level = models.CharField(max_length=100, choices=LEVEL_CHOICES, default=LEVEL_MEDIUM)
     category = models.ForeignKey('quiz.Category', on_delete=models.SET_NULL, blank=True, null=True)
     promises = models.ManyToManyField('quiz.Promise', blank=True)
 
@@ -126,10 +137,6 @@ class Manuscript(DefaultMixin, BaseModel):
 
     hdo_category = models.ForeignKey(
         'quiz.HdoCategory', on_delete=models.SET_NULL, blank=True, null=True, related_name='manuscripts')
-    is_first_in_category = models.BooleanField(
-        default=False,
-        blank=True,
-        help_text=_('Which manuscript in a category comes first (used with TYPE_VG_CATEGORY_SELECT)'))
 
     def __str__(self):
         return '{} ({})'.format(self.name, self.type) if self.name else '#{}'.format(self.pk)
@@ -141,6 +148,20 @@ class VoterGuideAlternative(BaseModel):
     manuscript = models.ForeignKey('quiz.Manuscript', related_name='voter_guide_alternatives')
     promises = models.ManyToManyField('quiz.Promise', blank=True)
     no_answer = models.BooleanField(default=False, blank=True)
+
+    class Meta:
+        unique_together = ('text', 'manuscript')
+
+    def __str__(self):
+        return self.text
+
+
+class QuizAlternative(BaseModel):
+    """Tema, tekst, løfte-ider"""
+    text = models.CharField(max_length=255)
+    manuscript = models.ForeignKey('quiz.Manuscript', related_name='quiz_alternatives')
+    promise = models.ForeignKey('quiz.Promise', blank=True, null=True)
+    correct_answer = models.BooleanField(default=False, blank=True)
 
     class Meta:
         unique_together = ('text', 'manuscript')
@@ -246,6 +267,17 @@ class Answer(BaseModel):
 
     answer_set = models.ForeignKey(
         'quiz.AnswerSet', null=True, blank=True, related_name='answers', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{}: {}'.format(self.__class__.__name__, self.pk)
+
+
+class QuizAnswer(BaseModel):
+    """ Quiz responses """
+    quiz_alternative = models.ForeignKey(
+        'quiz.QuizAlternative', null=True, on_delete=models.SET_NULL, related_name='answers')
+    answer_set = models.ForeignKey(
+        'quiz.AnswerSet', null=True, blank=True, related_name='quiz_answers', on_delete=models.CASCADE)
 
     def __str__(self):
         return '{}: {}'.format(self.__class__.__name__, self.pk)
