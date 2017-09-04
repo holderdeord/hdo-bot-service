@@ -11,8 +11,8 @@ from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INT
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION,
                                INTENT_VG_CATEGORY_SELECT, INTENT_SHOW_ANSWERS)
 from messenger.replies.quiz import get_quiz_question_replies
-from messenger.replies.voter_guide import (get_voter_guide_category_replies, get_voter_guide_questions,
-                                           get_vg_question_replies, get_voter_guide_result, get_answer_replies)
+from messenger.replies.voter_guide import (get_vg_category_replies, get_vg_questions,
+                                           get_vg_question_replies, get_vg_result, get_vg_answer_replies)
 from messenger.utils import delete_answers, save_vg_answer, get_result_url
 from quiz.models import ManuscriptItem
 
@@ -49,7 +49,7 @@ def get_replies(sender_id, session, payload=None):
 
         elif intent == INTENT_SHOW_ANSWERS:
             # Show answers
-            return get_answer_replies(sender_id, session, payload)
+            return get_vg_answer_replies(sender_id, session, payload)
 
         elif intent == INTENT_ANSWER_VG_QUESTION:
             # Voter guide: Answer replies
@@ -59,7 +59,7 @@ def get_replies(sender_id, session, payload=None):
         elif intent == INTENT_VG_CATEGORY_SELECT:
             # Voter guide: Paged categories
             last_item = session.meta['manuscript']['items'][session.meta['item'] - 1]
-            return get_voter_guide_category_replies(sender_id, session, payload, last_item['text'])
+            return get_vg_category_replies(sender_id, session, payload, last_item['text'])
 
         else:
             msg = "Error: Unknown intent '{}'".format(intent)
@@ -121,21 +121,21 @@ def get_replies(sender_id, session, payload=None):
     elif item['type'] == ManuscriptItem.TYPE_VG_CATEGORY_SELECT:
         logger.debug("Adding voter guide categories [{}]".format(session.meta['item'] + 1))
 
-        replies += get_voter_guide_category_replies(sender_id, session, payload, item['text'])
+        replies += get_vg_category_replies(sender_id, session, payload, item['text'])
         session.meta['item'] += 1
 
     # Voter guide: Show questions
     elif item['type'] == ManuscriptItem.TYPE_VG_QUESTIONS:
         logger.debug("Adding voter guide questions [{}]".format(session.meta['item'] + 1))
 
-        replies += get_voter_guide_questions(sender_id, session, payload, item['text'])
+        replies += get_vg_questions(sender_id, session, payload, item['text'])
         session.meta['item'] += 1
 
     # Voter guide: result
     elif item['type'] == ManuscriptItem.TYPE_VG_RESULT:
         logger.debug("Adding voter guide result [{}]".format(session.meta['item'] + 1))
 
-        replies += get_voter_guide_result(sender_id, session, payload)
+        replies += get_vg_result(sender_id, session, payload)
         session.meta['item'] += 1
     # Do nothing for last items of type text
     elif last_item:

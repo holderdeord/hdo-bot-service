@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 MAX_QUICK_REPLIES = 7
 
 
-def get_voter_guide_category_replies(sender_id, session, payload, text):
+def get_vg_category_replies(sender_id, session, payload, text):
     """ Show manuscripts of type voter guide as quick replies """
     selection = None
     if payload:
@@ -36,7 +36,7 @@ def get_voter_guide_category_replies(sender_id, session, payload, text):
     return [format_vg_categories(sender_id, manuscripts, text, num_pages, page, MAX_QUICK_REPLIES)]
 
 
-def get_voter_guide_questions(sender_id, session, payload, text):
+def get_vg_questions(sender_id, session, payload, text):
     return [format_vg_alternatives(sender_id, session.meta['manuscript'], text)]
 
 
@@ -119,11 +119,11 @@ def get_next_vg_question_reply(sender_id, session, payload):
     return format_quick_reply_with_intent(sender_id, "Neste spørsmål", next_text, intents.INTENT_NEXT_QUESTION, extra_payload)
 
 
-def get_voter_guide_result(sender_id, session, payload):
+def get_vg_result(sender_id, session, payload):
     return [format_vg_result_reply(sender_id, session), get_next_vg_question_reply(sender_id, session, payload)]
 
 
-def get_answer_replies(sender_id, session, payload):
+def get_vg_answer_replies(sender_id, session, payload):
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
     if not hasattr(session, 'answers') or session.answers is None:
         no_results_msg = '🤔 Du har ikke svart på noe enda... Velg et tema'
