@@ -12,7 +12,7 @@ from quiz.utils import PARTY_SHORT_NAMES
 logger = logging.getLogger(__name__)
 
 
-def format_vg_categories(recipient_id, manuscripts, text, num_pages, page, max_qrs):
+def format_categories(recipient_id, manuscripts, text, num_pages, page, max_qrs, quiz):
     buttons = []
     alt_text = []
     if page == 1:
@@ -55,9 +55,10 @@ def format_vg_categories(recipient_id, manuscripts, text, num_pages, page, max_q
                     "content_type": "text",
                     "title": 'Vis resten',
                     "payload": json.dumps({
-                        'intent': intents.INTENT_VG_CATEGORY_SELECT,
+                        'intent': intents.INTENT_CATEGORY_SELECT,
                         'category_page': page + 1,
-                        'manuscript_selection': [m.pk for m in manuscripts]
+                        'manuscript_selection': [m.pk for m in manuscripts],
+                        'quiz': quiz,
                     }),
                 })
             break

@@ -5,10 +5,10 @@ import math
 from messenger import intents
 from messenger.api.formatters import format_text, format_generic_simple
 from messenger.formatters.general import format_quick_reply_with_intent
-from messenger.formatters.voter_guide import (format_vg_result_button, format_vg_categories, format_vg_alternatives,
+from messenger.formatters.voter_guide import (format_vg_result_button, format_categories, format_vg_alternatives,
                                               format_vg_result_reply)
-from messenger.utils import get_voter_guide_manuscripts, get_next_vg_manuscript, get_num_vg_answers
-from quiz.models import VoterGuideAlternative, Manuscript
+from messenger.utils import get_manuscripts_for_category_selection, get_next_vg_manuscript
+from quiz.models import VoterGuideAlternative, Manuscript, VoterGuideAnswer
 from quiz.utils import PARTY_SHORT_NAMES
 
 logger = logging.getLogger(__name__)
@@ -16,14 +16,21 @@ logger = logging.getLogger(__name__)
 MAX_QUICK_REPLIES = 7
 
 
-def get_vg_category_replies(sender_id, session, payload, text):
+def get_category_replies(sender_id, session, payload, text, quiz=False):
     """ Show manuscripts of type voter guide as quick replies """
     selection = None
+    level = None
     if payload:
         selection = payload.get('manuscript_selection')
-    manuscripts = get_voter_guide_manuscripts(session, selection)
+        level = payload.get('level')
+        quiz = payload.get('quiz', False)
+
+    manuscripts = get_manuscripts_for_category_selection(session, selection, quiz, level)
 
     if not manuscripts:
+        if not hasattr(session, 'answers'):
+            return [format_text(sender_id, 'No manuscripts, but no answers?!')]
+
         image_url = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
         return [format_generic_simple(
             sender_id,
@@ -33,7 +40,7 @@ def get_vg_category_replies(sender_id, session, payload, text):
     num_pages = int(math.ceil(len(manuscripts) / MAX_QUICK_REPLIES))
     page = payload.get('category_page', 1) if payload else 1
 
-    return [format_vg_categories(sender_id, manuscripts, text, num_pages, page, MAX_QUICK_REPLIES)]
+    return [format_categories(sender_id, manuscripts, text, num_pages, page, MAX_QUICK_REPLIES, quiz)]
 
 
 def get_vg_questions(sender_id, session, payload, text):
@@ -80,7 +87,7 @@ def get_vg_question_replies(sender_id, session, payload):
 
     # Emptied out the category, link manuscript select
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
-    num_answers = get_num_vg_answers(session)
+    num_answers = VoterGuideAnswer.objects.filter(answer_set__session=session).count()
     replies = []
 
     if 4 <= num_answers < 8:

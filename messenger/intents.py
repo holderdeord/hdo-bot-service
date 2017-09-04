@@ -7,10 +7,9 @@ INTENT_RESET_SESSION = 'general.reset_session'
 INTENT_RESET_ANSWERS = 'general.reset_answers'
 INTENT_RESET_ANSWERS_CONFIRM = 'general.reset_answers_confirm'
 INTENT_SHOW_ANSWERS = 'general.show_answers'
+INTENT_CATEGORY_SELECT = 'general.category_select'
 
 INTENT_ANSWER_QUIZ_QUESTION = 'quiz.answer_question'
-# INTENT_QUIZ_LEVEL_SELECT = 'quiz.level_select'
 
-INTENT_VG_CATEGORY_SELECT = 'voter_guide.category_select'
 INTENT_ANSWER_VG_QUESTION = 'voter_guide.answer_question'
 INTENT_NEXT_QUESTION = 'voter_guide.next_question'

@@ -9,9 +9,9 @@ from messenger.formatters.quiz import format_question
 from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
                                INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION,
-                               INTENT_VG_CATEGORY_SELECT, INTENT_SHOW_ANSWERS)
+                               INTENT_CATEGORY_SELECT, INTENT_SHOW_ANSWERS)
 from messenger.replies.quiz import get_quiz_question_replies, get_quiz_level_replies
-from messenger.replies.voter_guide import (get_vg_category_replies, get_vg_questions,
+from messenger.replies.voter_guide import (get_category_replies, get_vg_questions,
                                            get_vg_question_replies, get_vg_result, get_vg_answer_replies)
 from messenger.utils import delete_answers, save_vg_answer, get_result_url
 from quiz.models import ManuscriptItem
@@ -56,10 +56,10 @@ def get_replies(sender_id, session, payload=None):
             save_vg_answer(session, payload)
             return get_vg_question_replies(sender_id, session, payload)
 
-        elif intent == INTENT_VG_CATEGORY_SELECT:
-            # Voter guide: Paged categories
+        elif intent == INTENT_CATEGORY_SELECT:
+            # Paged categories
             last_item = session.meta['manuscript']['items'][session.meta['item'] - 1]
-            return get_vg_category_replies(sender_id, session, payload, last_item['text'])
+            return get_category_replies(sender_id, session, payload, last_item['text'])
 
         else:
             msg = "Error: Unknown intent '{}'".format(intent)
@@ -128,16 +128,14 @@ def get_replies(sender_id, session, payload=None):
     elif item['type'] == ManuscriptItem.TYPE_Q_CATEGORY_SELECT:
         logger.debug("Adding quiz category select [{}]".format(session.meta['item'] + 1))
 
-        # TODO: Link to quiz question instead of voter guide questions
-        # TODO: Filter by level (taken from payload['level'])
-        replies += get_vg_category_replies(sender_id, session, payload, item['text'])
+        replies += get_category_replies(sender_id, session, payload, item['text'], quiz=True)
         session.meta['item'] += 1
 
     # Voter guide: Show category select
     elif item['type'] == ManuscriptItem.TYPE_VG_CATEGORY_SELECT:
         logger.debug("Adding voter guide categories [{}]".format(session.meta['item'] + 1))
 
-        replies += get_vg_category_replies(sender_id, session, payload, item['text'])
+        replies += get_category_replies(sender_id, session, payload, item['text'])
         session.meta['item'] += 1
 
     # Voter guide: Show questions

@@ -53,7 +53,6 @@ def get_quiz_question_replies(sender_id, session, payload=None):
 def get_quiz_level_replies(sender_id, session, payload, text):
     """ Show available levels as quick replies """
     buttons = []
-    # TODO: Show levels
     for val, level in Manuscript.LEVEL_CHOICES:
         buttons.append({
             "content_type": "text",

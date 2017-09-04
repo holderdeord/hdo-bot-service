@@ -12,8 +12,7 @@ from api.serializers.manuscript import BaseManuscriptSerializer
 from messenger.api import send_message
 from messenger.api.formatters import format_text
 from messenger.models import ChatSession
-from quiz.models import AnswerSet, Answer, Manuscript, VoterGuideAlternative, VoterGuideAnswer
-
+from quiz.models import AnswerSet, Answer, Manuscript, VoterGuideAlternative, VoterGuideAnswer, QuizAnswer
 
 logger = logging.getLogger(__name__)
 
@@ -93,31 +92,37 @@ def save_vg_answer(session: ChatSession, payload):
     answer, _ = VoterGuideAnswer.objects.get_or_create(answer_set=answer_set, voter_guide_alternative=alt)
 
 
-def get_num_vg_answers(session: ChatSession):
-    return VoterGuideAnswer.objects.filter(answer_set__session=session).count()
+def get_unanswered_manuscripts(session: ChatSession, selection=None, quiz=False, level=None):
+    query = {'type': Manuscript.TYPE_VOTER_GUIDE}
+    if quiz:
+        query['type'] = Manuscript.TYPE_QUIZ
+        if level:
+            query['level'] = level
 
-
-def get_unanswered_vg_manuscripts(session: ChatSession, selection=None):
-    ms = Manuscript.objects.filter(type=Manuscript.TYPE_VOTER_GUIDE)
+    ms = Manuscript.objects.filter(**query)
 
     if selection:
         ms = ms.filter(pk__in=selection)
+
+    if quiz:
+        answers = QuizAnswer.objects.filter(answer_set__session=session)
+        return ms.exclude(quiz_alternatives__answers__in=answers)
 
     answers = VoterGuideAnswer.objects.filter(answer_set__session=session)
     return ms.exclude(voter_guide_alternatives__answers__in=answers)
 
 
-def get_next_vg_manuscript(session: ChatSession):
-    ms = get_unanswered_vg_manuscripts(session)
+def get_next_vg_manuscript(session: ChatSession, quiz=False):
+    ms = get_unanswered_manuscripts(session, quiz=quiz)
     current_category = session.meta['manuscript']['hdo_category']
     return ms.filter(hdo_category=current_category).order_by('?').first()
 
 
-def get_voter_guide_manuscripts(session: ChatSession, selection=None):
+def get_manuscripts_for_category_selection(session: ChatSession, selection=None, quiz=False, level=None):
     """ Get voter guide manuscripts that are not already answered, max 1 per HDO category """
 
     # Remove manuscripts already answered
-    manuscripts = get_unanswered_vg_manuscripts(session, selection)
+    manuscripts = get_unanswered_manuscripts(session, selection, quiz=quiz, level=level)
 
     # Randomize
     manuscripts = manuscripts.order_by('?')
