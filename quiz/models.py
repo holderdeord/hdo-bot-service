@@ -160,7 +160,7 @@ class QuizAlternative(BaseModel):
     """Tema, tekst, løfte-ider"""
     text = models.CharField(max_length=255)
     manuscript = models.ForeignKey('quiz.Manuscript', related_name='quiz_alternatives')
-    promise = models.ForeignKey('quiz.Promise', blank=True, null=True)
+    promises = models.ManyToManyField('quiz.Promise', blank=True)
     correct_answer = models.BooleanField(default=False, blank=True)
 
     class Meta:
@@ -188,6 +188,9 @@ class ManuscriptItem(BaseModel):
     TYPE_Q_PARTY_SELECT = 'quiz_q_party_select'
     TYPE_Q_PARTY_BOOL = 'quiz_q_party_bool'
 
+    TYPE_Q_QUESTION = 'quiz_question'
+    TYPE_Q_CATEGORY_SELECT = 'quiz_categories'
+
     # Voter guide
     TYPE_VG_RESULT = 'vg_result'  # Show preliminary results
     TYPE_VG_CATEGORY_SELECT = 'vg_categories'  # Show category select
@@ -205,6 +208,8 @@ class ManuscriptItem(BaseModel):
         (TYPE_Q_PROMISES_CHECKED, _('Quiz: Show checked promise questions')),
         (TYPE_Q_PARTY_SELECT, _('Quiz: Show which party promised what questions')),
         (TYPE_Q_PARTY_BOOL, _('Quiz: Show did party x promise y questions')),
+        (TYPE_Q_CATEGORY_SELECT, _('Quiz: Show category select')),
+        (TYPE_Q_QUESTION, _('Quiz: Show question')),
         (TYPE_VG_RESULT, _('Voter guide: Show result')),
         (TYPE_VG_CATEGORY_SELECT, _('Voter guide: Show category select')),
         (TYPE_VG_QUESTIONS, _('Voter guide: Show questions')),
