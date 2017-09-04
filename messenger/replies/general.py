@@ -4,7 +4,8 @@ from django.conf import settings
 
 from messenger.api import send_message
 from messenger.api.formatters import format_text
-from messenger.intent_formatters import format_question, format_quick_replies_with_intent, format_reset_answer
+from messenger.formatters.general import format_reset_answer, format_quick_replies_with_intent
+from messenger.formatters.quiz import format_question
 from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
                                INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION,

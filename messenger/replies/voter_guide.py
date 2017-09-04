@@ -2,11 +2,11 @@ import logging
 
 import math
 
+from messenger import intents
 from messenger.api.formatters import format_text, format_generic_simple
-from messenger.intent_formatters import (format_vg_categories, format_vg_alternatives, format_quick_reply_with_intent,
-                                         format_vg_result_reply,
-                                         format_result_or_share_buttons)
-from messenger.intents import INTENT_NEXT_QUESTION, INTENT_RESET_SESSION
+from messenger.formatters.general import format_quick_reply_with_intent
+from messenger.formatters.voter_guide import (format_vg_result_button, format_vg_categories, format_vg_alternatives,
+                                              format_vg_result_reply)
 from messenger.utils import get_voter_guide_manuscripts, get_next_vg_manuscript, get_num_vg_answers
 from quiz.models import VoterGuideAlternative, Manuscript
 from quiz.utils import PARTY_SHORT_NAMES
@@ -28,7 +28,7 @@ def get_voter_guide_category_replies(sender_id, session, payload, text):
         return [format_generic_simple(
             sender_id,
             'Wow! 😮 Du har svart på samtlige spørsmål i hvert tema 🤓🤓 Imponerende 😎',
-            format_result_or_share_buttons(session), image_url=image_url)]
+            format_vg_result_button(session), image_url=image_url)]
 
     num_pages = int(math.ceil(len(manuscripts) / MAX_QUICK_REPLIES))
     page = payload.get('category_page', 1) if payload else 1
@@ -90,7 +90,7 @@ def get_vg_question_replies(sender_id, session, payload):
         replies += [
             format_text(sender_id, next_text), format_text(sender_id, finished_msg),
             format_quick_reply_with_intent(
-                sender_id, 'Neste tema!', about_bot_text, INTENT_NEXT_QUESTION, extra_payload)]
+                sender_id, 'Neste tema!', about_bot_text, intents.INTENT_NEXT_QUESTION, extra_payload)]
 
     elif 8 <= num_answers < 12:
         # We collect your answers, show results
@@ -100,13 +100,13 @@ def get_vg_question_replies(sender_id, session, payload):
         replies += [
             format_text(sender_id, next_text),
             format_vg_result_reply(sender_id, session),
-            format_generic_simple(sender_id, result_page_msg, format_result_or_share_buttons(session), image_url=image_url),
+            format_generic_simple(sender_id, result_page_msg, format_vg_result_button(session), image_url=image_url),
             format_quick_reply_with_intent(
-                sender_id, 'Neste tema!', more_cats_msg, INTENT_NEXT_QUESTION, extra_payload)]
+                sender_id, 'Neste tema!', more_cats_msg, intents.INTENT_NEXT_QUESTION, extra_payload)]
     else:
         # Next manuscript
         replies += [format_quick_reply_with_intent(
-            sender_id, 'Neste tema!', next_text, INTENT_NEXT_QUESTION, extra_payload)]
+            sender_id, 'Neste tema!', next_text, intents.INTENT_NEXT_QUESTION, extra_payload)]
 
     return replies
 
@@ -116,7 +116,7 @@ def get_next_vg_question_reply(sender_id, session, payload):
     next_text = "Når du er klar kan du gå videre til neste spørsmål"
     next_manuscript = get_next_vg_manuscript(session)
     extra_payload = {'manuscript': next_manuscript.pk if next_manuscript else None}
-    return format_quick_reply_with_intent(sender_id, "Neste spørsmål", next_text, INTENT_NEXT_QUESTION, extra_payload)
+    return format_quick_reply_with_intent(sender_id, "Neste spørsmål", next_text, intents.INTENT_NEXT_QUESTION, extra_payload)
 
 
 def get_voter_guide_result(sender_id, session, payload):
@@ -128,7 +128,7 @@ def get_answer_replies(sender_id, session, payload):
     if not hasattr(session, 'answers') or session.answers is None:
         no_results_msg = '🤔 Du har ikke svart på noe enda... Velg et tema'
         return [format_quick_reply_with_intent(
-            sender_id, 'Okey 👍', no_results_msg, INTENT_RESET_SESSION, extra_payload)]
+            sender_id, 'Okey 👍', no_results_msg, intents.INTENT_RESET_SESSION, extra_payload)]
 
     msg = 'Se svarene i detalj og hvilke løfter som hører til på din egen resultatside'
     ready_msg = 'Klar for å gå videre?'
@@ -136,5 +136,5 @@ def get_answer_replies(sender_id, session, payload):
 
     return [
         format_vg_result_reply(sender_id, session),
-        format_generic_simple(sender_id, msg, format_result_or_share_buttons(session), image_url=image_url),
-        format_quick_reply_with_intent(sender_id, 'Videre', ready_msg, INTENT_RESET_SESSION, extra_payload)]
+        format_generic_simple(sender_id, msg, format_vg_result_button(session), image_url=image_url),
+        format_quick_reply_with_intent(sender_id, 'Videre', ready_msg, intents.INTENT_RESET_SESSION, extra_payload)]

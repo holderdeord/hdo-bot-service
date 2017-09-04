@@ -2,7 +2,7 @@ from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
 from quiz.models import (Manuscript, ManuscriptItem, Promise, Category, ManuscriptImage, VoterGuideAlternative,
-                         HdoCategory)
+                         HdoCategory, QuizAlternative)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -50,6 +50,12 @@ class VoterGuideAlternativeSerializer(serializers.ModelSerializer):
         fields = ('pk', 'text', 'promises', 'full_promises', 'parties', 'no_answer')
 
 
+class QuizAlternativeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuizAlternative
+        fields = ('pk', 'text', 'promises', 'correct_answer')
+
+
 class ManuscriptItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ManuscriptItem
@@ -73,17 +79,17 @@ class ManuscriptImageSerializer(serializers.ModelSerializer):
 class BaseManuscriptSerializer(WritableNestedModelSerializer):
     items = ManuscriptItemSerializer(many=True, required=False)
     promises = PromiseSerializer(many=True, required=False)
-    images = serializers.SerializerMethodField()
+    # images = serializers.SerializerMethodField()
     voter_guide_alternatives = VoterGuideAlternativeSerializer(many=True, required=False)
+    quiz_alternatives = QuizAlternativeSerializer(many=True, required=False)
 
-    def get_images(self, obj):
-        return list(ManuscriptImageSerializer(ManuscriptImage.objects.all(), many=True).data)
+    # def get_images(self, obj):
+    #     return list(ManuscriptImageSerializer(ManuscriptImage.objects.all(), many=True).data)
 
     class Meta:
         model = Manuscript
         fields = ('pk', 'name', 'type', 'category', 'hdo_category', 'updated', 'default',
-                  'is_first_in_category', 'items', 'promises', 'next', 'images',
-                  'voter_guide_alternatives')
+                  'items', 'promises', 'next', 'voter_guide_alternatives', 'quiz_alternatives')
 
 
 class ManuscriptSerializer(BaseManuscriptSerializer):
@@ -92,8 +98,7 @@ class ManuscriptSerializer(BaseManuscriptSerializer):
     class Meta:
         model = Manuscript
         fields = ('pk', 'url', 'name', 'type', 'category', 'hdo_category', 'updated', 'default',
-                  'is_first_in_category', 'items', 'promises', 'next', 'images',
-                  'voter_guide_alternatives')
+                  'items', 'promises', 'next', 'voter_guide_alternatives', 'quiz_alternatives')
 
 
 class ManuscriptListSerializer(WritableNestedModelSerializer):
@@ -101,6 +106,7 @@ class ManuscriptListSerializer(WritableNestedModelSerializer):
     category = serializers.SerializerMethodField()
     hdo_category = serializers.SerializerMethodField()
     voter_guide_alternatives = VoterGuideAlternativeSerializer(many=True, required=False)
+    quiz_alternatives = QuizAlternativeSerializer(many=True, required=False)
     url = serializers.HyperlinkedIdentityField(view_name='api:manuscript-detail')
 
     def get_category(self, obj):
@@ -112,4 +118,4 @@ class ManuscriptListSerializer(WritableNestedModelSerializer):
     class Meta:
         model = Manuscript
         fields = ('pk', 'url', 'name', 'type', 'category', 'hdo_category', 'next', 'updated', 'default',
-                  'is_first_in_category', 'items', 'voter_guide_alternatives')
+                  'items', 'voter_guide_alternatives', 'quiz_alternatives')

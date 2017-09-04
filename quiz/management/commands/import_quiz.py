@@ -119,7 +119,6 @@ class Command(BaseCommand):
 
     def create_manuscripts(self, manuscripts_data):
         for m in manuscripts_data:
-            pprint(m)
             promises = Promise.objects.filter(pk__in=m.pop('party_promises'))
             correct_promise = m.pop('correct_promise')
             alts = m.pop('alternatives')
