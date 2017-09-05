@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def format_categories(recipient_id, manuscripts, text, num_pages, page, max_qrs, quiz):
+    # FIXME: Move to formatters/general.py
     buttons = []
     alt_text = []
     if page == 1:

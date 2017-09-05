@@ -3,7 +3,7 @@ from django.db.models import TextField
 from django.forms import Textarea
 
 from quiz.models import (Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage, Answer,
-                         AnswerSet, VoterGuideAlternative, HdoCategory, VoterGuideAnswer, QuizAlternative)
+                         AnswerSet, VoterGuideAlternative, HdoCategory, VoterGuideAnswer, QuizAlternative, QuizAnswer)
 
 
 class PromiseAdmin(admin.ModelAdmin):
@@ -132,5 +132,7 @@ admin.site.register(ManuscriptItem, ManuscriptItemAdmin)
 admin.site.register(Manuscript, ManuscriptAdmin)
 admin.site.register(ManuscriptImage, ManuscriptImageAdmin)
 admin.site.register(GoogleProfile, GoogleProfileAdmin)
+admin.site.register(QuizAnswer)
+admin.site.register(QuizAlternative)
 admin.site.register(VoterGuideAlternative, VoterGuideAlternativeAdmin)
 admin.site.register(VoterGuideAnswer, VoterGuideAnswerAdmin)

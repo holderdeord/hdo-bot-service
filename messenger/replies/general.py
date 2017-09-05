@@ -5,15 +5,17 @@ from django.conf import settings
 from messenger.api import send_message
 from messenger.api.formatters import format_text
 from messenger.formatters.general import format_reset_answer, format_quick_replies_with_intent
-from messenger.formatters.quiz import format_question
-from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
+from messenger.formatters.quiz import format_broken_question
+from messenger.intents import (INTENT_ANSWER_QUIZ_BROKEN_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION,
+                               INTENT_GET_STARTED,
                                INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION,
-                               INTENT_CATEGORY_SELECT, INTENT_SHOW_ANSWERS)
-from messenger.replies.quiz import get_quiz_question_replies, get_quiz_level_replies
+                               INTENT_CATEGORY_SELECT, INTENT_SHOW_ANSWERS, INTENT_ANSWER_QUIZ_QUESTION)
+from messenger.replies.quiz import get_quiz_broken_question_replies, get_quiz_level_replies, get_quiz_question_replies, \
+    get_quiz_answer_replies
 from messenger.replies.voter_guide import (get_category_replies, get_vg_questions,
                                            get_vg_question_replies, get_vg_result, get_vg_answer_replies)
-from messenger.utils import delete_answers, save_vg_answer, get_result_url
+from messenger.utils import delete_answers, save_vg_answer, get_result_url, save_quiz_answer
 from quiz.models import ManuscriptItem
 
 logger = logging.getLogger(__name__)
@@ -43,9 +45,14 @@ def get_replies(sender_id, session, payload=None):
         elif intent == INTENT_GET_HELP:
             replies += [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]
 
+        elif intent == INTENT_ANSWER_QUIZ_BROKEN_QUESTION:
+            # Quiz: Broken answer replies
+            replies += get_quiz_broken_question_replies(sender_id, session, payload)
+
         elif intent == INTENT_ANSWER_QUIZ_QUESTION:
             # Quiz: Answer replies
-            replies += get_quiz_question_replies(sender_id, session, payload)
+            save_quiz_answer(session, payload)
+            return get_quiz_answer_replies(sender_id, session, payload)
 
         elif intent == INTENT_SHOW_ANSWERS:
             # Show answers
@@ -107,7 +114,7 @@ def get_replies(sender_id, session, payload=None):
             question = manus['promises'][session.meta['promise']]
             question_text = 'Løfte #{} {}'.format(session.meta['promise'] + 1, question['body'])
 
-            replies += [format_question(sender_id, question, question_text)]
+            replies += [format_broken_question(sender_id, question, question_text)]
             session.meta['promise'] += 1
 
     # Quiz: Show results
@@ -129,6 +136,13 @@ def get_replies(sender_id, session, payload=None):
         logger.debug("Adding quiz category select [{}]".format(session.meta['item'] + 1))
 
         replies += get_category_replies(sender_id, session, payload, item['text'], quiz=True)
+        session.meta['item'] += 1
+
+    # Quiz: Show questions
+    elif item['type'] == ManuscriptItem.TYPE_Q_QUESTION:
+        logger.debug("Adding quiz question [{}]".format(session.meta['item'] + 1))
+
+        replies += get_quiz_question_replies(sender_id, session, payload, item['text'])
         session.meta['item'] += 1
 
     # Voter guide: Show category select

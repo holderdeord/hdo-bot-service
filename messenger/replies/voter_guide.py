@@ -7,7 +7,7 @@ from messenger.api.formatters import format_text, format_generic_simple
 from messenger.formatters.general import format_quick_reply_with_intent
 from messenger.formatters.voter_guide import (format_vg_result_button, format_categories, format_vg_alternatives,
                                               format_vg_result_reply)
-from messenger.utils import get_manuscripts_for_category_selection, get_next_vg_manuscript
+from messenger.utils import get_manuscripts_for_category_selection, get_next_manuscript
 from quiz.models import VoterGuideAlternative, Manuscript, VoterGuideAnswer
 from quiz.utils import PARTY_SHORT_NAMES
 
@@ -23,7 +23,8 @@ def get_category_replies(sender_id, session, payload, text, quiz=False):
     if payload:
         selection = payload.get('manuscript_selection')
         level = payload.get('level')
-        quiz = payload.get('quiz', False)
+        if not quiz:
+            quiz = payload.get('quiz', False)
 
     manuscripts = get_manuscripts_for_category_selection(session, selection, quiz, level)
 
@@ -80,7 +81,7 @@ def get_vg_question_replies(sender_id, session, payload):
 
     next_text = _get_alternative_affiliation_text(alt)
 
-    next_manuscript = get_next_vg_manuscript(session)
+    next_manuscript = get_next_manuscript(session)
     if next_manuscript:
         session.meta['next_manuscript'] = next_manuscript.pk if next_manuscript else None
         return [format_text(sender_id, next_text)]
@@ -121,7 +122,7 @@ def get_vg_question_replies(sender_id, session, payload):
 def get_next_vg_question_reply(sender_id, session, payload):
     # Link to an unanswered and not skipped manuscript in the same category
     next_text = "Når du er klar kan du gå videre til neste spørsmål"
-    next_manuscript = get_next_vg_manuscript(session)
+    next_manuscript = get_next_manuscript(session)
     extra_payload = {'manuscript': next_manuscript.pk if next_manuscript else None}
     return format_quick_reply_with_intent(sender_id, "Neste spørsmål", next_text, intents.INTENT_NEXT_QUESTION, extra_payload)
 

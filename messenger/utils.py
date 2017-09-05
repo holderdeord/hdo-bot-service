@@ -12,7 +12,8 @@ from api.serializers.manuscript import BaseManuscriptSerializer
 from messenger.api import send_message
 from messenger.api.formatters import format_text
 from messenger.models import ChatSession
-from quiz.models import AnswerSet, Answer, Manuscript, VoterGuideAlternative, VoterGuideAnswer, QuizAnswer
+from quiz.models import AnswerSet, Answer, Manuscript, VoterGuideAlternative, VoterGuideAnswer, QuizAnswer, \
+    QuizAlternative
 
 logger = logging.getLogger(__name__)
 
@@ -88,8 +89,19 @@ def save_vg_answer(session: ChatSession, payload):
         alt = VoterGuideAlternative.objects.get(pk=payload['alternative'])
     except VoterGuideAlternative.DoesNotExist:
         return
+
     answer_set, _ = AnswerSet.objects.get_or_create(session=session)  # reuse answerset
     answer, _ = VoterGuideAnswer.objects.get_or_create(answer_set=answer_set, voter_guide_alternative=alt)
+
+
+def save_quiz_answer(session: ChatSession, payload):
+    try:
+        alt = QuizAlternative.objects.get(pk=payload['alternative'])
+    except QuizAlternative.DoesNotExist:
+        return
+
+    answer_set, _ = AnswerSet.objects.get_or_create(session=session)  # reuse answerset
+    answer, _ = QuizAnswer.objects.get_or_create(answer_set=answer_set, quiz_alternative=alt)
 
 
 def get_unanswered_manuscripts(session: ChatSession, selection=None, quiz=False, level=None):
@@ -112,7 +124,7 @@ def get_unanswered_manuscripts(session: ChatSession, selection=None, quiz=False,
     return ms.exclude(voter_guide_alternatives__answers__in=answers)
 
 
-def get_next_vg_manuscript(session: ChatSession, quiz=False):
+def get_next_manuscript(session: ChatSession, quiz=False):
     ms = get_unanswered_manuscripts(session, quiz=quiz)
     current_category = session.meta['manuscript']['hdo_category']
     return ms.filter(hdo_category=current_category).order_by('?').first()
