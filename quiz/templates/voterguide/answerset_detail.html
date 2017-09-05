@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static quiz_extras %}
+{% block head %}
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: "{{ app_id }}",
+            xfbml: true,
+            version: "v2.6"
+        });
+
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+</script>
+{% endblock %}
+
+{% block title %}Holder de ord{% endblock %}
+{% block body %}
+<div class="container">
+    <header>
+        <div class="hdo-logo hdo-logo-header">Holder de ord</div>
+    </header>
+    <div>
+        {% if is_shared %}
+            <div style="text-align: center;">
+                <p>Finn din politiske match! Start ved å trykke på knappen under</p>
+                <div class="fb-messengermessageus"
+                     messenger_app_id="{{ app_id }}"
+                     page_id="{{ page_id }}"
+                     color="blue"
+                     size="xlarge"></div>
+            </div>
+        {% endif %}
+        <div class="answers-overview hdo-card">
+            <div class="hdo-card-header text-xs-center">
+                <h3>Ditt resultat</h3>
+            </div>
+            <div class="hdo-card-content">
+            <p>Så enig er du med partiene:</p>
+            <table class="answers-overview__table">
+                {% for ans in vg_answers_sorted %}
+                <tr>
+                    <td class="answers-overview__table__rank">{{ ans.rank }}</td>
+                    <td>
+                    {% for p in ans.parties %}
+                        <img src="{% get_party_image_url p %}" class="party-image"/> {{ p }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    </td>
+                    <td>{{ ans.percent }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            </div>
+        </div>
+
+        <div class="answers-in-detail hdo-card">
+            <div class="hdo-card-header text-xs-center">
+                <h3>Dine svar i detalj</h3>
+            </div>
+            <div class="table-outer screen-large">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Spørsmål</th>
+                        <th>Ditt svar</th>
+                        <th>Basert på løfter</th>
+                    </tr>
+                    {% regroup vg_alts by manuscript.hdo_category as vg_alts_grouped %}
+                    {% for cat, category_alts in vg_alts_grouped %}
+                    <tr>
+                        <td colspan="3">
+                            <span class="hdo-category-title">
+                                {{ cat }}
+                            </span>
+                            {{ category_alts.0.manuscript.hdo_category.label }}
+                        </td>
+                    </tr>
+                    {% for alt in category_alts %}
+                    <tr>
+                        <td>{{ alt.manuscript.name }}</td>
+                        <td>{{ alt }}</td>
+                        <td>
+                            <ul class="party-list">
+                                {% for p in alt.promises.all %}
+                                <li><img src="{% get_party_image_url p.promisor_name %}" class="party-image"/> {{ p.body }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="screen-small hdo-card-content">
+                {% for alt in vg_alts %}
+                <section>
+                    <strong>{{ alt.manuscript.name }}</strong>
+                    <h5><span class="your-answer label">Ditt svar</span> {{ alt }}</h5>
+                    <strong>Basert på løftene:</strong>
+                    <ul class="party-list">
+                        {% for p in alt.promises.all %}
+                        <li><img src="{% get_party_image_url p.promisor_name %}" class="party-image"/> {{ p.body }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p class="hdo-category">
+                        <span class="text">Tema: {{ alt.manuscript.hdo_category }}</span>
+                        <span class="emojis">{{ alt.manuscript.hdo_category.label }}</span>
+                    </p>
+                </section>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
