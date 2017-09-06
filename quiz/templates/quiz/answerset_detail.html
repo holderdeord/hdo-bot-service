@@ -51,9 +51,9 @@
             <div class="hdo-card-content">
                 <p>Du har {{ correct_alternatives.count }} av {{ all_alternatives.count }} riktige!</p>
                 <!--<ul>-->
-                    <!--{% for cat, questions in quiz_alternatives_grouped %}-->
-                    <!--<li>{{ cat }}: {{ correct_number }} av {{ questions|length }}</li>-->
-                    <!--{% endfor %}-->
+                <!--{% for cat, questions in quiz_alternatives_grouped %}-->
+                <!--<li>{{ cat }}: {{ correct_number }} av {{ questions|length }}</li>-->
+                <!--{% endfor %}-->
                 <!--</ul>-->
                 <!--{% regroup correct_alternatives by manuscript.hdo_category as alt_grouped %}-->
                 <!--<ul>-->
@@ -93,6 +93,28 @@
                     {% endfor %}
                     {% endfor %}
                 </table>
+            </div>
+            <div class="screen-small hdo-card-content">
+                {% for cat, questions in quiz_alternatives_grouped %}
+                {% for question in questions %}
+                <section>
+                    <h5>{{ question.name }}</h5>
+                    <p>
+                        Du svarte: <strong>{{ question.answered_text }}</strong>, og det var
+                        {% if question.correct %}
+                        <span class="badge badge-success">Riktig!</span>
+                        {% else %}
+                        <span class="badge badge-danger">Feil...</span>
+                        (riktig svar var <strong>{{ question.correct_alts_text}})</strong>
+                        {% endif %}
+                    </p>
+                    <p class="hdo-category">
+                        <span class="text">Tema: {{ question.hdo_category }}</span>
+                        <span class="emojis">{{ question.hdo_category.label }}</span>
+                    </p>
+                </section>
+                {% endfor %}
+                {% endfor %}
             </div>
         </div>
     </div>
