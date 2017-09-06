@@ -47,7 +47,7 @@
                 <h3>Dine svar</h3>
             </div>
             <div class="hdo-card-content">
-                <p>Du har {{ correct_alternatives.count() }} av {{ all_alternatives.count() }} riktige!</p>
+                <p>Du har {{ correct_alternatives.count }} av {{ all_alternatives.count }} riktige!</p>
                 {% for alt in all_alternatives %}
                 <p>{{ alt.text }}</p>
                 {% endfor %}

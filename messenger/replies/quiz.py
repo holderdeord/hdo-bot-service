@@ -39,7 +39,7 @@ def _get_correct_alt(alt):
 
 
 def _get_next_text(alt):
-    positive_emojis = ['👍', '😃', '👌', '❤', '👏', '😍', '💪', '👊']
+    positive_emojis = ['👍', '😃', '👌', '❤', '👏', '💪', '👊']
     negative_emojis = ['💩']
     if alt.correct_answer:
         return 'Riktig! {}'.format(random.choice(positive_emojis))
