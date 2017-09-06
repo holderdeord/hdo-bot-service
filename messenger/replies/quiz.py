@@ -29,13 +29,27 @@ def get_quiz_level_replies(sender_id, session, payload, text):
     return [format_quick_replies(sender_id, buttons, text)]
 
 
-def get_quiz_question_replies(sender_id, session, payload, text):
+def get_quiz_question_replies(sender_id, session, payload):
     """ Show question for given category"""
-    return [format_quiz_alternatives(sender_id, session.meta['manuscript'], text)]
+    return [format_quiz_alternatives(sender_id, session.meta['manuscript'])]
+
+
+def _get_correct_alt(alt):
+    return QuizAlternative.objects.filter(manuscript=alt.manuscript, correct_answer=True).first()
 
 
 def _get_next_text(alt):
-    return 'TODO: Your answered x (correct/incorrect)'
+    positive_emojis = ['👍', '😃', '👌', '❤', '👏', '😍', '💪', '👊']
+    negative_emojis = ['💩']
+    if alt.correct_answer:
+        return 'Riktig! {}'.format(random.choice(positive_emojis))
+
+    correct_alt = _get_correct_alt(alt)
+    correct_text = ''
+    if correct_alt and correct_alt.promises.exists():
+        correct_text = ', riktig var {}'.format(', '.join(correct_alt.promises.values_list('promisor_name', flat=True)))
+
+    return 'Feil {}'.format(random.choice(negative_emojis), correct_text)
 
 
 def get_quiz_answer_replies(sender_id, session, payload):

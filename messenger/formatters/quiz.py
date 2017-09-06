@@ -9,9 +9,8 @@ from quiz.models import Promise
 from quiz.utils import PARTY_SHORT_NAMES
 
 
-def format_quiz_alternatives(recipient_id, manus, text):
+def format_quiz_alternatives(recipient_id, manus):
     buttons = []
-
     alts = manus['quiz_alternatives']
     random.shuffle(alts)
 
@@ -25,7 +24,7 @@ def format_quiz_alternatives(recipient_id, manus, text):
             }),
         })
 
-    return format_quick_replies(recipient_id, buttons, text)
+    return format_quick_replies(recipient_id, buttons, manus['name'])
 
 
 def format_broken_question(recipient_id, question, question_text):

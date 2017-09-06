@@ -142,7 +142,7 @@ def get_replies(sender_id, session, payload=None):
     elif item['type'] == ManuscriptItem.TYPE_Q_QUESTION:
         logger.debug("Adding quiz question [{}]".format(session.meta['item'] + 1))
 
-        replies += get_quiz_question_replies(sender_id, session, payload, item['text'])
+        replies += get_quiz_question_replies(sender_id, session, payload)
         session.meta['item'] += 1
 
     # Voter guide: Show category select
