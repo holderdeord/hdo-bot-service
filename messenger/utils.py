@@ -195,6 +195,14 @@ def count_and_sort_answers(alts):
     return grouped_by_counts
 
 
+def populate_categories(answered_alts):
+    categories = set([alt.manuscript.hdo_category for alt in answered_alts])
+    for category in categories:
+        category.correct = answered_alts.filter(manuscript__hdo_category=category).filter(correct_answer=True).count()
+        category.total = answered_alts.filter(manuscript__hdo_category=category).count()
+    return categories
+
+
 def populate_questions_and_alternatives(answered_alts, all_alts):
     questions = [alternative.manuscript for alternative in answered_alts]
 
@@ -210,6 +218,7 @@ def populate_questions_and_alternatives(answered_alts, all_alts):
         question.table_class = "table-success" if question.correct else "table-danger"
 
     return questions
+
 
 def join_querysets(set, attribute):
     return ', '.join([item[attribute] for item in set.values()])

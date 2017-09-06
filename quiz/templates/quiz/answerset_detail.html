@@ -50,6 +50,11 @@
             </div>
             <div class="hdo-card-content">
                 <p>Du har {{ correct_alternatives.count }} av {{ all_alternatives.count }} riktige!</p>
+                <ul>
+                    {% for category in categories %}
+                    <li>{{ category.name }}: {{category.correct}} av {{category.total}}</li>
+                    {% endfor %}
+                </ul>
                 <!--<ul>-->
                 <!--{% for cat, questions in quiz_alternatives_grouped %}-->
                 <!--<li>{{ cat }}: {{ correct_number }} av {{ questions|length }}</li>-->

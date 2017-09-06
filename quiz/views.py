@@ -4,7 +4,7 @@ from django.views.generic import DetailView
 
 from oauth2client.contrib.django_util.decorators import oauth_enabled
 
-from messenger.utils import count_and_sort_answers, populate_questions_and_alternatives
+from messenger.utils import count_and_sort_answers, populate_questions_and_alternatives, populate_categories
 from quiz.models import AnswerSet, VoterGuideAlternative, QuizAlternative, QuizAnswer
 
 
@@ -82,8 +82,10 @@ class QuizAnswerSetView(DetailView):
         quiz_all_alternatives = answered_alts.order_by('manuscript__hdo_category__name')
         quiz_correct_alternatives = answered_alts.filter(correct_answer=True)
         questions = populate_questions_and_alternatives(answered_alts, all_alts)
+        categories = populate_categories(answered_alts)
         return {
             'all_alternatives': quiz_all_alternatives,
+            'categories': categories,
             'correct_alternatives': quiz_correct_alternatives,
             'questions': questions,
             'is_shared': self.request.GET.get('shared') == '1',
