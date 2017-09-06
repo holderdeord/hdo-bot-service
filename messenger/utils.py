@@ -209,7 +209,7 @@ def count_and_sort_answers(alts):
 
 
 def populate_categories(answered_alts):
-    categories = set([alt.manuscript.hdo_category for alt in answered_alts])
+    categories = sorted(set([alt.manuscript.hdo_category for alt in answered_alts]), key=lambda x:x.name)
     for category in categories:
         category.correct = answered_alts.filter(manuscript__hdo_category=category).filter(correct_answer=True).count()
         category.total = answered_alts.filter(manuscript__hdo_category=category).count()
