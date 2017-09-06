@@ -42,12 +42,25 @@
                  size="xlarge"></div>
         </div>
         {% endif %}
+        {% regroup questions by hdo_category as quiz_alternatives_grouped %}
+
         <div class="answers-overview hdo-card">
             <div class="hdo-card-header text-xs-center">
                 <h3>Dine svar</h3>
             </div>
             <div class="hdo-card-content">
                 <p>Du har {{ correct_alternatives.count }} av {{ all_alternatives.count }} riktige!</p>
+                <!--<ul>-->
+                    <!--{% for cat, questions in quiz_alternatives_grouped %}-->
+                    <!--<li>{{ cat }}: {{ correct_number }} av {{ questions|length }}</li>-->
+                    <!--{% endfor %}-->
+                <!--</ul>-->
+                <!--{% regroup correct_alternatives by manuscript.hdo_category as alt_grouped %}-->
+                <!--<ul>-->
+                <!--{% for cat, alts in alt_grouped %}-->
+                <!--<li>{{cat}}: {{ alts|length }}</li>-->
+                <!--{% endfor %}-->
+                <!--</ul>-->
             </div>
         </div>
 
@@ -62,7 +75,6 @@
                         <th>Ditt svar</th>
                         <th>Riktig svar</th>
                     </tr>
-                    {% regroup questions by hdo_category as quiz_alternatives_grouped %}
                     {% for cat, questions in quiz_alternatives_grouped %}
                     <tr>
                         <td colspan="3">
