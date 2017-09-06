@@ -11,6 +11,7 @@ from messenger.formatters.quiz import format_quiz_alternatives
 from messenger.utils import save_answers, get_next_manuscript
 
 from quiz.models import Manuscript, QuizAlternative, QuizAnswer
+from quiz.utils import PARTY_SHORT_NAMES
 
 
 def get_quiz_level_replies(sender_id, session, payload, text):
@@ -46,10 +47,10 @@ def _get_next_text(alt):
 
     correct_alt = _get_correct_alt(alt)
     correct_text = ''
-    if correct_alt and correct_alt.promises.exists():
-        correct_text = ', riktig var {}'.format(', '.join(correct_alt.promises.values_list('promisor_name', flat=True)))
+    if correct_alt:
+        correct_text = ', riktig var {}'.format(PARTY_SHORT_NAMES[correct_alt.text])
 
-    return 'Feil {}'.format(random.choice(negative_emojis), correct_text)
+    return 'Feil {}{}'.format(random.choice(negative_emojis), correct_text)
 
 
 def get_quiz_answer_replies(sender_id, session, payload):
