@@ -5,7 +5,7 @@ from django.views.generic import DetailView
 from oauth2client.contrib.django_util.decorators import oauth_enabled
 
 from messenger.utils import count_and_sort_answers
-from quiz.models import AnswerSet, VoterGuideAlternative
+from quiz.models import AnswerSet, VoterGuideAlternative, QuizAlternative
 
 
 @oauth_enabled
@@ -60,6 +60,10 @@ class QuizAnswerSetView(DetailView):
     template_name = 'quiz/answerset_detail.html'
 
     def get_context_data(self, **kwargs):
+        quiz_alternatives = QuizAlternative.objects.filter(answers__answer_set=self.object)
+        return {
+            'alternatives': quiz_alternatives
+        }
         # medals = {1: '🥇', 2: '🥈', 3: '🥉'}
         # vg_alts = VoterGuideAlternative.objects.filter(answers__answer_set=self.object)
         # vg_alts = vg_alts.order_by('manuscript__hdo_category__name')
@@ -77,13 +81,13 @@ class QuizAnswerSetView(DetailView):
         #
         #     })
 
-        return {
-            # 'all_answers': AnswerSet.objects.all(),
-            # 'totals': AnswerSet.objects.correct_answers(),
-            # 'vg_answers_sorted': vg_answers_sorted,
-            # 'vg_alts': vg_alts,
-            # 'is_shared': self.request.GET.get('shared') == '1',
-            # 'app_id': settings.FACEBOOK_APP_ID,
-            # 'page_id': settings.FACEBOOK_PAGE_ID,
-            # **super().get_context_data(**kwargs)
-        }
+        # return {
+        #     # 'all_answers': AnswerSet.objects.all(),
+        #     # 'totals': AnswerSet.objects.correct_answers(),
+        #     # 'vg_answers_sorted': vg_answers_sorted,
+        #     # 'vg_alts': vg_alts,
+        #     # 'is_shared': self.request.GET.get('shared') == '1',
+        #     # 'app_id': settings.FACEBOOK_APP_ID,
+        #     # 'page_id': settings.FACEBOOK_PAGE_ID,
+        #     # **super().get_context_data(**kwargs)
+        # }
