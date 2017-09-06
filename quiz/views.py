@@ -4,7 +4,7 @@ from django.views.generic import DetailView
 
 from oauth2client.contrib.django_util.decorators import oauth_enabled
 
-from messenger.utils import count_and_sort_answers
+from messenger.utils import count_and_sort_answers, populate_questions_and_alternatives
 from quiz.models import AnswerSet, VoterGuideAlternative, QuizAlternative
 
 
@@ -60,12 +60,15 @@ class QuizAnswerSetView(DetailView):
     template_name = 'quiz/answerset_detail.html'
 
     def get_context_data(self, **kwargs):
-        all_alternatives = QuizAlternative.objects.filter(answers__answer_set=self.object)
-        quiz_all_alternatives = all_alternatives.order_by('manuscript__hdo_category__name')
-        quiz_correct_alternatives = all_alternatives.filter(correct_answer=True)
+        all_alts = QuizAlternative.objects.all()
+        answered_alts = QuizAlternative.objects.filter(answers__answer_set=self.object)
+        quiz_all_alternatives = answered_alts.order_by('manuscript__hdo_category__name')
+        quiz_correct_alternatives = answered_alts.filter(correct_answer=True)
+        questions = populate_questions_and_alternatives(answered_alts, all_alts)
         return {
             'all_alternatives': quiz_all_alternatives,
             'correct_alternatives': quiz_correct_alternatives,
+            'questions': questions,
             'is_shared': self.request.GET.get('shared') == '1',
             'app_id': settings.FACEBOOK_APP_ID,
             'page_id': settings.FACEBOOK_PAGE_ID,

@@ -62,21 +62,21 @@
                         <th>Ditt svar</th>
                         <th>Riktig svar</th>
                     </tr>
-                    {% regroup all_alternatives by manuscript.hdo_category as quiz_alternatives_grouped %}
-                    {% for cat, category_alts in quiz_alternatives_grouped %}
+                    {% regroup questions by hdo_category as quiz_alternatives_grouped %}
+                    {% for cat, questions in quiz_alternatives_grouped %}
                     <tr>
                         <td colspan="3">
                             <span class="hdo-category-title">
                                 {{ cat }}
                             </span>
-                            {{ category_alts.0.manuscript.hdo_category.label }}
+                            {{ questions.0.hdo_category.label }}
                         </td>
                     </tr>
-                    {% for alt in category_alts %}
-                    <tr>
-                        <td>{{ alt.manuscript.name }}</td>
-                        <td>{{ alt }}</td>
-                        <td></td>
+                    {% for question in questions %}
+                    <tr class="{{ question.table_class }}">
+                        <td>{{ question.name }}</td>
+                        <td>{{ question.answered }}</td>
+                        <td>{{ question.correct_alts }}</td>
                     </tr>
                     {% endfor %}
                     {% endfor %}

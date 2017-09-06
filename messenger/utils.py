@@ -193,3 +193,18 @@ def count_and_sort_answers(alts):
             grouped_by_counts[count] = [party]
 
     return grouped_by_counts
+
+
+def populate_questions_and_alternatives(answered_alts, all_alts):
+    questions = [alternative.manuscript for alternative in answered_alts]
+
+    for question in questions:
+        question.alternatives = all_alts.filter(manuscript=question)
+        question.answered = answered_alts.filter(manuscript=question)
+        question.correct_alts = question.alternatives.filter(correct_answer=True)
+        question.correct = True
+        for answer in question.answered:
+            question.correct = question.correct and question.correct_alts.filter(pk=answer.pk).count() > 0
+        question.table_class = "table-success" if question.correct else "table-danger"
+
+    return questions
