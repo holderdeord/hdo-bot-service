@@ -17,7 +17,7 @@ MAX_QUICK_REPLIES = 7
 
 
 def get_category_replies(sender_id, session, payload, text, quiz=False):
-    """ Show manuscripts of type voter guide as quick replies """
+    """ Show manuscripts of type voter guide or quiz as quick replies """
     selection = None
     level = None
     if payload:
@@ -131,7 +131,7 @@ def get_vg_result(sender_id, session, payload):
     return [format_vg_result_reply(sender_id, session), get_next_vg_question_reply(sender_id, session, payload)]
 
 
-def get_vg_answer_replies(sender_id, session, payload):
+def get_answer_replies(sender_id, session, payload):
     # TODO: change result reply to show quiz correct/total
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_QUIZ).pk}
     if not hasattr(session, 'answers') or session.answers is None:

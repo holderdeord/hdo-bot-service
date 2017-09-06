@@ -284,6 +284,7 @@ class QuizAnswer(BaseModel):
         'quiz.QuizAlternative', null=True, on_delete=models.SET_NULL, related_name='answers')
     answer_set = models.ForeignKey(
         'quiz.AnswerSet', null=True, blank=True, related_name='quiz_answers', on_delete=models.CASCADE)
+    uuid = models.UUIDField(default=uuid.uuid4, unique=True)
 
     def __str__(self):
         return '{}: {}'.format(self.__class__.__name__, self.pk)

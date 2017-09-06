@@ -14,8 +14,8 @@ from messenger.intents import (INTENT_ANSWER_QUIZ_BROKEN_QUESTION, INTENT_GET_HE
 from messenger.replies.quiz import get_quiz_broken_question_replies, get_quiz_level_replies, get_quiz_question_replies, \
     get_quiz_answer_replies
 from messenger.replies.voter_guide import (get_category_replies, get_vg_questions,
-                                           get_vg_question_replies, get_vg_result, get_vg_answer_replies)
-from messenger.utils import delete_answers, save_vg_answer, get_result_url, save_quiz_answer
+                                           get_vg_question_replies, get_vg_result, get_answer_replies)
+from messenger.utils import delete_answers, save_vg_answer, get_quiz_answer_set_url, save_quiz_answer
 from quiz.models import ManuscriptItem
 
 logger = logging.getLogger(__name__)
@@ -51,13 +51,13 @@ def get_replies(sender_id, session, payload=None):
 
         elif intent == INTENT_ANSWER_QUIZ_QUESTION:
             # Quiz: Answer replies
-            save_quiz_answer(session, payload)
-            return get_quiz_answer_replies(sender_id, session, payload)
+            answer = save_quiz_answer(session, payload)
+            return get_quiz_answer_replies(sender_id, session, payload, answer)
 
         elif intent == INTENT_SHOW_ANSWERS:
             # Show answers
             # TODO: Make this quizy
-            return get_vg_answer_replies(sender_id, session, payload)
+            return get_answer_replies(sender_id, session, payload)
 
         elif intent == INTENT_ANSWER_VG_QUESTION:
             # Voter guide: Answer replies
@@ -122,7 +122,7 @@ def get_replies(sender_id, session, payload=None):
     elif item['type'] == ManuscriptItem.TYPE_QUIZ_RESULT:
         logger.debug("Adding quiz result [{}]".format(session.meta['item'] + 1))
 
-        replies += [format_text(sender_id, get_result_url(session))]
+        replies += [format_text(sender_id, get_quiz_answer_set_url(session))]
         session.meta['item'] += 1
 
     # Quiz: Show level select

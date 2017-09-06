@@ -15,7 +15,7 @@ def format_bot_profile():
             {
                 "locale": "default",
                 # FIXME: Not static
-                "text": 'Snakk med vår quizbot og vis hvor godt du kjenner partiene, kan du kan gjette hvilket parti som har lovet hva?. Før du begynner bør du lese vår personvernpolicy på snakk.holderdeord.no/personvern'
+                "text": 'Kan du kan gjette hvilket parti som har lovet hva? Før du begynner bør du lese vår personvernpolicy på snakk.holderdeord.no/personvern'
             }
         ],
         "persistent_menu": [{

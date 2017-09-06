@@ -1,10 +1,13 @@
 import json
 import random
 
+from django.conf import settings
 from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.urls import reverse
 
 from messenger import intents
 from messenger.api.formatters import format_quick_replies
+from messenger.utils import get_quiz_answer_set_url
 from quiz.models import Promise
 from quiz.utils import PARTY_SHORT_NAMES
 
@@ -25,6 +28,17 @@ def format_quiz_alternatives(recipient_id, manus):
         })
 
     return format_quick_replies(recipient_id, buttons, manus['name'])
+
+
+def format_quiz_answer_button(answer):
+    res_url = '{}{}'.format(settings.BASE_URL, reverse('quiz:quiz-answer-detail', args=[answer.uuid]))
+    return [
+        {
+            "type": "web_url",
+            "url": res_url,
+            "title": "Vis svaret",
+        },
+    ]
 
 
 def format_broken_question(recipient_id, question, question_text):

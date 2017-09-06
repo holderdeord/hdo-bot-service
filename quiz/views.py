@@ -54,19 +54,18 @@ class VoterGuideAnswerSetView(DetailView):
 
 
 class QuizAnswerView(DetailView):
-    model = AnswerSet
-    context_object_name = 'answer_set'
+    model = QuizAnswer
+    context_object_name = 'answer'
     slug_field = 'uuid'
     template_name = 'quiz/answer_detail.html'
 
     def get_context_data(self, **kwargs):
-        # alternative = QuizAlternative.objects.filter(id=self.object.id)
-        # answer_set = alternative.answer_set;
+        alt = self.object.quiz_alternative
         return {
-            # 'alternative': alternative,
+            'alternative': alt,
             'answer': self.object,
-            # 'answer_set': self.object,
-            'manuscript': self.object
+            'answer_set': self.object.answer_set,
+            'manuscript': alt.manuscript
         }
 
 
