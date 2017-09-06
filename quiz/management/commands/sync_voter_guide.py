@@ -31,8 +31,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         manuscripts_data_list = self.get_manuscripts_data(options['file'])
         self.create_question_manuscripts(manuscripts_data_list)
-        vg_start_manuscript = self.create_vg_start_manuscript()
-        self.create_root_manuscript(vg_start_manuscript)
+        self.create_vg_start_manuscript()
 
     def get_manuscripts_data(self, file_path):
         manuscripts = {}
@@ -118,23 +117,6 @@ class Command(BaseCommand):
                 order=1,
                 text='Velg tema',
             )
-        return manuscript
-
-    def create_root_manuscript(self, vg_start_manuscript):
-        manuscript, created = Manuscript.objects.get_or_create(
-            name='Chatbort start',
-            default=Manuscript.DEFAULT,
-        )
-        if created:
-            ManuscriptItem.objects.get_or_create(
-                type=ManuscriptItem.TYPE_QUICK_REPLY,
-                manuscript=manuscript,
-                order=1,
-                text="Finn din politiske match! Svar på minst åtte spørsmål, og finn ut hvem du burde heie på ved valget.",
-                reply_text_1="Jeg er klar!",
-                reply_action_1=vg_start_manuscript
-            )
-        return manuscript
 
     def create_do_not_know_alternative(self, manuscript, parties_unknown, with_parties=False):
         formatted = ''
