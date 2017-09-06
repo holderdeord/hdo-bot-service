@@ -60,9 +60,11 @@ class QuizAnswerSetView(DetailView):
     template_name = 'quiz/answerset_detail.html'
 
     def get_context_data(self, **kwargs):
-        quiz_alternatives = QuizAlternative.objects.filter(answers__answer_set=self.object)
+        quiz_all_alternatives = QuizAlternative.objects.filter(answers__answer_set=self.object)
+        quiz_correct_alternatives = quiz_all_alternatives.filter(answers__correct_answer=True)
         return {
-            'alternatives': quiz_alternatives
+            'all_alternatives': quiz_all_alternatives,
+            'correct_alternatives': quiz_correct_alternatives
         }
         # medals = {1: '🥇', 2: '🥈', 3: '🥉'}
         # vg_alts = VoterGuideAlternative.objects.filter(answers__answer_set=self.object)
