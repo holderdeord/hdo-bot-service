@@ -201,10 +201,15 @@ def populate_questions_and_alternatives(answered_alts, all_alts):
     for question in questions:
         question.alternatives = all_alts.filter(manuscript=question)
         question.answered = answered_alts.filter(manuscript=question)
+        question.answered_text = join_querysets(question.answered, 'text')
         question.correct_alts = question.alternatives.filter(correct_answer=True)
+        question.correct_alts_text = join_querysets(question.correct_alts, 'text')
         question.correct = True
         for answer in question.answered:
             question.correct = question.correct and question.correct_alts.filter(pk=answer.pk).count() > 0
         question.table_class = "table-success" if question.correct else "table-danger"
 
     return questions
+
+def join_querysets(set, attribute):
+    return ', '.join([item[attribute] for item in set.values()])

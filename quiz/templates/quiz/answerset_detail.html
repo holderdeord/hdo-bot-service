@@ -75,8 +75,8 @@
                     {% for question in questions %}
                     <tr class="{{ question.table_class }}">
                         <td>{{ question.name }}</td>
-                        <td>{{ question.answered }}</td>
-                        <td>{{ question.correct_alts }}</td>
+                        <td>{{ question.answered_text }}</td>
+                        <td>{{ question.correct_alts_text }}</td>
                     </tr>
                     {% endfor %}
                     {% endfor %}
