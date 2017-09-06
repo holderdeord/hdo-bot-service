@@ -62,7 +62,7 @@
                         <th>Ditt svar</th>
                         <th>Riktig svar</th>
                     </tr>
-                    {% regroup quiz_all_alternatives by manuscript.hdo_category as quiz_alternatives_grouped %}
+                    {% regroup all_alternatives by manuscript.hdo_category as quiz_alternatives_grouped %}
                     {% for cat, category_alts in quiz_alternatives_grouped %}
                     <tr>
                         <td colspan="3">
@@ -76,12 +76,12 @@
                     <tr>
                         <td>{{ alt.manuscript.name }}</td>
                         <td>{{ alt }}</td>
-                        <td>test</td>
+                        <td></td>
                     </tr>
                     {% endfor %}
                     {% endfor %}
                 </table>
             </div>
+        </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}
