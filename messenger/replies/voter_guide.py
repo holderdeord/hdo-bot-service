@@ -132,7 +132,8 @@ def get_vg_result(sender_id, session, payload):
 
 
 def get_vg_answer_replies(sender_id, session, payload):
-    extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_VOTER_GUIDE).pk}
+    # TODO: change result reply to show quiz correct/total
+    extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_QUIZ).pk}
     if not hasattr(session, 'answers') or session.answers is None:
         no_results_msg = '🤔 Du har ikke svart på noe enda... Velg et tema'
         return [format_quick_reply_with_intent(
