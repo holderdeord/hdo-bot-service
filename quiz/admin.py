@@ -3,7 +3,7 @@ from django.db.models import TextField
 from django.forms import Textarea
 
 from quiz.models import (Promise, Category, Party, GoogleProfile, Manuscript, ManuscriptItem, ManuscriptImage, Answer,
-                         AnswerSet, VoterGuideAlternative, HdoCategory, VoterGuideAnswer)
+                         AnswerSet, VoterGuideAlternative, HdoCategory, VoterGuideAnswer, QuizAlternative, QuizAnswer)
 
 
 class PromiseAdmin(admin.ModelAdmin):
@@ -41,11 +41,18 @@ class VoterGuideAlternativeInline(admin.StackedInline):
     readonly_fields = ['promises']
 
 
+class QuizAlternativeInline(admin.StackedInline):
+    model = QuizAlternative
+    extra = 0
+    readonly_fields = ['promises']
+
+
 class ManuscriptAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'type', 'hdo_category', 'default']
     list_filter = ['type', 'hdo_category']
     readonly_fields = ['promises']
-    inlines = [ManuscriptItemInline, VoterGuideAlternativeInline]
+    inlines = [ManuscriptItemInline, VoterGuideAlternativeInline, QuizAlternativeInline]
+    search_fields = ['name']
 
     # def alternatives_count(self, obj):
     #     # logging.info(obj.voterguidealternative)
@@ -125,5 +132,7 @@ admin.site.register(ManuscriptItem, ManuscriptItemAdmin)
 admin.site.register(Manuscript, ManuscriptAdmin)
 admin.site.register(ManuscriptImage, ManuscriptImageAdmin)
 admin.site.register(GoogleProfile, GoogleProfileAdmin)
+admin.site.register(QuizAnswer)
+admin.site.register(QuizAlternative)
 admin.site.register(VoterGuideAlternative, VoterGuideAlternativeAdmin)
 admin.site.register(VoterGuideAnswer, VoterGuideAnswerAdmin)

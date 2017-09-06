@@ -16,13 +16,13 @@ class DefaultQuerySet(models.QuerySet):
 class DefaultMixin(models.Model):
     DEFAULT = 'default'
     DEFAULT_VOTER_GUIDE = 'default_vg'
-    # DEFAULT_QUIZ = 'default_quiz'
+    DEFAULT_QUIZ = 'default_quiz'
     DEFAULT_NONE = 'none'
 
     DEFAULT_CHOICES = (
         (DEFAULT, _('Default')),
         (DEFAULT_VOTER_GUIDE, _('Voter guide')),
-        # (DEFAULT_QUIZ, _('Quiz')),
+        (DEFAULT_QUIZ, _('Quiz')),
         (DEFAULT_NONE, _('None')),
     )
     default = models.CharField(max_length=254, choices=DEFAULT_CHOICES, default=DEFAULT_NONE)

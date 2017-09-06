@@ -7,8 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
 from messenger.api import update_profile
+from messenger.formatters.general import format_bot_profile
 from messenger.handlers import received_event
-from messenger.intent_formatters import format_bot_profile
 
 logger = logging.getLogger(__name__)
 

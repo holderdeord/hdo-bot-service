@@ -6,12 +6,12 @@ from django.db.models import Count
 
 
 PARTY_SHORT_NAMES = {
-    'Arbeiderpartiet': 'AP',
+    'Arbeiderpartiet': 'Ap',
     'Fremskrittspartiet': 'FrP',
     'Høyre': 'H',
     'Kristelig Folkeparti': 'KrF',
     'Miljøpartiet De Grønne': 'MDG',
-    'Senterpartiet': 'SP',
+    'Senterpartiet': 'Sp',
     'Sosialistisk Venstreparti': 'SV',
     'Venstre': 'V'
 }

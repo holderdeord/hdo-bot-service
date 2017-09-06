@@ -112,13 +112,23 @@ class Manuscript(DefaultMixin, BaseModel):
         (TYPE_VOTER_GUIDE, _('Voter guide')),
     )
 
-    name = models.CharField(
-        max_length=255,
+    LEVEL_LOW = 'low'
+    LEVEL_MEDIUM = 'medium'
+    LEVEL_HIGH = 'high'
+
+    LEVEL_CHOICES = (
+        (LEVEL_LOW, _('Nybegynner')),
+        (LEVEL_MEDIUM, _('Middels')),
+        (LEVEL_HIGH, _('Politisk NØRD')),
+    )
+
+    name = models.TextField(
         blank=True,
         default='',
-        help_text=_('Used both for admin display and user display when type=voting guide'),
+        help_text=_('Used both for admin display and user display when type=voting guide or type=quiz'),
         unique=True)
     type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_GENERIC)
+    level = models.CharField(max_length=100, choices=LEVEL_CHOICES, default=LEVEL_MEDIUM)
     category = models.ForeignKey('quiz.Category', on_delete=models.SET_NULL, blank=True, null=True)
     promises = models.ManyToManyField('quiz.Promise', blank=True)
 
@@ -126,10 +136,6 @@ class Manuscript(DefaultMixin, BaseModel):
 
     hdo_category = models.ForeignKey(
         'quiz.HdoCategory', on_delete=models.SET_NULL, blank=True, null=True, related_name='manuscripts')
-    is_first_in_category = models.BooleanField(
-        default=False,
-        blank=True,
-        help_text=_('Which manuscript in a category comes first (used with TYPE_VG_CATEGORY_SELECT)'))
 
     def __str__(self):
         return '{} ({})'.format(self.name, self.type) if self.name else '#{}'.format(self.pk)
@@ -141,6 +147,20 @@ class VoterGuideAlternative(BaseModel):
     manuscript = models.ForeignKey('quiz.Manuscript', related_name='voter_guide_alternatives')
     promises = models.ManyToManyField('quiz.Promise', blank=True)
     no_answer = models.BooleanField(default=False, blank=True)
+
+    class Meta:
+        unique_together = ('text', 'manuscript')
+
+    def __str__(self):
+        return self.text
+
+
+class QuizAlternative(BaseModel):
+    """Tema, tekst, løfte-ider"""
+    text = models.TextField()
+    manuscript = models.ForeignKey('quiz.Manuscript', related_name='quiz_alternatives')
+    promises = models.ManyToManyField('quiz.Promise', blank=True)
+    correct_answer = models.BooleanField(default=False, blank=True)
 
     class Meta:
         unique_together = ('text', 'manuscript')
@@ -167,6 +187,10 @@ class ManuscriptItem(BaseModel):
     TYPE_Q_PARTY_SELECT = 'quiz_q_party_select'
     TYPE_Q_PARTY_BOOL = 'quiz_q_party_bool'
 
+    TYPE_Q_QUESTION = 'quiz_question'
+    TYPE_Q_LEVEL_SELECT = 'quiz_level'
+    TYPE_Q_CATEGORY_SELECT = 'quiz_categories'
+
     # Voter guide
     TYPE_VG_RESULT = 'vg_result'  # Show preliminary results
     TYPE_VG_CATEGORY_SELECT = 'vg_categories'  # Show category select
@@ -184,6 +208,9 @@ class ManuscriptItem(BaseModel):
         (TYPE_Q_PROMISES_CHECKED, _('Quiz: Show checked promise questions')),
         (TYPE_Q_PARTY_SELECT, _('Quiz: Show which party promised what questions')),
         (TYPE_Q_PARTY_BOOL, _('Quiz: Show did party x promise y questions')),
+        (TYPE_Q_LEVEL_SELECT, _('Quiz: Show level select')),
+        (TYPE_Q_CATEGORY_SELECT, _('Quiz: Show category select')),
+        (TYPE_Q_QUESTION, _('Quiz: Show question')),
         (TYPE_VG_RESULT, _('Voter guide: Show result')),
         (TYPE_VG_CATEGORY_SELECT, _('Voter guide: Show category select')),
         (TYPE_VG_QUESTIONS, _('Voter guide: Show questions')),
@@ -246,6 +273,17 @@ class Answer(BaseModel):
 
     answer_set = models.ForeignKey(
         'quiz.AnswerSet', null=True, blank=True, related_name='answers', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{}: {}'.format(self.__class__.__name__, self.pk)
+
+
+class QuizAnswer(BaseModel):
+    """ Quiz responses """
+    quiz_alternative = models.ForeignKey(
+        'quiz.QuizAlternative', null=True, on_delete=models.SET_NULL, related_name='answers')
+    answer_set = models.ForeignKey(
+        'quiz.AnswerSet', null=True, blank=True, related_name='quiz_answers', on_delete=models.CASCADE)
 
     def __str__(self):
         return '{}: {}'.format(self.__class__.__name__, self.pk)

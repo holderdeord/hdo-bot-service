@@ -4,15 +4,18 @@ from django.conf import settings
 
 from messenger.api import send_message
 from messenger.api.formatters import format_text
-from messenger.intent_formatters import format_question, format_quick_replies_with_intent, format_reset_answer
-from messenger.intents import (INTENT_ANSWER_QUIZ_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION, INTENT_GET_STARTED,
+from messenger.formatters.general import format_reset_answer, format_quick_replies_with_intent
+from messenger.formatters.quiz import format_broken_question
+from messenger.intents import (INTENT_ANSWER_QUIZ_BROKEN_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION,
+                               INTENT_GET_STARTED,
                                INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION,
-                               INTENT_VG_CATEGORY_SELECT, INTENT_SHOW_ANSWERS)
-from messenger.replies.quiz import get_quiz_question_replies
-from messenger.replies.voter_guide import (get_voter_guide_category_replies, get_voter_guide_questions,
-                                           get_vg_question_replies, get_voter_guide_result, get_answer_replies)
-from messenger.utils import delete_answers, save_vg_answer, get_result_url
+                               INTENT_CATEGORY_SELECT, INTENT_SHOW_ANSWERS, INTENT_ANSWER_QUIZ_QUESTION)
+from messenger.replies.quiz import get_quiz_broken_question_replies, get_quiz_level_replies, get_quiz_question_replies, \
+    get_quiz_answer_replies
+from messenger.replies.voter_guide import (get_category_replies, get_vg_questions,
+                                           get_vg_question_replies, get_vg_result, get_vg_answer_replies)
+from messenger.utils import delete_answers, save_vg_answer, get_result_url, save_quiz_answer
 from quiz.models import ManuscriptItem
 
 logger = logging.getLogger(__name__)
@@ -42,23 +45,28 @@ def get_replies(sender_id, session, payload=None):
         elif intent == INTENT_GET_HELP:
             replies += [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]
 
+        elif intent == INTENT_ANSWER_QUIZ_BROKEN_QUESTION:
+            # Quiz: Broken answer replies
+            replies += get_quiz_broken_question_replies(sender_id, session, payload)
+
         elif intent == INTENT_ANSWER_QUIZ_QUESTION:
             # Quiz: Answer replies
-            replies += get_quiz_question_replies(sender_id, session, payload)
+            save_quiz_answer(session, payload)
+            return get_quiz_answer_replies(sender_id, session, payload)
 
         elif intent == INTENT_SHOW_ANSWERS:
             # Show answers
-            return get_answer_replies(sender_id, session, payload)
+            return get_vg_answer_replies(sender_id, session, payload)
 
         elif intent == INTENT_ANSWER_VG_QUESTION:
             # Voter guide: Answer replies
             save_vg_answer(session, payload)
             return get_vg_question_replies(sender_id, session, payload)
 
-        elif intent == INTENT_VG_CATEGORY_SELECT:
-            # Voter guide: Paged categories
+        elif intent == INTENT_CATEGORY_SELECT:
+            # Paged categories
             last_item = session.meta['manuscript']['items'][session.meta['item'] - 1]
-            return get_voter_guide_category_replies(sender_id, session, payload, last_item['text'])
+            return get_category_replies(sender_id, session, payload, last_item['text'])
 
         else:
             msg = "Error: Unknown intent '{}'".format(intent)
@@ -106,7 +114,7 @@ def get_replies(sender_id, session, payload=None):
             question = manus['promises'][session.meta['promise']]
             question_text = 'Løfte #{} {}'.format(session.meta['promise'] + 1, question['body'])
 
-            replies += [format_question(sender_id, question, question_text)]
+            replies += [format_broken_question(sender_id, question, question_text)]
             session.meta['promise'] += 1
 
     # Quiz: Show results
@@ -116,29 +124,53 @@ def get_replies(sender_id, session, payload=None):
         replies += [format_text(sender_id, get_result_url(session))]
         session.meta['item'] += 1
 
+    # Quiz: Show level select
+    elif item['type'] == ManuscriptItem.TYPE_Q_LEVEL_SELECT:
+        logger.debug("Adding quiz level [{}]".format(session.meta['item'] + 1))
+
+        replies += get_quiz_level_replies(sender_id, session, payload, item['text'])
+        session.meta['item'] += 1
+
+    # Quiz: Show category select
+    elif item['type'] == ManuscriptItem.TYPE_Q_CATEGORY_SELECT:
+        logger.debug("Adding quiz category select [{}]".format(session.meta['item'] + 1))
+
+        replies += get_category_replies(sender_id, session, payload, item['text'], quiz=True)
+        session.meta['item'] += 1
+
+    # Quiz: Show questions
+    elif item['type'] == ManuscriptItem.TYPE_Q_QUESTION:
+        logger.debug("Adding quiz question [{}]".format(session.meta['item'] + 1))
+
+        replies += get_quiz_question_replies(sender_id, session, payload)
+        session.meta['item'] += 1
+
     # Voter guide: Show category select
     elif item['type'] == ManuscriptItem.TYPE_VG_CATEGORY_SELECT:
         logger.debug("Adding voter guide categories [{}]".format(session.meta['item'] + 1))
 
-        replies += get_voter_guide_category_replies(sender_id, session, payload, item['text'])
+        replies += get_category_replies(sender_id, session, payload, item['text'])
         session.meta['item'] += 1
 
     # Voter guide: Show questions
     elif item['type'] == ManuscriptItem.TYPE_VG_QUESTIONS:
         logger.debug("Adding voter guide questions [{}]".format(session.meta['item'] + 1))
 
-        replies += get_voter_guide_questions(sender_id, session, payload, item['text'])
+        replies += get_vg_questions(sender_id, session, payload, item['text'])
         session.meta['item'] += 1
 
     # Voter guide: result
     elif item['type'] == ManuscriptItem.TYPE_VG_RESULT:
         logger.debug("Adding voter guide result [{}]".format(session.meta['item'] + 1))
 
-        replies += get_voter_guide_result(sender_id, session, payload)
+        replies += get_vg_result(sender_id, session, payload)
         session.meta['item'] += 1
+
     # Do nothing for last items of type text
     elif last_item:
         pass
+
+    # Unhandled
     else:
         msg = "Unhandled manuscript item type: {} [{}]".format(item['type'], session.meta['item'] + 1)
         logger.error(msg)
