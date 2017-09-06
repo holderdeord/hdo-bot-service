@@ -158,7 +158,7 @@ class VoterGuideAlternative(BaseModel):
 
 class QuizAlternative(BaseModel):
     """Tema, tekst, løfte-ider"""
-    text = models.CharField(max_length=255)
+    text = models.TextField()
     manuscript = models.ForeignKey('quiz.Manuscript', related_name='quiz_alternatives')
     promises = models.ManyToManyField('quiz.Promise', blank=True)
     correct_answer = models.BooleanField(default=False, blank=True)
