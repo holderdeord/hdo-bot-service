@@ -1,2 +1,4 @@
 /node_modules
 *.map
+.babelrc
+yarn.lock
