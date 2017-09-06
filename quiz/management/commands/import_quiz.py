@@ -120,7 +120,7 @@ class Command(BaseCommand):
 
     def create_manuscripts(self, manuscripts_data):
         for m in manuscripts_data:
-            promises = Promise.objects.filter(pk__in=m.pop('party_promises'))
+            promises = Promise.objects.filter(external_id__in=m.pop('party_promises'))
             correct_promise = m.pop('correct_promise')
             alts = m.pop('alternatives')
 
@@ -134,7 +134,7 @@ class Command(BaseCommand):
                     correct_answer=correct_promise in a['promises'],
                     manuscript=m)
 
-                q.promises = Promise.objects.filter(pk__in=a['promises'])
+                q.promises = Promise.objects.filter(external_id__in=a['promises'])
                 q.save()
 
             ManuscriptItem.objects.get_or_create(
