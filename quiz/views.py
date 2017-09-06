@@ -60,11 +60,16 @@ class QuizAnswerSetView(DetailView):
     template_name = 'quiz/answerset_detail.html'
 
     def get_context_data(self, **kwargs):
-        quiz_all_alternatives = QuizAlternative.objects.filter(answers__answer_set=self.object)
-        quiz_correct_alternatives = quiz_all_alternatives.filter(answers__correct_answer=True)
+        all_alternatives = QuizAlternative.objects.filter(answers__answer_set=self.object)
+        quiz_all_alternatives = all_alternatives.order_by('manuscript__hdo_category__name')
+        quiz_correct_alternatives = all_alternatives.filter(correct_answer=True)
         return {
             'all_alternatives': quiz_all_alternatives,
-            'correct_alternatives': quiz_correct_alternatives
+            'correct_alternatives': quiz_correct_alternatives,
+            'is_shared': self.request.GET.get('shared') == '1',
+            'app_id': settings.FACEBOOK_APP_ID,
+            'page_id': settings.FACEBOOK_PAGE_ID,
+            **super().get_context_data(**kwargs)
         }
         # medals = {1: '🥇', 2: '🥈', 3: '🥉'}
         # vg_alts = VoterGuideAlternative.objects.filter(answers__answer_set=self.object)
@@ -88,8 +93,4 @@ class QuizAnswerSetView(DetailView):
         #     # 'totals': AnswerSet.objects.correct_answers(),
         #     # 'vg_answers_sorted': vg_answers_sorted,
         #     # 'vg_alts': vg_alts,
-        #     # 'is_shared': self.request.GET.get('shared') == '1',
-        #     # 'app_id': settings.FACEBOOK_APP_ID,
-        #     # 'page_id': settings.FACEBOOK_PAGE_ID,
-        #     # **super().get_context_data(**kwargs)
         # }
