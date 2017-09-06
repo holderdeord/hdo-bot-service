@@ -5,9 +5,9 @@ from django.utils.translation import ugettext as _
 
 from messenger import intents
 from messenger.api import get_user_profile
-from messenger.api.formatters import format_text, format_image_attachment, format_quick_replies
+from messenger.api.formatters import format_text, format_image_attachment, format_quick_replies, format_generic_simple
 from messenger.formatters.general import format_quick_reply_with_intent
-from messenger.formatters.quiz import format_quiz_alternatives
+from messenger.formatters.quiz import format_quiz_alternatives, format_quiz_answer_button
 from messenger.utils import save_answers, get_next_manuscript
 
 from quiz.models import Manuscript, QuizAlternative, QuizAnswer
@@ -48,24 +48,30 @@ def _get_next_text(alt):
     correct_alt = _get_correct_alt(alt)
     correct_text = ''
     if correct_alt:
-        correct_text = ', riktig var {}'.format(PARTY_SHORT_NAMES[correct_alt.text])
+        correct_text = ' Riktig svar er {}'.format(PARTY_SHORT_NAMES[correct_alt.text])
 
     return 'Feil {}{}'.format(random.choice(negative_emojis), correct_text)
 
 
-def get_quiz_answer_replies(sender_id, session, payload):
+def get_quiz_answer_replies(sender_id, session, payload, answer: QuizAnswer):
     try:
         alt = QuizAlternative.objects.get(pk=payload['alternative'])
     except QuizAlternative.DoesNotExist:
         return []
 
-    # TODO: Link to alternative detail
     next_text = _get_next_text(alt)
 
     next_manuscript = get_next_manuscript(session, quiz=True)
     if next_manuscript:
         session.meta['next_manuscript'] = next_manuscript.pk if next_manuscript else None
-        return [format_text(sender_id, next_text)]
+        return [
+            format_text(sender_id, next_text),
+            format_generic_simple(
+                sender_id,
+                'Vil du se svar i detalj?',
+                format_quiz_answer_button(answer)),
+
+        ]
 
     # Emptied out the category, link manuscript select
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_QUIZ).pk}
@@ -96,8 +102,9 @@ def get_quiz_answer_replies(sender_id, session, payload):
     #             sender_id, 'Neste tema!', more_cats_msg, intents.INTENT_NEXT_QUESTION, extra_payload)]
     # else:
     # Next manuscript
-    replies += [format_quick_reply_with_intent(
-        sender_id, 'Neste tema!', next_text, intents.INTENT_NEXT_QUESTION, extra_payload)]
+    replies += [
+        format_quick_reply_with_intent(sender_id, 'Neste tema!', next_text, intents.INTENT_NEXT_QUESTION, extra_payload)
+    ]
 
     return replies
 

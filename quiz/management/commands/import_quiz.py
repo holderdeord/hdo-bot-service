@@ -38,6 +38,20 @@ class Command(BaseCommand):
         self.init_categories()
         self.create_start_manuscript()
         manuscripts_data = self.get_manuscript_data(options['file'])
+        for m in manuscripts_data:
+            correct_promise = m['correct_promise']
+            alts = m['alternatives']
+
+            has_correct = False
+            for a in alts:
+                if correct_promise in a['promises']:
+                    has_correct = True
+
+            if not has_correct:
+                raise Exception(
+                    "Oops, inconsistent data! Manuscript {} does not have a promise marked as correct".format(
+                        m['name']))
+
         self.create_manuscripts(manuscripts_data)
 
     @staticmethod

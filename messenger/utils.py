@@ -2,9 +2,9 @@ import json
 
 import logging
 from collections import defaultdict, OrderedDict
-
 from django.conf import settings
-from django.db.models import Case, When
+from django.db import connection
+from django.db.models import Case, When, Func
 from django.urls import reverse
 from rest_framework.renderers import JSONRenderer
 
@@ -20,6 +20,16 @@ logger = logging.getLogger(__name__)
 
 def render_and_load_manuscript(manuscript):
     return json.loads(JSONRenderer().render(BaseManuscriptSerializer(manuscript).data).decode())
+
+
+def order_field_nb_no(field_name):
+    if connection.vendor == 'sqlite':
+        return field_name
+
+    return Func(
+        field_name,
+        function='nb_NO',
+        template='(%(expressions)s) COLLATE "%(function)s"')
 
 
 def init_or_reset_session(sender_id, session=None, manuscript_pk=None):
@@ -103,6 +113,8 @@ def save_quiz_answer(session: ChatSession, payload):
     answer_set, _ = AnswerSet.objects.get_or_create(session=session)  # reuse answerset
     answer, _ = QuizAnswer.objects.get_or_create(answer_set=answer_set, quiz_alternative=alt)
 
+    return answer
+
 
 def get_unanswered_manuscripts(session: ChatSession, selection=None, quiz=False, level=None):
     query = {'type': Manuscript.TYPE_VOTER_GUIDE}
@@ -155,14 +167,15 @@ def get_manuscripts_for_category_selection(session: ChatSession, selection=None,
         # Keep manuscript selection order
         manuscripts = manuscripts.order_by(Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(selection)]))
     else:
-        manuscripts = manuscripts.order_by('hdo_category__name')
+
+        manuscripts = manuscripts.order_by(order_field_nb_no('hdo_category__name'))
 
     manuscripts = manuscripts.select_related('hdo_category')
     return manuscripts
 
 
-def get_result_url(session: ChatSession):
-    url = reverse('quiz:answer-set-detail', args=[session.answers.uuid])
+def get_quiz_answer_set_url(session: ChatSession):
+    url = reverse('quiz:quiz-answer-set-detail', args=[session.answers.uuid])
     return '{}{}'.format(settings.BASE_URL, url)
 
 

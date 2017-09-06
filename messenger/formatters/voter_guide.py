@@ -5,7 +5,7 @@ import random
 
 from messenger.api.formatters import format_quick_replies, format_text
 from messenger import intents
-from messenger.utils import get_result_url, count_and_sort_answers
+from messenger.utils import get_quiz_answer_set_url, count_and_sort_answers
 from quiz.models import VoterGuideAlternative
 from quiz.utils import PARTY_SHORT_NAMES
 
@@ -120,7 +120,7 @@ def format_vg_result_reply(sender_id, session):
 
 
 def format_vg_result_button(session):
-    res_url = get_result_url(session)
+    res_url = get_quiz_answer_set_url(session)
     return [
         {
             "type": "web_url",
