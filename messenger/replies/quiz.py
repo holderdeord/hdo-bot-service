@@ -58,7 +58,7 @@ def get_quiz_answer_replies(sender_id, session, payload):
     except QuizAlternative.DoesNotExist:
         return []
 
-    # TODO: Correct answer or not?
+    # TODO: Link to alternative detail
     next_text = _get_next_text(alt)
 
     next_manuscript = get_next_manuscript(session, quiz=True)

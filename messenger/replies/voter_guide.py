@@ -35,7 +35,7 @@ def get_category_replies(sender_id, session, payload, text, quiz=False):
         image_url = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
         return [format_generic_simple(
             sender_id,
-            'Wow! 😮 Du har svart på samtlige spørsmål i hvert tema 🤓🤓 Imponerende 😎',
+            'Wow! 😮 Du har svart på alle spørsmålene 🤓🤓 Imponerende 😎',
             format_vg_result_button(session), image_url=image_url)]
 
     num_pages = int(math.ceil(len(manuscripts) / MAX_QUICK_REPLIES))
