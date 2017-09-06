@@ -122,8 +122,7 @@ class Manuscript(DefaultMixin, BaseModel):
         (LEVEL_HIGH, _('Politisk NØRD')),
     )
 
-    name = models.CharField(
-        max_length=255,
+    name = models.TextField(
         blank=True,
         default='',
         help_text=_('Used both for admin display and user display when type=voting guide or type=quiz'),
