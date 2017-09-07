@@ -105,12 +105,12 @@
                 <section>
                     <h5>{{ question.name }}</h5>
                     <p>
-                        Du svarte: <strong>{{ question.answered_text }}</strong>, og det var
+                        Du svarte: <strong>{{ question.answered_text }}</strong>, og det er
                         {% if question.correct %}
                         <span class="badge badge-success">Riktig!</span>
                         {% else %}
                         <span class="badge badge-danger">Feil...</span>
-                        (riktig svar var <strong>{{ question.correct_alts_text}})</strong>
+                        (riktig svar er <strong>{{ question.correct_alts_text}})</strong>
                         {% endif %}
                     </p>
                     <p class="hdo-category">

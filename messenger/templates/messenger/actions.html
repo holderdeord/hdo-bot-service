@@ -26,7 +26,7 @@
 {% block body %}
 <nav class="navbar navbar-light">
     <header class="container" style="text-align: center;">
-        <div class="hdo-logo" style=" margin-bottom: 2rem;">Holder de ord</div>
+        <div class="hdo-logo" style="margin-bottom: 2rem;">Holder de ord</div>
         <h1>Holder de ord Quiz</h1>
         <p>Hvor godt kjenner du partiene, kan du kan gjette hvilket parti som har lovet hva?</p>
     </header>
@@ -37,6 +37,11 @@
              color="blue"
              size="xlarge">
         </div>
+        <p style="margin-top: 2rem;"><a href="/personvern/">Les våre personvernregler</a></p>
+        <p>
+            Alle løftene er hentet fra vår tjeneste Løftebasen som inneholder alle partiprogram.<br>
+            Løftene i quizen er tatt fra partiprogrammene som gjelder for de neste fire årene.
+        </p>
         {% if user.is_superuser %}
         <h3 style="margin-top: 2rem;">Botprofil</h3>
         <form action="{% url "messenger:bot-profile-update" %}" method="post">{% csrf_token %}
