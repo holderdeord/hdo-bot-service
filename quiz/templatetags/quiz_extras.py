@@ -36,9 +36,9 @@ def correct_answers_js(answers, var_name):
 
 
 @register.simple_tag
-def get_party_image_url(party):
+def get_party_image_url(party, image_dir='images'):
     slug = PARTY_SHORT_NAME_SLUGS.get(party)
     if not slug:
         return ''
 
-    return static('quiz/images/{}.png'.format(slug))
+    return static('quiz/{}/{}.png'.format(image_dir, slug))

@@ -7,7 +7,8 @@ from django.urls import reverse
 
 from messenger import intents
 from messenger.api.formatters import format_quick_replies, format_text
-from quiz.models import Promise, QuizAlternative, QuizAnswer
+from quiz.models import Promise, QuizAnswer
+from quiz.templatetags.quiz_extras import get_party_image_url
 from quiz.utils import PARTY_SHORT_NAMES
 
 
@@ -24,6 +25,7 @@ def format_quiz_alternatives(recipient_id, manus):
                 'alternative': alt['pk'],
                 'intent': intents.INTENT_ANSWER_QUIZ_QUESTION
             }),
+            "image_url": get_party_image_url(alt['text'], image_dir='images_white')
         })
 
     return format_quick_replies(recipient_id, buttons, manus['name'])
