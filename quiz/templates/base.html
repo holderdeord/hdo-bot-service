@@ -14,9 +14,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Holder de ord: Quiz" />
     <meta property="og:url" content="{{request.build_absolute_uri }}" />
-    <meta property="og:image" content="https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png" />
-
-    <meta property="fb:app_id" content="933904826743627" />
+    <meta property="og:image" content="{% static "quiz/images/face.jpg" %}" />
 
     <meta content="@holderdeord" name="twitter:site">
     <meta content="@holderdeord" name="twitter:creator">
@@ -24,7 +22,7 @@
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="{{request.build_absolute_uri }}" />
     <meta property="twitter:title" content="Holder de ord: Quiz" />
-    <meta property="twitter:image" content="https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png" />
+    <meta property="twitter:image" content="{% static "quiz/images/face.jpg" %}" />
     <meta property="twitter:description" content="Hvor godt kjenner du partiene? Kan du gjette hvilket parti som har lovet hva?"/>
     {% endblock %}
 
