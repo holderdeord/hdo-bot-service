@@ -119,7 +119,7 @@ def format_vg_result_reply(sender_id, session):
     return format_text(sender_id, text)
 
 
-def format_vg_result_button(session):
+def format_quiz_result_button(session):
     res_url = get_quiz_answer_set_url(session)
     return [
         {

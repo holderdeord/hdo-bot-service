@@ -56,7 +56,6 @@ def get_replies(sender_id, session, payload=None):
 
         elif intent == INTENT_SHOW_ANSWERS:
             # Show answers
-            # TODO: Make this quizy
             return get_answer_replies(sender_id, session, payload)
 
         elif intent == INTENT_ANSWER_VG_QUESTION:

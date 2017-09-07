@@ -142,6 +142,15 @@ def get_next_manuscript(session: ChatSession, quiz=False):
     return ms.filter(hdo_category=current_category).order_by('?').first()
 
 
+def completed_categories(session, quiz=False):
+    if quiz:
+        manuscripts = Manuscript.objects.filter(quiz_alternatives__answers__answer_set__session=session)
+    else:
+        manuscripts = Manuscript.objects.filter(voter_guide_alternatives__answers__answer_set__session=session)
+
+    return set(manuscripts.values_list('hdo_category', flat=True))
+
+
 def get_manuscripts_for_category_selection(session: ChatSession, selection=None, quiz=False, level=None):
     """ Get voter guide manuscripts that are not already answered, max 1 per HDO category """
 

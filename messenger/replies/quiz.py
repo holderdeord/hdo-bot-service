@@ -7,8 +7,9 @@ from messenger import intents
 from messenger.api import get_user_profile
 from messenger.api.formatters import format_text, format_image_attachment, format_quick_replies, format_generic_simple
 from messenger.formatters.general import format_quick_reply_with_intent
-from messenger.formatters.quiz import format_quiz_alternatives, format_quiz_answer_button
-from messenger.utils import save_answers, get_next_manuscript
+from messenger.formatters.quiz import format_quiz_alternatives, format_quiz_answer_button, format_quiz_result_reply
+from messenger.formatters.voter_guide import format_quiz_result_button
+from messenger.utils import save_answers, get_next_manuscript, completed_categories
 
 from quiz.models import Manuscript, QuizAlternative, QuizAnswer
 from quiz.utils import PARTY_SHORT_NAMES
@@ -66,45 +67,41 @@ def get_quiz_answer_replies(sender_id, session, payload, answer: QuizAnswer):
         session.meta['next_manuscript'] = next_manuscript.pk if next_manuscript else None
         return [
             format_text(sender_id, next_text),
-            format_generic_simple(
-                sender_id,
-                'Vil du se svar i detalj?',
-                format_quiz_answer_button(answer)),
-
+            # format_generic_simple(
+            #     sender_id,
+            #     'Vil du se svar i detalj?',
+            #     format_quiz_answer_button(answer)),
         ]
 
     # Emptied out the category, link manuscript select
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_QUIZ).pk}
-    num_answers = QuizAnswer.objects.filter(answer_set__session=session).count()
+    num_completed_categories = len(completed_categories(session, quiz=True))
     replies = []
+    if num_completed_categories == 1:
+        # Intro to bot
+        finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
+        about_bot_text = 'Spørsmålene du får er hentet fra vår løftebase som inneholder alle partiprogrammene.'
+        replies += [
+            format_text(sender_id, next_text), format_text(sender_id, finished_msg),
+            format_quick_reply_with_intent(
+                sender_id, 'Neste tema!', about_bot_text, intents.INTENT_NEXT_QUESTION, extra_payload)]
 
-    # FIXME: This needs to look at completed category or not
-    # if 4 <= num_answers < 8:
-    #     # Intro to bot
-    #     finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
-    #     about_bot_text = 'Spørsmålene du får er hentet fra vår løftebase som inneholder alle partiprogrammene.'
-    #     replies += [
-    #         format_text(sender_id, next_text), format_text(sender_id, finished_msg),
-    #         format_quick_reply_with_intent(
-    #             sender_id, 'Neste tema!', about_bot_text, intents.INTENT_NEXT_QUESTION, extra_payload)]
-    #
-    # elif 8 <= num_answers < 12:
-    #     # We collect your answers, show results
-    #     result_page_msg = 'Se svarene i detalj og hvilke løfter som hører til på din egen resultatside'
-    #     more_cats_msg = 'Du kan se svarene dine fra menyen når som helst. Velg nytt tema for å gjøre ditt resultat mer presist.'
-    #     image_url = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
-    #     replies += [
-    #         format_text(sender_id, next_text),
-    #         format_vg_result_reply(sender_id, session),
-    #         format_generic_simple(sender_id, result_page_msg, format_vg_result_button(session),
-    #                               image_url=image_url),
-    #         format_quick_reply_with_intent(
-    #             sender_id, 'Neste tema!', more_cats_msg, intents.INTENT_NEXT_QUESTION, extra_payload)]
-    # else:
-    # Next manuscript
-    replies += [
-        format_quick_reply_with_intent(sender_id, 'Neste tema!', next_text, intents.INTENT_NEXT_QUESTION, extra_payload)
-    ]
+    elif num_completed_categories == 2:
+        # We collect your answers, show results
+        result_page_msg = 'Se svarene i detalj og hvilke løfter som hører til på din egen resultatside'
+        more_cats_msg = 'Du kan se svarene dine fra menyen når som helst.'
+        image_url = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
+        replies += [
+            format_text(sender_id, next_text),
+            format_quiz_result_reply(sender_id, session),
+            format_generic_simple(sender_id, result_page_msg, format_quiz_result_button(session), image_url=image_url),
+            format_quick_reply_with_intent(
+                sender_id, 'Neste tema!', more_cats_msg, intents.INTENT_NEXT_QUESTION, extra_payload)]
+    else:
+        # Next manuscript
+        replies += [
+            format_quick_reply_with_intent(sender_id, 'Neste tema!', next_text, intents.INTENT_NEXT_QUESTION, extra_payload)
+        ]
 
     return replies
 

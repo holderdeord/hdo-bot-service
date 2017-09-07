@@ -5,7 +5,8 @@ import math
 from messenger import intents
 from messenger.api.formatters import format_text, format_generic_simple
 from messenger.formatters.general import format_quick_reply_with_intent
-from messenger.formatters.voter_guide import (format_vg_result_button, format_categories, format_vg_alternatives,
+from messenger.formatters.quiz import format_quiz_result_reply
+from messenger.formatters.voter_guide import (format_quiz_result_button, format_categories, format_vg_alternatives,
                                               format_vg_result_reply)
 from messenger.utils import get_manuscripts_for_category_selection, get_next_manuscript
 from quiz.models import VoterGuideAlternative, Manuscript, VoterGuideAnswer
@@ -17,6 +18,7 @@ MAX_QUICK_REPLIES = 7
 
 
 def get_category_replies(sender_id, session, payload, text, quiz=False):
+    # FIXME: Move to general.py
     """ Show manuscripts of type voter guide or quiz as quick replies """
     selection = None
     level = None
@@ -36,7 +38,7 @@ def get_category_replies(sender_id, session, payload, text, quiz=False):
         return [format_generic_simple(
             sender_id,
             'Wow! 😮 Du har svart på alle spørsmålene 🤓🤓 Imponerende 😎',
-            format_vg_result_button(session), image_url=image_url)]
+            format_quiz_result_button(session), image_url=image_url)]
 
     num_pages = int(math.ceil(len(manuscripts) / MAX_QUICK_REPLIES))
     page = payload.get('category_page', 1) if payload else 1
@@ -108,7 +110,8 @@ def get_vg_question_replies(sender_id, session, payload):
         replies += [
             format_text(sender_id, next_text),
             format_vg_result_reply(sender_id, session),
-            format_generic_simple(sender_id, result_page_msg, format_vg_result_button(session), image_url=image_url),
+            # FIXME: Voter guide results
+            format_generic_simple(sender_id, result_page_msg, format_quiz_result_button(session), image_url=image_url),
             format_quick_reply_with_intent(
                 sender_id, 'Neste tema!', more_cats_msg, intents.INTENT_NEXT_QUESTION, extra_payload)]
     else:
@@ -132,7 +135,6 @@ def get_vg_result(sender_id, session, payload):
 
 
 def get_answer_replies(sender_id, session, payload):
-    # TODO: change result reply to show quiz correct/total
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_QUIZ).pk}
     if not hasattr(session, 'answers') or session.answers is None:
         no_results_msg = '🤔 Du har ikke svart på noe enda... Velg et tema'
@@ -144,6 +146,6 @@ def get_answer_replies(sender_id, session, payload):
     image_url = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
 
     return [
-        format_vg_result_reply(sender_id, session),
-        format_generic_simple(sender_id, msg, format_vg_result_button(session), image_url=image_url),
+        format_quiz_result_reply(sender_id, session),
+        format_generic_simple(sender_id, msg, format_quiz_result_button(session), image_url=image_url),
         format_quick_reply_with_intent(sender_id, 'Videre', ready_msg, intents.INTENT_RESET_SESSION, extra_payload)]

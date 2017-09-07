@@ -6,9 +6,8 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.urls import reverse
 
 from messenger import intents
-from messenger.api.formatters import format_quick_replies
-from messenger.utils import get_quiz_answer_set_url
-from quiz.models import Promise
+from messenger.api.formatters import format_quick_replies, format_text
+from quiz.models import Promise, QuizAlternative, QuizAnswer
 from quiz.utils import PARTY_SHORT_NAMES
 
 
@@ -39,6 +38,17 @@ def format_quiz_answer_button(answer):
             "title": "Vis svaret",
         },
     ]
+
+
+def format_quiz_result_reply(sender_id, session):
+    alts = QuizAnswer.objects.filter(answer_set__session=session)
+
+    your_count = alts.filter(quiz_alternative__correct_answer=True).count()
+    total_count = alts.count()
+    percent = (your_count / total_count) * 100
+
+    text = 'Du har {:.1f}% riktig, det vil si {} av {}.'.format(percent, your_count, total_count)
+    return format_text(sender_id, text)
 
 
 def format_broken_question(recipient_id, question, question_text):
