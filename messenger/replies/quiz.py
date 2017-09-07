@@ -78,22 +78,15 @@ def get_quiz_answer_replies(sender_id, session, payload, answer: QuizAnswer):
     num_completed_categories = len(completed_categories(session, quiz=True))
     replies = []
     if num_completed_categories == 1:
-        # Intro to bot
-        finished_msg = 'Du har nå gått gjennom alle spørsmålene med dette temaet.'
-        about_bot_text = 'Spørsmålene du får er hentet fra vår løftebase som inneholder alle partiprogrammene.'
-        replies += [
-            format_text(sender_id, next_text), format_text(sender_id, finished_msg),
-            format_quick_reply_with_intent(
-                sender_id, 'Neste tema!', about_bot_text, intents.INTENT_NEXT_QUESTION, extra_payload)]
-
-    elif num_completed_categories == 2:
         # We collect your answers, show results
+        # finished_msg = 'Løftene du får er hentet fra vår løftebase som inneholder alle partiprogrammene.'
         result_page_msg = 'Se svarene i detalj og hvilke løfter som hører til på din egen resultatside'
         more_cats_msg = 'Du kan se svarene dine fra menyen når som helst.'
         image_url = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
         replies += [
             format_text(sender_id, next_text),
             format_quiz_result_reply(sender_id, session),
+            # format_text(sender_id, next_text), format_text(sender_id, finished_msg),
             format_generic_simple(sender_id, result_page_msg, format_quiz_result_button(session), image_url=image_url),
             format_quick_reply_with_intent(
                 sender_id, 'Neste tema!', more_cats_msg, intents.INTENT_NEXT_QUESTION, extra_payload)]
