@@ -11,8 +11,8 @@ from messenger.intents import (INTENT_ANSWER_QUIZ_BROKEN_QUESTION, INTENT_GET_HE
                                INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
                                INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION,
                                INTENT_CATEGORY_SELECT, INTENT_SHOW_ANSWERS, INTENT_ANSWER_QUIZ_QUESTION)
-from messenger.replies.quiz import get_quiz_broken_question_replies, get_quiz_level_replies, get_quiz_question_replies, \
-    get_quiz_answer_replies
+from messenger.replies.quiz import (get_quiz_broken_question_replies, get_quiz_level_replies, get_quiz_question_replies,
+                                    get_quiz_answer_replies)
 from messenger.replies.voter_guide import (get_category_replies, get_vg_questions,
                                            get_vg_question_replies, get_vg_result, get_answer_replies)
 from messenger.utils import delete_answers, save_vg_answer, get_quiz_answer_set_url, save_quiz_answer

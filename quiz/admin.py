@@ -48,8 +48,8 @@ class QuizAlternativeInline(admin.StackedInline):
 
 
 class ManuscriptAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'type', 'hdo_category', 'default']
-    list_filter = ['type', 'hdo_category']
+    list_display = ['id', 'name', 'type', 'hdo_category', 'default', 'active']
+    list_filter = ['type', 'hdo_category', 'active']
     readonly_fields = ['promises']
     inlines = [ManuscriptItemInline, VoterGuideAlternativeInline, QuizAlternativeInline]
     search_fields = ['name']

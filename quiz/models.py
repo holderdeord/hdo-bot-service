@@ -136,6 +136,7 @@ class Manuscript(DefaultMixin, BaseModel):
 
     hdo_category = models.ForeignKey(
         'quiz.HdoCategory', on_delete=models.SET_NULL, blank=True, null=True, related_name='manuscripts')
+    active = models.BooleanField(default=True, blank=True)
 
     def __str__(self):
         return '{} ({})'.format(self.name, self.type) if self.name else '#{}'.format(self.pk)

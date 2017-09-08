@@ -117,7 +117,10 @@ def save_quiz_answer(session: ChatSession, payload):
 
 
 def get_unanswered_manuscripts(session: ChatSession, selection=None, quiz=False, level=None):
-    query = {'type': Manuscript.TYPE_VOTER_GUIDE}
+    query = {
+        'active': True,
+        'type': Manuscript.TYPE_VOTER_GUIDE
+    }
     if quiz:
         query['type'] = Manuscript.TYPE_QUIZ
         if level:
