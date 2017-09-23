@@ -20,10 +20,12 @@ Departementer,Offentlig forvaltning
 Distriktspolitikk,Offentlig forvaltning
 Domstoler,Justis og beredskap
 EFTA/EU,Utenriks og forsvar
+EU/EØS,Utenriks og forsvar
 Eldreomsorg,Helse og omsorg
 Elektrisitet,"Klima, energi og miljø"
 Energi,"Klima, energi og miljø"
 Europarådet,Utenriks og forsvar
+Fagskoler,Utdanning og forskning
 Familie,Familie og likestilling
 Fangst,Landbruk og fiskeri
 Fengsler,Justis og beredskap
@@ -41,6 +43,7 @@ Forsvar,Utenriks og forsvar
 Forsvarsmateriell,Utenriks og forsvar
 Forurensning,"Klima, energi og miljø"
 Fredsarbeid,Utenriks og forsvar
+Frivillighet,"Kultur, religion og frivillighet"
 Funksjonshemmede,Helse og omsorg
 Fylker,Offentlig forvaltning
 Fylkeskommunenes økonomi,Offentlig forvaltning
@@ -68,6 +71,7 @@ Kartverk,"Klima, energi og miljø"
 Kommunenes økonomi,Offentlig forvaltning
 Kommuner,Offentlig forvaltning
 Kommunikasjon,Transport og kommunikasjon
+Kommunikasjonsteknologi,Transport og kommunikasjon
 Kongen,Offentlig forvaltning
 Kriminalomsorg,Justis og beredskap
 Kringkasting,"Kultur, religion og frivillighet"
@@ -81,6 +85,7 @@ Lokalforvaltning,Offentlig forvaltning
 Lotteri og spill,"Kultur, religion og frivillighet"
 Luftfart,Transport og kommunikasjon
 Lønn,Arbeid og sosial
+Lønn og inntekt,Arbeid og sosial
 Massemedier,"Kultur, religion og frivillighet"
 Menneskerettigheter,Utenriks og forsvar
 Merverdiavgift,Økonomi og næringsliv
@@ -96,8 +101,10 @@ Norsk rikskringkasting,"Kultur, religion og frivillighet"
 Næringsliv,Økonomi og næringsliv
 Næringsutvikling,Økonomi og næringsliv
 Olje,"Klima, energi og miljø"
+Olje og gass,"Klima, energi og miljø"
 Oljeomsetning,"Klima, energi og miljø"
 Oljeutvinning,"Klima, energi og miljø"
+Omsorgstjenester,Helse og omsorg
 Personvern,Justis og beredskap
 Polarområder,Utenriks og forsvar
 Politi og påtalemyndighet,Justis og beredskap
@@ -105,6 +112,7 @@ Politiske partier,Offentlig forvaltning
 Post,Transport og kommunikasjon
 Priser og konkurranseforhold,Økonomi og næringsliv
 Privatskoler,Utdanning og forskning
+Psykisk helse,Helse og omsorg
 Redningstjeneste,Justis og beredskap
 Regjeringen,Offentlig forvaltning
 Reindrift,Landbruk og fiskeri
@@ -115,6 +123,7 @@ Riksrevisjonen,Offentlig forvaltning
 Rusmidler,Helse og omsorg; Arbeid og sosial
 Samer,"Kultur, religion og frivillighet; Landbruk og fiskeri"
 Samferdsel,Transport og kommunikasjon
+Samfunnssikkerhet,Justis og beredskap
 Sikkerhet til sjøs,Transport og kommunikasjon
 Sivil beredskap,Justis og beredskap
 Sivile vernepliktige,Justis og beredskap
@@ -127,10 +136,13 @@ Skattefradrag,Økonomi og næringsliv
 Skatter,Økonomi og næringsliv
 Skogbruk,Landbruk og fiskeri
 Skoler,Utdanning og forskning
+Sosiale tjenester,Arbeid og sosial
 Sosialvesen,Arbeid og sosial
 Spesialundervisning,Utdanning og forskning
 Språk,"Kultur, religion og frivillighet"
+Statens pensjonsfond,Økonomi og næringsliv
 Statens personalpolitikk,Offentlig forvaltning
+Statlig eierskap,Økonomi og næringsliv; Offentlig forvaltning
 Statoil asa,Økonomi og næringsliv
 Statsbanker,Økonomi og næringsliv; Offentlig forvaltning
 Statsbedrifter,Økonomi og næringsliv; Offentlig forvaltning
@@ -162,6 +174,7 @@ Utdanning,Utdanning og forskning
 Utenrikshandel,Utenriks og forsvar
 Utenrikssaker,Utenriks og forsvar
 Utviklingshjelp,Utenriks og forsvar
+Utviklingssamarbeid,Utenriks og forsvar
 Valg,Offentlig forvaltning
 Varehandel,Økonomi og næringsliv
 Vassdragsregulering,"Klima, energi og miljø"
