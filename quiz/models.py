@@ -163,6 +163,9 @@ class QuizAlternative(BaseModel):
     promises = models.ManyToManyField('quiz.Promise', blank=True)
     correct_answer = models.BooleanField(default=False, blank=True)
 
+    def get_correct_in_same_manuscript(self):
+        return QuizAlternative.objects.filter(manuscript=self.manuscript, correct_answer=True).first()
+
     class Meta:
         unique_together = ('text', 'manuscript')
 
@@ -182,7 +185,7 @@ class ManuscriptItem(BaseModel):
     TYPE_QUICK_REPLY = 'quick_reply'
     TYPE_URL = 'url'
 
-    # Quiz
+    # Quiz, party
     TYPE_QUIZ_RESULT = 'quiz_result'
     TYPE_Q_PROMISES_CHECKED = 'quiz_q_promises_checked'
     TYPE_Q_PARTY_SELECT = 'quiz_q_party_select'
@@ -191,6 +194,9 @@ class ManuscriptItem(BaseModel):
     TYPE_Q_QUESTION = 'quiz_question'
     TYPE_Q_LEVEL_SELECT = 'quiz_level'
     TYPE_Q_CATEGORY_SELECT = 'quiz_categories'
+
+    # Quiz, generic
+    TYPE_GQ_QUESTION = 'quiz_generic_question'
 
     # Voter guide
     TYPE_VG_RESULT = 'vg_result'  # Show preliminary results
@@ -211,7 +217,8 @@ class ManuscriptItem(BaseModel):
         (TYPE_Q_PARTY_BOOL, _('Quiz: Show did party x promise y questions')),
         (TYPE_Q_LEVEL_SELECT, _('Quiz: Show level select')),
         (TYPE_Q_CATEGORY_SELECT, _('Quiz: Show category select')),
-        (TYPE_Q_QUESTION, _('Quiz: Show question')),
+        (TYPE_Q_QUESTION, _('Quiz: Show party question')),
+        (TYPE_GQ_QUESTION, _('Quiz: Show question')),
         (TYPE_VG_RESULT, _('Voter guide: Show result')),
         (TYPE_VG_CATEGORY_SELECT, _('Voter guide: Show category select')),
         (TYPE_VG_QUESTIONS, _('Voter guide: Show questions')),

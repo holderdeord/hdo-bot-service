@@ -141,8 +141,12 @@ def get_unanswered_manuscripts(session: ChatSession, selection=None, quiz=False,
 
 def get_next_manuscript(session: ChatSession, quiz=False):
     ms = get_unanswered_manuscripts(session, quiz=quiz)
-    current_category = session.meta['manuscript']['hdo_category']
-    return ms.filter(hdo_category=current_category).order_by('?').first()
+
+    if session.meta['manuscript'].get('hdo_category'):
+        current_category = session.meta['manuscript']['hdo_category']
+        ms = ms.filter(hdo_category=current_category)
+
+    return ms.order_by('?').first()
 
 
 def completed_categories(session, quiz=False):

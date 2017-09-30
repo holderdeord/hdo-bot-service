@@ -9,8 +9,9 @@ INTENT_RESET_ANSWERS_CONFIRM = 'general.reset_answers_confirm'
 INTENT_SHOW_ANSWERS = 'general.show_answers'
 INTENT_CATEGORY_SELECT = 'general.category_select'
 
-INTENT_ANSWER_QUIZ_QUESTION = 'quiz.answer_question'
-INTENT_ANSWER_QUIZ_BROKEN_QUESTION = 'quiz.answer_broken_question'
+INTENT_ANSWER_PARTY_QUIZ_QUESTION = 'quiz.answer_question'
+INTENT_ANSWER_BROKEN_QUIZ_QUESTION = 'quiz.answer_broken_question'
+INTENT_ANSWER_GENERIC_QUIZ_QUESTION = 'quiz.answer_generic_question'
 
 INTENT_ANSWER_VG_QUESTION = 'voter_guide.answer_question'
 INTENT_NEXT_QUESTION = 'voter_guide.next_question'

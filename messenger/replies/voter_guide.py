@@ -5,7 +5,7 @@ import math
 from messenger import intents
 from messenger.api.formatters import format_text, format_generic_simple
 from messenger.formatters.general import format_quick_reply_with_intent
-from messenger.formatters.quiz import format_quiz_result_reply
+from messenger.formatters.party_quiz import format_quiz_result_reply
 from messenger.formatters.voter_guide import (format_quiz_result_button, format_categories, format_vg_alternatives,
                                               format_vg_result_reply)
 from messenger.utils import get_manuscripts_for_category_selection, get_next_manuscript

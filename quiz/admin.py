@@ -47,18 +47,27 @@ class QuizAlternativeInline(admin.StackedInline):
     readonly_fields = ['promises']
 
 
+def set_inactive(modeladmin, request, queryset):
+    queryset.update(active=False)
+
+
+set_inactive.short_description = "Mark as inactive"
+
+
+def set_active(modeladmin, request, queryset):
+    queryset.update(active=True)
+
+
+set_active.short_description = "Mark as active"
+
+
 class ManuscriptAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'type', 'hdo_category', 'default', 'active']
     list_filter = ['type', 'hdo_category', 'active']
     readonly_fields = ['promises']
     inlines = [ManuscriptItemInline, VoterGuideAlternativeInline, QuizAlternativeInline]
     search_fields = ['name']
-
-    # def alternatives_count(self, obj):
-    #     # logging.info(obj.voterguidealternative)
-    #     logging.info(obj._meta.get_fields())
-    #     # return obj.voter_guide_alternative.count()
-    #     return 'test'
+    actions = [set_inactive, set_active]
 
 
 class ManuscriptItemAdmin(admin.ModelAdmin):

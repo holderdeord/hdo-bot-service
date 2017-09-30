@@ -2,17 +2,14 @@ import logging
 
 from django.conf import settings
 
+from messenger import intents
 from messenger.api import send_message
 from messenger.api.formatters import format_text
 from messenger.formatters.general import format_reset_answer, format_quick_replies_with_intent
-from messenger.formatters.quiz import format_broken_question
-from messenger.intents import (INTENT_ANSWER_QUIZ_BROKEN_QUESTION, INTENT_GET_HELP, INTENT_RESET_SESSION,
-                               INTENT_GET_STARTED,
-                               INTENT_GOTO_MANUSCRIPT, INTENT_ANSWER_VG_QUESTION, INTENT_NEXT_ITEM,
-                               INTENT_RESET_ANSWERS, INTENT_RESET_ANSWERS_CONFIRM, INTENT_NEXT_QUESTION,
-                               INTENT_CATEGORY_SELECT, INTENT_SHOW_ANSWERS, INTENT_ANSWER_QUIZ_QUESTION)
-from messenger.replies.quiz import (get_quiz_broken_question_replies, get_quiz_level_replies, get_quiz_question_replies,
-                                    get_quiz_answer_replies)
+from messenger.formatters.party_quiz import format_broken_question
+from messenger.replies.generic_quiz import get_quiz_question_replies, get_generic_quiz_answer_replies
+from messenger.replies.party_quiz import (get_quiz_broken_question_replies, get_quiz_level_replies,
+                                          get_quiz_party_question_replies, get_party_quiz_answer_replies)
 from messenger.replies.voter_guide import (get_category_replies, get_vg_questions,
                                            get_vg_question_replies, get_vg_result, get_answer_replies)
 from messenger.utils import delete_answers, save_vg_answer, get_quiz_answer_set_url, save_quiz_answer
@@ -30,40 +27,45 @@ def get_replies(sender_id, session, payload=None):
         # User pressed a button or similiar
         intent = payload['intent']
 
-        if intent in [INTENT_RESET_SESSION, INTENT_GET_STARTED, INTENT_GOTO_MANUSCRIPT, INTENT_NEXT_ITEM,
-                      INTENT_NEXT_QUESTION]:
+        if intent in [intents.INTENT_RESET_SESSION, intents.INTENT_GET_STARTED, intents.INTENT_GOTO_MANUSCRIPT,
+                      intents.INTENT_NEXT_ITEM, intents.INTENT_NEXT_QUESTION]:
             # Do nothing and just keep going
             pass
 
-        elif intent == INTENT_RESET_ANSWERS:
+        elif intent == intents.INTENT_RESET_ANSWERS:
             return [format_reset_answer(sender_id)]
 
-        elif intent == INTENT_RESET_ANSWERS_CONFIRM:
+        elif intent == intents.INTENT_RESET_ANSWERS_CONFIRM:
             delete_answers(session)
             return [format_text(sender_id, '💥💥💥 Svarene dine er slettet')]
 
-        elif intent == INTENT_GET_HELP:
+        elif intent == intents.INTENT_GET_HELP:
             replies += [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]
 
-        elif intent == INTENT_ANSWER_QUIZ_BROKEN_QUESTION:
+        elif intent == intents.INTENT_ANSWER_BROKEN_QUIZ_QUESTION:
             # Quiz: Broken answer replies
             replies += get_quiz_broken_question_replies(sender_id, session, payload)
 
-        elif intent == INTENT_ANSWER_QUIZ_QUESTION:
-            # Quiz: Answer replies
+        elif intent == intents.INTENT_ANSWER_PARTY_QUIZ_QUESTION:
+            # Quiz: Party answer replies
             answer = save_quiz_answer(session, payload)
-            return get_quiz_answer_replies(sender_id, session, payload, answer)
+            return get_party_quiz_answer_replies(sender_id, session, payload, answer)
 
-        elif intent == INTENT_SHOW_ANSWERS:
+        elif intent == intents.INTENT_ANSWER_GENERIC_QUIZ_QUESTION:
+            # Quiz: Generic answer replies
+            answer = save_quiz_answer(session, payload)
+            return get_generic_quiz_answer_replies(sender_id, session, payload, answer)
+
+        elif intent == intents.INTENT_SHOW_ANSWERS:
             # Show answers
             return get_answer_replies(sender_id, session, payload)
 
-        elif intent == INTENT_ANSWER_VG_QUESTION:
+        elif intent == intents.INTENT_ANSWER_VG_QUESTION:
             # Voter guide: Answer replies
             save_vg_answer(session, payload)
             return get_vg_question_replies(sender_id, session, payload)
 
-        elif intent == INTENT_CATEGORY_SELECT:
+        elif intent == intents.INTENT_CATEGORY_SELECT:
             # Paged categories
             last_item = session.meta['manuscript']['items'][session.meta['item'] - 1]
             return get_category_replies(sender_id, session, payload, last_item['text'])
@@ -138,11 +140,18 @@ def get_replies(sender_id, session, payload=None):
         replies += get_category_replies(sender_id, session, payload, item['text'], quiz=True)
         session.meta['item'] += 1
 
-    # Quiz: Show questions
-    elif item['type'] == ManuscriptItem.TYPE_Q_QUESTION:
-        logger.debug("Adding quiz question [{}]".format(session.meta['item'] + 1))
+    # Quiz: Show generic questions
+    elif item['type'] == ManuscriptItem.TYPE_GQ_QUESTION:
+        logger.debug("Adding generic quiz question [{}]".format(session.meta['item'] + 1))
 
         replies += get_quiz_question_replies(sender_id, session, payload)
+        session.meta['item'] += 1
+
+    # Party Quiz: Show party questions
+    elif item['type'] == ManuscriptItem.TYPE_Q_QUESTION:
+        logger.debug("Adding party quiz question [{}]".format(session.meta['item'] + 1))
+
+        replies += get_quiz_party_question_replies(sender_id, session, payload)
         session.meta['item'] += 1
 
     # Voter guide: Show category select

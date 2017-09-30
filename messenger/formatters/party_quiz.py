@@ -12,7 +12,7 @@ from quiz.templatetags.quiz_extras import get_party_image_url
 from quiz.utils import PARTY_SHORT_NAMES
 
 
-def format_quiz_alternatives(recipient_id, manus):
+def format_party_quiz_alternatives(recipient_id, manus):
     buttons = []
     alts = manus['quiz_alternatives']
     random.shuffle(alts)
@@ -23,7 +23,7 @@ def format_quiz_alternatives(recipient_id, manus):
             "title": PARTY_SHORT_NAMES[alt['text']],
             "payload": json.dumps({
                 'alternative': alt['pk'],
-                'intent': intents.INTENT_ANSWER_QUIZ_QUESTION
+                'intent': intents.INTENT_ANSWER_PARTY_QUIZ_QUESTION
             }),
             "image_url": get_party_image_url(alt['text'], image_dir='images_white')
         })
@@ -61,7 +61,7 @@ def format_broken_question(recipient_id, question, question_text):
             "payload": json.dumps({
                 'question': question['pk'],
                 'answer': Promise.FULFILLED,
-                'intent': intents.INTENT_ANSWER_QUIZ_BROKEN_QUESTION,
+                'intent': intents.INTENT_ANSWER_BROKEN_QUIZ_QUESTION,
              }),
             "image_url": static('messenger/icon_fulfilled.png')
         },
@@ -71,7 +71,7 @@ def format_broken_question(recipient_id, question, question_text):
             "payload": json.dumps({
                 'question': question['pk'],
                 'answer': Promise.BROKEN,
-                'intent': intents.INTENT_ANSWER_QUIZ_BROKEN_QUESTION,
+                'intent': intents.INTENT_ANSWER_BROKEN_QUIZ_QUESTION,
              }),
             "image_url": static('messenger/icon_broken.png')
         }

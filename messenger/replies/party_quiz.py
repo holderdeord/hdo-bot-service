@@ -7,7 +7,7 @@ from messenger import intents
 from messenger.api import get_user_profile
 from messenger.api.formatters import format_text, format_image_attachment, format_quick_replies, format_generic_simple
 from messenger.formatters.general import format_quick_reply_with_intent
-from messenger.formatters.quiz import format_quiz_alternatives, format_quiz_answer_button, format_quiz_result_reply
+from messenger.formatters.party_quiz import format_party_quiz_alternatives, format_quiz_result_reply
 from messenger.formatters.voter_guide import format_quiz_result_button
 from messenger.utils import save_answers, get_next_manuscript, completed_categories
 
@@ -31,22 +31,18 @@ def get_quiz_level_replies(sender_id, session, payload, text):
     return [format_quick_replies(sender_id, buttons, text)]
 
 
-def get_quiz_question_replies(sender_id, session, payload):
-    """ Show question for given category"""
-    return [format_quiz_alternatives(sender_id, session.meta['manuscript'])]
+def get_quiz_party_question_replies(sender_id, session, payload):
+    """ Show question for given hdo category"""
+    return [format_party_quiz_alternatives(sender_id, session.meta['manuscript'])]
 
 
-def _get_correct_alt(alt):
-    return QuizAlternative.objects.filter(manuscript=alt.manuscript, correct_answer=True).first()
-
-
-def _get_next_text(alt):
+def _get_next_text(alt: QuizAlternative):
     positive_emojis = ['👍', '😃', '👌', '❤', '👏', '💪', '👊']
     negative_emojis = ['💩']
     if alt.correct_answer:
         return 'Riktig! {}'.format(random.choice(positive_emojis))
 
-    correct_alt = _get_correct_alt(alt)
+    correct_alt = alt.get_correct_in_same_manuscript()
     correct_text = ''
     if correct_alt:
         correct_text = ' Riktig svar er {}'.format(PARTY_SHORT_NAMES[correct_alt.text])
@@ -54,7 +50,7 @@ def _get_next_text(alt):
     return 'Feil {}{}'.format(random.choice(negative_emojis), correct_text)
 
 
-def get_quiz_answer_replies(sender_id, session, payload, answer: QuizAnswer):
+def get_party_quiz_answer_replies(sender_id, session, payload, answer: QuizAnswer):
     try:
         alt = QuizAlternative.objects.get(pk=payload['alternative'])
     except QuizAlternative.DoesNotExist:
@@ -65,13 +61,7 @@ def get_quiz_answer_replies(sender_id, session, payload, answer: QuizAnswer):
     next_manuscript = get_next_manuscript(session, quiz=True)
     if next_manuscript:
         session.meta['next_manuscript'] = next_manuscript.pk if next_manuscript else None
-        return [
-            format_text(sender_id, next_text),
-            # format_generic_simple(
-            #     sender_id,
-            #     'Vil du se svar i detalj?',
-            #     format_quiz_answer_button(answer)),
-        ]
+        return [format_text(sender_id, next_text)]
 
     # Emptied out the category, link manuscript select
     extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_QUIZ).pk}
