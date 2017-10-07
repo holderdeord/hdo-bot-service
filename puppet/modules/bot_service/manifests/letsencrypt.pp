@@ -28,20 +28,23 @@ class bot_service::letsencrypt (
     group        => $owner,
     cleanup      => true,
     creates      => $bin,
+    require      => Package[$bot_service::packages::packages]
   }
 
   file { $bin:
-    ensure => link,
-    target => "${path}/lego_linux_amd64",
-    owner  => $owner,
-    group  => $owner,
-    mode   => '0777'
+    ensure  => link,
+    target  => "${path}/lego_linux_amd64",
+    owner   => $owner,
+    group   => $owner,
+    mode    => '0777',
+    require => Archive['/tmp/lego.tar.xz']
   }
 
   file { $config_path:
-    ensure => directory,
-    owner  => $owner,
-    group  => $owner,
-    mode   => '0755'
+    ensure  => directory,
+    owner   => $owner,
+    group   => $owner,
+    mode    => '0755',
+    require => File[$bin]
   }
 }

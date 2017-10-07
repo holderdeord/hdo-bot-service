@@ -48,13 +48,13 @@ class bot_service (
   }
 
   file { "/home/${app_user}":
-    ensure  => directory,
-    owner   => $app_user
+    ensure => directory,
+    owner  => $app_user
   }
 
   file { $app_path:
-    ensure  => directory,
-    owner   => $app_user
+    ensure => directory,
+    owner  => $app_user
   }
 
   # Clone app

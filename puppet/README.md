@@ -6,11 +6,11 @@
 
 ## Development with docker
     # Build development image
-    docker built . -t puppet
+    docker build . -t puppet
 
     # Start container
-    PATH_TO_APP=/home/nikolark/dev/hdo-quiz-service/
-    docker run -d -v "$PATH_TO_APP:/app" -p 2222:22 -h hdo-bot-service puppet
+    PATH_TO_APP=/home/nikolark/dev/hdo-bot-service/
+    docker run -d -v "$PATH_TO_APP:/app" -v "${PATH_TO_APP}puppet/keys/:/etc/puppetlabs/puppet/eyaml/" -p 2222:22 -h hdo-bot-service puppet
 
     # Install your public key
     ssh-copy-id root@localhost -p 2222  # password is root
