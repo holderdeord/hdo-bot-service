@@ -12,7 +12,7 @@ if ! dpkg -s puppet-agent &>/dev/null; then
     sudo apt install puppet-agent
 fi
 
-if ! /opt/puppetlabs/puppet/bin/gem list --silent --installed hiera-eyaml; then
+if ! /opt/puppetlabs/puppet/bin/gem list --installed hiera-eyaml &>/dev/null; then
     echo "Installing hiera-eyaml"
     /opt/puppetlabs/puppet/bin/gem install hiera-eyaml
 fi
