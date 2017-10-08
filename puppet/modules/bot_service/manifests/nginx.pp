@@ -88,4 +88,16 @@ define bot_service::nginx (
     listen_options => 'default_server',
     www_root       => '/usr/share/nginx/html/'
   }
+
+  nginx::resource::server { 'default_ssl':
+    ensure         => present,
+    server_name    => ['_'],
+    listen_port    => 443,
+    listen_options => 'default_server',
+    www_root       => '/usr/share/nginx/html/',
+    ssl            => true,
+    ssl_port       => 443,
+    ssl_cert       => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
+    ssl_key        => '/etc/ssl/private/ssl-cert-snakeoil.key',
+  }
 }

@@ -9,7 +9,7 @@
     docker build . -t puppet
 
     # Start container
-    PATH_TO_APP=/home/nikolark/dev/hdo-bot-service/
+    export PATH_TO_APP=/home/nikolark/dev/hdo-bot-service/
     docker run -d -v "$PATH_TO_APP:/app" -v "${PATH_TO_APP}puppet/keys/:/etc/puppetlabs/puppet/eyaml/" -p 2222:22 -h hdo-bot-service puppet
 
     # Install your public key
