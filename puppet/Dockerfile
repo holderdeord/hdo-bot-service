@@ -3,13 +3,13 @@ MAINTAINER Nikolai R Kristiansen <nikolaik@gmail.com>
 
 # Install puppet, ruby, ssh ++
 RUN DEBIAN_FRONTEND=noninteractive \
-    apt update && \
-    apt install -yqq wget && \
-    wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb  && \
-    dpkg -i puppetlabs-release-pc1-xenial.deb && \
-    rm puppetlabs-release-pc1-xenial.deb && \
-    apt update && \
-    apt install -yqq puppet-agent openssh-server sudo ruby-bundler lsb-release && \
+    apt-get update && \
+    apt-get install -yqq wget && \
+    wget https://apt.puppetlabs.com/puppet5-release-xenial.deb && \
+    dpkg -i puppet5-release-xenial.deb && \
+    rm puppet5-release-xenial.deb && \
+    apt-get update && \
+    apt-get install -yqq puppet-agent openssh-server sudo ruby-bundler lsb-release && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /var/run/sshd

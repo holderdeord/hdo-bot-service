@@ -2,7 +2,7 @@
 
 set -e
 
-REPO_DEB="puppetlabs-release-pc1-xenial.deb"
+REPO_DEB="puppet5-release-xenial.deb"
 if ! dpkg -s puppet-agent &>/dev/null; then
     echo "Installing puppet"
     wget https://apt.puppetlabs.com/${REPO_DEB}
@@ -10,5 +10,9 @@ if ! dpkg -s puppet-agent &>/dev/null; then
     rm ${REPO_DEB}
     sudo apt update
     sudo apt install puppet-agent
+fi
+
+if ! /opt/puppetlabs/puppet/bin/gem list --installed hiera-eyaml &>/dev/null; then
+    echo "Installing hiera-eyaml"
     /opt/puppetlabs/puppet/bin/gem install hiera-eyaml
 fi
