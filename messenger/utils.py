@@ -222,32 +222,3 @@ def count_and_sort_answers(alts):
             grouped_by_counts[count] = [party]
 
     return grouped_by_counts
-
-
-def populate_categories(answered_alts):
-    categories = sorted(set([alt.manuscript.hdo_category for alt in answered_alts]), key=lambda x:x.name)
-    for category in categories:
-        category.correct = answered_alts.filter(manuscript__hdo_category=category).filter(correct_answer=True).count()
-        category.total = answered_alts.filter(manuscript__hdo_category=category).count()
-    return categories
-
-
-def populate_questions_and_alternatives(answered_alts, all_alts):
-    questions = [alternative.manuscript for alternative in answered_alts]
-
-    for question in questions:
-        question.alternatives = all_alts.filter(manuscript=question)
-        question.answered = answered_alts.filter(manuscript=question)
-        question.answered_text = join_querysets(question.answered, 'text')
-        question.correct_alts = question.alternatives.filter(correct_answer=True)
-        question.correct_alts_text = join_querysets(question.correct_alts, 'text')
-        question.correct = True
-        for answer in question.answered:
-            question.correct = question.correct and question.correct_alts.filter(pk=answer.pk).count() > 0
-        question.table_class = "table-success" if question.correct else "table-danger"
-
-    return questions
-
-
-def join_querysets(set, attribute):
-    return ', '.join([item[attribute] for item in set.values()])

@@ -188,15 +188,14 @@ class ManuscriptItem(BaseModel):
     # Quiz, party
     TYPE_QUIZ_RESULT = 'quiz_result'
     TYPE_Q_PROMISES_CHECKED = 'quiz_q_promises_checked'
-    TYPE_Q_PARTY_SELECT = 'quiz_q_party_select'
-    TYPE_Q_PARTY_BOOL = 'quiz_q_party_bool'
 
-    TYPE_Q_QUESTION = 'quiz_question'
+    TYPE_Q_PARTY_QUESTION = 'quiz_question'
     TYPE_Q_LEVEL_SELECT = 'quiz_level'
     TYPE_Q_CATEGORY_SELECT = 'quiz_categories'
 
     # Quiz, generic
     TYPE_GQ_QUESTION = 'quiz_generic_question'
+    TYPE_GQ_YES_OR_NO_QUESTION = 'quiz_yes_or_no_question'
 
     # Voter guide
     TYPE_VG_RESULT = 'vg_result'  # Show preliminary results
@@ -213,12 +212,11 @@ class ManuscriptItem(BaseModel):
         (TYPE_URL, _('URL')),
         (TYPE_QUIZ_RESULT, _('Quiz: Show result')),
         (TYPE_Q_PROMISES_CHECKED, _('Quiz: Show checked promise questions')),
-        (TYPE_Q_PARTY_SELECT, _('Quiz: Show which party promised what questions')),
-        (TYPE_Q_PARTY_BOOL, _('Quiz: Show did party x promise y questions')),
         (TYPE_Q_LEVEL_SELECT, _('Quiz: Show level select')),
         (TYPE_Q_CATEGORY_SELECT, _('Quiz: Show category select')),
-        (TYPE_Q_QUESTION, _('Quiz: Show party question')),
+        (TYPE_Q_PARTY_QUESTION, _('Quiz: Show party question')),
         (TYPE_GQ_QUESTION, _('Quiz: Show question')),
+        (TYPE_GQ_YES_OR_NO_QUESTION, _('Quiz: Show yes or no question')),
         (TYPE_VG_RESULT, _('Voter guide: Show result')),
         (TYPE_VG_CATEGORY_SELECT, _('Voter guide: Show category select')),
         (TYPE_VG_QUESTIONS, _('Voter guide: Show questions')),
@@ -234,9 +232,12 @@ class ManuscriptItem(BaseModel):
     reply_text_1 = models.TextField(blank=True, default='')
     reply_text_2 = models.TextField(blank=True, default='')
     reply_text_3 = models.TextField(blank=True, default='')
-    reply_action_1 = models.ForeignKey('quiz.Manuscript', related_name='action_1_items', blank=True, null=True)
-    reply_action_2 = models.ForeignKey('quiz.Manuscript', related_name='action_2_items', blank=True, null=True)
-    reply_action_3 = models.ForeignKey('quiz.Manuscript', related_name='action_3_items', blank=True, null=True)
+    reply_action_1 = models.ForeignKey(
+        'quiz.Manuscript', related_name='action_1_items', blank=True, null=True, on_delete=models.SET_NULL)
+    reply_action_2 = models.ForeignKey(
+        'quiz.Manuscript', related_name='action_2_items', blank=True, null=True, on_delete=models.SET_NULL)
+    reply_action_3 = models.ForeignKey(
+        'quiz.Manuscript', related_name='action_3_items', blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ('order',)

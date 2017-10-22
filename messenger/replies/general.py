@@ -7,7 +7,8 @@ from messenger.api import send_message
 from messenger.api.formatters import format_text
 from messenger.formatters.general import format_reset_answer, format_quick_replies_with_intent
 from messenger.formatters.party_quiz import format_broken_question
-from messenger.replies.generic_quiz import get_quiz_question_replies, get_generic_quiz_answer_replies
+from messenger.replies.generic_quiz import get_quiz_question_replies, get_generic_quiz_answer_replies, \
+    get_yes_or_no_question_replies
 from messenger.replies.party_quiz import (get_quiz_broken_question_replies, get_quiz_level_replies,
                                           get_quiz_party_question_replies, get_party_quiz_answer_replies)
 from messenger.replies.voter_guide import (get_category_replies, get_vg_questions,
@@ -147,8 +148,15 @@ def get_replies(sender_id, session, payload=None):
         replies += get_quiz_question_replies(sender_id, session, payload)
         session.meta['item'] += 1
 
+    # Quiz: Show yes or no question
+    elif item['type'] == ManuscriptItem.TYPE_GQ_YES_OR_NO_QUESTION:
+        logger.debug("Adding yes or no quiz question [{}]".format(session.meta['item'] + 1))
+
+        replies += get_yes_or_no_question_replies(sender_id, session, payload)
+        session.meta['item'] += 1
+
     # Party Quiz: Show party questions
-    elif item['type'] == ManuscriptItem.TYPE_Q_QUESTION:
+    elif item['type'] == ManuscriptItem.TYPE_Q_PARTY_QUESTION:
         logger.debug("Adding party quiz question [{}]".format(session.meta['item'] + 1))
 
         replies += get_quiz_party_question_replies(sender_id, session, payload)

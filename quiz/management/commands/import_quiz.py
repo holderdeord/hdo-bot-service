@@ -152,7 +152,7 @@ class Command(BaseCommand):
                 q.save()
 
             ManuscriptItem.objects.get_or_create(
-                type=ManuscriptItem.TYPE_Q_QUESTION,
+                type=ManuscriptItem.TYPE_Q_PARTY_QUESTION,
                 manuscript=m,
                 order=1)
 

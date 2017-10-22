@@ -63,7 +63,7 @@ def format_broken_question(recipient_id, question, question_text):
                 'answer': Promise.FULFILLED,
                 'intent': intents.INTENT_ANSWER_BROKEN_QUIZ_QUESTION,
              }),
-            "image_url": static('messenger/icon_fulfilled.png')
+            "image_url": static('messenger/icon_thumb_up.png')
         },
         {
             "content_type": 'text',
@@ -73,7 +73,7 @@ def format_broken_question(recipient_id, question, question_text):
                 'answer': Promise.BROKEN,
                 'intent': intents.INTENT_ANSWER_BROKEN_QUIZ_QUESTION,
              }),
-            "image_url": static('messenger/icon_broken.png')
+            "image_url": static('messenger/icon_thumb_down.png')
         }
     ]
 
