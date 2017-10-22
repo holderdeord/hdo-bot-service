@@ -156,3 +156,30 @@ nav header .hdo-logo {
     display: none;
   }
 }
+
+.answers-in-detail {
+  .table-danger,
+  .table-success {
+    background-color: inherit;
+
+    & > td,
+    & > th {
+      background-color: inherit;
+    }
+  }
+  .table-danger {
+    box-shadow: -10px 0 0px $brand-danger;
+
+    .td-answer {
+      background-color: $brand-danger;
+    }
+  }
+
+  .table-success {
+    box-shadow: -10px 0 0px $brand-success;
+
+    .td-answer {
+      background-color: $brand-success;
+    }
+  }
+}

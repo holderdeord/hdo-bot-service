@@ -49,7 +49,7 @@ def format_quiz_result_reply(sender_id, session):
     total_count = alts.count()
     percent = (your_count / total_count) * 100
 
-    text = 'Du har {:.1f}% riktig, det vil si {} av {}.'.format(percent, your_count, total_count)
+    text = 'Du har {:.1f}% riktig, det vil si {} av {} mulige.'.format(percent, your_count, total_count)
     return format_text(sender_id, text)
 
 

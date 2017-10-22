@@ -240,6 +240,25 @@ nav header .hdo-logo {
   .screen-small {
     display: none; } }
 
+.answers-in-detail .table-danger,
+.answers-in-detail .table-success {
+  background-color: inherit; }
+  .answers-in-detail .table-danger > td,
+  .answers-in-detail .table-danger > th,
+  .answers-in-detail .table-success > td,
+  .answers-in-detail .table-success > th {
+    background-color: inherit; }
+
+.answers-in-detail .table-danger {
+  box-shadow: -10px 0 0px #d9534f; }
+  .answers-in-detail .table-danger .td-answer {
+    background-color: #d9534f; }
+
+.answers-in-detail .table-success {
+  box-shadow: -10px 0 0px #5cb85c; }
+  .answers-in-detail .table-success .td-answer {
+    background-color: #5cb85c; }
+
 .other-services a {
   text-decoration: none; }
 

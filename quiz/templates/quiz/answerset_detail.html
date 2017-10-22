@@ -55,17 +55,6 @@
                     <li>{{ category.name }}: {{category.correct}} av {{category.total}}</li>
                     {% endfor %}
                 </ul>
-                <!--<ul>-->
-                <!--{% for cat, questions in quiz_alternatives_grouped %}-->
-                <!--<li>{{ cat }}: {{ correct_number }} av {{ questions|length }}</li>-->
-                <!--{% endfor %}-->
-                <!--</ul>-->
-                <!--{% regroup correct_alternatives by manuscript.hdo_category as alt_grouped %}-->
-                <!--<ul>-->
-                <!--{% for cat, alts in alt_grouped %}-->
-                <!--<li>{{cat}}: {{ alts|length }}</li>-->
-                <!--{% endfor %}-->
-                <!--</ul>-->
             </div>
         </div>
 
@@ -81,21 +70,23 @@
                         <th>Riktig svar</th>
                     </tr>
                     {% for cat, questions in quiz_alternatives_grouped %}
-                    <tr>
-                        <td colspan="3">
-                            <span class="hdo-category-title">
-                                {{ cat }}
-                            </span>
-                            {{ questions.0.hdo_category.label }}
-                        </td>
-                    </tr>
-                    {% for question in questions %}
-                    <tr class="{{ question.table_class }}">
-                        <td>{{ question.name }}</td>
-                        <td>{{ question.answered_text }}</td>
-                        <td>{{ question.correct_alts_text }}</td>
-                    </tr>
-                    {% endfor %}
+                        {% if questions.0.hdo_category %}
+                            <tr>
+                                <td colspan="3">
+                                    <span class="hdo-category-title">
+                                        {{ cat }}
+                                    </span>
+                                    {{ questions.0.hdo_category.label }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% for question in questions %}
+                        <tr class="{{ question.table_class }}">
+                            <td>{{ question.name }}</td>
+                            <td class="td-answer">{{ question.answered_text }}</td>
+                            <td>{{ question.correct_alts_text }}</td>
+                        </tr>
+                        {% endfor %}
                     {% endfor %}
                 </table>
             </div>
@@ -113,10 +104,12 @@
                         (riktig svar er <strong>{{ question.correct_alts_text}})</strong>
                         {% endif %}
                     </p>
+                    {% if question.hdo_category %}
                     <p class="hdo-category">
                         <span class="text">Tema: {{ question.hdo_category }}</span>
                         <span class="emojis">{{ question.hdo_category.label }}</span>
                     </p>
+                    {% endif %}
                 </section>
                 {% endfor %}
                 {% endfor %}
