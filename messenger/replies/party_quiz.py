@@ -5,11 +5,10 @@ from django.utils.translation import ugettext as _
 
 from messenger import intents
 from messenger.api import get_user_profile
-from messenger.api.formatters import format_text, format_image_attachment, format_quick_replies, format_generic_simple
-from messenger.formatters.general import format_quick_reply_with_intent
-from messenger.formatters.party_quiz import format_party_quiz_alternatives, format_quiz_result_reply
-from messenger.formatters.voter_guide import format_quiz_result_button
-from messenger.utils import save_answers, get_next_manuscript, completed_categories
+from messenger.api.formatters import format_text, format_image_attachment, format_quick_replies
+from messenger.formatters.party_quiz import format_party_quiz_alternatives
+from messenger.replies.generic_quiz import get_quiz_completed_replies
+from messenger.utils import save_answers, get_next_manuscript
 
 from quiz.models import Manuscript, QuizAlternative, QuizAnswer
 from quiz.utils import PARTY_SHORT_NAMES
@@ -63,30 +62,7 @@ def get_party_quiz_answer_replies(sender_id, session, payload, answer: QuizAnswe
         session.meta['next_manuscript'] = next_manuscript.pk if next_manuscript else None
         return [format_text(sender_id, next_text)]
 
-    # Emptied out the category, link manuscript select
-    extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_QUIZ).pk}
-    num_completed_categories = len(completed_categories(session, quiz=True))
-    replies = []
-    if num_completed_categories == 1:
-        # We collect your answers, show results
-        finished_msg = 'Løftene du får er hentet fra vår løftebase som inneholder alle partiprogrammene.'
-        result_page_msg = 'Se svarene i detalj og hvilke løfter som hører til på din egen resultatside'
-        more_cats_msg = 'Du kan se svarene dine fra menyen når som helst.'
-        image_url = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
-        replies += [
-            format_text(sender_id, next_text),
-            format_quiz_result_reply(sender_id, session),
-            format_text(sender_id, finished_msg),
-            format_generic_simple(sender_id, result_page_msg, format_quiz_result_button(session), image_url=image_url),
-            format_quick_reply_with_intent(
-                sender_id, 'Neste tema!', more_cats_msg, intents.INTENT_NEXT_QUESTION, extra_payload)]
-    else:
-        # Next manuscript
-        replies += [
-            format_quick_reply_with_intent(sender_id, 'Neste tema!', next_text, intents.INTENT_NEXT_QUESTION, extra_payload)
-        ]
-
-    return replies
+    return get_quiz_completed_replies(sender_id, session)
 
 
 def get_quiz_broken_question_replies(sender_id, session, payload=None):
