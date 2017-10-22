@@ -31,7 +31,16 @@ node "hdo-bot-service" {
                 '${distro_id}:${distro_codename}-proposed']
   }
 
-  class { 'bot_service':
+  include bot_service
+
+  bot_service::app { 'bot_service':
     domain => 'snakk.holderdeord.no'
+  }
+
+  bot_service::app { 'bot_service_dev':
+    domain          => 'snakk-dev.holderdeord.no',
+    gunicorn_port   => 8001,
+    app_environment => 'development',
+    app_user        => 'botappdev'
   }
 }

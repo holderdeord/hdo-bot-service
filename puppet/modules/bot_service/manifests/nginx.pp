@@ -1,10 +1,11 @@
 define bot_service::nginx (
   String $ssl_cert,
   String $ssl_key,
+  String $app_user,
+  Integer $gunicorn_port,
   # From https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-with-http-2-support-on-ubuntu-16-04 :
   String $ssl_ciphers = 'EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5',
-  String $full_web_path = '/var/www',
-  String $www_root = "${full_web_path}/${name}",
+  String $www_root = "${bot_service::full_web_path}/${name}",
   String $static_path = '/static',
   String $botadmin_path = '/botadmin',
   String $botadmin_root = "${www_root}/botadmin/build"
@@ -12,18 +13,9 @@ define bot_service::nginx (
   $server_name = [$name]
 
   # DH params
-  file {'/etc/nginx/ssl/':
-    ensure  => directory,
-  }
-
-  file { $full_web_path:
-    ensure => directory,
-    owner  => $::bot_service::app_user,
-  }
-
   file { $www_root:
     ensure => directory,
-    owner  => $::bot_service::app_user,
+    owner  => $app_user,
   }
 
   $dhparam_path = "/etc/nginx/ssl/${name}-dhparam.pem"
@@ -32,8 +24,8 @@ define bot_service::nginx (
   }
 
 
-  nginx::resource::upstream { 'upstream_app':
-    members => ["localhost:${::bot_service::gunicorn_port}"]
+  nginx::resource::upstream { "${name}_nginx_upstream_app":
+    members => ["localhost:${gunicorn_port}"]
   }
 
   # server with location /
@@ -47,7 +39,7 @@ define bot_service::nginx (
     ssl_ciphers       => $ssl_ciphers,
     ssl_dhparam       => $dhparam_path,
     ssl_port          => 443,
-    proxy             => 'http://upstream_app',
+    proxy             => "http://${name}_nginx_upstream_app",
     http2             => 'on',
     server_cfg_append => {
       client_max_body_size => '100M'
@@ -78,26 +70,5 @@ define bot_service::nginx (
     server_name         => $server_name,
     www_root            => '/var/www/html/',
     location_cfg_append => { 'rewrite' => "^ https://${name}\$request_uri? permanent" },
-  }
-
-  # default location
-  nginx::resource::server { 'default':
-    ensure         => present,
-    server_name    => ['_'],
-    listen_port    => 80,
-    listen_options => 'default_server',
-    www_root       => '/usr/share/nginx/html/'
-  }
-
-  nginx::resource::server { 'default_ssl':
-    ensure         => present,
-    server_name    => ['_'],
-    listen_port    => 443,
-    listen_options => 'default_server',
-    www_root       => '/usr/share/nginx/html/',
-    ssl            => true,
-    ssl_port       => 443,
-    ssl_cert       => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
-    ssl_key        => '/etc/ssl/private/ssl-cert-snakeoil.key',
   }
 }
