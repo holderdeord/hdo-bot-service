@@ -102,7 +102,7 @@ class QuizAnswerSetView(DetailView):
 
     def get_context_data(self, **kwargs):
         all_alts = QuizAlternative.objects.all()
-        answered_alts = QuizAlternative.objects.filter(answers__answer_set=self.object)
+        answered_alts = QuizAlternative.objects.filter(answers__answer_set=self.object).order_by('created')
 
         return {
             'all_alternatives': answered_alts.order_by('manuscript__hdo_category__name'),
