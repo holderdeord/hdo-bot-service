@@ -38,7 +38,7 @@ node "hdo-bot-service" {
   }
 
   bot_service::app { 'bot_service_dev':
-    domain          => 'snakk-dev.holderdeord.no',
+    domain          => 'snakk-dev.nkweb.no',
     gunicorn_port   => 8001,
     app_environment => 'development',
     app_user        => 'botappdev',
