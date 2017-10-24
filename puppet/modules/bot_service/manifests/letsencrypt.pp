@@ -47,4 +47,11 @@ class bot_service::letsencrypt (
     mode    => '0755',
     require => File[$bin]
   }
+
+  file { $webroot_path:
+    ensure => directory,
+    owner  => $owner,
+    group  => $owner,
+    mode   => '0755'
+  }
 }

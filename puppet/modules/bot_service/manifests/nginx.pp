@@ -71,4 +71,12 @@ define bot_service::nginx (
     www_root            => '/var/www/html/',
     location_cfg_append => { 'rewrite' => "^ https://${name}\$request_uri? permanent" },
   }
+
+  # Let's Encrypt
+  nginx::resource::location { "${name}_redir_letsencrypt":
+    server         => "${name}_redir",
+    location       => '/.well-known/acme-challenge',
+    location_alias => '/tmp/letsencrypt/.well-known/acme-challenge',
+    index_files    => []
+  }
 }
