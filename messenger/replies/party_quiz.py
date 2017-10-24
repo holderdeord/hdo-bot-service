@@ -7,7 +7,7 @@ from messenger import intents
 from messenger.api import get_user_profile
 from messenger.api.formatters import format_text, format_image_attachment, format_quick_replies
 from messenger.formatters.party_quiz import format_party_quiz_alternatives
-from messenger.replies.generic_quiz import get_quiz_completed_replies
+from messenger.replies.generic_quiz import get_quiz_result_replies
 from messenger.utils import save_answers, get_next_manuscript
 
 from quiz.models import Manuscript, QuizAlternative, QuizAnswer
@@ -63,7 +63,7 @@ def get_party_quiz_answer_replies(sender_id, session, payload, answer: QuizAnswe
         return [format_text(sender_id, next_text)]
 
     replies = [format_text(sender_id, next_text)]
-    return replies + get_quiz_completed_replies(sender_id, session, reset=True)
+    return replies + get_quiz_result_replies(sender_id, session, quiz_completed=True)
 
 
 def get_quiz_broken_question_replies(sender_id, session, payload=None):

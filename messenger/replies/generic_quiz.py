@@ -34,22 +34,26 @@ def _get_next_text(alt):
     return 'Feil {}{}'.format(random.choice(negative_emojis), correct_text)
 
 
-def get_quiz_completed_replies(sender_id, session, reset=False):
+def get_quiz_result_replies(sender_id, session, quiz_completed=False):
     msg = 'Se svarene i detalj på din egen resultatside'
     image_url = 'https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png'
 
-    if reset:
+    replies = []
+
+    if quiz_completed:
+        replies += [format_text(sender_id, 'Gratulerer 👏👏👏 Du har fullført quizen!')]
+
         ready_msg = 'Vil du prøve på nytt?'
         next_action = format_quick_reply_with_intent(
             sender_id, 'Start på nytt', ready_msg, intents.INTENT_RESET_ANSWERS_CONFIRM_SILENT)
     else:
+        # FIXME: INTENT_NEXT_ITEM instead?
         ready_msg = 'Klar for å gå videre?'
         extra_payload = {'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_QUIZ).pk}
         next_action = format_quick_reply_with_intent(
             sender_id, 'Videre', ready_msg, intents.INTENT_RESET_SESSION, extra_payload)
 
-    return [
-        format_text(sender_id, 'Gratulerer 👏👏👏 Du har fullført quizen!'),
+    return replies + [
         format_quiz_result_reply(sender_id, session),
         format_generic_simple(sender_id, msg, format_quiz_result_button(session), image_url=image_url),
         next_action]
@@ -70,4 +74,4 @@ def get_generic_quiz_answer_replies(sender_id, session, payload, answer: QuizAns
 
     # Emptied out quiz
     replies = [format_text(sender_id, next_text)]
-    return replies + get_quiz_completed_replies(sender_id, session, reset=True)
+    return replies + get_quiz_result_replies(sender_id, session, quiz_completed=True)
