@@ -8,7 +8,7 @@ from messenger.api.formatters import format_text
 from messenger.formatters.general import format_reset_answer, format_quick_replies_with_intent
 from messenger.formatters.party_quiz import format_broken_question
 from messenger.replies.generic_quiz import get_quiz_question_replies, get_generic_quiz_answer_replies, \
-    get_yes_or_no_question_replies
+    get_yes_or_no_question_replies, get_quiz_completed_replies
 from messenger.replies.party_quiz import (get_quiz_broken_question_replies, get_quiz_level_replies,
                                           get_quiz_party_question_replies, get_party_quiz_answer_replies)
 from messenger.replies.voter_guide import (get_category_replies, get_vg_questions,
@@ -40,6 +40,9 @@ def get_replies(sender_id, session, payload=None):
             delete_answers(session)
             return [format_text(sender_id, '💥💥💥 Svarene dine er slettet')]
 
+        elif intent == intents.INTENT_RESET_ANSWERS_CONFIRM_SILENT:
+            delete_answers(session)
+
         elif intent == intents.INTENT_GET_HELP:
             replies += [format_text(sender_id, 'Ingen fare 😊 To setninger som forteller deg hvor du kan få hjelp ♿')]
 
@@ -59,7 +62,7 @@ def get_replies(sender_id, session, payload=None):
 
         elif intent == intents.INTENT_SHOW_ANSWERS:
             # Show answers
-            return get_answer_replies(sender_id, session, payload)
+            return get_quiz_completed_replies(sender_id, session)
 
         elif intent == intents.INTENT_ANSWER_VG_QUESTION:
             # Voter guide: Answer replies

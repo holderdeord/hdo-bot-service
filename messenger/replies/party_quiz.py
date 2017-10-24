@@ -62,7 +62,8 @@ def get_party_quiz_answer_replies(sender_id, session, payload, answer: QuizAnswe
         session.meta['next_manuscript'] = next_manuscript.pk if next_manuscript else None
         return [format_text(sender_id, next_text)]
 
-    return get_quiz_completed_replies(sender_id, session)
+    replies = [format_text(sender_id, next_text)]
+    return replies + get_quiz_completed_replies(sender_id, session, reset=True)
 
 
 def get_quiz_broken_question_replies(sender_id, session, payload=None):
