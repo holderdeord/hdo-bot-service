@@ -3,6 +3,7 @@ define bot_service::app (
   String $app_path = "/opt/${name}",
   String $app_user = 'botapp',
   String $app_environment = 'production',
+  String $git_branch = 'master',
   String $python_path = "${app_path}/venv/bin/python3",
   String $pip_path = "${app_path}/venv/bin/pip",
   String $gunicorn_path = "${app_path}/venv/bin/gunicorn",
@@ -53,7 +54,7 @@ define bot_service::app (
     user     => $app_user,
     provider => git,
     source   => 'https://github.com/holderdeord/hdo-quiz-service.git',
-    revision => 'master',
+    revision => $git_branch,
     require  => File[$app_path]
   }
 

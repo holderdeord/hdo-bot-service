@@ -41,6 +41,7 @@ node "hdo-bot-service" {
     domain          => 'snakk-dev.holderdeord.no',
     gunicorn_port   => 8001,
     app_environment => 'development',
-    app_user        => 'botappdev'
+    app_user        => 'botappdev',
+    git_branch      => 'develop'
   }
 }
