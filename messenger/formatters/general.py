@@ -27,14 +27,14 @@ def format_bot_profile():
                     "title": "Vis mine svar",
                     "payload": json.dumps({'intent': intents.INTENT_SHOW_ANSWERS})
                 },
-                {
-                    "type": "postback",
-                    "title": "Velg nytt tema",
-                    "payload": json.dumps({
-                        'intent': intents.INTENT_GOTO_MANUSCRIPT,
-                        'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_QUIZ).pk
-                    })
-                },
+                # {
+                #     "type": "postback",
+                #     "title": "Velg nytt tema",
+                #     "payload": json.dumps({
+                #         'intent': intents.INTENT_GOTO_MANUSCRIPT,
+                #         'manuscript': Manuscript.objects.get_default(default=Manuscript.DEFAULT_QUIZ).pk
+                #     })
+                # },
                 {
                     "type": "postback",
                     "title": "Start på nytt",
