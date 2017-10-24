@@ -119,14 +119,14 @@ define bot_service::app (
   }
 
   # App: Build botadmin
-  # FIXME: Takes forever
-  exec { "${name}_botadmin_build":
-    command     => $botadmin_build_cmd,
-    cwd         => $botadmin_path,
-    user        => $app_user,
-    environment => $program_environment_array,
-    require     => Exec["${name}_yarn"]
-  }
+  # FIXME: Takes forever. enable this when botadmin has changes
+  # exec { "${name}_botadmin_build":
+  #   command     => $botadmin_build_cmd,
+  #   cwd         => $botadmin_path,
+  #   user        => $app_user,
+  #   environment => $program_environment_array,
+  #   require     => Exec["${name}_yarn"]
+  # }
 
   # App: Django collectstatic
   exec { "${name}_django_collectstatic":
@@ -134,12 +134,14 @@ define bot_service::app (
     cwd         => $app_path,
     user        => $app_user,
     environment => $program_environment_array,
-    require     => Exec["${name}_botadmin_build"]
+    # require     => Exec["${name}_botadmin_build"]
+    require     => Package[$bot_service::packages::packages]
   }
 
   # App: Restart app srv
   exec { "/usr/bin/supervisorctl restart ${name}":
-    require     => Exec["${name}_botadmin_build"]
+    # require     => Exec["${name}_botadmin_build"]
+    require => Package[$bot_service::packages::packages]
   }
 
 }
