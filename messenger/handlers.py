@@ -42,7 +42,7 @@ def received_event(event, session=None, next_manuscript=None):
             payload = {'intent': INTENT_GET_STARTED}
 
     # Reset or switch?
-    init_or_reset_intents = [INTENT_RESET_SESSION, INTENT_GOTO_MANUSCRIPT, INTENT_NEXT_QUESTION]
+    init_or_reset_intents = [INTENT_RESET_SESSION, INTENT_GOTO_MANUSCRIPT, INTENT_NEXT_QUESTION, INTENT_GET_STARTED]
     if next_manuscript or (payload and payload['intent'] in init_or_reset_intents):
         # Reset session with given manuscript (or default)
         logger.debug("Resetting session.user_id={}".format(sender_id))
