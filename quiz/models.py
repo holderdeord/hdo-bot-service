@@ -194,6 +194,7 @@ class ManuscriptItem(BaseModel):
     TYPE_Q_CATEGORY_SELECT = 'quiz_categories'
 
     # Quiz, generic
+    TYPE_GQ_INITIAL_QUESTION = 'quiz_question_select'
     TYPE_GQ_QUESTION = 'quiz_generic_question'
     TYPE_GQ_YES_OR_NO_QUESTION = 'quiz_yes_or_no_question'
 
@@ -215,6 +216,7 @@ class ManuscriptItem(BaseModel):
         (TYPE_Q_LEVEL_SELECT, _('Quiz: Show level select')),
         (TYPE_Q_CATEGORY_SELECT, _('Quiz: Show category select')),
         (TYPE_Q_PARTY_QUESTION, _('Quiz: Show party question')),
+        (TYPE_GQ_INITIAL_QUESTION, _('Quiz: Select initial random unanswered question')),
         (TYPE_GQ_QUESTION, _('Quiz: Show question')),
         (TYPE_GQ_YES_OR_NO_QUESTION, _('Quiz: Show yes or no question')),
         (TYPE_VG_RESULT, _('Voter guide: Show result')),

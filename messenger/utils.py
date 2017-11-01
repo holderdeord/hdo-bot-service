@@ -116,6 +116,16 @@ def save_quiz_answer(session: ChatSession, payload):
     return answer
 
 
+def get_answered_manuscripts(session: ChatSession):
+    query = {
+        'active': True,
+        'type': Manuscript.TYPE_QUIZ
+    }
+    ms = Manuscript.objects.filter(**query)
+    answers = QuizAnswer.objects.filter(answer_set__session=session)
+    return ms.filter(quiz_alternatives__answers__in=answers)
+
+
 def get_unanswered_manuscripts(session: ChatSession, selection=None, quiz=False, level=None):
     query = {
         'active': True,

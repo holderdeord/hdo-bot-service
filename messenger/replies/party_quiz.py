@@ -7,11 +7,9 @@ from messenger import intents
 from messenger.api import get_user_profile
 from messenger.api.formatters import format_text, format_image_attachment, format_quick_replies
 from messenger.formatters.party_quiz import format_party_quiz_alternatives
-from messenger.replies.generic_quiz import get_quiz_result_replies
-from messenger.utils import save_answers, get_next_manuscript
+from messenger.utils import save_answers
 
-from quiz.models import Manuscript, QuizAlternative, QuizAnswer
-from quiz.utils import PARTY_SHORT_NAMES
+from quiz.models import Manuscript
 
 
 def get_quiz_level_replies(sender_id, session, payload, text):
@@ -33,37 +31,6 @@ def get_quiz_level_replies(sender_id, session, payload, text):
 def get_quiz_party_question_replies(sender_id, session, payload):
     """ Show question for given hdo category"""
     return [format_party_quiz_alternatives(sender_id, session.meta['manuscript'])]
-
-
-def _get_next_text(alt: QuizAlternative):
-    positive_emojis = ['👍', '😃', '👌', '❤', '👏', '💪', '👊']
-    negative_emojis = ['💩']
-    if alt.correct_answer:
-        return 'Riktig! {}'.format(random.choice(positive_emojis))
-
-    correct_alt = alt.get_correct_in_same_manuscript()
-    correct_text = ''
-    if correct_alt:
-        correct_text = ' Riktig svar er {}'.format(PARTY_SHORT_NAMES[correct_alt.text])
-
-    return 'Feil {}{}'.format(random.choice(negative_emojis), correct_text)
-
-
-def get_party_quiz_answer_replies(sender_id, session, payload, answer: QuizAnswer):
-    try:
-        alt = QuizAlternative.objects.get(pk=payload['alternative'])
-    except QuizAlternative.DoesNotExist:
-        return []
-
-    next_text = _get_next_text(alt)
-
-    next_manuscript = get_next_manuscript(session, quiz=True)
-    if next_manuscript:
-        session.meta['next_manuscript'] = next_manuscript.pk if next_manuscript else None
-        return [format_text(sender_id, next_text)]
-
-    replies = [format_text(sender_id, next_text)]
-    return replies + get_quiz_result_replies(sender_id, session, quiz_completed=True)
 
 
 def get_quiz_broken_question_replies(sender_id, session, payload=None):

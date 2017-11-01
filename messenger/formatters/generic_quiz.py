@@ -30,7 +30,7 @@ def format_yes_or_no_question(recipient_id, manus):
     buttons = [
         {
             "content_type": 'text',
-            "title": 'Ja',
+            "title": alts[0]['text'],
             "payload": json.dumps({
                 'alternative': alts[0]['pk'],
                 'intent': intents.INTENT_ANSWER_GENERIC_QUIZ_QUESTION,
@@ -39,7 +39,7 @@ def format_yes_or_no_question(recipient_id, manus):
         },
         {
             "content_type": 'text',
-            "title": 'Nei',
+            "title": alts[1]['text'],
             "payload": json.dumps({
                 'alternative': alts[1]['pk'],
                 'intent': intents.INTENT_ANSWER_GENERIC_QUIZ_QUESTION,

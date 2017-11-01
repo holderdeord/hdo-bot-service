@@ -7,12 +7,13 @@ from messenger.api import send_message
 from messenger.api.formatters import format_text
 from messenger.formatters.general import format_reset_answer, format_quick_replies_with_intent
 from messenger.formatters.party_quiz import format_broken_question
-from messenger.replies.generic_quiz import get_quiz_question_replies, get_generic_quiz_answer_replies, \
-    get_yes_or_no_question_replies, get_quiz_result_replies
+from messenger.replies.generic_quiz import (get_quiz_question_replies, get_generic_quiz_answer_replies,
+                                            get_yes_or_no_question_replies, get_quiz_result_replies,
+                                            get_initial_quiz_question_reply)
 from messenger.replies.party_quiz import (get_quiz_broken_question_replies, get_quiz_level_replies,
-                                          get_quiz_party_question_replies, get_party_quiz_answer_replies)
+                                          get_quiz_party_question_replies)
 from messenger.replies.voter_guide import (get_category_replies, get_vg_questions,
-                                           get_vg_question_replies, get_vg_result, get_answer_replies)
+                                           get_vg_question_replies, get_vg_result)
 from messenger.utils import delete_answers, save_vg_answer, get_quiz_answer_set_url, save_quiz_answer
 from quiz.models import ManuscriptItem
 
@@ -50,15 +51,10 @@ def get_replies(sender_id, session, payload=None):
             # Quiz: Broken answer replies
             replies += get_quiz_broken_question_replies(sender_id, session, payload)
 
-        elif intent == intents.INTENT_ANSWER_PARTY_QUIZ_QUESTION:
-            # Quiz: Party answer replies
-            answer = save_quiz_answer(session, payload)
-            return get_party_quiz_answer_replies(sender_id, session, payload, answer)
-
-        elif intent == intents.INTENT_ANSWER_GENERIC_QUIZ_QUESTION:
+        elif intent in [intents.INTENT_ANSWER_PARTY_QUIZ_QUESTION, intents.INTENT_ANSWER_GENERIC_QUIZ_QUESTION]:
             # Quiz: Generic answer replies
-            answer = save_quiz_answer(session, payload)
-            return get_generic_quiz_answer_replies(sender_id, session, payload, answer)
+            save_quiz_answer(session, payload)
+            return get_generic_quiz_answer_replies(sender_id, session, payload)
 
         elif intent == intents.INTENT_SHOW_ANSWERS:
             # Show answers
@@ -144,6 +140,13 @@ def get_replies(sender_id, session, payload=None):
         replies += get_category_replies(sender_id, session, payload, item['text'], quiz=True)
         session.meta['item'] += 1
 
+    # Quiz: Show select initial generic question
+    elif item['type'] == ManuscriptItem.TYPE_GQ_INITIAL_QUESTION:
+        logger.debug("Adding initial generic quiz question select [{}]".format(session.meta['item'] + 1))
+
+        replies += get_initial_quiz_question_reply(sender_id, session, payload, item)
+        session.meta['item'] += 1
+
     # Quiz: Show generic questions
     elif item['type'] == ManuscriptItem.TYPE_GQ_QUESTION:
         logger.debug("Adding generic quiz question [{}]".format(session.meta['item'] + 1))
@@ -201,7 +204,7 @@ def get_replies(sender_id, session, payload=None):
     if not last_item and session.meta['item'] == len(manus['items']):
         last_item = True
 
-    if last_item and manus['next']:
+    if last_item and manus['next'] and item['type'] != ManuscriptItem.TYPE_QUICK_REPLY:
         session.meta['next_manuscript'] = manus['next']
 
     return replies

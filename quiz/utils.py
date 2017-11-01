@@ -11,6 +11,7 @@ PARTY_SHORT_NAMES = {
     'Høyre': 'H',
     'Kristelig Folkeparti': 'KrF',
     'Miljøpartiet De Grønne': 'MDG',
+    'Rødt': 'R',
     'Senterpartiet': 'Sp',
     'Sosialistisk Venstreparti': 'SV',
     'Venstre': 'V'

@@ -85,12 +85,9 @@ class Command(BaseCommand):
 
         if created:
             ManuscriptItem.objects.get_or_create(
-                type=ManuscriptItem.TYPE_QUICK_REPLY,
+                type=ManuscriptItem.TYPE_GQ_INITIAL_QUESTION,
                 manuscript=manuscript,
-                order=1,
-                text='Start quiz',
-                reply_text_1='Start quiz',
-                reply_action_1=start)
+                order=1)
 
     def create_manuscripts(self, manuscripts_data):
         first = None

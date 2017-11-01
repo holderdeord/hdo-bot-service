@@ -1,5 +1,6 @@
 import json
 import logging
+from pprint import pformat
 
 from messenger.api import send_message
 from messenger.intents import INTENT_RESET_SESSION, INTENT_GOTO_MANUSCRIPT, INTENT_NEXT_QUESTION, INTENT_GET_STARTED
@@ -17,7 +18,7 @@ def _has_quick_reply_payload(event):
 def received_event(event, session=None, next_manuscript=None):
     # TODO: Maybe add Sender Action "..." to let the user know we are processing the request
     sender_id = event['sender']['id']
-    logger.debug('in received_message: {}'.format(event))
+    logger.debug('Received event: {}'.format(pformat(event)))
 
     if session is None:
         # Is new session?
@@ -64,4 +65,5 @@ def received_event(event, session=None, next_manuscript=None):
     # Should we loop?
     if session.meta.get('next_manuscript'):
         next_manuscript = session.meta.pop('next_manuscript')
+        logger.debug("Found next_manuscript {} in session.meta, looping".format(next_manuscript))
         received_event(event, session, next_manuscript)
