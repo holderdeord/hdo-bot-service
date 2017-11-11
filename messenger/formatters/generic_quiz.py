@@ -27,6 +27,7 @@ def format_quiz_question(recipient_id, manus):
 
 def format_yes_or_no_question(recipient_id, manus):
     alts = manus['quiz_alternatives']
+    alts = sorted(alts, key=lambda a: a['text'])  # ninja sort (Ja er før Nei)
     buttons = [
         {
             "content_type": 'text',
