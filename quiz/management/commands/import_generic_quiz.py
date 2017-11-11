@@ -47,7 +47,7 @@ class Command(BaseCommand):
 
         }
 
-        with open(file_path) as f:
+        with open(file_path, encoding='utf-8') as f:
             csv_file = csv.DictReader(f)
             for row in csv_file:
                 correct_alternative = int(row['Riktig alternativ'])
