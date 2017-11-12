@@ -47,7 +47,7 @@ def format_quiz_result_reply(sender_id, session):
 
     your_count = alts.filter(quiz_alternative__correct_answer=True).count()
     total_count = alts.count()
-    percent = (your_count / total_count) * 100
+    percent = (your_count / total_count) * 100 if total_count != 0 else 0
 
     text = 'Du har {:.1f}% riktig, det vil si {} av {} mulige.'.format(percent, your_count, total_count)
     return format_text(sender_id, text)
