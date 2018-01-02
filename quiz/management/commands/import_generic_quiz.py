@@ -52,17 +52,17 @@ class Command(BaseCommand):
             for row in csv_file:
                 correct_alternative = int(row['Riktig alternativ'])
                 manuscript_name = row['Spørsmål']
-                question_type = typemap[row['Spørsmålstype']]
+                question_type = typemap.get(row['Spørsmålstype'])
+                if not question_type:
+                    question_type = ManuscriptItem.TYPE_GQ_QUESTION
 
                 alternatives = []
                 for col in alt_columns:
-                    alt = row[col]
+                    alt = row[col].strip()
 
-                    if len(alt.strip()) == 0:
+                    if len(alt) == 0:
                         continue
 
-                    if question_type == ManuscriptItem.TYPE_Q_PARTY_QUESTION:
-                        alt = PARTY_SHORT_TO_LONG[alt.lower()]
                     alternatives.append({
                         'text': alt,
                         'number': int(col[-1])

@@ -4,7 +4,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.template import Library
 from django.utils.safestring import mark_safe
 from quiz.models import AnswerSet
-from quiz.utils import PARTY_SHORT_NAME_SLUGS
+from quiz.utils import PARTY_SHORT_NAMES
 
 register = Library()
 
@@ -36,9 +36,10 @@ def correct_answers_js(answers, var_name):
 
 
 @register.simple_tag
-def get_party_image_url(party, image_dir='images'):
-    slug = PARTY_SHORT_NAME_SLUGS.get(party)
-    if not slug:
-        return ''
+def get_party_image_url(alt, image_dir='images'):
+    alt = alt.strip()
+    for slug, party_name in PARTY_SHORT_NAMES.items():
+        if alt == slug or alt == party_name:
+            return static('quiz/{}/{}.png'.format(image_dir, slug))
 
-    return static('quiz/{}/{}.png'.format(image_dir, slug))
+    return ''
