@@ -45,4 +45,4 @@ Relevant settings:
 ## Deployment
     fab deploy  # You need your SSH-key on the server first
 
-Also see ./puppet/README.md
+Also see [puppet/README.md](./puppet/README.md)
