@@ -37,7 +37,7 @@ def correct_answers_js(answers, var_name):
 
 @register.simple_tag
 def get_party_image_url(alt, image_dir='images'):
-    alt = alt.strip().lower().replace('kun ')
+    alt = alt.strip().lower().replace('kun ', '')
     for party_name, slug in PARTY_SHORT_NAMES.items():
         if alt == slug or alt == party_name.lower():
             return static('quiz/{}/{}.png'.format(image_dir, slug))
