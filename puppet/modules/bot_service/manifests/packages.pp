@@ -8,7 +8,7 @@ class bot_service::packages (
   }
 
   apt::source {'nodesource':
-    location          => 'https://deb.nodesource.com/node_6.x',
+    location          => 'https://deb.nodesource.com/node_8.x',
     release           => 'xenial',
     repos             => 'main',
     required_packages => ['apt-transport-https'],
