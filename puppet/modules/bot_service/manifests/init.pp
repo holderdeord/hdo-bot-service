@@ -15,6 +15,11 @@ class bot_service(
     ensure  => directory,
   }
 
+  cron { 'run_puppet_apply':
+    command => 'cd /home/nikolark/hdo-quiz-service/puppet && ./scripts/run_apply.sh',
+    special => 'reboot'
+  }
+
   file { $full_web_path:
     ensure => directory,
   }
