@@ -1,6 +1,6 @@
 class bot_service::letsencrypt (
   String $account,
-  String $lego_binary_url = 'https://github.com/xenolf/lego/releases/download/v0.4.0/lego_linux_amd64.tar.xz'
+  String $lego_binary_url = 'https://github.com/xenolf/lego/releases/download/v0.4.1/lego_linux_amd64.tar.xz'
 ) {
   # Lego
   $path = '/usr/local/lib/lego'
@@ -53,5 +53,10 @@ class bot_service::letsencrypt (
     owner  => $owner,
     group  => $owner,
     mode   => '0755'
+  }
+
+  cron { "recreate webroot_path_on_reboot":
+    command => "mkdir -p ${webroot_path}",
+    special => 'reboot'
   }
 }
